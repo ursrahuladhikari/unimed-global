@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNIMED Global | Guiding Future Doctors</title>
+  <meta name="description" content="Complete your MBBS in Russia & Uzbekistan under 20 Lakh. Expert guidance for 2026-27 intake. Apply now with UNIMED Global.">
+  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <script src="theme.js"></script>
+  <style>
+    /* ── HERO SECTION ─────────────────────────────────────── */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-section .canvas-wrapper {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 80px;
+      width: 520px;
+      z-index: 3;
+      pointer-events: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--color-text-muted);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      animation: bounce-gentle 2.5s ease-in-out infinite;
+    }
+    .scroll-indicator svg { opacity: 0.6; }
+    @keyframes bounce-gentle {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── MARQUEE ──────────────────────────────────────────── */
+    .marquee-section {
+      position: relative; z-index: 2;
+      padding: 56px 0; overflow: hidden;
+      background: var(--color-glass-bg);
+      border-top: 1px solid var(--color-glass-border);
+      border-bottom: 1px solid var(--color-glass-border);
+      backdrop-filter: blur(20px);
+    }
+    .marquee-label {
+      text-align: center; font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--color-text-muted); margin-bottom: 32px; padding: 0 20px;
+    }
+    .marquee-row { overflow: hidden; width: 100%; }
+    .marquee-track {
+      display: flex; gap: 24px; width: max-content;
+      animation: marqRTL 32s linear infinite;
+    }
+    @keyframes marqRTL {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-card {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 28px; border-radius: 60px;
+      border: 1px solid var(--color-glass-border);
+      background: rgba(255,255,255,0.025);
+      white-space: nowrap; flex-shrink: 0;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .marquee-card:hover { border-color: var(--color-accent); background: rgba(0,242,254,0.05); }
+    .mq-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+    .mq-text { display: flex; flex-direction: column; gap: 2px; }
+    .mq-name { font-size: 0.9rem; font-weight: 700; color: var(--color-text); }
+    .mq-country { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); }
+
+    /* ── WHY CHOOSE US – HOME ─────────────────────────────── */
+    .home-why-section {
+      position: relative; z-index: 2;
+      padding: 100px 0;
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+    .why-top {
+      text-align: center; max-width: 720px;
+      margin: 0 auto 0;
+    }
+    .why-tag {
+      display: inline-block; font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--color-accent); background: rgba(0,242,254,0.08);
+      border: 1px solid rgba(0,242,254,0.18);
+      padding: 6px 18px; border-radius: 30px; margin-bottom: 22px;
+    }
+    .why-title {
+      font-size: 3.2rem; font-weight: 800; line-height: 1.15;
+      color: var(--color-text); margin-bottom: 20px;
+    }
+    .why-title span {
+      background: linear-gradient(120deg, var(--color-accent), #3b82f6 80%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .why-subtitle { font-size: 1.05rem; line-height: 1.7; color: var(--color-text-muted); }
+
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; max-width: 100% !important; width: 100% !important; padding: 0 8%; margin: 0 auto;
+    }
+    .why-card {
+      position: relative; background: var(--color-glass-bg);
+      border: 1px solid var(--color-glass-border); border-radius: 20px;
+      padding: 36px 30px; backdrop-filter: blur(12px);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; overflow: hidden;
+    }
+    .why-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: linear-gradient(90deg, var(--color-accent), #3b82f6);
+      opacity: 0; transition: opacity 0.3s; border-radius: 20px 20px 0 0;
+    }
+    .why-card:hover { border-color: rgba(0,242,254,0.25); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+    .why-card:hover::before { opacity: 1; }
+    .why-card-icon { font-size: 2.2rem; margin-bottom: 18px; display: block; }
+    .why-card-title { font-size: 1.05rem; font-weight: 700; color: var(--color-text); margin-bottom: 10px; }
+    .why-card-desc { font-size: 0.85rem; line-height: 1.65; color: var(--color-text-muted); }
+
+    .home-footer { position: relative; z-index: 2; border-top: 1px solid var(--color-glass-border); }
+
+    @media (max-width: 1024px) {
+      .why-grid { grid-template-columns: repeat(2,1fr); }
+      .home-why-section { padding: 70px 40px; }
+      .why-title { font-size: 2.4rem; }
+    }
+    @media (max-width: 768px) {
+      .hero-overlay { left: 20px; right: 20px; width: auto; text-align: center; align-items: center; }
+      .why-grid { grid-template-columns: 1fr; }
+      .home-why-section { padding: 60px 20px; }
+      .why-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body class="home-page">
+
+  <!-- ===================================================================== -->
+  <!-- PRELOADER                                                              -->
+  <!-- ===================================================================== -->
+  <div id="preloader" class="preloader">
+    <div class="loader-inner">
+      <div class="spinner"></div>
+      <div class="loader-text"><span id="loader-percentage">0%</span></div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- GLOBAL NAVIGATION HEADER                                              -->
+  <!-- ===================================================================== -->
+  <header class="navbar-wrapper">
+    <a href="index.html" class="logo-wrapper">
+      <img src="assets/logo.png" alt="UniMed Global Logo" class="logo-img">
+      <span class="logo-text">UNIMED <span class="logo-text-accent">Global</span></span>
+    </a>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="why-choose-us.html" class="nav-link">Why Choose Us</a>
+      <a href="universities.html" class="nav-link">Universities</a>
+      <a href="admission.html" class="nav-link">Admission</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <a href="contact.html" class="cta-btn">Enquire Now</a>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- SECTION 1: HERO – 3D GLOBE FULL VIEWPORT                             -->
+  <!-- ===================================================================== -->
+  <section class="hero-section">
+
+    <!-- 3D Canvas lives here, fills the hero section -->
+    <div class="canvas-wrapper">
+      <canvas id="scroll-canvas"></canvas>
+    </div>
+
+    <!-- Hero text overlay -->
+    <div class="hero-overlay">
+      <div class="trust-badge">
+        <span class="trust-badge-icon">✓</span>
+        <span>Trusted by 100+ Students · 2026-27 Intake Open</span>
+      </div>
+      <h1 class="hero-title">Guiding Future Doctors to a <span class="hero-title-accent">Global Career</span></h1>
+      <p class="hero-description">
+        Complete your MBBS in top-tier state medical universities in Russia &amp; Uzbekistan under 20 Lakh. Expert, hassle-free guidance from counselling to graduation.
+      </p>
+      <div class="hero-buttons">
+        <a href="contact.html" class="btn-primary">
+          <span>Apply Now</span>
+          <span>→</span>
+        </a>
+        <a href="universities.html" class="btn-secondary">Explore Universities</a>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SECTION 2: PARTNER UNIVERSITY LOGOS – RIGHT TO LEFT MARQUEE          -->
+  <!-- ===================================================================== -->
+  <section class="marquee-section">
+    <p class="marquee-label">Our Official Partner Universities — Russia &amp; Uzbekistan</p>
+    <div class="marquee-row">
+      <!-- The track is duplicated so the animation loops seamlessly -->
+      <div class="marquee-track" id="marquee-track">
+
+        <!-- Russia -->
+        <div class="marquee-card">
+          <img src="assets/logo_bsmu.png" alt="Bashkir State Medical University Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Bashkir State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · Ufa</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_fefu.png" alt="Far Eastern Federal University Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Far Eastern Federal University</span>
+            <span class="mq-country">🇷🇺 Russia · Vladivostok</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_ssu.png" alt="Syktyvkar State University Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Syktyvkar State University</span>
+            <span class="mq-country">🇷🇺 Russia · Syktyvkar</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_nwmsu.png" alt="North Western State Medical University Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">North Western State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · St. Petersburg</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_spsuvm.png" alt="Saint Petersburg State University of Veterinary Medicine Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">St. Petersburg State Uni. of Veterinary Medicine</span>
+            <span class="mq-country">🇷🇺 Russia · St. Petersburg</span>
+          </div>
+        </div>
+
+        <!-- Uzbekistan -->
+        <div class="marquee-card">
+          <img src="assets/logo_gsu.png" alt="Gulistan State University Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Gulistan State University</span>
+            <span class="mq-country">🇺🇿 Uzbekistan · Gulistan</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_tpi.png" alt="Tashkent Pharmaceutical Institute Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Tashkent Pharmaceutical Institute</span>
+            <span class="mq-country">🇺🇿 Uzbekistan · Tashkent</span>
+          </div>
+        </div>
+
+        <!-- Duplicate set for seamless loop -->
+        <div class="marquee-card">
+          <img src="assets/logo_bsmu.png" alt="Bashkir State Medical University Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Bashkir State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · Ufa</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_fefu.png" alt="Far Eastern Federal University Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Far Eastern Federal University</span>
+            <span class="mq-country">🇷🇺 Russia · Vladivostok</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_ssu.png" alt="Syktyvkar State University Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Syktyvkar State University</span>
+            <span class="mq-country">🇷🇺 Russia · Syktyvkar</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_nwmsu.png" alt="North Western State Medical University Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">North Western State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · St. Petersburg</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_spsuvm.png" alt="St. Petersburg State University of Veterinary Medicine Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">St. Petersburg State Uni. of Veterinary Medicine</span>
+            <span class="mq-country">🇷🇺 Russia · St. Petersburg</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_gsu.png" alt="Gulistan State University Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Gulistan State University</span>
+            <span class="mq-country">🇺🇿 Uzbekistan · Gulistan</span>
+          </div>
+        </div>
+
+        <div class="marquee-card">
+          <img src="assets/logo_tpi.png" alt="Tashkent Pharmaceutical Institute Logo" class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Tashkent Pharmaceutical Institute</span>
+            <span class="mq-country">🇺🇿 Uzbekistan · Tashkent</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SECTION 3: OUR PARTNERS — UNIVERSITY TRUST GRID                      -->
+  <!-- ===================================================================== -->
+  <section class="partners-section">
+
+    <!-- Section tag -->
+    <p class="partners-tag">OUR PARTNERS</p>
+
+    <!-- Headline -->
+    <h2 class="partners-heading">
+      7+ Universities <span class="partners-heading-accent">Trust UNIMED Global</span>
+    </h2>
+
+    <!-- Logo grid – static, grayscale, two rows -->
+    <div class="partners-grid">
+
+      <!-- Row 1: Russia universities -->
+      <div class="partner-logo-card">
+        <img src="assets/logo_bsmu.png" alt="Bashkir State Medical University" class="partner-logo-img">
+        <span class="partner-logo-name">Bashkir State Medical Uni.</span>
+        <span class="partner-logo-country">🇷🇺 Russia</span>
+      </div>
+
+      <div class="partner-logo-card">
+        <img src="assets/logo_fefu.png" alt="Far Eastern Federal University" class="partner-logo-img">
+        <span class="partner-logo-name">Far Eastern Federal Uni.</span>
+        <span class="partner-logo-country">🇷🇺 Russia</span>
+      </div>
+
+      <div class="partner-logo-card">
+        <img src="assets/logo_ssu.png" alt="Syktyvkar State University" class="partner-logo-img">
+        <span class="partner-logo-name">Syktyvkar State Uni.</span>
+        <span class="partner-logo-country">🇷🇺 Russia</span>
+      </div>
+
+      <div class="partner-logo-card">
+        <img src="assets/logo_nwmsu.png" alt="North Western State Medical University" class="partner-logo-img">
+        <span class="partner-logo-name">North Western State Medical</span>
+        <span class="partner-logo-country">🇷🇺 Russia</span>
+      </div>
+
+      <div class="partner-logo-card">
+        <img src="assets/logo_spsuvm.png" alt="St. Petersburg State University of Veterinary Medicine" class="partner-logo-img">
+        <span class="partner-logo-name">SPb State Vet. Medicine Uni.</span>
+        <span class="partner-logo-country">🇷🇺 Russia</span>
+      </div>
+
+      <!-- Row 2: Uzbekistan universities -->
+      <div class="partner-logo-card">
+        <img src="assets/logo_gsu.png" alt="Gulistan State University" class="partner-logo-img">
+        <span class="partner-logo-name">Gulistan State Uni.</span>
+        <span class="partner-logo-country">🇺🇿 Uzbekistan</span>
+      </div>
+
+      <div class="partner-logo-card">
+        <img src="assets/logo_tpi.png" alt="Tashkent Pharmaceutical Institute" class="partner-logo-img">
+        <span class="partner-logo-name">Tashkent Pharmaceutical Inst.</span>
+        <span class="partner-logo-country">🇺🇿 Uzbekistan</span>
+      </div>
+
+    </div><!-- /partners-grid -->
+
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SECTION 4: WHY CHOOSE US — ANIMATED STATS + REASON GRID              -->
+  <!-- ===================================================================== -->
+  <section class="home-why-section">
+
+    <!-- Section heading — title first -->
+    <div class="why-top">
+      <span class="why-tag">Our Promise</span>
+      <!-- Single-line title -->
+      <h2 class="why-title">Why Choose <span>UNIMED Global?</span></h2>
+    </div>
+
+    <!-- Scroll-highlight statement — wide, same font, word-by-word scroll reveal -->
+    <div class="why-highlight-container">
+      <p class="why-highlight-text" id="whyHighlight">
+        <span class="hw">Guiding</span>
+        <span class="hw">future</span>
+        <span class="hw">doctors</span>
+        <span class="hw">to</span>
+        <span class="hw">world-class</span>
+        <span class="hw">medical</span>
+        <span class="hw">universities</span>
+        <span class="hw">—</span>
+        <span class="hw">affordable,</span>
+        <span class="hw">trusted,</span>
+        <span class="hw">and</span>
+        <span class="hw">seamlessly</span>
+        <span class="hw">guided</span>
+        <span class="hw">from</span>
+        <span class="hw">day</span>
+        <span class="hw">one.</span>
+      </p>
+    </div>
+
+    <!-- Keyword pills placed below the statement -->
+    <div class="why-pills-container">
+      <div class="why-pills">
+        <span class="why-pill why-pill--purple">
+          <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 4l5 5M3 21l12-12M20.5 2.5a2.12 2.12 0 0 1 3 3L22 7l-3-3 1.5-1.5z"/>
+          </svg>
+          Affordability
+        </span>
+        <span class="why-pill why-pill--blue">
+          <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .5 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+            <path d="M9 18h6M10 22h4"/>
+          </svg>
+          Guidance
+        </span>
+        <span class="why-pill why-pill--orange">
+          <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5" r="3"/>
+            <circle cx="5" cy="19" r="3"/>
+            <circle cx="19" cy="19" r="3"/>
+            <path d="M5 16l5-8M19 16l-5-8M8 19h8"/>
+          </svg>
+          Support
+        </span>
+      </div>
+    </div>
+
+    <!-- Animated counter stats — Awake Agency style, BIG numbers -->
+    <div class="stats-strip">
+      <div class="stat-item">
+        <div class="stat-num-wrap">
+          <span class="stat-num" data-target="100">0</span>
+          <sup class="stat-plus">+</sup>
+        </div>
+        <span class="stat-label">Trusted Students</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num-wrap">
+          <span class="stat-num" data-target="15">0</span>
+          <sup class="stat-plus">+</sup>
+        </div>
+        <span class="stat-label">Partner Universities</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num-wrap">
+          <span class="stat-prefix">₹</span>
+          <span class="stat-num" data-target="20">0</span>
+          <span class="stat-suffix">L</span>
+        </div>
+        <span class="stat-label">Affordable MBBS Budget</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num-wrap">
+          <span class="stat-num" data-target="24">0</span>
+          <span class="stat-suffix">/7</span>
+        </div>
+        <span class="stat-label">On-Ground Support</span>
+      </div>
+    </div>
+
+
+    <!-- Reason cards grid -->
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-card-icon">🎓</span>
+        <h3 class="why-card-title">Best University in Budget</h3>
+        <p class="why-card-desc">We match you to top-ranked state medical institutions that perfectly fit your financial plan—without compromising quality or accreditation.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-card-icon">📄</span>
+        <h3 class="why-card-title">Hassle-Free Documentation</h3>
+        <p class="why-card-desc">From transcripts and notarization to embassy attestation, our experts handle all your paperwork from end to end.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-card-icon">✈️</span>
+        <h3 class="why-card-title">Airport &amp; Pickup Assistance</h3>
+        <p class="why-card-desc">We ensure a smooth, safe arrival in Russia or Uzbekistan with dedicated guides welcoming you right at the airport terminal.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-card-icon">🏠</span>
+        <h3 class="why-card-title">24/7 In-Country Support</h3>
+        <p class="why-card-desc">Hostel allotment, local regulations, emergency guidance — our on-ground teams are round-the-clock ready for any situation.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-card-icon">⚖️</span>
+        <h3 class="why-card-title">Notaries &amp; Attestation</h3>
+        <p class="why-card-desc">We handle all legal translations, document legalization, and notarization to meet foreign embassy requirements seamlessly.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-card-icon">🩺</span>
+        <h3 class="why-card-title">Guided by Real Doctors</h3>
+        <p class="why-card-desc">Receive mentorship, exam tips, and career guidance from experienced medical professionals who have traveled the same path.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- POPULAR STUDY DESTINATIONS SECTION                                   -->
+  <!-- ===================================================================== -->
+  <section class="destinations-section">
+    <div class="dest-top">
+      <span class="dest-tag">Global Opportunities</span>
+      <h2 class="dest-title">Popular Study <span>Destinations</span></h2>
+      
+      <!-- Country Toggle Buttons -->
+      <div class="dest-toggle-container">
+        <button class="dest-toggle-btn active" data-country="russia">Russia</button>
+        <button class="dest-toggle-btn" data-country="uzbekistan">Uzbekistan</button>
+      </div>
+    </div>
+
+    <!-- Universities Card Grid -->
+    <div class="dest-grid-container">
+      <!-- RUSSIA UNIVERSITIES -->
+      <div class="dest-grid active" id="grid-russia">
+        
+        <!-- Bashkir State Medical University -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <a href="uni-info.html?uni=bsmu"><img src="assets/bsmu_campus.png" alt="Bashkir State Medical University" class="dest-card-img"></a>
+            <span class="dest-card-badge">🇷🇺 Russia</span>
+            <a href="uni-info.html?uni=bsmu" class="dest-card-arrow" aria-label="View Details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="dest-card-content">
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=bsmu" style="color: inherit; text-decoration: none;">Bashkir State Medical University</a></h3>
+            
+            <div class="dest-card-details">
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+                <span>₹2.5L - ₹3.0L / Yr</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>Ufa, Russia</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>6 Years (English)</span>
+              </div>
+            </div>
+
+            <div class="dest-card-pills">
+              <span class="dest-pill">NMC Approved</span>
+              <span class="dest-pill">General Medicine</span>
+              <span class="dest-pill">Govt University</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Far Eastern Federal University -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <a href="uni-info.html?uni=fefu"><img src="assets/fefu_campus.png" alt="Far Eastern Federal University" class="dest-card-img"></a>
+            <span class="dest-card-badge">🇷🇺 Russia</span>
+            <a href="uni-info.html?uni=fefu" class="dest-card-arrow" aria-label="View Details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="dest-card-content">
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=fefu" style="color: inherit; text-decoration: none;">Far Eastern Federal University</a></h3>
+            
+            <div class="dest-card-details">
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+                <span>₹3.0L - ₹3.8L / Yr</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>Vladivostok, Russia</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>6 Years (English)</span>
+              </div>
+            </div>
+
+            <div class="dest-card-pills">
+              <span class="dest-pill">Modern Campus</span>
+              <span class="dest-pill">Seaside Location</span>
+              <span class="dest-pill">Global Ranking</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- North-Western State Medical University -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <a href="uni-info.html?uni=nwmsu"><img src="assets/university_campus_1.png" alt="North-Western State Medical University" class="dest-card-img"></a>
+            <span class="dest-card-badge">🇷🇺 Russia</span>
+            <a href="uni-info.html?uni=nwmsu" class="dest-card-arrow" aria-label="View Details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="dest-card-content">
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=nwmsu" style="color: inherit; text-decoration: none;">North-Western State Medical University</a></h3>
+            
+            <div class="dest-card-details">
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+                <span>₹3.5L - ₹4.5L / Yr</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>St. Petersburg, Russia</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>6 Years (English)</span>
+              </div>
+            </div>
+
+            <div class="dest-card-pills">
+              <span class="dest-pill">Est. 1907</span>
+              <span class="dest-pill">Clinical Labs</span>
+              <span class="dest-pill">Mechnikov</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Syktyvkar State University -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <a href="uni-info.html?uni=ssu"><img src="assets/university_campus_2.png" alt="Syktyvkar State University" class="dest-card-img"></a>
+            <span class="dest-card-badge">🇷🇺 Russia</span>
+            <a href="uni-info.html?uni=ssu" class="dest-card-arrow" aria-label="View Details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="dest-card-content">
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=ssu" style="color: inherit; text-decoration: none;">Syktyvkar State University</a></h3>
+            
+            <div class="dest-card-details">
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+                <span>₹2.2L - ₹2.8L / Yr</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>Syktyvkar, Russia</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>6 Years (English)</span>
+              </div>
+            </div>
+
+            <div class="dest-card-pills">
+              <span class="dest-pill">Affordable MBBS</span>
+              <span class="dest-pill">NMC Syllabus</span>
+              <span class="dest-pill">Co-Ed Campus</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saint Petersburg State University of Veterinary Medicine -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <a href="uni-info.html?uni=spsuvm"><img src="assets/st_isaacs.png" alt="Saint Petersburg State University of Veterinary Medicine" class="dest-card-img"></a>
+            <span class="dest-card-badge">🇷🇺 Russia</span>
+            <a href="uni-info.html?uni=spsuvm" class="dest-card-arrow" aria-label="View Details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="dest-card-content">
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=spsuvm" style="color: inherit; text-decoration: none;">SPb State University of Veterinary Medicine</a></h3>
+            
+            <div class="dest-card-details">
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+                <span>₹2.0L - ₹2.5L / Yr</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>St. Petersburg, Russia</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>5 Years (English)</span>
+              </div>
+            </div>
+
+            <div class="dest-card-pills">
+              <span class="dest-pill">Veterinary Science</span>
+              <span class="dest-pill">Research Hub</span>
+              <span class="dest-pill">Top Ranked</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- UZBEKISTAN UNIVERSITIES -->
+      <div class="dest-grid" id="grid-uzbekistan">
+        
+        <!-- Gulistan State University -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <a href="uni-info.html?uni=gsu"><img src="assets/uz_campus.png" alt="Gulistan State University" class="dest-card-img"></a>
+            <span class="dest-card-badge">🇺🇿 Uzbekistan</span>
+            <a href="uni-info.html?uni=gsu" class="dest-card-arrow" aria-label="View Details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="dest-card-content">
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=gsu" style="color: inherit; text-decoration: none;">Gulistan State University</a></h3>
+            
+            <div class="dest-card-details">
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+                <span>₹1.8L - ₹2.4L / Yr</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>Gulistan, Uzbekistan</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>6 Years (English)</span>
+              </div>
+            </div>
+
+            <div class="dest-card-pills">
+              <span class="dest-pill">Central Asia</span>
+              <span class="dest-pill">NMC Syllabus</span>
+              <span class="dest-pill">Budget-Friendly</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tashkent Pharmaceutical Institute -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <a href="uni-info.html?uni=tpi"><img src="assets/building-3.png" alt="Tashkent Pharmaceutical Institute" class="dest-card-img"></a>
+            <span class="dest-card-badge">🇺🇿 Uzbekistan</span>
+            <a href="uni-info.html?uni=tpi" class="dest-card-arrow" aria-label="View Details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="dest-card-content">
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=tpi" style="color: inherit; text-decoration: none;">Tashkent Pharmaceutical Institute</a></h3>
+            
+            <div class="dest-card-details">
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+                <span>₹2.0L - ₹2.6L / Yr</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>Tashkent, Uzbekistan</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>5 Years (English)</span>
+              </div>
+            </div>
+
+            <div class="dest-card-pills">
+              <span class="dest-pill">Pharmacy Science</span>
+              <span class="dest-pill">Modern Lab Hub</span>
+              <span class="dest-pill">Capital City</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular destinations grid toggle script -->
+  <script>
+    (function() {
+      const buttons = document.querySelectorAll('.dest-toggle-btn');
+      const grids   = document.querySelectorAll('.dest-grid');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const targetCountry = btn.dataset.country;
+
+          grids.forEach(grid => {
+            if (grid.id === `grid-${targetCountry}`) {
+              grid.classList.add('active');
+            } else {
+              grid.classList.remove('active');
+            }
+          });
+        });
+      });
+    })();
+  </script>
+
+  <!-- ===================================================================== -->
+  <!-- TESTIMONIALS SECTION                                                  -->
+  <!-- ===================================================================== -->
+  <section class="testimonials-section">
+    <div class="testimonials-header" id="testimonialsHighlight">
+      <span class="testimonials-tag">Testimonials</span>
+      <h2 class="testimonials-title">
+        <span class="hw">What</span> <span class="hw">Our</span> <span class="hw testimonials-serif-italic">Students</span> <span class="hw testimonials-serif-italic">Say</span>
+      </h2>
+    </div>
+
+    <div class="testimonials-marquee-wrapper">
+      <div class="testimonials-track">
+        <!-- Card 1 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">The admission process for Far Eastern Federal University was incredibly smooth. UNIMED handled everything from visa to documentation.</p>
+          <div class="testimonial-student">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #06b6d4, #10b981);">AP</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Anjali Patel</span>
+              <span class="testimonial-meta">Far Eastern Federal University</span>
+              <div class="testimonial-stars">
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">Syktyvkar State University has been amazing. The clinical practice is top-notch and the hostel facilities are very comfortable.</p>
+          <div class="testimonial-student">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">KM</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Karan Malhotra</span>
+              <span class="testimonial-meta">Syktyvkar State University</span>
+              <div class="testimonial-stars">
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">I was skeptical about moving to Uzbekistan, but Gulistan State University has exceeded my expectations. Thanks to UNIMED!</p>
+          <div class="testimonial-student">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">PS</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Priya Sen</span>
+              <span class="testimonial-meta">Gulistan State University</span>
+              <div class="testimonial-stars">
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">Spb State University of Veterinary Medicine was my dream. UNIMED's guidance made the admission and visa process simple and stress-free.</p>
+          <div class="testimonial-student">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">RD</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Rohit Das</span>
+              <span class="testimonial-meta">SPb State University of Vet Medicine</span>
+              <div class="testimonial-stars">
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">Excellent support even after arriving in Russia. They helped with my local registration and sim card on day one.</p>
+          <div class="testimonial-student">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #10b981, #f59e0b);">MN</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Meera Nair</span>
+              <span class="testimonial-meta">Bashkir State Medical University</span>
+              <div class="testimonial-stars">
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DUPLICATE SET FOR INFINITE LOOP -->
+        <!-- Card 1 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">The admission process for Far Eastern Federal University was incredibly smooth. UNIMED handled everything from visa to documentation.</p>
+          <div class="testimonial-student">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #06b6d4, #10b981);">AP</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Anjali Patel</span>
+              <span class="testimonial-meta">Far Eastern Federal University</span>
+              <div class="testimonial-stars">
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">Syktyvkar State University has been amazing. The clinical practice is top-notch and the hostel facilities are very comfortable.</p>
+          <div class="testimonial-student">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">KM</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Karan Malhotra</span>
+              <span class="testimonial-meta">Syktyvkar State University</span>
+              <div class="testimonial-stars">
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">I was skeptical about moving to Uzbekistan, but Gulistan State University has exceeded my expectations. Thanks to UNIMED!</p>
+          <div class="testimonial-student">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">PS</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Priya Sen</span>
+              <span class="testimonial-meta">Gulistan State University</span>
+              <div class="testimonial-stars">
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">Spb State University of Veterinary Medicine was my dream. UNIMED's guidance made the admission and visa process simple and stress-free.</p>
+          <div class="testimonial-student">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">RD</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Rohit Das</span>
+              <span class="testimonial-meta">SPb State University of Vet Medicine</span>
+              <div class="testimonial-stars">
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">Excellent support even after arriving in Russia. They helped with my local registration and sim card on day one.</p>
+          <div class="testimonial-student">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #10b981, #f59e0b);">MN</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Meera Nair</span>
+              <span class="testimonial-meta">Bashkir State Medical University</span>
+              <div class="testimonial-stars">
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scroll-highlight testimonials animation -->
+  <script>
+    (function() {
+      const para   = document.getElementById('testimonialsHighlight');
+      if (!para) return;
+      const words  = Array.from(para.querySelectorAll('.hw'));
+      const total  = words.length;
+
+      function updateHighlight() {
+        const rect      = para.getBoundingClientRect();
+        const winH      = window.innerHeight;
+        const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
+        const litCount  = Math.round(progress * total * 1.5);
+
+        words.forEach((w, i) => {
+          if (i < litCount) {
+            w.classList.add('lit');
+          } else {
+            w.classList.remove('lit');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateHighlight, { passive: true });
+      window.addEventListener('resize', updateHighlight);
+      updateHighlight();
+    })();
+  </script>
+
+
+  <!-- ===================================================================== -->
+  <!-- CALL TO ACTION: COUNSELLING BANNER                                    -->
+  <!-- ===================================================================== -->
+  <section class="counselling-cta-section">
+    <div class="counselling-cta-content">
+      <span class="counselling-cta-tag">Get Guidance</span>
+      <div class="counselling-cta-highlight-container" id="counsellingHighlight">
+        <h2 class="counselling-cta-title">
+          <span class="hw">Not</span> <span class="hw">Sure</span> <span class="hw">Which</span> <span class="hw">Country</span> <span class="hw cta-serif-italic">Is</span> <span class="hw cta-serif-italic">Right</span> <span class="hw cta-serif-italic">for</span> <span class="hw cta-serif-italic">You?</span>
+        </h2>
+        <h2 class="counselling-cta-title">
+          <span class="hw">Not</span> <span class="hw">sure</span> <span class="hw">Which</span> <span class="hw">course</span> <span class="hw cta-serif-italic">is</span> <span class="hw cta-serif-italic">right</span> <span class="hw cta-serif-italic">for</span> <span class="hw cta-serif-italic">You?</span>
+        </h2>
+      </div>
+      <p class="counselling-cta-desc">Get a free profile evaluation and a personalised country recommendation from our experts.</p>
+      <a href="contact.html" class="btn-primary counselling-cta-btn">
+        <svg class="counselling-btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+          <polyline points="9 16 11 18 15 14"></polyline>
+        </svg>
+        <span>Book Free Counselling</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SITE FOOTER                                                           -->
+  <!-- ===================================================================== -->
+  <footer class="footer-wrapper home-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <img src="assets/logo.png" alt="UniMed Global Logo" class="footer-logo-img">
+          <span class="footer-logo-text">UNIMED <span class="footer-logo-accent">Global</span></span>
+        </div>
+        <p class="footer-desc">Empowering medical aspirants with world-class education pathways. Together for a healthier tomorrow.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Sitemap</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-link-a">Home</a></li>
+          <li><a href="why-choose-us.html" class="footer-link-a">Why Choose Us</a></li>
+          <li><a href="universities.html" class="footer-link-a">Universities</a></li>
+          <li><a href="admission.html" class="footer-link-a">Admission</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="contact.html" class="footer-link-a">Apply Online</a></li>
+          <li><a href="contact.html" class="footer-link-a">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Contact</h4>
+        <p class="footer-desc">
+          Director: Arijit Dutta (Kolkata)<br>
+          WhatsApp: +91 9163654664<br>
+          Russia: +7 9867028518<br>
+          Instagram: @unimed_global
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 UNIMED Global. All Rights Reserved.</p>
+      <div class="footer-socials">
+        <a href="https://instagram.com/unimed_global" class="footer-social-link" target="_blank">IG</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- SCRIPTS                                                               -->
+  <!-- ===================================================================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="app.js?v=4"></script>
+
+  <!-- Counter animation (Intersection Observer) -->
+  <script>
+    (function() {
+      function animateCounter(el) {
+        const target   = parseInt(el.dataset.target, 10);
+        const duration = 2000;
+        const start    = performance.now();
+        function tick(now) {
+          const elapsed  = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased    = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(eased * target);
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      const counters = document.querySelectorAll('.stat-num[data-target]');
+      if (!counters.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.dataset.animated) {
+            entry.target.dataset.animated = 'true';
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach(c => observer.observe(c));
+    })();
+  </script>
+
+  <!-- Scroll-highlight word animation -->
+  <script>
+    (function() {
+      const para   = document.getElementById('whyHighlight');
+      if (!para) return;
+      const words  = Array.from(para.querySelectorAll('.hw'));
+      const total  = words.length;
+
+      function updateHighlight() {
+        const rect      = para.getBoundingClientRect();
+        const winH      = window.innerHeight;
+        // progress 0→1 as the paragraph travels from bottom of viewport to top
+        const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
+        const litCount  = Math.round(progress * total * 1.5);  // slightly ahead of scroll
+
+        words.forEach((w, i) => {
+          if (i < litCount) {
+            w.classList.add('lit');
+          } else {
+            w.classList.remove('lit');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateHighlight, { passive: true });
+      window.addEventListener('resize', updateHighlight);
+      updateHighlight();  // run once on load
+    })();
+  </script>
+
+  <!-- Scroll-highlight counselling animation -->
+  <script>
+    (function() {
+      const para   = document.getElementById('counsellingHighlight');
+      if (!para) return;
+      const words  = Array.from(para.querySelectorAll('.hw'));
+      const total  = words.length;
+
+      function updateHighlight() {
+        const rect      = para.getBoundingClientRect();
+        const winH      = window.innerHeight;
+        // progress 0→1 as the paragraph travels from bottom of viewport to top
+        const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
+        const litCount  = Math.round(progress * total * 1.5);  // slightly ahead of scroll
+
+        words.forEach((w, i) => {
+          if (i < litCount) {
+            w.classList.add('lit');
+          } else {
+            w.classList.remove('lit');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateHighlight, { passive: true });
+      window.addEventListener('resize', updateHighlight);
+      updateHighlight();  // run once on load
+    })();
+  </script>
+
+</body>
+</html>

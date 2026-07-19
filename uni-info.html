@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Details | UNIMED Global</title>
+  <meta name="description" content="Detailed information about our partner medical universities — courses, fees, campus area, accreditation, and student enrollment.">
+  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <script src="theme.js"></script>
+  <style>
+    /* ============================================================
+       PAGE-SPECIFIC STYLES  –  University Detail (Vibedu-inspired)
+       ============================================================ */
+
+    /* --- Hero --------------------------------------------------- */
+    .ud-hero {
+      position: relative;
+      height: 380px;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+    .ud-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.25) 0%, rgba(10,10,10,0.75) 100%);
+    }
+    .ud-hero-inner {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 36px;
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      left: 0; right: 0;
+    }
+    .ud-breadcrumb {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ud-breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    .ud-breadcrumb a:hover { color: #fff; }
+    .ud-breadcrumb-sep { opacity: 0.5; }
+    .ud-country-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 99px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      align-self: flex-start;
+    }
+    .ud-hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 6px 0;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .ud-hero-location {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* --- Stats bar --------------------------------------------- */
+    .ud-stats-bar {
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-glass-border);
+      padding: 0;
+    }
+    html.light-theme .ud-stats-bar {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .ud-stats-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      divide-x: 1px solid;
+    }
+    .ud-stat-item {
+      padding: 18px 24px 18px 0;
+      border-right: 1px solid var(--color-glass-border);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    html.light-theme .ud-stat-item { border-right-color: #e5e7eb; }
+    .ud-stat-item:first-child { padding-left: 0; }
+    .ud-stat-item:last-child { border-right: none; padding-right: 0; }
+    .ud-stat-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+    }
+    html.light-theme .ud-stat-label { color: #6b7280; }
+    .ud-stat-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+    html.light-theme .ud-stat-value { color: #111827; }
+    .ud-stat-value span {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+    html.light-theme .ud-stat-value span { color: #6b7280; }
+
+    /* --- Main layout ------------------------------------------- */
+    .ud-body {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 48px 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .ud-body { grid-template-columns: 1fr; gap: 36px; padding: 36px 24px 60px; }
+      .ud-stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .ud-hero-inner { padding: 0 24px 28px; }
+    }
+    @media (max-width: 640px) {
+      .ud-stats-inner { grid-template-columns: 1fr 1fr; padding: 0 20px; }
+      .ud-stat-item { padding: 14px 16px 14px 0; }
+    }
+
+    /* --- Left column ------------------------------------------- */
+    .ud-left { display: flex; flex-direction: column; gap: 40px; }
+
+    .ud-section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin: 0 0 18px 0;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--color-glass-border);
+    }
+    html.light-theme .ud-section-title {
+      color: #111827;
+      border-bottom-color: #e5e7eb;
+    }
+
+    .ud-body-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.975rem;
+      line-height: 1.7;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+    html.light-theme .ud-body-text { color: #4b5563; }
+
+    /* Highlights list */
+    .ud-highlights {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ud-highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--color-text-muted);
+    }
+    html.light-theme .ud-highlight-item { color: #374151; }
+    .ud-check {
+      width: 20px; height: 20px;
+      background: rgba(16, 185, 129, 0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .ud-check svg { width: 11px; height: 11px; stroke: #10b981; stroke-width: 3; }
+
+    /* Fact grid  (like vibedu uni-facts) */
+    .ud-fact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .ud-fact-card {
+      background: var(--color-glass-bg);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.2s;
+    }
+    html.light-theme .ud-fact-card {
+      background: #f9fafb;
+      border-color: #e5e7eb;
+    }
+    .ud-fact-card:hover { border-color: var(--color-accent); }
+    html.light-theme .ud-fact-card:hover { border-color: var(--aw-accent); }
+    .ud-fact-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--color-text-muted);
+    }
+    html.light-theme .ud-fact-label { color: #9ca3af; }
+    .ud-fact-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+    html.light-theme .ud-fact-value { color: #111827; }
+    .ud-fact-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+    html.light-theme .ud-fact-sub { color: #6b7280; }
+
+    /* Course list */
+    .ud-course-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ud-course-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: var(--color-glass-bg);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    html.light-theme .ud-course-row {
+      background: #ffffff;
+      border-color: #e5e7eb;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+    .ud-course-row:hover { border-color: var(--color-accent); transform: translateY(-1px); }
+    html.light-theme .ud-course-row:hover { border-color: var(--aw-accent); }
+    .ud-course-icon {
+      width: 36px; height: 36px;
+      background: rgba(6, 182, 212, 0.1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    html.light-theme .ud-course-icon { background: rgba(12, 74, 96, 0.06); }
+    .ud-course-icon svg { width: 18px; height: 18px; stroke: var(--color-accent); }
+    html.light-theme .ud-course-icon svg { stroke: var(--aw-accent); }
+    .ud-course-info { flex: 1; }
+    .ud-course-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.975rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+    html.light-theme .ud-course-name { color: #111827; }
+    .ud-course-dur {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+    }
+    html.light-theme .ud-course-dur { color: #6b7280; }
+    .ud-course-badge {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      color: var(--color-accent);
+      padding: 5px 12px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+    html.light-theme .ud-course-badge {
+      background: rgba(12, 74, 96, 0.06);
+      border-color: rgba(12, 74, 96, 0.12);
+      color: var(--aw-accent);
+    }
+
+    /* --- Accordion FAQ ---------------------------------------- */
+    .ud-accordion { display: flex; flex-direction: column; gap: 10px; }
+    .ud-acc-item {
+      background: var(--color-glass-bg);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 14px;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+    html.light-theme .ud-acc-item { background: #ffffff; border-color: #e5e7eb; }
+    .ud-acc-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-text);
+      text-align: left;
+    }
+    html.light-theme .ud-acc-btn { color: #111827; }
+    .ud-acc-btn:hover { color: var(--color-accent); }
+    html.light-theme .ud-acc-btn:hover { color: var(--aw-accent); }
+    .ud-acc-icon { transition: transform 0.3s ease; flex-shrink: 0; }
+    .ud-acc-icon svg { width: 16px; height: 16px; stroke: currentColor; }
+    .ud-acc-item.open .ud-acc-icon { transform: rotate(180deg); }
+    .ud-acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .ud-acc-item.open .ud-acc-body { max-height: 500px; }
+    .ud-acc-body-inner {
+      padding: 0 20px 18px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--color-text-muted);
+    }
+    html.light-theme .ud-acc-body-inner { color: #6b7280; }
+
+    /* --- Right sidebar ---------------------------------------- */
+    .ud-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .ud-sidebar-card {
+      background: var(--color-glass-bg);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 90px;
+    }
+    html.light-theme .ud-sidebar-card {
+      background: #ffffff;
+      border-color: #e5e7eb;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+    .ud-sidebar-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin: 0 0 6px 0;
+    }
+    html.light-theme .ud-sidebar-title { color: #111827; }
+    .ud-sidebar-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      margin: 0 0 22px 0;
+      line-height: 1.5;
+    }
+    html.light-theme .ud-sidebar-sub { color: #6b7280; }
+
+    /* Form fields */
+    .ud-field { margin-bottom: 14px; }
+    .ud-label {
+      display: block;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      margin-bottom: 6px;
+    }
+    html.light-theme .ud-label { color: #374151; }
+    .ud-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      color: var(--color-text);
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .ud-input:focus { border-color: var(--color-accent); }
+    html.light-theme .ud-input {
+      background: #f9fafb;
+      border-color: #d1d5db;
+      color: #111827;
+    }
+    html.light-theme .ud-input:focus { border-color: var(--aw-accent); }
+    .ud-input::placeholder { color: var(--color-text-muted); opacity: 0.6; }
+    html.light-theme .ud-input::placeholder { color: #9ca3af; }
+
+    /* Counselling CTA button */
+    .ud-btn-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--color-accent);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
+      margin-top: 6px;
+    }
+    .ud-btn-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    html.light-theme .ud-btn-cta { background: var(--aw-accent); }
+
+    /* WhatsApp button */
+    .ud-btn-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: transparent;
+      border: 1px solid #25d366;
+      color: #25d366;
+      border-radius: 12px;
+      padding: 11px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+    .ud-btn-wa:hover { background: rgba(37, 211, 102, 0.08); }
+
+    /* Official link */
+    .ud-btn-outline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--color-glass-border);
+      color: var(--color-text);
+      border-radius: 12px;
+      padding: 11px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+      margin-top: 10px;
+    }
+    .ud-btn-outline:hover {
+      border-color: var(--color-accent);
+      background: rgba(6, 182, 212, 0.05);
+    }
+    html.light-theme .ud-btn-outline {
+      border-color: #d1d5db;
+      color: #374151;
+    }
+    html.light-theme .ud-btn-outline:hover {
+      border-color: var(--aw-accent);
+      background: rgba(12, 74, 96, 0.04);
+    }
+    .ud-btn-outline svg, .ud-btn-wa svg, .ud-btn-cta svg { width: 16px; height: 16px; }
+
+    /* Divider */
+    .ud-divider { border: none; border-top: 1px solid var(--color-glass-border); margin: 18px 0 0 0; }
+    html.light-theme .ud-divider { border-top-color: #e5e7eb; }
+
+    .ud-trust-note {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.76rem;
+      color: var(--color-text-muted);
+      text-align: center;
+      margin-top: 10px;
+    }
+    html.light-theme .ud-trust-note { color: #9ca3af; }
+
+    @media (max-width: 768px) {
+      .keep-exploring-section {
+        padding: 0 24px !important;
+        margin: 40px auto 40px !important;
+      }
+      .keep-exploring-section h2 {
+        font-size: 1.8rem !important;
+      }
+      #exploreGrid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="navbar-wrapper">
+    <a href="index.html" class="logo-wrapper">
+      <img src="assets/logo.png" alt="UniMed Global Logo" class="logo-img">
+      <span class="logo-text">UNIMED <span class="logo-text-accent">Global</span></span>
+    </a>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="why-choose-us.html" class="nav-link">Why Choose Us</a>
+      <a href="universities.html" class="nav-link">Universities</a>
+      <a href="admission.html" class="nav-link">Admission</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <a href="contact.html" class="cta-btn">Enquire Now</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="ud-hero" id="uniHero">
+    <div class="ud-hero-inner">
+      <nav class="ud-breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="ud-breadcrumb-sep">›</span>
+        <a href="universities.html">Universities</a>
+        <span class="ud-breadcrumb-sep">›</span>
+        <span id="uniBreadName">University Detail</span>
+      </nav>
+      <span class="ud-country-chip" id="uniCountry">🇷🇺 Russia</span>
+      <h1 class="ud-hero-title" id="uniTitle">University Name</h1>
+      <p class="ud-hero-location" id="uniLocation">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+        Vladivostok, Russia
+      </p>
+    </div>
+  </div>
+
+  <!-- QUICK STATS BAR -->
+  <div class="ud-stats-bar">
+    <div class="ud-stats-inner">
+      <div class="ud-stat-item">
+        <span class="ud-stat-label">Complete Budget</span>
+        <span class="ud-stat-value" id="statBudget">₹22L – 25L <span>total</span></span>
+      </div>
+      <div class="ud-stat-item">
+        <span class="ud-stat-label">Enrollment</span>
+        <span class="ud-stat-value" id="statStudents">23,000+ <span>students</span></span>
+      </div>
+      <div class="ud-stat-item">
+        <span class="ud-stat-label">Campus Area</span>
+        <span class="ud-stat-value" id="statArea">800,000+ <span>sq. m</span></span>
+      </div>
+      <div class="ud-stat-item">
+        <span class="ud-stat-label">Intake</span>
+        <span class="ud-stat-value">2026 – 2027 <span>Open</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN BODY -->
+  <div class="ud-body">
+
+    <!-- LEFT COLUMN -->
+    <div class="ud-left">
+
+      <!-- About -->
+      <section>
+        <h2 class="ud-section-title">About the University</h2>
+        <p class="ud-body-text" id="uniAbout">
+          Loading university information…
+        </p>
+      </section>
+
+      <!-- Key Highlights -->
+      <section>
+        <h2 class="ud-section-title">Key Highlights</h2>
+        <ul class="ud-highlights" id="uniHighlights"></ul>
+      </section>
+
+      <!-- Courses -->
+      <section>
+        <h2 class="ud-section-title">Courses Offered</h2>
+        <div class="ud-course-list" id="uniCourses"></div>
+      </section>
+
+      <!-- At a Glance fact grid -->
+      <section>
+        <h2 class="ud-section-title">University at a Glance</h2>
+        <div class="ud-fact-grid" id="uniFactGrid"></div>
+      </section>
+
+      <!-- FAQ Accordion -->
+      <section>
+        <h2 class="ud-section-title">Frequently Asked Questions</h2>
+        <div class="ud-accordion" id="uniFaq"></div>
+      </section>
+
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="ud-sidebar">
+      <div class="ud-sidebar-card">
+        <h3 class="ud-sidebar-title">Get Free Counselling</h3>
+        <p class="ud-sidebar-sub" id="sidebarSubtitle">Interested in this university? Fill the form below and our expert counsellor will call you back today.</p>
+
+        <form id="enquiryForm" onsubmit="handleEnquiry(event)">
+          <div class="ud-field">
+            <label class="ud-label" for="enqName">Full Name *</label>
+            <input type="text" id="enqName" class="ud-input" placeholder="Your full name" required>
+          </div>
+          <div class="ud-field">
+            <label class="ud-label" for="enqPhone">Phone Number *</label>
+            <input type="tel" id="enqPhone" class="ud-input" placeholder="+91 XXXXXXXXXX" required>
+          </div>
+          <div class="ud-field">
+            <label class="ud-label" for="enqEmail">Email *</label>
+            <input type="email" id="enqEmail" class="ud-input" placeholder="you@email.com" required>
+          </div>
+          <div class="ud-field">
+            <label class="ud-label" for="enqIntake">Preferred Intake *</label>
+            <select id="enqIntake" class="ud-input" required>
+              <option value="">Select intake</option>
+              <option value="Sep 2026">Sep 2026</option>
+              <option value="Jan 2027">Jan 2027</option>
+              <option value="Sep 2027">Sep 2027</option>
+            </select>
+          </div>
+
+          <a id="enquiryWhatsapp" href="https://wa.me/919163654664" target="_blank" class="ud-btn-cta" style="text-decoration:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg>
+            Book Free Counselling
+          </a>
+        </form>
+
+        <a id="waLink" href="https://wa.me/919163654664" target="_blank" rel="noopener" class="ud-btn-wa">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Us
+        </a>
+
+        <hr class="ud-divider">
+
+        <a href="#" class="ud-btn-outline" id="uniOfficialBtn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          Visit Official Website
+        </a>
+
+        <p class="ud-trust-note">🔒 Free guidance. No spam. Our counsellor calls back same day.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- KEEP EXPLORING SECTION                                                -->
+  <!-- ===================================================================== -->
+  <section class="keep-exploring-section" style="max-width:1320px; margin: 60px auto 60px; padding: 0 48px;">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <span style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent); letter-spacing: 0.1em;">Keep Exploring</span>
+      <h2 style="font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--color-text); margin: 8px 0 0 0;">Other Medical Universities</h2>
+    </div>
+    <!-- Grid of cards -->
+    <div class="dest-grid active" id="exploreGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 30px; margin-top: 20px;">
+      <!-- JavaScript will populate other universities here -->
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- CALL TO ACTION: COUNSELLING BANNER                                    -->
+  <!-- ===================================================================== -->
+  <section class="counselling-cta-section" style="margin-top: 0;">
+    <div class="counselling-cta-content">
+      <span class="counselling-cta-tag">Get Guidance</span>
+      <div class="counselling-cta-highlight-container" id="counsellingHighlight">
+        <h2 class="counselling-cta-title">
+          <span class="hw">Not</span> <span class="hw">Sure</span> <span class="hw">Which</span> <span class="hw">Country</span> <span class="hw cta-serif-italic">Is</span> <span class="hw cta-serif-italic">Right</span> <span class="hw cta-serif-italic">for</span> <span class="hw cta-serif-italic">You?</span>
+        </h2>
+        <h2 class="counselling-cta-title">
+          <span class="hw">Not</span> <span class="hw">sure</span> <span class="hw">Which</span> <span class="hw">course</span> <span class="hw cta-serif-italic">is</span> <span class="hw cta-serif-italic">right</span> <span class="hw cta-serif-italic">for</span> <span class="hw cta-serif-italic">You?</span>
+        </h2>
+      </div>
+      <p class="counselling-cta-desc">Get a free profile evaluation and a personalised country recommendation from our experts.</p>
+      <a href="contact.html" class="btn-primary counselling-cta-btn">
+        <svg class="counselling-btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+          <polyline points="9 16 11 18 15 14"></polyline>
+        </svg>
+        <span>Book Free Counselling</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-wrapper">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <img src="assets/logo.png" alt="UniMed Global Logo" class="footer-logo-img">
+          <span class="footer-logo-text">UNIMED <span class="footer-logo-accent">Global</span></span>
+        </div>
+        <p class="footer-desc">Empowering medical aspirants with world-class education pathways. Together for a healthier tomorrow.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Sitemap</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-link-a">Home</a></li>
+          <li><a href="why-choose-us.html" class="footer-link-a">Why Choose Us</a></li>
+          <li><a href="universities.html" class="footer-link-a">Universities</a></li>
+          <li><a href="admission.html" class="footer-link-a">Admission</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="contact.html" class="footer-link-a">Apply Online</a></li>
+          <li><a href="contact.html" class="footer-link-a">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Contact</h4>
+        <p class="footer-desc">
+          Director: Arijit Dutta (Kolkata)<br>
+          WhatsApp: +91 9163654664<br>
+          Russia: +7 9867028518<br>
+          Instagram: @unimed_global
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 UNIMED Global. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- DATA + LOGIC -->
+  <script>
+    const universityData = {
+      fefu: {
+        name: "Far Eastern Federal University",
+        image: "assets/fefu_campus.png",
+        country: "🇷🇺 Russia",
+        location: "Vladivostok, Russia",
+        officialLink: "https://www.dvfu.ru/en/",
+        affiliation: "Ministry of Science and Higher Education, Russian Federation",
+        studentsEnrolled: "23,000+",
+        areaShort: "800,000+ sq. m",
+        budgetShort: "₹22L – 25L total",
+        budget: "₹3.0L - ₹3.8L / Year (Total ~₹22L - ₹25L incl. hostel)",
+        about: "Far Eastern Federal University (FEFU) is one of Russia's premier national research universities, located on the stunning Russky Island connected to Vladivostok by the world's longest cable-stayed bridge. Built to host the APEC Summit, the campus is a marvel of modern architecture surrounded by sea. FEFU offers globally accredited medical programs entirely in English, attracting students from 70+ countries.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
+          { name: "Biomedicine", dur: "4 Years — English Medium", tag: "Research Track" },
+          { name: "Pharmacy", dur: "5 Years — English Medium", tag: "WHO Listed" }
+        ],
+        highlights: [
+          "World-class island campus built for the APEC Summit — a global academic landmark",
+          "Ranked in QS World University Rankings — one of Russia's top national research universities",
+          "Fully English medium MBBS program with international-standard clinical training",
+          "Accredited by WHO, NMC (India), and ECFMG (USA) — qualifies for global licensing exams (FMGE / NExT / USMLE)"
+        ],
+        facts: [
+          { label: "Founded", value: "1899 / Refounded 2011", sub: "Over a century of academic excellence" },
+          { label: "Faculty Strength", value: "2,500+ Professors", sub: "Including 200+ international faculty" },
+          { label: "Location Advantage", value: "Pacific Ocean Campus", sub: "Visa-friendly; 3 hrs from Seoul" },
+          { label: "Total Budget", value: "₹22L – ₹25L", sub: "All-inclusive for 6 years" }
+        ],
+        faq: [
+          { q: "Is FEFU's MBBS degree valid in India?", a: "Yes. FEFU is WHO listed and NMC approved. Graduates are eligible to appear for the FMGE and NExT screening tests in India." },
+          { q: "What is the language of instruction?", a: "The entire MBBS curriculum at FEFU is delivered in English, with optional Russian language classes for clinical practice." },
+          { q: "Is there hostel accommodation on campus?", a: "Yes. FEFU provides on-campus hostel facilities in the purpose-built residence blocks on Russky Island. The cost is included in the budget estimate." },
+          { q: "What is the admission process via UNIMED Global?", a: "UNIMED handles end-to-end guidance — from document preparation to visa support. Contact our counsellors to start your application." }
+        ]
+      },
+      bsmu: {
+        name: "Bashkir State Medical University",
+        image: "assets/bsmu_campus.png",
+        country: "🇷🇺 Russia",
+        location: "Ufa, Russia",
+        officialLink: "https://bashgmu.ru/en/",
+        affiliation: "Ministry of Health of the Russian Federation",
+        studentsEnrolled: "10,000+",
+        areaShort: "Central Ufa Campus",
+        budgetShort: "₹18L – 22L total",
+        budget: "₹2.8L - ₹3.5L / Year (Total ~₹18L - ₹22L incl. hostel)",
+        about: "Bashkir State Medical University (BSMU) is one of Russia's most respected government medical universities, located in Ufa — the capital of the Republic of Bashkortostan. BSMU is renowned for its exceptional clinical training at its own multi-profile university clinic, which houses 650+ beds, a da Vinci robotic surgery system, and advanced simulation labs. With an English medium MBBS program, it attracts thousands of international students annually.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
+          { name: "Dentistry", dur: "5 Years — English Medium", tag: "WHO Listed" },
+          { name: "Pediatrics", dur: "6 Years — English Medium", tag: "Govt. University" }
+        ],
+        highlights: [
+          "Own 650-bed multi-profile university clinic for direct patient clinical training",
+          "Advanced robotic surgery training center with the da Vinci surgical system",
+          "Accredited by WHO, NMC (India), and ECFMG — valid for FMGE, NExT & USMLE",
+          "English medium program with structured FMGE / NExT coaching integration"
+        ],
+        facts: [
+          { label: "Founded", value: "1932", sub: "Over 90 years of medical excellence" },
+          { label: "University Clinic", value: "650+ Beds", sub: "Da Vinci robotic surgery center" },
+          { label: "Location", value: "Ufa, Bashkortostan", sub: "Safe, affordable, student-friendly city" },
+          { label: "Total Budget", value: "₹18L – ₹22L", sub: "All-inclusive for 6 years" }
+        ],
+        faq: [
+          { q: "Is BSMU recognized by NMC India?", a: "Yes. BSMU is listed on the NMC (National Medical Commission) approved list for foreign medical graduates. Students are eligible for the FMGE / NExT exam after completing the degree." },
+          { q: "What clinical facilities are available?", a: "BSMU operates its own university clinic with 650+ beds, a da Vinci robotic surgical system, advanced simulation labs, and access to 15+ affiliated hospitals in Ufa." },
+          { q: "Is it safe for Indian students in Ufa?", a: "Ufa is considered one of the safest cities in Russia for international students. There is a large Indian student community and dedicated support from the university." },
+          { q: "How do I apply through UNIMED Global?", a: "UNIMED provides end-to-end support — document verification, university application, visa assistance, and pre-departure orientation. Contact us to begin." }
+        ]
+      },
+      nwmsu: {
+        name: "North-Western State Medical University (Mechnikov)",
+        image: "assets/university_campus_1.png",
+        country: "🇷🇺 Russia",
+        location: "St. Petersburg, Russia",
+        officialLink: "https://szgmu.ru/eng/",
+        affiliation: "Ministry of Health of the Russian Federation",
+        studentsEnrolled: "7,000+",
+        areaShort: "St. Petersburg Campus",
+        budgetShort: "₹25L – 28L total",
+        budget: "₹3.5L - ₹4.5L / Year (Total ~₹25L - ₹28L incl. hostel)",
+        about: "Named after Nobel laureate Ilya Ilyich Mechnikov, the North-Western State Medical University is one of Russia's oldest and most prestigious medical institutions, founded in 1907 in the imperial city of St. Petersburg. The university boasts 25+ affiliated clinical hospitals in St. Petersburg, offering unparalleled clinical exposure and practical training to its students. The MBBS program is available in English medium.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
+          { name: "Pediatrics", dur: "6 Years — English Medium", tag: "WHO Listed" },
+          { name: "Dentistry", dur: "5 Years — English Medium", tag: "Govt. University" }
+        ],
+        highlights: [
+          "Named after Nobel laureate I. I. Mechnikov — a prestigious academic heritage since 1907",
+          "25+ affiliated clinical hospitals in St. Petersburg for hands-on patient training",
+          "Located in St. Petersburg — one of Europe's most beautiful and culturally rich cities",
+          "NMC & WHO recognized — fully eligible for FMGE / NExT and international licensing"
+        ],
+        facts: [
+          { label: "Founded", value: "1907", sub: "Over 115 years of medical tradition" },
+          { label: "Clinical Partners", value: "25+ Hospitals", sub: "Across St. Petersburg city" },
+          { label: "Location", value: "St. Petersburg, Russia", sub: "Cultural capital of Russia" },
+          { label: "Total Budget", value: "₹25L – ₹28L", sub: "All-inclusive for 6 years" }
+        ],
+        faq: [
+          { q: "Is Mechnikov University NMC approved?", a: "Yes. The North-Western State Medical University (Mechnikov) is fully approved by the National Medical Commission (NMC) of India." },
+          { q: "What is the medium of instruction?", a: "The English medium MBBS program is available for international students. Russian language is also taught as a subject for clinical interactions." },
+          { q: "Is St. Petersburg safe for Indian students?", a: "St. Petersburg is a major global tourist city and one of Russia's safest urban environments. It has a large international student community." },
+          { q: "How to apply via UNIMED Global?", a: "Contact our counsellors for a free profile evaluation. UNIMED provides complete support from document preparation to visa and pre-departure orientation." }
+        ]
+      },
+      ssu: {
+        name: "Syktyvkar State University",
+        image: "assets/university_campus_2.png",
+        country: "🇷🇺 Russia",
+        location: "Syktyvkar, Komi Republic, Russia",
+        officialLink: "https://syktsu.ru/en/",
+        affiliation: "Ministry of Science and Higher Education of the Russian Federation",
+        studentsEnrolled: "9,500+",
+        areaShort: "Komi Republic Campus",
+        budgetShort: "₹15L – 18L total",
+        budget: "₹2.2L - ₹2.8L / Year (Total ~₹15L - ₹18L incl. hostel)",
+        about: "Syktyvkar State University offers the most affordable premium MBBS program among all our partner institutions in Russia. Located in the Komi Republic, the university offers a comfortable, multicultural campus environment with a curriculum fully aligned with the NMC and NExT syllabus. The low cost of living in Syktyvkar, combined with quality academic infrastructure, makes it a top choice for budget-conscious students.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
+          { name: "Medical Biochemistry", dur: "6 Years — English Medium", tag: "Research Track" }
+        ],
+        highlights: [
+          "Most affordable MBBS program among UNIMED's Russian partner universities",
+          "Curriculum 100% aligned with NMC/NExT syllabus for Indian students",
+          "Comfortable, high-speed internet hostels with modern facilities",
+          "Warm, multicultural campus community with active Indian student associations"
+        ],
+        facts: [
+          { label: "Founded", value: "1972", sub: "50+ years of academic excellence" },
+          { label: "Departments", value: "11 Departments", sub: "Covering medicine, science & humanities" },
+          { label: "Location", value: "Syktyvkar, Russia", sub: "Peaceful, student-friendly city" },
+          { label: "Total Budget", value: "₹15L – ₹18L", sub: "Most affordable among UNIMED partners" }
+        ],
+        faq: [
+          { q: "Why is Syktyvkar State University more affordable?", a: "Syktyvkar is a smaller city with a significantly lower cost of living compared to Moscow, St. Petersburg, or Vladivostok, leading to lower tuition and hostel fees." },
+          { q: "Is the degree valid in India?", a: "Yes, the university is WHO listed and approved for Indian students to appear for the FMGE / NExT screening examination after graduation." },
+          { q: "What support is available for Indian students?", a: "The university has an active Indian student community and UNIMED Global provides a dedicated support network including pre-departure orientation, airport pickup coordination, and ongoing counselling." },
+          { q: "How to apply via UNIMED Global?", a: "Contact our counsellors for a free consultation. We guide you through every step — from document collection to visa and university enrollment." }
+        ]
+      },
+      spsuvm: {
+        name: "Saint Petersburg State University of Veterinary Medicine",
+        image: "assets/st_isaacs.png",
+        country: "🇷🇺 Russia",
+        location: "St. Petersburg, Russia",
+        officialLink: "https://spbgume.ru/",
+        affiliation: "Ministry of Agriculture of the Russian Federation",
+        studentsEnrolled: "4,200+",
+        areaShort: "Central St. Petersburg",
+        budgetShort: "₹12L – 15L total",
+        budget: "₹2.0L - ₹2.5L / Year (Total ~₹12L - ₹15L incl. hostel)",
+        about: "The Saint Petersburg State University of Veterinary Medicine is Russia's oldest and most prestigious veterinary school, with over 150 years of academic tradition. Located in the heart of St. Petersburg, the university offers world-class veterinary programs backed by an active on-campus veterinary research hospital and state-of-the-art biochemistry laboratories. Its degrees are globally recognized for veterinary practice.",
+        courses: [
+          { name: "Veterinary Medicine", dur: "5 Years — English / Bilingual Medium", tag: "WHO Listed" },
+          { name: "Biophysics & Veterinary Pharmacy", dur: "4 Years — English Medium", tag: "Research Track" }
+        ],
+        highlights: [
+          "Russia's oldest veterinary institution — over 150 years of veterinary academic excellence",
+          "On-campus state-of-the-art veterinary research hospital with active patient care",
+          "Strong research programs in biochemistry, pathology, and pharmacology",
+          "Globally recognized degree valid for veterinary licensing in multiple countries"
+        ],
+        facts: [
+          { label: "Founded", value: "1808", sub: "Russia's oldest veterinary school" },
+          { label: "Veterinary Hospital", value: "Active On-Campus", sub: "Live clinical training from Year 1" },
+          { label: "Location", value: "St. Petersburg, Russia", sub: "Historic cultural capital" },
+          { label: "Total Budget", value: "₹12L – ₹15L", sub: "All-inclusive for 5 years" }
+        ],
+        faq: [
+          { q: "Is the Veterinary degree recognized globally?", a: "Yes, the degree is recognized by veterinary licensing bodies in multiple countries including India. Graduates can apply for registration with the Veterinary Council of India (VCI)." },
+          { q: "What clinical exposure is available?", a: "Students train at the university's own active veterinary hospital from Year 1, gaining hands-on experience in surgery, diagnostics, and patient care." },
+          { q: "Is there English medium instruction?", a: "The program is available in English medium for international students, with Russian language courses integrated for clinical communication." },
+          { q: "How can UNIMED Global help?", a: "UNIMED Global provides complete support from initial consultation, document preparation, visa processing, and post-arrival support in St. Petersburg." }
+        ]
+      },
+      gsu: {
+        name: "Gulistan State University",
+        image: "assets/uz_campus.png",
+        country: "🇺🇿 Uzbekistan",
+        location: "Gulistan, Syrdarya Region, Uzbekistan",
+        officialLink: "https://guldu.uz/en/",
+        affiliation: "Ministry of Higher Education, Science and Innovations of Uzbekistan",
+        studentsEnrolled: "12,000+",
+        areaShort: "Spacious Green Campus",
+        budgetShort: "₹13L – 16L total",
+        budget: "₹1.8L - ₹2.4L / Year (Total ~₹13L - ₹16L incl. hostel)",
+        about: "Gulistan State University is one of UNIMED Global's most popular partner universities in Uzbekistan, offering a fully English medium General Medicine program at one of the most affordable costs in the region. Located in the Syrdarya region only 2 hours from Tashkent, the university features a spacious, modern campus with clinical simulation centers. The program is fully aligned with the new NMC rules for foreign medical graduates.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Compliant" },
+          { name: "Biology & Ecology", dur: "4 Years — English Medium", tag: "Science Program" }
+        ],
+        highlights: [
+          "Full compliance with the NMC's new regulations for foreign medical graduates",
+          "Modern clinical simulation center and English-medium faculty",
+          "Highly affordable living costs with Indian food facilities on or near campus",
+          "Located 2 hours from Tashkent — easy access to the Uzbek capital"
+        ],
+        facts: [
+          { label: "Location", value: "Gulistan, Uzbekistan", sub: "2 hrs from Tashkent capital" },
+          { label: "Language", value: "English Medium", sub: "100% English curriculum" },
+          { label: "Living Cost", value: "₹8,000 – 12,000", sub: "Per month (highly affordable)" },
+          { label: "Total Budget", value: "₹13L – ₹16L", sub: "All-inclusive for 6 years" }
+        ],
+        faq: [
+          { q: "Is Gulistan State University NMC compliant?", a: "Yes. The program is structured in full compliance with the National Medical Commission's updated guidelines for Indian students studying abroad." },
+          { q: "Is Uzbekistan safe for Indian students?", a: "Uzbekistan is one of the safest study destinations in Central Asia. There is a warm, welcoming local culture with a growing Indian student community." },
+          { q: "Is Indian food available?", a: "Yes. Indian food is widely available in and around the campus area, and the local cuisine is also well-suited to Indian palates." },
+          { q: "How does UNIMED support students here?", a: "UNIMED provides full support including document preparation, university application, visa processing, and airport pickup coordination upon arrival." }
+        ]
+      },
+      tpi: {
+        name: "Tashkent Pharmaceutical Institute",
+        image: "assets/building-3.png",
+        country: "🇺🇿 Uzbekistan",
+        location: "Tashkent, Uzbekistan",
+        officialLink: "https://pharmi.uz/",
+        affiliation: "Ministry of Health of the Republic of Uzbekistan",
+        studentsEnrolled: "5,500+",
+        areaShort: "Capital City Campus",
+        budgetShort: "₹14L – 17L total",
+        budget: "₹2.0L - ₹2.6L / Year (Total ~₹14L - ₹17L incl. hostel)",
+        about: "Tashkent Pharmaceutical Institute is the premier pharmaceutical research and education institution in Central Asia. Located in Tashkent — the vibrant capital of Uzbekistan — it offers fully English medium programs in Pharmacy, Industrial Pharmacy, and Cosmeceuticals. The institute maintains direct partnerships with major pharmaceutical manufacturers in the region, enabling students to complete internships and industrial training at global-standard facilities.",
+        courses: [
+          { name: "Pharmacy (Pharm.D / B.Pharm)", dur: "5 / 4 Years — English Medium", tag: "WHO Listed" },
+          { name: "Industrial Pharmacy", dur: "5 Years — English Medium", tag: "Industry Track" },
+          { name: "Cosmeceuticals", dur: "4 Years — English Medium", tag: "Niche Program" }
+        ],
+        highlights: [
+          "Premier pharmaceutical institute in Central Asia with direct industry partnerships",
+          "Internships with major pharmaceutical manufacturers from Year 3",
+          "Fully English medium curriculum with experienced international faculty",
+          "Located in Tashkent — a modern, cosmopolitan capital with excellent infrastructure"
+        ],
+        facts: [
+          { label: "Specialization", value: "Pharmacy Science", sub: "Only dedicated pharma institute in Central Asia" },
+          { label: "Industry Links", value: "Direct Internships", sub: "With top pharma manufacturers" },
+          { label: "Location", value: "Tashkent, Uzbekistan", sub: "Central Asian pharmaceutical hub" },
+          { label: "Total Budget", value: "₹14L – ₹17L", sub: "All-inclusive estimate" }
+        ],
+        faq: [
+          { q: "Is this degree valid for Pharmacy practice in India?", a: "Graduates are eligible to appear for the Pharmacy Council of India (PCI) registration examination after completing the Pharm.D / B.Pharm program." },
+          { q: "Are there internship opportunities?", a: "Yes. The institute has direct partnerships with pharmaceutical companies where students complete mandatory industrial training from Year 3." },
+          { q: "Is the program entirely in English?", a: "Yes. All courses at Tashkent Pharmaceutical Institute for international students are delivered in English medium." },
+          { q: "How do I apply via UNIMED Global?", a: "Contact our counsellors for a free profile evaluation and document checklist. UNIMED handles all aspects from application to pre-departure orientation." }
+        ]
+      },
+      kazan: {
+        name: "Kazan Federal University",
+        image: "assets/university_campus_2.png",
+        country: "🇷🇺 Russia",
+        location: "Kazan, Republic of Tatarstan, Russia",
+        officialLink: "https://kpfu.ru/eng",
+        affiliation: "Ministry of Science and Higher Education of the Russian Federation",
+        studentsEnrolled: "50,000+ (10,000+ Medical)",
+        areaShort: "60+ Historic Buildings",
+        budgetShort: "₹26L – 30L total",
+        budget: "₹4.0L - ₹5.0L / Year (Total ~₹26L - ₹30L incl. hostel)",
+        about: "Kazan Federal University, founded in 1804, is one of Russia's oldest and most prestigious institutions. The mathematician Nikolai Lobachevsky and writer Leo Tolstoy are among its famous alumni. The Institute of Fundamental Medicine and Biology at KFU offers a world-class MBBS program with a high-tech research environment, advanced clinical simulators, and global academic partnerships.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
+          { name: "Dentistry", dur: "5 Years — English Medium", tag: "WHO Listed" },
+          { name: "Pharmacy", dur: "5 Years — English Medium", tag: "Govt. University" }
+        ],
+        highlights: [
+          "Founded in 1804 — one of Russia's most historic and prestigious universities",
+          "Alumni include Leo Tolstoy and mathematician Nikolai Lobachevsky",
+          "Advanced clinical simulation labs and high-tech research infrastructure",
+          "Located in Kazan — UNESCO heritage city and 'Third Capital' of Russia"
+        ],
+        facts: [
+          { label: "Founded", value: "1804", sub: "220+ years of academic excellence" },
+          { label: "Total Students", value: "50,000+", sub: "Including 10,000+ medical students" },
+          { label: "Location", value: "Kazan, Russia", sub: "UNESCO heritage city, 700 km from Moscow" },
+          { label: "Total Budget", value: "₹26L – ₹30L", sub: "All-inclusive for 6 years" }
+        ],
+        faq: [
+          { q: "Is Kazan Federal University NMC approved for MBBS?", a: "Yes, KFU is WHO listed and NMC approved. Graduates are eligible to sit the FMGE / NExT examination in India." },
+          { q: "What is the language of instruction?", a: "The MBBS program is delivered in English. Russian language is taught as a required subject for clinical rotations." },
+          { q: "What is Kazan like for Indian students?", a: "Kazan is a vibrant, modern city with a large international student community. It is one of Russia's safest and most culturally rich cities, with great public transport and amenities." },
+          { q: "How to apply via UNIMED Global?", a: "UNIMED provides end-to-end assistance including eligibility check, document preparation, application, and visa support. Contact us to start." }
+        ]
+      },
+      tashkent: {
+        name: "Tashkent Medical Academy",
+        image: "assets/university_campus_1.png",
+        country: "🇺🇿 Uzbekistan",
+        location: "Tashkent, Uzbekistan",
+        officialLink: "https://tma.uz/en/",
+        affiliation: "Ministry of Health of the Republic of Uzbekistan",
+        studentsEnrolled: "8,000+",
+        areaShort: "3 Clinical Hospitals",
+        budgetShort: "₹15L – 18L total",
+        budget: "₹2.2L - ₹2.8L / Year (Total ~₹15L - ₹18L incl. hostel)",
+        about: "Tashkent Medical Academy is the largest and most prestigious medical institution in Uzbekistan, located in the thriving capital city of Tashkent. The Academy provides exceptional clinical training through its three affiliated multi-profile hospitals, offering a fully English medium General Medicine program. As a government institution, TMA provides high academic standards at an affordable cost for international students.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Compliant" },
+          { name: "Preventive Medicine", dur: "6 Years — English Medium", tag: "Govt. Program" },
+          { name: "Higher Nursing", dur: "3 Years — English Medium", tag: "Allied Health" }
+        ],
+        highlights: [
+          "Largest and most prestigious medical academy in Uzbekistan with 8,000+ students",
+          "Excellent clinical training at 3 directly affiliated multi-profile hospitals",
+          "Fully English medium course structure for international students",
+          "Centrally located in Tashkent — thriving capital with modern city infrastructure"
+        ],
+        facts: [
+          { label: "Affiliated Hospitals", value: "3 Major Hospitals", sub: "Direct clinical training from Year 2" },
+          { label: "Location", value: "Tashkent, Uzbekistan", sub: "Central Asian capital with 3M+ population" },
+          { label: "Living Cost", value: "₹10,000 – 14,000", sub: "Per month (affordable)" },
+          { label: "Total Budget", value: "₹15L – ₹18L", sub: "All-inclusive for 6 years" }
+        ],
+        faq: [
+          { q: "Is TMA degree valid for FMGE in India?", a: "Yes, TMA is recognized and students graduating from the English medium MBBS program are eligible to appear for the FMGE / NExT examination." },
+          { q: "What clinical opportunities are available?", a: "TMA has three directly affiliated multi-profile hospitals in Tashkent where students rotate from Year 2 onwards, gaining extensive hands-on clinical experience." },
+          { q: "Is Tashkent a good city for students?", a: "Yes. Tashkent is a modern, safe, and vibrant Central Asian capital with excellent public transport, international restaurants, and a welcoming atmosphere for Indian students." },
+          { q: "How does UNIMED help with the application?", a: "UNIMED provides complete support from document verification and university application to visa processing and airport pickup coordination." }
+        ]
+      },
+      moscow: {
+        name: "First Moscow State Medical University — Sechenov",
+        image: "assets/university_campus_2.png",
+        country: "🇷🇺 Russia",
+        location: "Moscow, Russia",
+        officialLink: "https://sechenov.ru/eng/",
+        affiliation: "Ministry of Health of the Russian Federation",
+        studentsEnrolled: "18,000+",
+        areaShort: "20+ Clinical Buildings",
+        budgetShort: "₹35L – 42L total",
+        budget: "₹5.5L - ₹7.0L / Year (Total ~₹35L - ₹42L incl. hostel)",
+        about: "Sechenov University — officially the First Moscow State Medical University — is Russia's most prestigious and oldest medical institution, established in 1758. Named after the pioneering physiologist Ivan Sechenov, this legendary university trains the finest medical minds across 6 continents. With 20+ clinical buildings across Moscow, access to world-class research infrastructure, and an elite global ranking, Sechenov represents the pinnacle of medical education in Russia.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
+          { name: "Dentistry", dur: "5 Years — English Medium", tag: "Top Ranked" },
+          { name: "Pharmacy", dur: "5 Years — English Medium", tag: "WHO Listed" },
+          { name: "Pediatrics", dur: "6 Years — English Medium", tag: "Govt. University" }
+        ],
+        highlights: [
+          "Russia's oldest and most prestigious medical university, founded in 1758",
+          "Highest licensing exam pass rates among all Russian medical universities",
+          "20+ clinical buildings across Moscow providing unparalleled clinical exposure",
+          "Elite global ranking and strong international academic partnerships"
+        ],
+        facts: [
+          { label: "Founded", value: "1758", sub: "Over 265 years of medical legacy" },
+          { label: "Clinical Network", value: "20+ Buildings", sub: "Across Moscow city" },
+          { label: "Location", value: "Moscow, Russia", sub: "Russia's capital & largest city" },
+          { label: "Total Budget", value: "₹35L – ₹42L", sub: "Premium all-inclusive estimate" }
+        ],
+        faq: [
+          { q: "Is Sechenov University the best medical university in Russia?", a: "Sechenov consistently ranks as Russia's #1 medical university and is among the top 300 in the QS World Rankings. It has the highest FMGE passing rates among Russian institutions." },
+          { q: "Is the MBBS from Sechenov recognized globally?", a: "Yes. Sechenov is WHO listed and NMC approved. Graduates are eligible for FMGE/NExT (India), USMLE (USA), PLAB (UK), and other global licensing examinations." },
+          { q: "What is the cost of living in Moscow?", a: "Moscow has a higher cost of living than other Russian cities. Budget approximately ₹30,000–₹40,000 per month for accommodation, food, and personal expenses. This is included in the total budget estimate." },
+          { q: "How do I apply via UNIMED Global?", a: "UNIMED Global provides complete support for Sechenov admissions including eligibility assessment, document preparation, visa support, and pre-departure orientation. Contact us to start." }
+        ]
+      }
+    };
+
+    // ---- Render logic ----
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get('uni') || 'fefu';
+    const d = universityData[key];
+
+    if (d) {
+      // Page meta
+      document.title = `${d.name} | UNIMED Global`;
+
+      // Hero
+      document.getElementById('uniHero').style.backgroundImage = `url('${d.image}')`;
+      document.getElementById('uniTitle').textContent = d.name;
+      document.getElementById('uniCountry').textContent = d.country;
+      document.getElementById('uniBreadName').textContent = d.name;
+      document.getElementById('uniLocation').innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+        ${d.location}`;
+
+      // Stats bar
+      document.getElementById('statBudget').innerHTML = `${d.budgetShort.split('–')[0]}– ${d.budgetShort.split('–')[1]} <span>total</span>`;
+      document.getElementById('statStudents').innerHTML = `${d.studentsEnrolled} <span>students</span>`;
+      document.getElementById('statArea').innerHTML = `${d.areaShort}`;
+
+      // About
+      document.getElementById('uniAbout').textContent = d.about;
+
+      // Highlights
+      const hl = document.getElementById('uniHighlights');
+      hl.innerHTML = '';
+      d.highlights.forEach(h => {
+        hl.innerHTML += `<li class="ud-highlight-item">
+          <span class="ud-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <span>${h}</span>
+        </li>`;
+      });
+
+      // Courses
+      const cr = document.getElementById('uniCourses');
+      cr.innerHTML = '';
+      d.courses.forEach(c => {
+        cr.innerHTML += `<div class="ud-course-row">
+          <div class="ud-course-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div class="ud-course-info">
+            <div class="ud-course-name">${c.name}</div>
+            <div class="ud-course-dur">${c.dur}</div>
+          </div>
+          <span class="ud-course-badge">${c.tag}</span>
+        </div>`;
+      });
+
+      // Fact grid
+      const fg = document.getElementById('uniFactGrid');
+      fg.innerHTML = '';
+      d.facts.forEach(f => {
+        fg.innerHTML += `<div class="ud-fact-card">
+          <div class="ud-fact-label">${f.label}</div>
+          <div class="ud-fact-value">${f.value}</div>
+          <div class="ud-fact-sub">${f.sub}</div>
+        </div>`;
+      });
+
+      // FAQ Accordion
+      const fq = document.getElementById('uniFaq');
+      fq.innerHTML = '';
+      d.faq.forEach((item, i) => {
+        fq.innerHTML += `<div class="ud-acc-item" id="acc-${i}">
+          <button class="ud-acc-btn" onclick="toggleAcc(${i})">
+            <span>${item.q}</span>
+            <span class="ud-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="ud-acc-body">
+            <div class="ud-acc-body-inner">${item.a}</div>
+          </div>
+        </div>`;
+      });
+
+      // Sidebar
+      document.getElementById('sidebarSubtitle').textContent = `Interested in ${d.name}? Fill the form below and our expert counsellor will call you back today.`;
+      document.getElementById('uniOfficialBtn').href = d.officialLink;
+
+      // WhatsApp pre-filled message
+      const waMsg = encodeURIComponent(`Hi UNIMED Global, I want to know more about ${d.name}. Please contact me.`);
+      document.getElementById('waLink').href = `https://wa.me/919163654664?text=${waMsg}`;
+      document.getElementById('enquiryWhatsapp').href = `https://wa.me/919163654664?text=${waMsg}`;
+
+      // Populate explore grid with all OTHER universities
+      const exploreGrid = document.getElementById('exploreGrid');
+      if (exploreGrid) {
+        exploreGrid.innerHTML = '';
+        Object.keys(universityData).forEach(k => {
+          if (k !== key) {
+            const item = universityData[k];
+            const firstCourseName = item.courses && item.courses[0] ? item.courses[0].name.replace(' (MBBS Equivalent)', '').replace(' (MBBS)', '') : 'Medicine';
+            const duration = item.courses && item.courses[0] ? item.courses[0].dur.split('—')[0].trim() : '6 Years';
+            
+            exploreGrid.innerHTML += `
+              <div class="dest-card">
+                <div class="dest-card-img-wrap">
+                  <a href="uni-info.html?uni=${k}"><img src="${item.image}" alt="${item.name}" class="dest-card-img"></a>
+                  <span class="dest-card-badge">${item.country}</span>
+                  <a href="uni-info.html?uni=${k}" class="dest-card-arrow" aria-label="View Details">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
+                </div>
+                <div class="dest-card-content">
+                  <h3 class="dest-card-title">
+                    <a href="uni-info.html?uni=${k}" style="color: inherit; text-decoration: none;">${item.name}</a>
+                  </h3>
+                  <div class="dest-card-details">
+                    <div class="dest-detail-item">
+                      <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                        <line x1="12" y1="4" x2="12" y2="20"></line>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                      </svg>
+                      <span>${item.budgetShort.replace(' total', ' Total')}</span>
+                    </div>
+                    <div class="dest-detail-item">
+                      <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span>${item.location.split(',')[0]}</span>
+                    </div>
+                    <div class="dest-detail-item">
+                      <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>${duration}</span>
+                    </div>
+                  </div>
+                  <div class="dest-card-pills">
+                    <span class="dest-pill">${firstCourseName}</span>
+                    <span class="dest-pill">English Medium</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+        });
+      }
+    }
+
+    function toggleAcc(i) {
+      const el = document.getElementById(`acc-${i}`);
+      el.classList.toggle('open');
+    }
+
+    function handleEnquiry(e) {
+      e.preventDefault();
+      const name = document.getElementById('enqName').value;
+      const phone = document.getElementById('enqPhone').value;
+      const email = document.getElementById('enqEmail').value;
+      const intake = document.getElementById('enqIntake').value;
+      const uniName = d ? d.name : 'a UNIMED partner university';
+      const msg = encodeURIComponent(`Hi UNIMED Global!\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nInterested in: ${uniName}\nPreferred Intake: ${intake}\n\nPlease get back to me!`);
+      window.open(`https://wa.me/919163654664?text=${msg}`, '_blank');
+    }
+
+    // Scroll-highlight counselling animation
+    (function() {
+      const para   = document.getElementById('counsellingHighlight');
+      if (!para) return;
+      const words  = Array.from(para.querySelectorAll('.hw'));
+      const total  = words.length;
+
+      function updateHighlight() {
+        const rect      = para.getBoundingClientRect();
+        const winH      = window.innerHeight;
+        // progress 0→1 as the paragraph travels from bottom of viewport to top
+        const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
+        const litCount  = Math.round(progress * total * 1.5);  // slightly ahead of scroll
+
+        words.forEach((w, i) => {
+          if (i < litCount) {
+            w.classList.add('lit');
+          } else {
+            w.classList.remove('lit');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateHighlight, { passive: true });
+      window.addEventListener('resize', updateHighlight);
+      updateHighlight();  // run once on load
+    })();
+  </script>
+  <script src="app.js?v=4"></script>
+</body>
+</html>

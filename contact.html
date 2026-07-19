@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | UNIMED Global</title>
+  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <script src="theme.js"></script>
+</head>
+<body>
+
+  <!-- ========================================================================= -->
+  <!-- GLOBAL NAVIGATION HEADER -->
+  <!-- ========================================================================= -->
+  <header class="navbar-wrapper">
+    <a href="index.html" class="logo-wrapper">
+      <img src="assets/logo.png" alt="UniMed Global Logo" class="logo-img">
+      <span class="logo-text">UNIMED <span class="logo-text-accent">Global</span></span>
+    </a>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="why-choose-us.html" class="nav-link">Why Choose Us</a>
+      <a href="universities.html" class="nav-link">Universities</a>
+      <a href="admission.html" class="nav-link">Admission</a>
+      <a href="contact.html" class="nav-link active">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <!-- Sun Icon (switch to light) -->
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <!-- Moon Icon (switch to dark) -->
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <a href="contact.html" class="cta-btn">Enquire Now</a>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN LAYOUT CONTENT -->
+  <!-- ========================================================================= -->
+  <main class="subpage-layout">
+    
+    <!-- Section Header -->
+    <header class="section-header">
+      <span class="section-tag">Get in Touch</span>
+      <h1 class="section-title">Start Your <span class="section-title-gradient">Medical Journey</span></h1>
+      <p class="section-subtitle">
+        Have questions about budget, visa processing, or university registration? Write to us, and our expert counselors will reach out to you within 24 hours.
+      </p>
+    </header>
+
+    <!-- Contact Content Grid -->
+    <section class="contact-grid">
+      
+      <!-- Left Column: Inquiry Form -->
+      <article class="contact-card">
+        <h3 class="checklist-title" style="margin-bottom: 20px;">Admission Inquiry Form</h3>
+        <form class="contact-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Thank you! Your query has been submitted. Our counselors will call you shortly.');">
+          
+          <div class="form-group">
+            <label class="form-label" for="full-name">Full Name</label>
+            <input class="form-input" type="text" id="full-name" placeholder="John Doe" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-input" type="email" id="email" placeholder="john@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone Number (with WhatsApp)</label>
+            <input class="form-input" type="tel" id="phone" placeholder="+91 98765 43210" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="study-country">Country of Interest</label>
+            <select class="form-select" id="study-country">
+              <option value="uzbekistan">Uzbekistan (e.g. Gulistan State)</option>
+              <option value="russia">Russia (e.g. Kazan Federal)</option>
+              <option value="either">Open to Both</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="neet-score">NEET Score (if qualified)</label>
+            <input class="form-input" type="number" id="neet-score" placeholder="e.g. 240" min="0" max="720">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Your Message / Query</label>
+            <textarea class="form-textarea" id="message" placeholder="Ask us about fee structures, hostel life, document notarization..." required></textarea>
+          </div>
+
+          <button class="form-submit-btn" type="submit">Submit Inquiry</button>
+
+        </form>
+      </article>
+
+      <!-- Right Column: Office Coordinates & Attendants -->
+      <div class="info-cards-strip">
+        
+        <!-- Block 1: Director Arijit Dutta -->
+        <article class="info-block-card">
+          <div class="info-block-icon-wrapper">👨‍💼</div>
+          <div class="info-block-content">
+            <h3 class="info-block-title">Director: Arijit Dutta</h3>
+            <p class="info-block-text">
+              Kolkata, North 24 Parganas<br>
+              WhatsApp/Call: <a href="tel:+919163654664" class="info-block-link">+91 9163654664</a><br>
+              WhatsApp Only: <a href="https://wa.me/79867028518" class="info-block-link">+7 9867028518</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Block 2: Coordinator Debarghya Pore -->
+        <article class="info-block-card">
+          <div class="info-block-icon-wrapper">👤</div>
+          <div class="info-block-content">
+            <h3 class="info-block-title">Coordinator: Debarghya Pore</h3>
+            <p class="info-block-text">
+              Hooghly & Midnapore<br>
+              WhatsApp Only: <a href="https://wa.me/918167844336" class="info-block-link">+91 81678 44336</a><br>
+              WhatsApp Only: <a href="https://wa.me/79959468583" class="info-block-link">+7 99594 68583</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Block 3: Coordinator Debabrata Das -->
+        <article class="info-block-card">
+          <div class="info-block-icon-wrapper">👤</div>
+          <div class="info-block-content">
+            <h3 class="info-block-title">Coordinator: Debabrata Das</h3>
+            <p class="info-block-text">
+              Diamond Harbour, South 24 Parganas<br>
+              WhatsApp Only: <a href="https://wa.me/918967743368" class="info-block-link">+91 89677 43368</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Block 4: Instagram Link -->
+        <article class="info-block-card">
+          <div class="info-block-icon-wrapper">📸</div>
+          <div class="info-block-content">
+            <h3 class="info-block-title">Instagram Communities</h3>
+            <p class="info-block-text">
+              Follow our official student groups and daily life feeds on Instagram:<br>
+              <a href="https://instagram.com/unimed_global" class="info-block-link" target="_blank">@unimed_global</a>
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER -->
+  <!-- ========================================================================= -->
+  <footer class="footer-wrapper">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <img src="assets/logo.png" alt="UniMed Global Logo" class="footer-logo-img">
+          <span class="footer-logo-text">UNIMED <span class="footer-logo-accent">Global</span></span>
+        </div>
+        <p class="footer-desc">
+          Empowering medical aspirants with world-class education pathways. Together for a healthier tomorrow.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Sitemap</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-link-a">Home</a></li>
+          <li><a href="why-choose-us.html" class="footer-link-a">Why Choose Us</a></li>
+          <li><a href="universities.html" class="footer-link-a">Universities</a></li>
+          <li><a href="admission.html" class="footer-link-a">Admission</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Other Pages</h4>
+        <ul class="footer-links">
+          <li><a href="contact.html" class="footer-link-a">Apply Online</a></li>
+          <li><a href="contact.html" class="footer-link-a">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Contact</h4>
+        <p class="footer-desc">
+          Director: Arijit Dutta (Kolkata)<br>
+          WhatsApp: +919163654664, +79867028518<br>
+          Instagram: @unimed_global
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 UNIMED Global. All Rights Reserved.</p>
+      <div class="footer-socials">
+        <a href="https://instagram.com/unimed_global" class="footer-social-link" target="_blank">IG</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script to extract URL parameter for pre-selecting university -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const uniParam = urlParams.get('uni');
+      if (uniParam) {
+        const selectEl = document.getElementById('study-country');
+        if (selectEl) {
+          if (uniParam === 'gulistan' || uniParam === 'tashkent') {
+            selectEl.value = 'uzbekistan';
+          } else if (uniParam === 'kazan' || uniParam === 'moscow') {
+            selectEl.value = 'russia';
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
