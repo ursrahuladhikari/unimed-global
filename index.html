@@ -171,6 +171,19 @@
       <div class="loader-text"><span id="loader-percentage">0%</span></div>
     </div>
   </div>
+  <script>
+    // Inline fail-safe: guarantee preloader fades out quickly regardless of JS/CDN state
+    (function() {
+      setTimeout(function() {
+        var p = document.getElementById('preloader');
+        if (p && !p.classList.contains('fade-out')) {
+          var pct = document.getElementById('loader-percentage');
+          if (pct) pct.textContent = '100%';
+          p.classList.add('fade-out');
+        }
+      }, 1000);
+    })();
+  </script>
 
   <!-- ===================================================================== -->
   <!-- GLOBAL NAVIGATION HEADER                                              -->
@@ -182,7 +195,6 @@
     </a>
     <nav class="nav-menu">
       <a href="index.html" class="nav-link active">Home</a>
-      <a href="why-choose-us.html" class="nav-link">Why Choose Us</a>
       <a href="universities.html" class="nav-link">Universities</a>
       <a href="admission.html" class="nav-link">Admission</a>
       <a href="contact.html" class="nav-link">Contact</a>
@@ -363,70 +375,6 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SECTION 3: OUR PARTNERS — UNIVERSITY TRUST GRID                      -->
-  <!-- ===================================================================== -->
-  <section class="partners-section">
-
-    <!-- Section tag -->
-    <p class="partners-tag">OUR PARTNERS</p>
-
-    <!-- Headline -->
-    <h2 class="partners-heading">
-      7+ Universities <span class="partners-heading-accent">Trust UNIMED Global</span>
-    </h2>
-
-    <!-- Logo grid – static, grayscale, two rows -->
-    <div class="partners-grid">
-
-      <!-- Row 1: Russia universities -->
-      <div class="partner-logo-card">
-        <img src="assets/logo_bsmu.png" alt="Bashkir State Medical University" class="partner-logo-img">
-        <span class="partner-logo-name">Bashkir State Medical Uni.</span>
-        <span class="partner-logo-country">🇷🇺 Russia</span>
-      </div>
-
-      <div class="partner-logo-card">
-        <img src="assets/logo_fefu.png" alt="Far Eastern Federal University" class="partner-logo-img">
-        <span class="partner-logo-name">Far Eastern Federal Uni.</span>
-        <span class="partner-logo-country">🇷🇺 Russia</span>
-      </div>
-
-      <div class="partner-logo-card">
-        <img src="assets/logo_ssu.png" alt="Syktyvkar State University" class="partner-logo-img">
-        <span class="partner-logo-name">Syktyvkar State Uni.</span>
-        <span class="partner-logo-country">🇷🇺 Russia</span>
-      </div>
-
-      <div class="partner-logo-card">
-        <img src="assets/logo_nwmsu.png" alt="North Western State Medical University" class="partner-logo-img">
-        <span class="partner-logo-name">North Western State Medical</span>
-        <span class="partner-logo-country">🇷🇺 Russia</span>
-      </div>
-
-      <div class="partner-logo-card">
-        <img src="assets/logo_spsuvm.png" alt="St. Petersburg State University of Veterinary Medicine" class="partner-logo-img">
-        <span class="partner-logo-name">SPb State Vet. Medicine Uni.</span>
-        <span class="partner-logo-country">🇷🇺 Russia</span>
-      </div>
-
-      <!-- Row 2: Uzbekistan universities -->
-      <div class="partner-logo-card">
-        <img src="assets/logo_gsu.png" alt="Gulistan State University" class="partner-logo-img">
-        <span class="partner-logo-name">Gulistan State Uni.</span>
-        <span class="partner-logo-country">🇺🇿 Uzbekistan</span>
-      </div>
-
-      <div class="partner-logo-card">
-        <img src="assets/logo_tpi.png" alt="Tashkent Pharmaceutical Institute" class="partner-logo-img">
-        <span class="partner-logo-name">Tashkent Pharmaceutical Inst.</span>
-        <span class="partner-logo-country">🇺🇿 Uzbekistan</span>
-      </div>
-
-    </div><!-- /partners-grid -->
-
-  </section>
-
-  <!-- ===================================================================== -->
   <!-- SECTION 4: WHY CHOOSE US — ANIMATED STATS + REASON GRID              -->
   <!-- ===================================================================== -->
   <section class="home-why-section">
@@ -525,38 +473,174 @@
     </div>
 
 
-    <!-- Reason cards grid -->
-    <div class="why-grid">
-      <div class="why-card">
-        <span class="why-card-icon">🎓</span>
-        <h3 class="why-card-title">Best University in Budget</h3>
-        <p class="why-card-desc">We match you to top-ranked state medical institutions that perfectly fit your financial plan—without compromising quality or accreditation.</p>
+    <!-- Sticky Stacking Cards (Scroll Deck) -->
+    <div class="why-stacking-wrapper" id="whyStackingWrapper">
+      
+      <!-- Card 1 -->
+      <div class="stack-card" style="--card-index: 0;">
+        <div class="stack-card-inner">
+          <div class="stack-card-content">
+            <span class="stack-card-badge">01 / Direct Representation</span>
+            <h3 class="stack-card-title">Certified Government University Representative</h3>
+            <p class="stack-card-desc">UNIMED Global is an officially authorized, direct representative for premier government medical universities in Russia and Uzbekistan. We eliminate intermediary agents to guarantee genuine seat allocations.</p>
+            <div class="stack-card-highlights">
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Direct University Tie-Ups
+              </span>
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Certified Agency
+              </span>
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                100% Genuine Seats
+              </span>
+            </div>
+            <a href="universities.html" class="stack-card-btn">
+              Explore Partner Universities
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+          <div class="stack-card-image-wrap">
+            <img src="assets/bsmu_campus.png" alt="Direct Partner University Campus" class="stack-card-img">
+            <div class="stack-img-overlay"></div>
+          </div>
+        </div>
       </div>
-      <div class="why-card">
-        <span class="why-card-icon">📄</span>
-        <h3 class="why-card-title">Hassle-Free Documentation</h3>
-        <p class="why-card-desc">From transcripts and notarization to embassy attestation, our experts handle all your paperwork from end to end.</p>
+
+      <!-- Card 2 -->
+      <div class="stack-card" style="--card-index: 1;">
+        <div class="stack-card-inner">
+          <div class="stack-card-content">
+            <span class="stack-card-badge">02 / Fast Verification</span>
+            <h3 class="stack-card-title">Official Admission Letter Released in 48 Hours</h3>
+            <p class="stack-card-desc">Through our direct communication channels with university admission boards, we process your documents and guarantee the release of your official invitation letter within 48 hours.</p>
+            <div class="stack-card-highlights">
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Instant Application Filing
+              </span>
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                48-Hour Guarantee
+              </span>
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Express Embassy Filing
+              </span>
+            </div>
+            <a href="admission.html" class="stack-card-btn">
+              Start Application Now
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+          <div class="stack-card-image-wrap">
+            <img src="assets/student_counselling.png" alt="Expert Student Counselling" class="stack-card-img">
+            <div class="stack-img-overlay"></div>
+          </div>
+        </div>
       </div>
-      <div class="why-card">
-        <span class="why-card-icon">✈️</span>
-        <h3 class="why-card-title">Airport &amp; Pickup Assistance</h3>
-        <p class="why-card-desc">We ensure a smooth, safe arrival in Russia or Uzbekistan with dedicated guides welcoming you right at the airport terminal.</p>
+
+      <!-- Card 3 -->
+      <div class="stack-card" style="--card-index: 2;">
+        <div class="stack-card-inner">
+          <div class="stack-card-content">
+            <span class="stack-card-badge">03 / Financial Clarity</span>
+            <h3 class="stack-card-title">Zero Hidden Charges & Low Processing Fees</h3>
+            <p class="stack-card-desc">Absolute transparency is our promise. Every single expense — tuition fees, hostel rent, medical insurance, and service charges — is declared upfront with zero surprise costs.</p>
+            <div class="stack-card-highlights">
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Upfront Cost Itemization
+              </span>
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Student-Friendly Rates
+              </span>
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Zero Surprise Expenses
+              </span>
+            </div>
+            <a href="contact.html" class="stack-card-btn">
+              Get Complete Fee Structure
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+          <div class="stack-card-image-wrap">
+            <img src="assets/fefu_campus.png" alt="Modern World Class Campus" class="stack-card-img">
+            <div class="stack-img-overlay"></div>
+          </div>
+        </div>
       </div>
-      <div class="why-card">
-        <span class="why-card-icon">🏠</span>
-        <h3 class="why-card-title">24/7 In-Country Support</h3>
-        <p class="why-card-desc">Hostel allotment, local regulations, emergency guidance — our on-ground teams are round-the-clock ready for any situation.</p>
+
+      <!-- Card 4 -->
+      <div class="stack-card" style="--card-index: 3;">
+        <div class="stack-card-inner">
+          <div class="stack-card-content">
+            <span class="stack-card-badge">04 / On-Ground Care</span>
+            <h3 class="stack-card-title">24/7 Dedicated In-Country Support Coordinators</h3>
+            <p class="stack-card-desc">Our local UNIMED teams are permanently stationed on-ground at campus hostels in Russia and Uzbekistan to manage your hostel settling, medical exams, biometrics, and local visa renewals.</p>
+            <div class="stack-card-highlights">
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Hostel Settling Escorts
+              </span>
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Biometric & Medical Guidance
+              </span>
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                6-Year Continuous Mentorship
+              </span>
+            </div>
+            <a href="why-choose-us.html" class="stack-card-btn">
+              Learn About On-Ground Care
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+          <div class="stack-card-image-wrap">
+            <img src="assets/uz_campus.png" alt="University Campus Support" class="stack-card-img">
+            <div class="stack-img-overlay"></div>
+          </div>
+        </div>
       </div>
-      <div class="why-card">
-        <span class="why-card-icon">⚖️</span>
-        <h3 class="why-card-title">Notaries &amp; Attestation</h3>
-        <p class="why-card-desc">We handle all legal translations, document legalization, and notarization to meet foreign embassy requirements seamlessly.</p>
+
+      <!-- Card 5 -->
+      <div class="stack-card" style="--card-index: 4;">
+        <div class="stack-card-inner">
+          <div class="stack-card-content">
+            <span class="stack-card-badge">05 / Escorted Journeys</span>
+            <h3 class="stack-card-title">Group Travel, Flight Escorts & Airport Pickups</h3>
+            <p class="stack-card-desc">Fly safely in organized student cohorts with detailed pre-departure briefings, escorted flights, direct airport pickups, and instant local SIM card setups upon arrival.</p>
+            <div class="stack-card-highlights">
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Escorted Group Flights
+              </span>
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Airport Pickup Team
+              </span>
+              <span class="stack-hl-item">
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                Day-One SIM & Connectivity
+              </span>
+            </div>
+            <a href="contact.html" class="stack-card-btn">
+              Book Free Counselling Session
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+          <div class="stack-card-image-wrap">
+            <img src="assets/group_departure.png" alt="Group Travel and Flight Escorts" class="stack-card-img">
+            <div class="stack-img-overlay"></div>
+          </div>
+        </div>
       </div>
-      <div class="why-card">
-        <span class="why-card-icon">🩺</span>
-        <h3 class="why-card-title">Guided by Real Doctors</h3>
-        <p class="why-card-desc">Receive mentorship, exam tips, and career guidance from experienced medical professionals who have traveled the same path.</p>
-      </div>
+
     </div>
 
   </section>
@@ -571,7 +655,8 @@
       
       <!-- Country Toggle Buttons -->
       <div class="dest-toggle-container">
-        <button class="dest-toggle-btn active" data-country="russia">Russia</button>
+        <button class="dest-toggle-btn active" data-country="all">All Countries</button>
+        <button class="dest-toggle-btn" data-country="russia">Russia</button>
         <button class="dest-toggle-btn" data-country="uzbekistan">Uzbekistan</button>
       </div>
     </div>
@@ -603,7 +688,7 @@
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
                 </svg>
-                <span>₹2.5L - ₹3.0L / Yr</span>
+                <span>₽405,000 / Yr</span>
               </div>
               <div class="dest-detail-item">
                 <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -624,7 +709,7 @@
             <div class="dest-card-pills">
               <span class="dest-pill">NMC Approved</span>
               <span class="dest-pill">General Medicine</span>
-              <span class="dest-pill">Govt University</span>
+              <span class="dest-pill">Own Clinic</span>
             </div>
           </div>
         </div>
@@ -651,7 +736,7 @@
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
                 </svg>
-                <span>₹3.0L - ₹3.8L / Yr</span>
+                <span>₽500,000 / Yr</span>
               </div>
               <div class="dest-detail-item">
                 <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -671,56 +756,8 @@
 
             <div class="dest-card-pills">
               <span class="dest-pill">Modern Campus</span>
-              <span class="dest-pill">Seaside Location</span>
+              <span class="dest-pill">Seaside Island</span>
               <span class="dest-pill">Global Ranking</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- North-Western State Medical University -->
-        <div class="dest-card">
-          <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=nwmsu"><img src="assets/university_campus_1.png" alt="North-Western State Medical University" class="dest-card-img"></a>
-            <span class="dest-card-badge">🇷🇺 Russia</span>
-            <a href="uni-info.html?uni=nwmsu" class="dest-card-arrow" aria-label="View Details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </a>
-          </div>
-          <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=nwmsu" style="color: inherit; text-decoration: none;">North-Western State Medical University</a></h3>
-            
-            <div class="dest-card-details">
-              <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
-                  <line x1="12" y1="4" x2="12" y2="20"></line>
-                  <line x1="2" y1="12" x2="22" y2="12"></line>
-                </svg>
-                <span>₹3.5L - ₹4.5L / Yr</span>
-              </div>
-              <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-                <span>St. Petersburg, Russia</span>
-              </div>
-              <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-                <span>6 Years (English)</span>
-              </div>
-            </div>
-
-            <div class="dest-card-pills">
-              <span class="dest-pill">Est. 1907</span>
-              <span class="dest-pill">Clinical Labs</span>
-              <span class="dest-pill">Mechnikov</span>
             </div>
           </div>
         </div>
@@ -728,7 +765,7 @@
         <!-- Syktyvkar State University -->
         <div class="dest-card">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=ssu"><img src="assets/university_campus_2.png" alt="Syktyvkar State University" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=ssu"><img src="assets/building-1.png" alt="Syktyvkar State University" class="dest-card-img"></a>
             <span class="dest-card-badge">🇷🇺 Russia</span>
             <a href="uni-info.html?uni=ssu" class="dest-card-arrow" aria-label="View Details">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -747,7 +784,7 @@
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
                 </svg>
-                <span>₹2.2L - ₹2.8L / Yr</span>
+                <span>₽300,150 / Yr</span>
               </div>
               <div class="dest-detail-item">
                 <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -773,12 +810,12 @@
           </div>
         </div>
 
-        <!-- Saint Petersburg State University of Veterinary Medicine -->
+        <!-- Volgograd State Medical University -->
         <div class="dest-card">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=spsuvm"><img src="assets/st_isaacs.png" alt="Saint Petersburg State University of Veterinary Medicine" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=volgograd"><img src="assets/university_campus_2.png" alt="Volgograd State Medical University" class="dest-card-img"></a>
             <span class="dest-card-badge">🇷🇺 Russia</span>
-            <a href="uni-info.html?uni=spsuvm" class="dest-card-arrow" aria-label="View Details">
+            <a href="uni-info.html?uni=volgograd" class="dest-card-arrow" aria-label="View Details">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
@@ -786,7 +823,7 @@
             </a>
           </div>
           <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=spsuvm" style="color: inherit; text-decoration: none;">SPb State University of Veterinary Medicine</a></h3>
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=volgograd" style="color: inherit; text-decoration: none;">Volgograd State Medical University</a></h3>
             
             <div class="dest-card-details">
               <div class="dest-detail-item">
@@ -795,28 +832,136 @@
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
                 </svg>
-                <span>₹2.0L - ₹2.5L / Yr</span>
+                <span>₽505,000 / Yr</span>
               </div>
               <div class="dest-detail-item">
                 <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
                   <circle cx="12" cy="10" r="3"></circle>
                 </svg>
-                <span>St. Petersburg, Russia</span>
+                <span>Volgograd, Russia</span>
               </div>
               <div class="dest-detail-item">
                 <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
-                <span>5 Years (English)</span>
+                <span>6 Years (English)</span>
               </div>
             </div>
 
             <div class="dest-card-pills">
-              <span class="dest-pill">Veterinary Science</span>
-              <span class="dest-pill">Research Hub</span>
+              <span class="dest-pill">Historic University</span>
+              <span class="dest-pill">Large Indian Body</span>
               <span class="dest-pill">Top Ranked</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extra Card 5: Omsk State Medical University -->
+        <div class="dest-card dest-card--extra">
+          <div class="dest-card-img-wrap">
+            <a href="uni-info.html?uni=omsk"><img src="assets/building-2.png" alt="Omsk State Medical University" class="dest-card-img"></a>
+            <span class="dest-card-badge">🇷🇺 Russia</span>
+            <a href="uni-info.html?uni=omsk" class="dest-card-arrow" aria-label="View Details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="dest-card-content">
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=omsk" style="color: inherit; text-decoration: none;">Omsk State Medical University</a></h3>
+            <div class="dest-card-details">
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="4" x2="12" y2="20"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                <span>₽340,000 / Yr</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Omsk, Russia</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>6 Years (English)</span>
+              </div>
+            </div>
+            <div class="dest-card-pills">
+              <span class="dest-pill">100+ Yrs Legacy</span>
+              <span class="dest-pill">Siberian Hub</span>
+              <span class="dest-pill">Clinical Practice</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extra Card 6: Ulyanovsk State University -->
+        <div class="dest-card dest-card--extra">
+          <div class="dest-card-img-wrap">
+            <a href="uni-info.html?uni=ulyanovsk"><img src="assets/building-3.png" alt="Ulyanovsk State University" class="dest-card-img"></a>
+            <span class="dest-card-badge">🇷🇺 Russia</span>
+            <a href="uni-info.html?uni=ulyanovsk" class="dest-card-arrow" aria-label="View Details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="dest-card-content">
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=ulyanovsk" style="color: inherit; text-decoration: none;">Ulyanovsk State University</a></h3>
+            <div class="dest-card-details">
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="4" x2="12" y2="20"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                <span>₽350,000 / Yr</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Ulyanovsk, Russia</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>6 Years (English)</span>
+              </div>
+            </div>
+            <div class="dest-card-pills">
+              <span class="dest-pill">Riverfront Campus</span>
+              <span class="dest-pill">Research Hub</span>
+              <span class="dest-pill">WHO Approved</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extra Card 7: Kabardino Balkarian State University -->
+        <div class="dest-card dest-card--extra">
+          <div class="dest-card-img-wrap">
+            <a href="uni-info.html?uni=kbsu"><img src="assets/building-4.png" alt="Kabardino Balkarian State University" class="dest-card-img"></a>
+            <span class="dest-card-badge">🇷🇺 Russia</span>
+            <a href="uni-info.html?uni=kbsu" class="dest-card-arrow" aria-label="View Details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="dest-card-content">
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=kbsu" style="color: inherit; text-decoration: none;">Kabardino Balkarian State University</a></h3>
+            <div class="dest-card-details">
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="4" x2="12" y2="20"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                <span>₽324,000 / Yr</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Nalchik, Russia</span>
+              </div>
+              <div class="dest-detail-item">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>6 Years (English)</span>
+              </div>
+            </div>
+            <div class="dest-card-pills">
+              <span class="dest-pill">Resort City</span>
+              <span class="dest-pill">Advanced Labs</span>
+              <span class="dest-pill">NMC Compliant</span>
             </div>
           </div>
         </div>
@@ -848,7 +993,7 @@
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
                 </svg>
-                <span>₹1.8L - ₹2.4L / Yr</span>
+                <span>$2,800 / Yr</span>
               </div>
               <div class="dest-detail-item">
                 <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -867,8 +1012,8 @@
             </div>
 
             <div class="dest-card-pills">
-              <span class="dest-pill">Central Asia</span>
-              <span class="dest-pill">NMC Syllabus</span>
+              <span class="dest-pill">NMC Compliant</span>
+              <span class="dest-pill">Indian Food</span>
               <span class="dest-pill">Budget-Friendly</span>
             </div>
           </div>
@@ -896,7 +1041,7 @@
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
                 </svg>
-                <span>₹2.0L - ₹2.6L / Yr</span>
+                <span>$3,500 / Yr</span>
               </div>
               <div class="dest-detail-item">
                 <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -915,41 +1060,200 @@
             </div>
 
             <div class="dest-card-pills">
-              <span class="dest-pill">Pharmacy Science</span>
-              <span class="dest-pill">Modern Lab Hub</span>
+              <span class="dest-pill">Pharma Science</span>
+              <span class="dest-pill">Industry Interns</span>
               <span class="dest-pill">Capital City</span>
             </div>
           </div>
         </div>
 
       </div>
+
+      <!-- View More Universities Button Wrapper -->
+      <div class="dest-view-more-wrap">
+        <button id="destViewMoreBtn" class="dest-view-more-btn">
+          <span>View More Universities</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+
     </div>
   </section>
 
-  <!-- Popular destinations grid toggle script -->
+  <!-- Popular destinations grid & 4-Card Limit Controller Script -->
   <script>
     (function() {
-      const buttons = document.querySelectorAll('.dest-toggle-btn');
-      const grids   = document.querySelectorAll('.dest-grid');
+      const toggleBtns  = document.querySelectorAll('.dest-toggle-btn');
+      const viewMoreBtn = document.getElementById('destViewMoreBtn');
+      let isExpanded = false;
 
-      buttons.forEach(btn => {
+      function getActiveCountry() {
+        const activeBtn = document.querySelector('.dest-toggle-btn.active');
+        return activeBtn ? activeBtn.getAttribute('data-country') : 'all';
+      }
+
+      function getMatchingCards(country) {
+        const allCards = Array.from(document.querySelectorAll('.dest-card'));
+        return allCards.filter(card => {
+          const cardCountry = card.getAttribute('data-country') || (card.closest('#grid-russia') ? 'russia' : 'uzbekistan');
+          return country === 'all' || cardCountry === country;
+        });
+      }
+
+      function updateCardsDisplay() {
+        const country = getActiveCountry();
+        const allCards = Array.from(document.querySelectorAll('.dest-card'));
+
+        // Show/hide grid containers
+        const russiaGrid = document.getElementById('grid-russia');
+        const uzbekGrid  = document.getElementById('grid-uzbekistan');
+        if (country === 'all') {
+          if (russiaGrid) { russiaGrid.classList.add('active'); russiaGrid.style.display = 'grid'; }
+          if (uzbekGrid) { uzbekGrid.classList.add('active'); uzbekGrid.style.display = 'grid'; }
+        } else if (country === 'russia') {
+          if (russiaGrid) { russiaGrid.classList.add('active'); russiaGrid.style.display = 'grid'; }
+          if (uzbekGrid) { uzbekGrid.classList.remove('active'); uzbekGrid.style.display = 'none'; }
+        } else if (country === 'uzbekistan') {
+          if (russiaGrid) { russiaGrid.classList.remove('active'); russiaGrid.style.display = 'none'; }
+          if (uzbekGrid) { uzbekGrid.classList.add('active'); uzbekGrid.style.display = 'grid'; }
+        }
+
+        // Filter matching cards and limit visible count to 4
+        const matchingCards = getMatchingCards(country);
+        
+        // Hide cards not in matching set
+        allCards.forEach(card => {
+          const cardCountry = card.getAttribute('data-country') || (card.closest('#grid-russia') ? 'russia' : 'uzbekistan');
+          if (country !== 'all' && cardCountry !== country) {
+            card.style.display = 'none';
+          }
+        });
+
+        // Enforce 4 max visible cards initially for matching cards
+        matchingCards.forEach((card, idx) => {
+          if (idx < 4) {
+            card.style.display = 'flex';
+            card.classList.remove('dest-card--extra', 'show');
+          } else {
+            if (isExpanded) {
+              card.style.display = 'flex';
+              card.classList.add('dest-card--extra', 'show');
+            } else {
+              card.style.display = 'none';
+              card.classList.add('dest-card--extra');
+              card.classList.remove('show');
+            }
+          }
+        });
+
+        // Show or hide View More button if matching cards > 4
+        if (matchingCards.length > 4) {
+          if (viewMoreBtn) viewMoreBtn.style.display = 'inline-flex';
+        } else {
+          if (viewMoreBtn) viewMoreBtn.style.display = 'none';
+        }
+      }
+
+      toggleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-          buttons.forEach(b => b.classList.remove('active'));
+          toggleBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
 
-          const targetCountry = btn.dataset.country;
+          // Reset expand state on tab change
+          isExpanded = false;
+          if (viewMoreBtn) {
+            viewMoreBtn.classList.remove('open');
+            viewMoreBtn.querySelector('span').textContent = 'View More Universities';
+          }
 
-          grids.forEach(grid => {
-            if (grid.id === `grid-${targetCountry}`) {
-              grid.classList.add('active');
-            } else {
-              grid.classList.remove('active');
-            }
-          });
+          updateCardsDisplay();
         });
       });
+
+      if (viewMoreBtn) {
+        viewMoreBtn.addEventListener('click', () => {
+          isExpanded = !isExpanded;
+
+          if (isExpanded) {
+            viewMoreBtn.classList.add('open');
+            viewMoreBtn.querySelector('span').textContent = 'Show Less';
+          } else {
+            viewMoreBtn.classList.remove('open');
+            viewMoreBtn.querySelector('span').textContent = 'View More Universities';
+          }
+
+          updateCardsDisplay();
+        });
+      }
+
+      // Initial setup for default tab ('all')
+      updateCardsDisplay();
     })();
   </script>
+
+  <!-- ===================================================================== -->
+  <!-- OUR PARTNERS — UNIVERSITY TRUST GRID                                   -->
+  <!-- ===================================================================== -->
+  <section class="partners-section">
+
+    <!-- Section tag -->
+    <p class="partners-tag">OUR PARTNERS</p>
+
+    <!-- Headline -->
+    <h2 class="partners-heading">
+      7+ Universities <span class="partners-heading-accent">Trust UNIMED Global</span>
+    </h2>
+
+    <!-- Logo grid – static, grayscale, two rows -->
+    <div class="partners-grid">
+
+      <!-- Row 1: Russia universities -->
+      <div class="partner-logo-card">
+        <img src="assets/logo_bsmu.png" alt="Bashkir State Medical University" class="partner-logo-img">
+        <span class="partner-logo-name">Bashkir State Medical Uni.</span>
+        <span class="partner-logo-country">🇷🇺 Russia</span>
+      </div>
+
+      <div class="partner-logo-card">
+        <img src="assets/logo_fefu.png" alt="Far Eastern Federal University" class="partner-logo-img">
+        <span class="partner-logo-name">Far Eastern Federal Uni.</span>
+        <span class="partner-logo-country">🇷🇺 Russia</span>
+      </div>
+
+      <div class="partner-logo-card">
+        <img src="assets/logo_ssu.png" alt="Syktyvkar State University" class="partner-logo-img">
+        <span class="partner-logo-name">Syktyvkar State Uni.</span>
+        <span class="partner-logo-country">🇷🇺 Russia</span>
+      </div>
+
+      <div class="partner-logo-card">
+        <img src="assets/logo_nwmsu.png" alt="North Western State Medical University" class="partner-logo-img">
+        <span class="partner-logo-name">North Western State Medical</span>
+        <span class="partner-logo-country">🇷🇺 Russia</span>
+      </div>
+
+      <div class="partner-logo-card">
+        <img src="assets/logo_spsuvm.png" alt="St. Petersburg State University of Veterinary Medicine" class="partner-logo-img">
+        <span class="partner-logo-name">SPb State Vet. Medicine Uni.</span>
+        <span class="partner-logo-country">🇷🇺 Russia</span>
+      </div>
+
+      <!-- Row 2: Uzbekistan universities -->
+      <div class="partner-logo-card">
+        <img src="assets/logo_gsu.png" alt="Gulistan State University" class="partner-logo-img">
+        <span class="partner-logo-name">Gulistan State Uni.</span>
+        <span class="partner-logo-country">🇺🇿 Uzbekistan</span>
+      </div>
+
+      <div class="partner-logo-card">
+        <img src="assets/logo_tpi.png" alt="Tashkent Pharmaceutical Institute" class="partner-logo-img">
+        <span class="partner-logo-name">Tashkent Pharmaceutical Inst.</span>
+        <span class="partner-logo-country">🇺🇿 Uzbekistan</span>
+      </div>
+
+    </div><!-- /partners-grid -->
+
+  </section>
 
   <!-- ===================================================================== -->
   <!-- TESTIMONIALS SECTION                                                  -->
@@ -1257,9 +1561,10 @@
   <!-- ===================================================================== -->
   <!-- SCRIPTS                                                               -->
   <!-- ===================================================================== -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="app.js?v=4"></script>
+  <script src="three.min.js"></script>
+  <script src="gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="app.js?v=105"></script>
 
   <!-- Counter animation (Intersection Observer) -->
   <script>

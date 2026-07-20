@@ -38,8 +38,20 @@ const clock = new THREE.Clock();
 const cacheBuster = Date.now();
 
 // =========================================================================
-// 1. THREE.JS LOADING MANAGER (COORDINATES LOADER SCREEN)
+// 1. THREE.JS LOADING MANAGER & PRELOADER CONTROLLER
 // =========================================================================
+function hidePreloader() {
+  if (preloader && !preloader.classList.contains('fade-out')) {
+    if (progressPercent) progressPercent.textContent = '100%';
+    setTimeout(() => {
+      preloader.classList.add('fade-out');
+    }, 200);
+  }
+}
+
+// Fail-safe: guarantee preloader fades out within 1.5s max even if remote textures delay or fail
+setTimeout(hidePreloader, 1500);
+
 const loadingManager = new THREE.LoadingManager();
 
 loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
@@ -50,18 +62,23 @@ loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
 };
 
 loadingManager.onLoad = () => {
-  // Fade out loader once textures are loaded
-  setTimeout(() => {
-    if (preloader) {
-      preloader.classList.add('fade-out');
-    }
-  }, 400);
+  hidePreloader();
+};
+
+loadingManager.onError = (url) => {
+  console.warn('Asset load error:', url);
+  hidePreloader();
 };
 
 // =========================================================================
 // 2. INITIALIZE THREE.JS SCENE
 // =========================================================================
 function initThree() {
+  if (!canvas) {
+    hidePreloader();
+    return;
+  }
+
   // 1. Scene
   scene = new THREE.Scene();
 
@@ -97,16 +114,16 @@ function initThree() {
   // 5. Textures Loading
   const textureLoader = new THREE.TextureLoader(loadingManager);
 
-  // Load equirectangular maps
-  const earthDiffuseMap = textureLoader.load(`https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg?v=${cacheBuster}`);
-  const earthBumpMap = textureLoader.load(`https://unpkg.com/three-globe/example/img/earth-topology.png?v=${cacheBuster}`);
-  const cloudAlphaMap = textureLoader.load(`https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_clouds_2048.png?v=${cacheBuster}`);
-  const centerTexture = textureLoader.load(`assets/building-4.png?v=${cacheBuster}`);
-  const leftTexture = textureLoader.load(`assets/st_basils.png?v=${cacheBuster}`);
-  const rightTexture = textureLoader.load(`assets/st_isaacs.png?v=${cacheBuster}`);
-  const building2Texture = textureLoader.load(`assets/building-2.png?v=${cacheBuster}`);
-  const building1Texture = textureLoader.load(`assets/building-1.png?v=${cacheBuster}`);
-  const planeTexture = textureLoader.load(`assets/plane.png?v=${cacheBuster}`);
+  // Load equirectangular maps (using local assets)
+  const earthDiffuseMap = textureLoader.load('assets/earth-blue-marble.jpg');
+  const earthBumpMap = textureLoader.load('assets/earth-topology.png');
+  const cloudAlphaMap = textureLoader.load('assets/earth_clouds_2048.png');
+  const centerTexture = textureLoader.load('assets/building-4.png');
+  const leftTexture = textureLoader.load('assets/st_basils.png');
+  const rightTexture = textureLoader.load('assets/st_isaacs.png');
+  const building2Texture = textureLoader.load('assets/building-2.png');
+  const building1Texture = textureLoader.load('assets/building-1.png');
+  const planeTexture = textureLoader.load('assets/plane.png');
 
   // 6. Earth Mesh Layer
   const earthGeometry = new THREE.SphereGeometry(2, 64, 64);
@@ -750,4 +767,122 @@ window.addEventListener('DOMContentLoaded', () => {
       // Ignore invalid URLs
     }
   });
+
+  // Setup sticky stacking cards depth animation
+  initStackingCards();
 });
+
+// =========================================================================
+// GSAP + SCROLLTRIGGER STACKED HEADER CARD DECK SCROLL
+// =========================================================================
+function initStackingCards() {
+  if (typeof gsap === 'undefined') return;
+
+  if (typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  const wrappers = document.querySelectorAll('.why-stacking-wrapper');
+  if (!wrappers.length) return;
+
+  wrappers.forEach((wrapper) => {
+    const cards = Array.from(wrapper.querySelectorAll('.stack-card'));
+    if (cards.length <= 1) return;
+
+    const isMobile = window.innerWidth <= 768;
+    const headerOffset = isMobile ? 36 : 42;
+    const topPinOffset = isMobile ? 75 : 95;
+
+    function buildStack() {
+      let maxCardHeight = 0;
+      cards.forEach((card) => {
+        card.style.position = 'relative';
+        card.style.transform = 'none';
+        const img = card.querySelector('.stack-card-image-wrap');
+        if (img) img.style.opacity = '1';
+        const h = card.offsetHeight;
+        if (h > maxCardHeight) maxCardHeight = h;
+      });
+
+      const totalWrapperHeight = maxCardHeight + (cards.length - 1) * headerOffset;
+
+      wrapper.style.position = 'relative';
+      wrapper.style.height = `${totalWrapperHeight}px`;
+      wrapper.style.overflow = 'hidden';
+
+      cards.forEach((card, i) => {
+        card.style.position = 'absolute';
+        card.style.top = '0';
+        card.style.left = '0';
+        card.style.right = '0';
+        card.style.width = '100%';
+        card.style.zIndex = i + 10;
+        card.style.margin = '0';
+
+        const img = card.querySelector('.stack-card-image-wrap');
+        if (img) gsap.set(img, { opacity: 1 });
+
+        if (i > 0) {
+          gsap.set(card, { y: totalWrapperHeight + 100 });
+        } else {
+          gsap.set(card, { y: 0 });
+        }
+      });
+
+      return { maxCardHeight, totalWrapperHeight };
+    }
+
+    const { totalWrapperHeight } = buildStack();
+
+    if (typeof ScrollTrigger !== 'undefined') {
+      const scrollDistance = Math.max(2800, cards.length * 950);
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          start: `top top+=${topPinOffset}`,
+          end: `+=${scrollDistance}`,
+          pin: true,
+          pinSpacing: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        }
+      });
+
+      for (let i = 1; i < cards.length; i++) {
+        // Hold active card in view for reading
+        tl.to({}, { duration: 0.7 });
+
+        const prevImage = cards[i - 1].querySelector('.stack-card-image-wrap');
+        const targetY = i * headerOffset;
+
+        // Next card slides up from bottom to its stacked header position
+        tl.to(cards[i], {
+          y: targetY,
+          ease: 'power1.inOut',
+          duration: 1.2
+        });
+
+        // Simultaneously fade out previous card's image as it gets covered
+        if (prevImage) {
+          tl.to(prevImage, {
+            opacity: 0,
+            ease: 'power1.inOut',
+            duration: 0.6
+          }, '<');
+        }
+      }
+
+      // Final hold phase after all card headings are stacked together
+      tl.to({}, { duration: 0.9 });
+    }
+
+    window.addEventListener('resize', () => {
+      buildStack();
+      if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+      }
+    });
+  });
+}
