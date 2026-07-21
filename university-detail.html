@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>University Details | UNIMED Global</title>
   <meta name="description" content="Detailed information about our partner medical universities — courses, fees, campus area, accreditation, and student enrollment.">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=2026">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -54,6 +54,28 @@
     .ud-breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; }
     .ud-breadcrumb a:hover { color: #fff; }
     .ud-breadcrumb-sep { opacity: 0.5; }
+    .ud-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding: 5px 14px;
+      border-radius: 99px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .ud-back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      transform: translateX(-3px);
+    }
     .ud-country-chip {
       display: inline-flex;
       align-items: center;
@@ -439,9 +461,16 @@
       border-color: #d1d5db;
       color: #111827;
     }
-    html.light-theme .ud-input:focus { border-color: var(--aw-accent); }
     .ud-input::placeholder { color: var(--color-text-muted); opacity: 0.6; }
     html.light-theme .ud-input::placeholder { color: #9ca3af; }
+    .ud-input option {
+      background: #020617;
+      color: #ffffff;
+    }
+    html.light-theme .ud-input option {
+      background: #ffffff;
+      color: #111827;
+    }
 
     /* Counselling CTA button */
     .ud-btn-cta {
@@ -535,6 +564,89 @@
       margin-top: 10px;
     }
     html.light-theme .ud-trust-note { color: #9ca3af; }
+
+    @media (max-width: 768px) {
+      .keep-exploring-section {
+        padding: 0 24px !important;
+        margin: 40px auto 40px !important;
+      }
+      .keep-exploring-section h2 {
+        font-size: 1.8rem !important;
+      }
+      #exploreGrid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+      }
+    }
+
+    /* --- Fee Table Styles --- */
+    .fee-table-wrapper {
+      margin-top: 16px;
+      overflow-x: auto;
+      border: 1px solid var(--color-glass-border);
+      border-radius: 14px;
+      background: var(--color-glass-bg);
+      backdrop-filter: blur(8px);
+      margin-bottom: 24px;
+    }
+    html.light-theme .fee-table-wrapper {
+      background: #ffffff;
+      border-color: #e5e7eb;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    .fee-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+    }
+    .fee-table th, .fee-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--color-glass-border);
+    }
+    html.light-theme .fee-table th, html.light-theme .fee-table td {
+      border-bottom-color: #f3f4f6;
+    }
+    .fee-table th {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      background: rgba(255,255,255,0.02);
+    }
+    html.light-theme .fee-table th {
+      color: #6b7280;
+      background: #f9fafb;
+    }
+    .fee-table tr:last-child td {
+      border-bottom: none;
+    }
+    .fee-amount {
+      font-weight: 700;
+      color: var(--color-accent);
+    }
+    html.light-theme .fee-amount {
+      color: var(--aw-accent);
+    }
+    .fee-note-box {
+      margin-top: 14px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: rgba(0, 242, 254, 0.05);
+      border: 1px solid rgba(0, 242, 254, 0.15);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--color-text);
+      margin-bottom: 24px;
+    }
+    html.light-theme .fee-note-box {
+      background: #f0fdfa;
+      border-color: #ccfbf1;
+      color: #0f766e;
+    }
   </style>
 </head>
 <body>
@@ -542,7 +654,7 @@
   <!-- NAV -->
   <header class="navbar-wrapper">
     <a href="index.html" class="logo-wrapper">
-      <img src="assets/logo.png" alt="UniMed Global Logo" class="logo-img">
+      <img src="assets/common/logo.png" alt="UniMed Global Logo" class="logo-img">
       <span class="logo-text">UNIMED <span class="logo-text-accent">Global</span></span>
     </a>
     <nav class="nav-menu">
@@ -563,13 +675,22 @@
   <!-- HERO -->
   <div class="ud-hero" id="uniHero">
     <div class="ud-hero-inner">
-      <nav class="ud-breadcrumb">
-        <a href="index.html">Home</a>
-        <span class="ud-breadcrumb-sep">›</span>
-        <a href="universities.html">Universities</a>
-        <span class="ud-breadcrumb-sep">›</span>
-        <span id="uniBreadName">University Detail</span>
-      </nav>
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; width: 100%;">
+        <nav class="ud-breadcrumb" style="margin-bottom: 0;">
+          <a href="index.html">Home</a>
+          <span class="ud-breadcrumb-sep">›</span>
+          <a href="universities.html">Universities</a>
+          <span class="ud-breadcrumb-sep">›</span>
+          <span id="uniBreadName">University Detail</span>
+        </nav>
+        <a href="universities.html" class="ud-back-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Back to Universities</span>
+        </a>
+      </div>
       <span class="ud-country-chip" id="uniCountry">🇷🇺 Russia</span>
       <h1 class="ud-hero-title" id="uniTitle">University Name</h1>
       <p class="ud-hero-location" id="uniLocation">
@@ -613,6 +734,12 @@
         <p class="ud-body-text" id="uniAbout">
           Loading university information…
         </p>
+      </section>
+
+      <!-- Fee Structure -->
+      <section>
+        <h2 class="ud-section-title">Fee Structure (2026-2027)</h2>
+        <div id="uniFeeContainer"></div>
       </section>
 
       <!-- Key Highlights -->
@@ -694,12 +821,54 @@
 
   </div>
 
+  <!-- ===================================================================== -->
+  <!-- KEEP EXPLORING SECTION                                                -->
+  <!-- ===================================================================== -->
+  <section class="keep-exploring-section" style="max-width:1320px; margin: 60px auto 60px; padding: 0 48px;">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <span style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent); letter-spacing: 0.1em;">Keep Exploring</span>
+      <h2 style="font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--color-text); margin: 8px 0 0 0;">Other Medical Universities</h2>
+    </div>
+    <!-- Grid of cards -->
+    <div class="dest-grid active" id="exploreGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 30px; margin-top: 20px;">
+      <!-- JavaScript will populate other universities here -->
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- CALL TO ACTION: COUNSELLING BANNER                                    -->
+  <!-- ===================================================================== -->
+  <section class="counselling-cta-section" style="margin-top: 0;">
+    <div class="counselling-cta-content">
+      <span class="counselling-cta-tag">Get Guidance</span>
+      <div class="counselling-cta-highlight-container" id="counsellingHighlight">
+        <h2 class="counselling-cta-title">
+          <span class="hw">Not</span> <span class="hw">Sure</span> <span class="hw">Which</span> <span class="hw">Country</span> <span class="hw cta-serif-italic">Is</span> <span class="hw cta-serif-italic">Right</span> <span class="hw cta-serif-italic">for</span> <span class="hw cta-serif-italic">You?</span>
+        </h2>
+        <h2 class="counselling-cta-title">
+          <span class="hw">Not</span> <span class="hw">sure</span> <span class="hw">Which</span> <span class="hw">course</span> <span class="hw cta-serif-italic">is</span> <span class="hw cta-serif-italic">right</span> <span class="hw cta-serif-italic">for</span> <span class="hw cta-serif-italic">You?</span>
+        </h2>
+      </div>
+      <p class="counselling-cta-desc">Get a free profile evaluation and a personalised country recommendation from our experts.</p>
+      <a href="contact.html" class="btn-primary counselling-cta-btn">
+        <svg class="counselling-btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+          <polyline points="9 16 11 18 15 14"></polyline>
+        </svg>
+        <span>Book Free Counselling</span>
+      </a>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="footer-wrapper">
     <div class="footer-grid">
       <div class="footer-col">
         <div class="footer-logo">
-          <img src="assets/logo.png" alt="UniMed Global Logo" class="footer-logo-img">
+          <img src="assets/common/logo.png" alt="UniMed Global Logo" class="footer-logo-img">
           <span class="footer-logo-text">UNIMED <span class="footer-logo-accent">Global</span></span>
         </div>
         <p class="footer-desc">Empowering medical aspirants with world-class education pathways. Together for a healthier tomorrow.</p>
@@ -740,33 +909,41 @@
     const universityData = {
       fefu: {
         name: "Far Eastern Federal University",
-        image: "assets/fefu_campus.png",
+        image: "assets/universities/campus_fareastern.png",
         country: "🇷🇺 Russia",
         location: "Vladivostok, Russia",
         officialLink: "https://www.dvfu.ru/en/",
         affiliation: "Ministry of Science and Higher Education, Russian Federation",
         studentsEnrolled: "23,000+",
         areaShort: "800,000+ sq. m",
-        budgetShort: "₹22L – 25L total",
-        budget: "₹3.0L - ₹3.8L / Year (Total ~₹22L - ₹25L incl. hostel)",
-        about: "Far Eastern Federal University (FEFU) is one of Russia's premier national research universities, located on the stunning Russky Island connected to Vladivostok by the world's longest cable-stayed bridge. Built to host the APEC Summit, the campus is a marvel of modern architecture surrounded by sea. FEFU offers globally accredited medical programs entirely in English, attracting students from 70+ countries.",
+        budgetShort: "₹35L – 38L total",
+        budget: "₽500,000 / Year (Total ~₹35L - ₹38L incl. hostel and one-time fees)",
+        about: "Far Eastern Federal University (FEFU) is one of Russia's premier national research universities, located on the stunning Russky Island in Vladivostok. Built to host the APEC Summit, the campus is a marvel of modern architecture surrounded by sea. FEFU offers globally accredited medical programs entirely in English, attracting students from 70+ countries.",
         courses: [
-          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
-          { name: "Biomedicine", dur: "4 Years — English Medium", tag: "Research Track" },
-          { name: "Pharmacy", dur: "5 Years — English Medium", tag: "WHO Listed" }
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" }
         ],
         highlights: [
           "World-class island campus built for the APEC Summit — a global academic landmark",
           "Ranked in QS World University Rankings — one of Russia's top national research universities",
           "Fully English medium MBBS program with international-standard clinical training",
-          "Accredited by WHO, NMC (India), and ECFMG (USA) — qualifies for global licensing exams (FMGE / NExT / USMLE)"
+          "Accredited by WHO, NMC (India), and ECFMG (USA) — qualifies for global licensing exams"
         ],
         facts: [
           { label: "Founded", value: "1899 / Refounded 2011", sub: "Over a century of academic excellence" },
           { label: "Faculty Strength", value: "2,500+ Professors", sub: "Including 200+ international faculty" },
           { label: "Location Advantage", value: "Pacific Ocean Campus", sub: "Visa-friendly; 3 hrs from Seoul" },
-          { label: "Total Budget", value: "₹22L – ₹25L", sub: "All-inclusive for 6 years" }
+          { label: "Total Budget", value: "₹35L – ₹38L", sub: "All-inclusive for 6 years" }
         ],
+        fees: {
+          type: "rubles",
+          tuition: "₽500,000",
+          hostel: "₽60,000",
+          medicalInsurance: "₽35,000",
+          documentation: "—",
+          oneTime: "$1,500",
+          consultancyAdminVisa: "$2,000",
+          airTicket: "$500"
+        },
         faq: [
           { q: "Is FEFU's MBBS degree valid in India?", a: "Yes. FEFU is WHO listed and NMC approved. Graduates are eligible to appear for the FMGE and NExT screening tests in India." },
           { q: "What is the language of instruction?", a: "The entire MBBS curriculum at FEFU is delivered in English, with optional Russian language classes for clinical practice." },
@@ -776,20 +953,18 @@
       },
       bsmu: {
         name: "Bashkir State Medical University",
-        image: "assets/bsmu_campus.png",
+        image: "assets/universities/campus_baskir.png",
         country: "🇷🇺 Russia",
         location: "Ufa, Russia",
         officialLink: "https://bashgmu.ru/en/",
         affiliation: "Ministry of Health of the Russian Federation",
         studentsEnrolled: "10,000+",
         areaShort: "Central Ufa Campus",
-        budgetShort: "₹18L – 22L total",
-        budget: "₹2.8L - ₹3.5L / Year (Total ~₹18L - ₹22L incl. hostel)",
-        about: "Bashkir State Medical University (BSMU) is one of Russia's most respected government medical universities, located in Ufa — the capital of the Republic of Bashkortostan. BSMU is renowned for its exceptional clinical training at its own multi-profile university clinic, which houses 650+ beds, a da Vinci robotic surgery system, and advanced simulation labs. With an English medium MBBS program, it attracts thousands of international students annually.",
+        budgetShort: "₹28L – 32L total",
+        budget: "₽405,000 / Year (Total ~₹28L - ₹32L incl. hostel and one-time fees)",
+        about: "Bashkir State Medical University (BSMU) is one of Russia's most respected government medical universities, located in Ufa — the capital of the Republic of Bashkortostan. BSMU is renowned for its exceptional clinical training at its own clinic, which houses 650+ beds, a da Vinci robotic surgery system, and advanced simulation labs. With an English medium MBBS program, it attracts thousands of international students annually.",
         courses: [
-          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
-          { name: "Dentistry", dur: "5 Years — English Medium", tag: "WHO Listed" },
-          { name: "Pediatrics", dur: "6 Years — English Medium", tag: "Govt. University" }
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" }
         ],
         highlights: [
           "Own 650-bed multi-profile university clinic for direct patient clinical training",
@@ -801,8 +976,18 @@
           { label: "Founded", value: "1932", sub: "Over 90 years of medical excellence" },
           { label: "University Clinic", value: "650+ Beds", sub: "Da Vinci robotic surgery center" },
           { label: "Location", value: "Ufa, Bashkortostan", sub: "Safe, affordable, student-friendly city" },
-          { label: "Total Budget", value: "₹18L – ₹22L", sub: "All-inclusive for 6 years" }
+          { label: "Total Budget", value: "₹28L – ₹32L", sub: "All-inclusive for 6 years" }
         ],
+        fees: {
+          type: "rubles",
+          tuition: "₽405,000",
+          hostel: "₽60,000 – ₽80,000",
+          medicalInsurance: "₽35,000",
+          documentation: "—",
+          oneTime: "$1,000",
+          consultancyAdminVisa: "$2,000",
+          airTicket: "$500"
+        },
         faq: [
           { q: "Is BSMU recognized by NMC India?", a: "Yes. BSMU is listed on the NMC (National Medical Commission) approved list for foreign medical graduates. Students are eligible for the FMGE / NExT exam after completing the degree." },
           { q: "What clinical facilities are available?", a: "BSMU operates its own university clinic with 650+ beds, a da Vinci robotic surgical system, advanced simulation labs, and access to 15+ affiliated hospitals in Ufa." },
@@ -810,57 +995,22 @@
           { q: "How do I apply through UNIMED Global?", a: "UNIMED provides end-to-end support — document verification, university application, visa assistance, and pre-departure orientation. Contact us to begin." }
         ]
       },
-      nwmsu: {
-        name: "North-Western State Medical University (Mechnikov)",
-        image: "assets/university_campus_1.png",
-        country: "🇷🇺 Russia",
-        location: "St. Petersburg, Russia",
-        officialLink: "https://szgmu.ru/eng/",
-        affiliation: "Ministry of Health of the Russian Federation",
-        studentsEnrolled: "7,000+",
-        areaShort: "St. Petersburg Campus",
-        budgetShort: "₹25L – 28L total",
-        budget: "₹3.5L - ₹4.5L / Year (Total ~₹25L - ₹28L incl. hostel)",
-        about: "Named after Nobel laureate Ilya Ilyich Mechnikov, the North-Western State Medical University is one of Russia's oldest and most prestigious medical institutions, founded in 1907 in the imperial city of St. Petersburg. The university boasts 25+ affiliated clinical hospitals in St. Petersburg, offering unparalleled clinical exposure and practical training to its students. The MBBS program is available in English medium.",
-        courses: [
-          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
-          { name: "Pediatrics", dur: "6 Years — English Medium", tag: "WHO Listed" },
-          { name: "Dentistry", dur: "5 Years — English Medium", tag: "Govt. University" }
-        ],
-        highlights: [
-          "Named after Nobel laureate I. I. Mechnikov — a prestigious academic heritage since 1907",
-          "25+ affiliated clinical hospitals in St. Petersburg for hands-on patient training",
-          "Located in St. Petersburg — one of Europe's most beautiful and culturally rich cities",
-          "NMC & WHO recognized — fully eligible for FMGE / NExT and international licensing"
-        ],
-        facts: [
-          { label: "Founded", value: "1907", sub: "Over 115 years of medical tradition" },
-          { label: "Clinical Partners", value: "25+ Hospitals", sub: "Across St. Petersburg city" },
-          { label: "Location", value: "St. Petersburg, Russia", sub: "Cultural capital of Russia" },
-          { label: "Total Budget", value: "₹25L – ₹28L", sub: "All-inclusive for 6 years" }
-        ],
-        faq: [
-          { q: "Is Mechnikov University NMC approved?", a: "Yes. The North-Western State Medical University (Mechnikov) is fully approved by the National Medical Commission (NMC) of India." },
-          { q: "What is the medium of instruction?", a: "The English medium MBBS program is available for international students. Russian language is also taught as a subject for clinical interactions." },
-          { q: "Is St. Petersburg safe for Indian students?", a: "St. Petersburg is a major global tourist city and one of Russia's safest urban environments. It has a large international student community." },
-          { q: "How to apply via UNIMED Global?", a: "Contact our counsellors for a free profile evaluation. UNIMED provides complete support from document preparation to visa and pre-departure orientation." }
-        ]
-      },
-      ssu: {
+      syktyvkar: {
+        ssu_alias: true,
+
         name: "Syktyvkar State University",
-        image: "assets/university_campus_2.png",
+        image: "assets/universities/campus_syktyvkar.png",
         country: "🇷🇺 Russia",
         location: "Syktyvkar, Komi Republic, Russia",
         officialLink: "https://syktsu.ru/en/",
         affiliation: "Ministry of Science and Higher Education of the Russian Federation",
         studentsEnrolled: "9,500+",
         areaShort: "Komi Republic Campus",
-        budgetShort: "₹15L – 18L total",
-        budget: "₹2.2L - ₹2.8L / Year (Total ~₹15L - ₹18L incl. hostel)",
-        about: "Syktyvkar State University offers the most affordable premium MBBS program among all our partner institutions in Russia. Located in the Komi Republic, the university offers a comfortable, multicultural campus environment with a curriculum fully aligned with the NMC and NExT syllabus. The low cost of living in Syktyvkar, combined with quality academic infrastructure, makes it a top choice for budget-conscious students.",
+        budgetShort: "₹24L – 27L total",
+        budget: "₽300,150 / Year (Total ~₹24L - ₹27L incl. hostel and one-time fees)",
+        about: "Syktyvkar State University offers the most affordable premium MBBS program among our partner institutions in Russia. Located in the Komi Republic, the university offers a comfortable, multicultural campus environment with a curriculum fully aligned with the NMC and NExT syllabus. The low cost of living in Syktyvkar, combined with quality academic infrastructure, makes it a top choice for budget-conscious students.",
         courses: [
-          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
-          { name: "Medical Biochemistry", dur: "6 Years — English Medium", tag: "Research Track" }
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" }
         ],
         highlights: [
           "Most affordable MBBS program among UNIMED's Russian partner universities",
@@ -872,65 +1022,303 @@
           { label: "Founded", value: "1972", sub: "50+ years of academic excellence" },
           { label: "Departments", value: "11 Departments", sub: "Covering medicine, science & humanities" },
           { label: "Location", value: "Syktyvkar, Russia", sub: "Peaceful, student-friendly city" },
-          { label: "Total Budget", value: "₹15L – ₹18L", sub: "Most affordable among UNIMED partners" }
+          { label: "Total Budget", value: "₹24L – ₹27L", sub: "Highly affordable budget" }
         ],
+        fees: {
+          type: "rubles",
+          tuition: "₽300,150",
+          hostel: "₽60,000",
+          medicalInsurance: "₽35,000",
+          documentation: "—",
+          oneTime: "$1,500",
+          consultancyAdminVisa: "$2,000",
+          airTicket: "$500"
+        },
         faq: [
-          { q: "Why is Syktyvkar State University more affordable?", a: "Syktyvkar is a smaller city with a significantly lower cost of living compared to Moscow, St. Petersburg, or Vladivostok, leading to lower tuition and hostel fees." },
+          { q: "Why is Syktyvkar State University more affordable?", a: "Syktyvkar is a smaller city with a significantly lower cost of living compared to Moscow or St. Petersburg, leading to lower tuition and hostel fees." },
           { q: "Is the degree valid in India?", a: "Yes, the university is WHO listed and approved for Indian students to appear for the FMGE / NExT screening examination after graduation." },
           { q: "What support is available for Indian students?", a: "The university has an active Indian student community and UNIMED Global provides a dedicated support network including pre-departure orientation, airport pickup coordination, and ongoing counselling." },
           { q: "How to apply via UNIMED Global?", a: "Contact our counsellors for a free consultation. We guide you through every step — from document collection to visa and university enrollment." }
         ]
       },
-      spsuvm: {
-        name: "Saint Petersburg State University of Veterinary Medicine",
-        image: "assets/st_isaacs.png",
+      omsk: {
+        name: "Omsk State Medical University",
+        image: "assets/universities/campus_omsk.png",
         country: "🇷🇺 Russia",
-        location: "St. Petersburg, Russia",
-        officialLink: "https://spbgume.ru/",
-        affiliation: "Ministry of Agriculture of the Russian Federation",
-        studentsEnrolled: "4,200+",
-        areaShort: "Central St. Petersburg",
-        budgetShort: "₹12L – 15L total",
-        budget: "₹2.0L - ₹2.5L / Year (Total ~₹12L - ₹15L incl. hostel)",
-        about: "The Saint Petersburg State University of Veterinary Medicine is Russia's oldest and most prestigious veterinary school, with over 150 years of academic tradition. Located in the heart of St. Petersburg, the university offers world-class veterinary programs backed by an active on-campus veterinary research hospital and state-of-the-art biochemistry laboratories. Its degrees are globally recognized for veterinary practice.",
+        location: "Omsk, Russia",
+        officialLink: "http://omsk-osma.ru/en",
+        affiliation: "Ministry of Health of the Russian Federation",
+        studentsEnrolled: "6,000+",
+        areaShort: "Omsk City Campus",
+        budgetShort: "₹25L – 28L total",
+        budget: "₽340,000 / Year (Total ~₹25L - ₹28L incl. hostel and one-time fees)",
+        about: "Omsk State Medical University is a leading educational institution in Siberia with a rich history of training medical specialists. Founded in 1920, the university features multiple clinical departments in regional hospitals, offering extensive clinical rotations and practical medical training.",
         courses: [
-          { name: "Veterinary Medicine", dur: "5 Years — English / Bilingual Medium", tag: "WHO Listed" },
-          { name: "Biophysics & Veterinary Pharmacy", dur: "4 Years — English Medium", tag: "Research Track" }
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" }
         ],
         highlights: [
-          "Russia's oldest veterinary institution — over 150 years of veterinary academic excellence",
-          "On-campus state-of-the-art veterinary research hospital with active patient care",
-          "Strong research programs in biochemistry, pathology, and pharmacology",
-          "Globally recognized degree valid for veterinary licensing in multiple countries"
+          "Top-ranked medical school in the Siberian region with distinguished faculty",
+          "Extensive clinical practice in 10+ affiliated state hospitals",
+          "NMC, WHO, and ECFMG recognized degrees valid for global practices",
+          "Experienced faculty and rich academic research programs"
         ],
         facts: [
-          { label: "Founded", value: "1808", sub: "Russia's oldest veterinary school" },
-          { label: "Veterinary Hospital", value: "Active On-Campus", sub: "Live clinical training from Year 1" },
-          { label: "Location", value: "St. Petersburg, Russia", sub: "Historic cultural capital" },
-          { label: "Total Budget", value: "₹12L – ₹15L", sub: "All-inclusive for 5 years" }
+          { label: "Founded", value: "1920", sub: "Over 100 years of academic legacy" },
+          { label: "Location", value: "Omsk, Siberia, Russia", sub: "Major scientific and cultural hub" },
+          { label: "Hospital Links", value: "10+ Affiliated Clinics", sub: "Wide clinical exposure from year 2" },
+          { label: "Total Budget", value: "₹25L – ₹28L", sub: "Estimated total budget" }
         ],
+        fees: {
+          type: "rubles",
+          tuition: "₽340,000",
+          hostel: "₽40,000",
+          medicalInsurance: "₽40,000",
+          documentation: "—",
+          oneTime: "$1,500",
+          consultancyAdminVisa: "$2,000",
+          airTicket: "$500"
+        },
         faq: [
-          { q: "Is the Veterinary degree recognized globally?", a: "Yes, the degree is recognized by veterinary licensing bodies in multiple countries including India. Graduates can apply for registration with the Veterinary Council of India (VCI)." },
-          { q: "What clinical exposure is available?", a: "Students train at the university's own active veterinary hospital from Year 1, gaining hands-on experience in surgery, diagnostics, and patient care." },
-          { q: "Is there English medium instruction?", a: "The program is available in English medium for international students, with Russian language courses integrated for clinical communication." },
-          { q: "How can UNIMED Global help?", a: "UNIMED Global provides complete support from initial consultation, document preparation, visa processing, and post-arrival support in St. Petersburg." }
+          { q: "Is Omsk State Medical University approved by NMC?", a: "Yes. The university is recognized by the WHO and the National Medical Commission (NMC) of India, allowing graduates to appear for screening exams." },
+          { q: "What is the clinical training like?", a: "Students get direct hands-on practice starting in year 2 by rotating across multiple regional clinical centers and municipal hospitals." },
+          { q: "Is hostel accommodation provided?", a: "Yes, fully furnished hostels with heating and internet are available on campus." },
+          { q: "How to register with UNIMED Global?", a: "Fill out our contact form. Our counselor will guide you through documents submission, translation, and application filing." }
+        ]
+      },
+      ulyanovsk: {
+        name: "Ulyanovsk State University",
+        image: "assets/universities/campus_ulyanovsk.png",
+        country: "🇷🇺 Russia",
+        location: "Ulyanovsk, Russia",
+        officialLink: "https://www.ulsu.ru/en/",
+        affiliation: "Ministry of Science and Higher Education of the Russian Federation",
+        studentsEnrolled: "15,000+",
+        areaShort: "Sviyaga River Campus",
+        budgetShort: "₹28L – 31L total",
+        budget: "₽350,000 / Year (Total ~₹28L - ₹31L incl. hostel and one-time fees)",
+        about: "Ulyanovsk State University is a major public research university located on the banks of the Sviyaga River. Established originally as a branch of Moscow State University, its medical faculty offers state-of-the-art anatomy labs, clinical research centers, and a large global student base.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" }
+        ],
+        highlights: [
+          "Stunning riverfront campus with modern infrastructure and sports complexes",
+          "Strong emphasis on clinical research, biochemistry, and pathology",
+          "Recognized by global medical bodies (WHO, NMC, ECFMG)",
+          "Founded as an elite branch of the prestigious Moscow State University"
+        ],
+        facts: [
+          { label: "Founded", value: "1988", sub: "Deep ties with Moscow State University" },
+          { label: "Campus Setting", value: "Sviyaga Riverfront", sub: "Eco-friendly, scenic campus" },
+          { label: "Enrollment", value: "15,000+ Students", sub: "Large, diverse international body" },
+          { label: "Total Budget", value: "₹28L – ₹31L", sub: "Estimated total budget" }
+        ],
+        fees: {
+          type: "rubles",
+          tuition: "₽350,000",
+          hostel: "₽80,000",
+          medicalInsurance: "₽40,000",
+          documentation: "—",
+          oneTime: "$1,500",
+          consultancyAdminVisa: "$2,000",
+          airTicket: "$500"
+        },
+        faq: [
+          { q: "Is the Ulyanovsk degree recognized globally?", a: "Yes, Ulyanovsk State University is listed in the World Directory of Medical Schools (WDOMS) and approved by NMC and ECFMG." },
+          { q: "What is the medium of instruction?", a: "The MBBS program is delivered entirely in English for international students, alongside Russian language training." },
+          { q: "Is Ulyanovsk safe for international students?", a: "Uyanovsk is a peaceful and highly welcoming university town with active student security and on-ground coordinators." },
+          { q: "How does UNIMED help with visa processing?", a: "UNIMED handles everything including receiving the official invitation, translating documents, and filing the visa with the Russian embassy." }
+        ]
+      },
+      kbsu: {
+        name: "Kabardino Balkarian State University",
+        image: "assets/universities/campus_kabardino.png?v=2026_kbsu",
+        country: "🇷🇺 Russia",
+        location: "Nalchik, Russia",
+        officialLink: "https://kbsu.ru/",
+        affiliation: "Ministry of Science and Higher Education of the Russian Federation",
+        studentsEnrolled: "16,000+",
+        areaShort: "Nalchik City Campus",
+        budgetShort: "₹25L – 28L total",
+        budget: "₽324,000 / Year (Total ~₹25L - ₹28L incl. hostel and one-time fees)",
+        about: "Kabardino-Balkarian State University (KBSU) is one of the largest universities in the North Caucasus region. Located in the picturesque resort city of Nalchik, it provides a safe, highly academic environment with state-of-the-art medical simulation centers.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" }
+        ],
+        highlights: [
+          "Located in Nalchik — a scenic, mountainous, and safe resort city",
+          "Highly affordable living and accommodation options for international students",
+          "State-of-the-art medical simulation centers and laboratory equipment",
+          "Fully recognized by NMC, WHO, and international medical boards"
+        ],
+        facts: [
+          { label: "Founded", value: "1932", sub: "Over 90 years of educational service" },
+          { label: "Location", value: "Nalchik, Russia", sub: "Safe, scenic resort city" },
+          { label: "Lab Standards", value: "Advanced Simulations", sub: "Modern anatomy and clinical labs" },
+          { label: "Total Budget", value: "₹25L – ₹28L", sub: "Highly affordable budget" }
+        ],
+        fees: {
+          type: "rubles",
+          tuition: "₽324,000",
+          hostel: "₽30,000",
+          medicalInsurance: "₽30,000",
+          documentation: "₽21,000",
+          oneTime: "$1,500",
+          consultancyAdminVisa: "$2,000",
+          airTicket: "$500"
+        },
+        faq: [
+          { q: "Is KBSU approved by the National Medical Commission?", a: "Yes, KBSU's General Medicine degree is listed with the WHO and approved by the NMC of India." },
+          { q: "How is the climate in Nalchik?", a: "Nalchik has a very pleasant climate compared to northern Russia, with mild winters and warm summers." },
+          { q: "What does the documentation fee cover?", a: "The documentation fee covers administrative translations, notarizations, and local registration filings required by government norms." },
+          { q: "How can I apply?", a: "Submit your 10th/12th marksheets and NEET qualification certificate to UNIMED. We will handle the university admission process." }
+        ]
+      },
+      astrakhan: {
+        name: "Astrakhan State Medical University",
+        image: "assets/universities/campus_astrakhan.png",
+        country: "🇷🇺 Russia",
+        location: "Astrakhan, Russia",
+        officialLink: "http://astgmu.ru/en/",
+        affiliation: "Ministry of Health of the Russian Federation",
+        studentsEnrolled: "7,000+",
+        areaShort: "Volga River Delta Campus",
+        budgetShort: "₹25L – 28L total",
+        budget: "₽300,000 / Year (Total ~₹25L - ₹28L incl. hostel and one-time fees)",
+        about: "Astrakhan State Medical University is one of the oldest medical institutions in Russia, situated in the Volga river delta. It is highly recognized for its clinical research, global student exchanges, and extensive clinical practice.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" }
+        ],
+        highlights: [
+          "One of Russia's oldest and most prestigious medical schools, founded in 1918",
+          "Located in Astrakhan — a beautiful, historical trading city on the Caspian Sea",
+          "Extensive clinical departments in city-wide hospitals with rich patient contact",
+          "Globally recognized degree valid for licensing exams (FMGE, NExT, USMLE)"
+        ],
+        facts: [
+          { label: "Founded", value: "1918", sub: "Over a century of medical teaching" },
+          { label: "Location", value: "Astrakhan, Russia", sub: "Volga delta trading hub" },
+          { label: "Student Body", value: "Multi-national", sub: "Students from 40+ countries" },
+          { label: "Total Budget", value: "₹25L – ₹28L", sub: "All-inclusive estimate" }
+        ],
+        fees: {
+          type: "rubles",
+          tuition: "₽300,000",
+          hostel: "₽70,000",
+          medicalInsurance: "₽30,000",
+          documentation: "₽21,000",
+          oneTime: "$1,500",
+          consultancyAdminVisa: "$2,000",
+          airTicket: "$500"
+        },
+        faq: [
+          { q: "Is Astrakhan State Medical University NMC recognized?", a: "Yes, it is WHO recognized and fully approved by the National Medical Commission (NMC)." },
+          { q: "What is the living cost in Astrakhan?", a: "Astrakhan has very moderate living expenses, with average student monthly budgets ranging from ₹8,000 to ₹12,000." },
+          { q: "Is Indian food available?", a: "Yes, there are multiple options for Indian food, including student messes and local grocery stores stocking Indian spices." },
+          { q: "What is the duration of the MBBS course?", a: "The course is 6 years, including integrated clinical clerkships." }
+        ]
+      },
+      yaroslavl: {
+        name: "Yaroslavl State Medical University",
+        image: "assets/universities/campus_yaroslavl.png",
+        country: "🇷🇺 Russia",
+        location: "Yaroslavl, Russia",
+        officialLink: "https://ysmu.ru/",
+        affiliation: "Ministry of Health of the Russian Federation",
+        studentsEnrolled: "5,000+",
+        areaShort: "Yaroslavl Ring Campus",
+        budgetShort: "₹29L – 32L total",
+        budget: "₽350,000 / Year (Total ~₹29L - ₹32L incl. hostel and one-time fees)",
+        about: "Yaroslavl State Medical University is a leading medical school in Russia's Golden Ring region. Known for its academic discipline and high clinical training standards, it offers great FMGE licensing exam passing rates.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" }
+        ],
+        highlights: [
+          "Golden Ring region landmark with elite training facilities and hospitals",
+          "Excellent performance statistics in FMGE/NExT screening exams",
+          "Integrated clinical training with focus on modern diagnostics and research",
+          "WHO listed and NMC approved foreign medical degree"
+        ],
+        facts: [
+          { label: "Founded", value: "1944", sub: "80 years of training medical minds" },
+          { label: "Location", value: "Yaroslavl, Russia", sub: "Historic city on the Volga River" },
+          { label: "Exam Passing", value: "High FMGE/NExT Pass Rate", sub: "Excellent academic coaching track" },
+          { label: "Total Budget", value: "₹29L – ₹32L", sub: "Estimated total budget" }
+        ],
+        fees: {
+          type: "rubles",
+          tuition: "₽350,000",
+          hostel: "₽90,000",
+          medicalInsurance: "₽30,000",
+          documentation: "₽21,000",
+          oneTime: "$1,500",
+          consultancyAdminVisa: "$2,000",
+          airTicket: "$500"
+        },
+        faq: [
+          { q: "How is Yaroslavl situated geographically?", a: "Yaroslavl is located about 250 km north-east of Moscow. It is a historical UNESCO World Heritage site and very safe." },
+          { q: "Is the MBBS course fully in English?", a: "Yes, the program is structured in English for international students." },
+          { q: "How are hostel facilities?", a: "The university provides centralized hostels with amenities, study rooms, and security guards." },
+          { q: "Does UNIMED provide on-ground assistance?", a: "Yes, UNIMED has local attendants in Yaroslavl to assist students with settling, registrations, and medical checkups." }
+        ]
+      },
+      volgograd: {
+        name: "Volgograd State Medical University",
+        image: "assets/universities/campus_volgograd.png",
+        country: "🇷🇺 Russia",
+        location: "Volgograd, Russia",
+        officialLink: "https://www.volgmed.ru/en/",
+        affiliation: "Ministry of Health of the Russian Federation",
+        studentsEnrolled: "12,000+",
+        areaShort: "Hero City Central Campus",
+        budgetShort: "₹37L – 41L total",
+        budget: "₽505,000 / Year (Total ~₹37L - ₹41L incl. hostel and one-time fees)",
+        about: "Volgograd State Medical University is a world-renowned state medical school located in the historic city of Volgograd. It is famous for its massive international student body and stellar clinical rotation programs in major municipal hospitals.",
+        courses: [
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" }
+        ],
+        highlights: [
+          "Historic university with a legendary reputation worldwide",
+          "Vast clinical network spanning several city-wide municipal hospitals",
+          "Comprehensive licensing exam support for graduating students",
+          "Listed in the directory of WHO and recognized by the NMC of India"
+        ],
+        facts: [
+          { label: "Founded", value: "1935", sub: "Distinguished academic history" },
+          { label: "Location", value: "Volgograd, Russia", sub: "Hero city on the Volga" },
+          { label: "Enrollment", value: "12,000+ Students", sub: "Highly diverse international environment" },
+          { label: "Total Budget", value: "₹37L – ₹41L", sub: "All-inclusive estimate" }
+        ],
+        fees: {
+          type: "rubles",
+          tuition: "₽505,000",
+          hostel: "₽50,000 – ₽90,000",
+          medicalInsurance: "₽35,000",
+          documentation: "₽21,000",
+          oneTime: "$1,500",
+          consultancyAdminVisa: "$2,000",
+          airTicket: "$500"
+        },
+        faq: [
+          { q: "Why choose Volgograd State Medical University?", a: "It is one of the most popular choices for international students due to its academic excellence, high FMGE success rate, and rich historical background." },
+          { q: "Is the MBBS degree valid globally?", a: "Yes, it is globally accredited. Graduates can practice in India, the US, UK, and other countries after passing respective exams." },
+          { q: "What is the cost of living?", a: "Living in Volgograd costs around ₹10,000–₹15,000 per month, which covers food, transport, and utilities." },
+          { q: "How can I apply?", a: "Submit your academic transcripts and NEET scores to UNIMED. We will secure your admission letter and guide you on flight group bookings." }
         ]
       },
       gsu: {
         name: "Gulistan State University",
-        image: "assets/uz_campus.png",
+        image: "assets/universities/campus_gulistan.png",
         country: "🇺🇿 Uzbekistan",
         location: "Gulistan, Syrdarya Region, Uzbekistan",
         officialLink: "https://guldu.uz/en/",
         affiliation: "Ministry of Higher Education, Science and Innovations of Uzbekistan",
         studentsEnrolled: "12,000+",
         areaShort: "Spacious Green Campus",
-        budgetShort: "₹13L – 16L total",
-        budget: "₹1.8L - ₹2.4L / Year (Total ~₹13L - ₹16L incl. hostel)",
-        about: "Gulistan State University is one of UNIMED Global's most popular partner universities in Uzbekistan, offering a fully English medium General Medicine program at one of the most affordable costs in the region. Located in the Syrdarya region only 2 hours from Tashkent, the university features a spacious, modern campus with clinical simulation centers. The program is fully aligned with the new NMC rules for foreign medical graduates.",
+        budgetShort: "₹25L – 28L total",
+        budget: "$8,500 (1st Year) / $3,750 (2nd-6th Year) (Total ~₹25L - ₹28L incl. hostel)",
+        about: "Gulistan State University is one of UNIMED Global's most popular partner universities in Uzbekistan, offering a fully English medium General Medicine program. Located in the Syrdarya region only 2 hours from Tashkent, the university features a spacious, modern campus with clinical simulation centers. The program is fully aligned with the new NMC rules for foreign medical graduates.",
         courses: [
-          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Compliant" },
-          { name: "Biology & Ecology", dur: "4 Years — English Medium", tag: "Science Program" }
+          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Compliant" }
         ],
         highlights: [
           "Full compliance with the NMC's new regulations for foreign medical graduates",
@@ -942,8 +1330,25 @@
           { label: "Location", value: "Gulistan, Uzbekistan", sub: "2 hrs from Tashkent capital" },
           { label: "Language", value: "English Medium", sub: "100% English curriculum" },
           { label: "Living Cost", value: "₹8,000 – 12,000", sub: "Per month (highly affordable)" },
-          { label: "Total Budget", value: "₹13L – ₹16L", sub: "All-inclusive for 6 years" }
+          { label: "Total Budget", value: "₹25L – ₹28L", sub: "All-inclusive for 6 years" }
         ],
+        fees: {
+          type: "dollars",
+          firstYear: "$8,500",
+          secondToSixth: {
+            tuition: "$2,800",
+            govtRegistration: "$300",
+            contract: "$350",
+            visaRenewal: "$300",
+            total: "$3,750"
+          },
+          otherExpenses: {
+            visa: "₹30,000",
+            flight: "₹30,000",
+            serviceCharge: "₹40,000"
+          },
+          terms: "Hostel 2nd year onwards: $600/year. Mess: $1,200/year. Contingent expenses: $200/year."
+        },
         faq: [
           { q: "Is Gulistan State University NMC compliant?", a: "Yes. The program is structured in full compliance with the National Medical Commission's updated guidelines for Indian students studying abroad." },
           { q: "Is Uzbekistan safe for Indian students?", a: "Uzbekistan is one of the safest study destinations in Central Asia. There is a warm, welcoming local culture with a growing Indian student community." },
@@ -953,20 +1358,19 @@
       },
       tpi: {
         name: "Tashkent Pharmaceutical Institute",
-        image: "assets/building-3.png",
+        image: "assets/universities/campus_tashkent.png",
         country: "🇺🇿 Uzbekistan",
         location: "Tashkent, Uzbekistan",
         officialLink: "https://pharmi.uz/",
         affiliation: "Ministry of Health of the Republic of Uzbekistan",
         studentsEnrolled: "5,500+",
         areaShort: "Capital City Campus",
-        budgetShort: "₹14L – 17L total",
-        budget: "₹2.0L - ₹2.6L / Year (Total ~₹14L - ₹17L incl. hostel)",
+        budgetShort: "₹32L – 36L total",
+        budget: "$8,750 (1st Year) / $4,450 (2nd-6th Year) (Total ~₹32L - ₹36L incl. hostel)",
         about: "Tashkent Pharmaceutical Institute is the premier pharmaceutical research and education institution in Central Asia. Located in Tashkent — the vibrant capital of Uzbekistan — it offers fully English medium programs in Pharmacy, Industrial Pharmacy, and Cosmeceuticals. The institute maintains direct partnerships with major pharmaceutical manufacturers in the region, enabling students to complete internships and industrial training at global-standard facilities.",
         courses: [
           { name: "Pharmacy (Pharm.D / B.Pharm)", dur: "5 / 4 Years — English Medium", tag: "WHO Listed" },
-          { name: "Industrial Pharmacy", dur: "5 Years — English Medium", tag: "Industry Track" },
-          { name: "Cosmeceuticals", dur: "4 Years — English Medium", tag: "Niche Program" }
+          { name: "Industrial Pharmacy", dur: "5 Years — English Medium", tag: "Industry Track" }
         ],
         highlights: [
           "Premier pharmaceutical institute in Central Asia with direct industry partnerships",
@@ -978,134 +1382,107 @@
           { label: "Specialization", value: "Pharmacy Science", sub: "Only dedicated pharma institute in Central Asia" },
           { label: "Industry Links", value: "Direct Internships", sub: "With top pharma manufacturers" },
           { label: "Location", value: "Tashkent, Uzbekistan", sub: "Central Asian pharmaceutical hub" },
-          { label: "Total Budget", value: "₹14L – ₹17L", sub: "All-inclusive estimate" }
+          { label: "Total Budget", value: "₹32L – ₹36L", sub: "All-inclusive estimate" }
         ],
+        fees: {
+          type: "dollars",
+          firstYear: "$8,750",
+          secondToSixth: {
+            tuition: "$3,500",
+            govtRegistration: "$300",
+            contract: "$350",
+            visaRenewal: "$300",
+            total: "$4,450"
+          },
+          otherExpenses: {
+            visa: "₹30,000",
+            flight: "₹30,000",
+            serviceCharge: "₹40,000"
+          },
+          terms: "Hostel 2nd year onwards: Gov Hostel $600/yr, Private Normal $800/yr, Private AC+Wifi $1000/yr. Mess: $1,200/yr. Contingent: $200/yr."
+        },
         faq: [
           { q: "Is this degree valid for Pharmacy practice in India?", a: "Graduates are eligible to appear for the Pharmacy Council of India (PCI) registration examination after completing the Pharm.D / B.Pharm program." },
           { q: "Are there internship opportunities?", a: "Yes. The institute has direct partnerships with pharmaceutical companies where students complete mandatory industrial training from Year 3." },
           { q: "Is the program entirely in English?", a: "Yes. All courses at Tashkent Pharmaceutical Institute for international students are delivered in English medium." },
           { q: "How do I apply via UNIMED Global?", a: "Contact our counsellors for a free profile evaluation and document checklist. UNIMED handles all aspects from application to pre-departure orientation." }
         ]
-      },
-      kazan: {
-        name: "Kazan Federal University",
-        image: "assets/university_campus_2.png",
-        country: "🇷🇺 Russia",
-        location: "Kazan, Republic of Tatarstan, Russia",
-        officialLink: "https://kpfu.ru/eng",
-        affiliation: "Ministry of Science and Higher Education of the Russian Federation",
-        studentsEnrolled: "50,000+ (10,000+ Medical)",
-        areaShort: "60+ Historic Buildings",
-        budgetShort: "₹26L – 30L total",
-        budget: "₹4.0L - ₹5.0L / Year (Total ~₹26L - ₹30L incl. hostel)",
-        about: "Kazan Federal University, founded in 1804, is one of Russia's oldest and most prestigious institutions. The mathematician Nikolai Lobachevsky and writer Leo Tolstoy are among its famous alumni. The Institute of Fundamental Medicine and Biology at KFU offers a world-class MBBS program with a high-tech research environment, advanced clinical simulators, and global academic partnerships.",
-        courses: [
-          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
-          { name: "Dentistry", dur: "5 Years — English Medium", tag: "WHO Listed" },
-          { name: "Pharmacy", dur: "5 Years — English Medium", tag: "Govt. University" }
-        ],
-        highlights: [
-          "Founded in 1804 — one of Russia's most historic and prestigious universities",
-          "Alumni include Leo Tolstoy and mathematician Nikolai Lobachevsky",
-          "Advanced clinical simulation labs and high-tech research infrastructure",
-          "Located in Kazan — UNESCO heritage city and 'Third Capital' of Russia"
-        ],
-        facts: [
-          { label: "Founded", value: "1804", sub: "220+ years of academic excellence" },
-          { label: "Total Students", value: "50,000+", sub: "Including 10,000+ medical students" },
-          { label: "Location", value: "Kazan, Russia", sub: "UNESCO heritage city, 700 km from Moscow" },
-          { label: "Total Budget", value: "₹26L – ₹30L", sub: "All-inclusive for 6 years" }
-        ],
-        faq: [
-          { q: "Is Kazan Federal University NMC approved for MBBS?", a: "Yes, KFU is WHO listed and NMC approved. Graduates are eligible to sit the FMGE / NExT examination in India." },
-          { q: "What is the language of instruction?", a: "The MBBS program is delivered in English. Russian language is taught as a required subject for clinical rotations." },
-          { q: "What is Kazan like for Indian students?", a: "Kazan is a vibrant, modern city with a large international student community. It is one of Russia's safest and most culturally rich cities, with great public transport and amenities." },
-          { q: "How to apply via UNIMED Global?", a: "UNIMED provides end-to-end assistance including eligibility check, document preparation, application, and visa support. Contact us to start." }
-        ]
-      },
-      tashkent: {
-        name: "Tashkent Medical Academy",
-        image: "assets/university_campus_1.png",
-        country: "🇺🇿 Uzbekistan",
-        location: "Tashkent, Uzbekistan",
-        officialLink: "https://tma.uz/en/",
-        affiliation: "Ministry of Health of the Republic of Uzbekistan",
-        studentsEnrolled: "8,000+",
-        areaShort: "3 Clinical Hospitals",
-        budgetShort: "₹15L – 18L total",
-        budget: "₹2.2L - ₹2.8L / Year (Total ~₹15L - ₹18L incl. hostel)",
-        about: "Tashkent Medical Academy is the largest and most prestigious medical institution in Uzbekistan, located in the thriving capital city of Tashkent. The Academy provides exceptional clinical training through its three affiliated multi-profile hospitals, offering a fully English medium General Medicine program. As a government institution, TMA provides high academic standards at an affordable cost for international students.",
-        courses: [
-          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Compliant" },
-          { name: "Preventive Medicine", dur: "6 Years — English Medium", tag: "Govt. Program" },
-          { name: "Higher Nursing", dur: "3 Years — English Medium", tag: "Allied Health" }
-        ],
-        highlights: [
-          "Largest and most prestigious medical academy in Uzbekistan with 8,000+ students",
-          "Excellent clinical training at 3 directly affiliated multi-profile hospitals",
-          "Fully English medium course structure for international students",
-          "Centrally located in Tashkent — thriving capital with modern city infrastructure"
-        ],
-        facts: [
-          { label: "Affiliated Hospitals", value: "3 Major Hospitals", sub: "Direct clinical training from Year 2" },
-          { label: "Location", value: "Tashkent, Uzbekistan", sub: "Central Asian capital with 3M+ population" },
-          { label: "Living Cost", value: "₹10,000 – 14,000", sub: "Per month (affordable)" },
-          { label: "Total Budget", value: "₹15L – ₹18L", sub: "All-inclusive for 6 years" }
-        ],
-        faq: [
-          { q: "Is TMA degree valid for FMGE in India?", a: "Yes, TMA is recognized and students graduating from the English medium MBBS program are eligible to appear for the FMGE / NExT examination." },
-          { q: "What clinical opportunities are available?", a: "TMA has three directly affiliated multi-profile hospitals in Tashkent where students rotate from Year 2 onwards, gaining extensive hands-on clinical experience." },
-          { q: "Is Tashkent a good city for students?", a: "Yes. Tashkent is a modern, safe, and vibrant Central Asian capital with excellent public transport, international restaurants, and a welcoming atmosphere for Indian students." },
-          { q: "How does UNIMED help with the application?", a: "UNIMED provides complete support from document verification and university application to visa processing and airport pickup coordination." }
-        ]
-      },
-      moscow: {
-        name: "First Moscow State Medical University — Sechenov",
-        image: "assets/university_campus_2.png",
-        country: "🇷🇺 Russia",
-        location: "Moscow, Russia",
-        officialLink: "https://sechenov.ru/eng/",
-        affiliation: "Ministry of Health of the Russian Federation",
-        studentsEnrolled: "18,000+",
-        areaShort: "20+ Clinical Buildings",
-        budgetShort: "₹35L – 42L total",
-        budget: "₹5.5L - ₹7.0L / Year (Total ~₹35L - ₹42L incl. hostel)",
-        about: "Sechenov University — officially the First Moscow State Medical University — is Russia's most prestigious and oldest medical institution, established in 1758. Named after the pioneering physiologist Ivan Sechenov, this legendary university trains the finest medical minds across 6 continents. With 20+ clinical buildings across Moscow, access to world-class research infrastructure, and an elite global ranking, Sechenov represents the pinnacle of medical education in Russia.",
-        courses: [
-          { name: "General Medicine (MBBS Equivalent)", dur: "6 Years — English Medium", tag: "NMC Approved" },
-          { name: "Dentistry", dur: "5 Years — English Medium", tag: "Top Ranked" },
-          { name: "Pharmacy", dur: "5 Years — English Medium", tag: "WHO Listed" },
-          { name: "Pediatrics", dur: "6 Years — English Medium", tag: "Govt. University" }
-        ],
-        highlights: [
-          "Russia's oldest and most prestigious medical university, founded in 1758",
-          "Highest licensing exam pass rates among all Russian medical universities",
-          "20+ clinical buildings across Moscow providing unparalleled clinical exposure",
-          "Elite global ranking and strong international academic partnerships"
-        ],
-        facts: [
-          { label: "Founded", value: "1758", sub: "Over 265 years of medical legacy" },
-          { label: "Clinical Network", value: "20+ Buildings", sub: "Across Moscow city" },
-          { label: "Location", value: "Moscow, Russia", sub: "Russia's capital & largest city" },
-          { label: "Total Budget", value: "₹35L – ₹42L", sub: "Premium all-inclusive estimate" }
-        ],
-        faq: [
-          { q: "Is Sechenov University the best medical university in Russia?", a: "Sechenov consistently ranks as Russia's #1 medical university and is among the top 300 in the QS World Rankings. It has the highest FMGE passing rates among Russian institutions." },
-          { q: "Is the MBBS from Sechenov recognized globally?", a: "Yes. Sechenov is WHO listed and NMC approved. Graduates are eligible for FMGE/NExT (India), USMLE (USA), PLAB (UK), and other global licensing examinations." },
-          { q: "What is the cost of living in Moscow?", a: "Moscow has a higher cost of living than other Russian cities. Budget approximately ₹30,000–₹40,000 per month for accommodation, food, and personal expenses. This is included in the total budget estimate." },
-          { q: "How do I apply via UNIMED Global?", a: "UNIMED Global provides complete support for Sechenov admissions including eligibility assessment, document preparation, visa support, and pre-departure orientation. Contact us to start." }
-        ]
       }
+    };
+
+    // Alias dictionary mapping codes, names, and slugs to universityData keys
+    
+    universityData.ssu = universityData.syktyvkar;
+
+    const aliasMap = {
+      'ssu': 'syktyvkar',
+      'syktyvkar': 'syktyvkar',
+      'syktyvkar-state-university': 'ssu',
+      'fefu': 'fefu',
+      'far-eastern': 'fefu',
+      'far_eastern': 'fefu',
+      'far-eastern-federal-university': 'fefu',
+      'fareastern': 'fefu',
+      'bsmu': 'bsmu',
+      'bashkir': 'bsmu',
+      'bashkir-state-medical-university': 'bsmu',
+      'omsk': 'omsk',
+      'omsk-state-medical-university': 'omsk',
+      'ulyanovsk': 'ulyanovsk',
+      'ulyanovsk-state-university': 'ulyanovsk',
+      'kbsu': 'kbsu',
+      'kabardino': 'kbsu',
+      'kabardino-balkarian': 'kbsu',
+      'kabardino-balkarian-state-university': 'kbsu',
+      'astrakhan': 'astrakhan',
+      'astrakhan-state-medical-university': 'astrakhan',
+      'yaroslavl': 'yaroslavl',
+      'yaroslavl-state-medical-university': 'yaroslavl',
+      'volgograd': 'volgograd',
+      'volgograd-state-medical-university': 'volgograd',
+      'gsu': 'gsu',
+      'gulistan': 'gsu',
+      'gulistan-state-university': 'gsu',
+      'tpi': 'tpi',
+      'tashkent': 'tpi',
+      'tashkent-pharmaceutical-institute': 'tpi'
     };
 
     // ---- Render logic ----
     const params = new URLSearchParams(window.location.search);
-    const key = params.get('uni') || 'fefu';
-    const d = universityData[key];
+    let rawKey = (params.get('uni') || '').toLowerCase().trim();
+
+    if (!rawKey) {
+      rawKey = 'bsmu';
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', window.location.pathname + '?uni=bsmu');
+      }
+    }
+
+    const key = aliasMap[rawKey] || (universityData[rawKey] ? rawKey : 'bsmu');
+    const d = universityData[key] || universityData['bsmu'] || universityData['fefu'];
 
     if (d) {
       // Page meta
       document.title = `${d.name} | UNIMED Global`;
+
+      // Determine country slug for back button & breadcrumb
+      let countrySlug = 'all';
+      if (d.country && d.country.toLowerCase().includes('russia')) {
+        countrySlug = 'russia';
+      } else if (d.country && d.country.toLowerCase().includes('uzbekistan')) {
+        countrySlug = 'uzbekistan';
+      }
+
+      const backUrl = `universities.html?country=${countrySlug}`;
+      const backBtn = document.querySelector('.ud-back-btn');
+      if (backBtn) {
+        backBtn.href = backUrl;
+      }
+      const breadUniLink = document.querySelector('.ud-breadcrumb a[href*="universities"]');
+      if (breadUniLink) {
+        breadUniLink.href = backUrl;
+      }
 
       // Hero
       document.getElementById('uniHero').style.backgroundImage = `url('${d.image}')`;
@@ -1117,12 +1494,124 @@
         ${d.location}`;
 
       // Stats bar
-      document.getElementById('statBudget').innerHTML = `${d.budgetShort.split('–')[0]}– ${d.budgetShort.split('–')[1]} <span>total</span>`;
+      const statBudget = document.getElementById('statBudget');
+      if (statBudget && d.budgetShort) {
+        statBudget.innerHTML = d.budgetShort.replace(' total', '') + ' <span>total</span>';
+      }
       document.getElementById('statStudents').innerHTML = `${d.studentsEnrolled} <span>students</span>`;
       document.getElementById('statArea').innerHTML = `${d.areaShort}`;
 
       // About
       document.getElementById('uniAbout').textContent = d.about;
+
+      // Render Fee Structure
+      const feeContainer = document.getElementById('uniFeeContainer');
+      if (feeContainer && d.fees) {
+        let html = '';
+        if (d.fees.type === 'rubles') {
+          html += `
+            <div class="fee-table-wrapper">
+              <table class="fee-table">
+                <thead>
+                  <tr>
+                    <th>Particulars</th>
+                    <th>Amount (Per Year / One-time)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tuition Fee</td>
+                    <td class="fee-amount">${d.fees.tuition} / yr</td>
+                  </tr>
+                  <tr>
+                    <td>Hostel Fee</td>
+                    <td>${d.fees.hostel} / yr</td>
+                  </tr>
+                  <tr>
+                    <td>Medical Check-up + Insurance + Biometrics</td>
+                    <td>${d.fees.medicalInsurance} / yr</td>
+                  </tr>
+                  ${d.fees.documentation !== '—' ? `
+                  <tr>
+                    <td>Documentation Fee</td>
+                    <td>${d.fees.documentation} / yr</td>
+                  </tr>
+                  ` : ''}
+                  <tr>
+                    <td>One-Time Charges (Airport pickup, hostel settling, Sim, etc.)</td>
+                    <td class="fee-amount">${d.fees.oneTime}</td>
+                  </tr>
+                  <tr>
+                    <td>Administrative Charges + Visa + Consultancy + Admission Letter</td>
+                    <td class="fee-amount">${d.fees.consultancyAdminVisa}</td>
+                  </tr>
+                  <tr>
+                    <td>Air Ticket</td>
+                    <td>${d.fees.airTicket}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="ud-trust-note" style="text-align: left; margin-top: 10px;">
+              * All fees in Rubles (₽) are paid yearly to the university. One-time and administrative charges are in USD. Air ticket is approximate.
+            </p>
+          `;
+        } else if (d.fees.type === 'dollars') {
+          html += `
+            <div class="fee-table-wrapper">
+              <table class="fee-table">
+                <thead>
+                  <tr>
+                    <th>Academic Period</th>
+                    <th>Details</th>
+                    <th>Expenses</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>1st Year</strong></td>
+                    <td>On Admission (Tuition, Hostel/Mess, Govt Reg, Admin, One-time charge)</td>
+                    <td class="fee-amount">${d.fees.firstYear}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>2nd to 6th Year (Tuition)</strong></td>
+                    <td>Yearly Tuition Fee</td>
+                    <td class="fee-amount">${d.fees.secondToSixth.tuition} / yr</td>
+                  </tr>
+                  <tr>
+                    <td><strong>2nd to 6th Year (Reg)</strong></td>
+                    <td>Govt Registration Fee</td>
+                    <td>${d.fees.secondToSixth.govtRegistration} / yr</td>
+                  </tr>
+                  <tr>
+                    <td><strong>2nd to 6th Year (Contract)</strong></td>
+                    <td>Contract Verification Fee</td>
+                    <td>${d.fees.secondToSixth.contract} / yr</td>
+                  </tr>
+                  <tr>
+                    <td><strong>2nd to 6th Year (Visa)</strong></td>
+                    <td>Visa Renewal Fee</td>
+                    <td>${d.fees.secondToSixth.visaRenewal} / yr</td>
+                  </tr>
+                  <tr style="background: rgba(255,255,255,0.01);">
+                    <td><strong>2nd to 6th Year Total</strong></td>
+                    <td>Yearly Academic Fee Total</td>
+                    <td class="fee-amount" style="color: var(--color-accent); font-weight:800;">${d.fees.secondToSixth.total} / yr</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="fee-note-box">
+              <strong>Other Approx Expenses & Terms:</strong><br>
+              • Visa: ${d.fees.otherExpenses.visa} (approx)<br>
+              • Flight: ${d.fees.otherExpenses.flight} (approx)<br>
+              • Service Charge: ${d.fees.otherExpenses.serviceCharge}<br>
+              • ${d.fees.terms}
+            </div>
+          `;
+        }
+        feeContainer.innerHTML = html;
+      }
 
       // Highlights
       const hl = document.getElementById('uniHighlights');
@@ -1184,6 +1673,67 @@
       const waMsg = encodeURIComponent(`Hi UNIMED Global, I want to know more about ${d.name}. Please contact me.`);
       document.getElementById('waLink').href = `https://wa.me/919163654664?text=${waMsg}`;
       document.getElementById('enquiryWhatsapp').href = `https://wa.me/919163654664?text=${waMsg}`;
+
+      // Populate explore grid with all OTHER universities
+      const exploreGrid = document.getElementById('exploreGrid');
+      if (exploreGrid) {
+        exploreGrid.innerHTML = '';
+        Object.keys(universityData).forEach(k => {
+          if (k !== key) {
+            const item = universityData[k];
+            const firstCourseName = item.courses && item.courses[0] ? item.courses[0].name.replace(' (MBBS Equivalent)', '').replace(' (MBBS)', '') : 'Medicine';
+            const duration = item.courses && item.courses[0] ? item.courses[0].dur.split('—')[0].trim() : '6 Years';
+            
+            exploreGrid.innerHTML += `
+              <div class="dest-card">
+                <div class="dest-card-img-wrap">
+                  <a href="uni-info.html?uni=${k}"><img src="${item.image}" alt="${item.name}" class="dest-card-img"></a>
+                  <span class="dest-card-badge">${item.country}</span>
+                  <a href="uni-info.html?uni=${k}" class="dest-card-arrow" aria-label="View Details">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
+                </div>
+                <div class="dest-card-content">
+                  <h3 class="dest-card-title">
+                    <a href="uni-info.html?uni=${k}" style="color: inherit; text-decoration: none;">${item.name}</a>
+                  </h3>
+                  <div class="dest-card-details">
+                    <div class="dest-detail-item">
+                      <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                        <line x1="12" y1="4" x2="12" y2="20"></line>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                      </svg>
+                      <span>${item.budgetShort.replace(' total', ' Total')}</span>
+                    </div>
+                    <div class="dest-detail-item">
+                      <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span>${item.location.split(',')[0]}</span>
+                    </div>
+                    <div class="dest-detail-item">
+                      <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>${duration}</span>
+                    </div>
+                  </div>
+                  <div class="dest-card-pills">
+                    <span class="dest-pill">${firstCourseName}</span>
+                    <span class="dest-pill">English Medium</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+        });
+      }
     }
 
     function toggleAcc(i) {
@@ -1201,7 +1751,72 @@
       const msg = encodeURIComponent(`Hi UNIMED Global!\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nInterested in: ${uniName}\nPreferred Intake: ${intake}\n\nPlease get back to me!`);
       window.open(`https://wa.me/919163654664?text=${msg}`, '_blank');
     }
+
+    // Scroll-highlight counselling animation
+    (function() {
+      const para   = document.getElementById('counsellingHighlight');
+      if (!para) return;
+      const words  = Array.from(para.querySelectorAll('.hw'));
+      const total  = words.length;
+
+      function updateHighlight() {
+        const rect      = para.getBoundingClientRect();
+        const winH      = window.innerHeight;
+        // progress 0→1 as the paragraph travels from bottom of viewport to top
+        const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
+        const litCount  = Math.round(progress * total * 1.5);  // slightly ahead of scroll
+
+        words.forEach((w, i) => {
+          if (i < litCount) {
+            w.classList.add('lit');
+          } else {
+            w.classList.remove('lit');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateHighlight, { passive: true });
+      window.addEventListener('resize', updateHighlight);
+      updateHighlight();  // run once on load
+    })();
   </script>
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=2026"></script>
+
+  
+
+
+  
+
+
+  <!-- Floating Side Widgets -->
+  <div id="floatingSideWidgets" style="position: fixed !important; right: 0 !important; top: 50% !important; transform: translateY(-50%) translateX(40px) !important; z-index: 999999 !important; display: flex !important; flex-direction: column !important; gap: 10px !important; align-items: flex-end !important; margin: 0 !important; padding: 0 !important; opacity: 0 !important; pointer-events: none !important; transition: opacity 0.4s ease, transform 0.4s ease !important;">
+    
+    <!-- Instagram Tab -->
+    <a href="https://instagram.com/unimed_global" target="_blank" rel="noopener" class="side-widget-tab tab-instagram" aria-label="Instagram" style="display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 8px !important; background: #161b26 !important; color: #fef08a !important; border: 1px solid rgba(234, 179, 8, 0.3) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; padding: 12px 10px 10px 10px !important; text-decoration: none !important; cursor: pointer !important; width: 44px !important; box-shadow: -4px 6px 20px rgba(0,0,0,0.4) !important; transition: transform 0.2s ease !important;">
+      <span class="side-widget-text" style="writing-mode: vertical-rl !important; text-orientation: mixed !important; transform: rotate(180deg) !important; font-family: 'Outfit', sans-serif !important; font-size: 0.65rem !important; font-weight: 800 !important; letter-spacing: 0.12em !important; text-transform: uppercase !important; color: inherit !important; line-height: 1 !important; white-space: nowrap !important;">INSTAGRAM</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px !important; height: 20px !important; max-width: 20px !important; max-height: 20px !important; flex-shrink: 0 !important; display: block !important;">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+      </svg>
+    </a>
+
+    <!-- Enquiry Tab (Direct link to contact.html) -->
+    <a href="contact.html" class="side-widget-tab tab-enquiry" id="sideEnquiryBtn" aria-label="Enquire Now" style="display: none !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 8px !important; background: #141a29 !important; color: #00f2fe !important; border: 1px solid rgba(0, 242, 254, 0.3) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; padding: 12px 10px 10px 10px !important; text-decoration: none !important; cursor: pointer !important; width: 44px !important; box-shadow: -4px 6px 20px rgba(0,0,0,0.4) !important; transition: transform 0.2s ease !important;">
+      <span class="side-widget-text" style="writing-mode: vertical-rl !important; text-orientation: mixed !important; transform: rotate(180deg) !important; font-family: 'Outfit', sans-serif !important; font-size: 0.65rem !important; font-weight: 800 !important; letter-spacing: 0.12em !important; text-transform: uppercase !important; color: inherit !important; line-height: 1 !important; white-space: nowrap !important;">ENQUIRE NOW</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px !important; height: 20px !important; max-width: 20px !important; max-height: 20px !important; flex-shrink: 0 !important; display: block !important;">
+        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+        <line x1="7" y1="7" x2="7.01" y2="7"></line>
+      </svg>
+    </a>
+
+    <!-- WhatsApp Tab -->
+    <a href="https://wa.me/919163654664?text=Hi%20UNIMED%20Global!%20I%20want%20to%20know%20more%20about%20MBBS%20admissions." target="_blank" rel="noopener" class="side-widget-tab tab-whatsapp" aria-label="WhatsApp" style="display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 8px !important; background: #25D366 !important; color: #ffffff !important; border: 1px solid rgba(37, 211, 102, 0.4) !important; border-right: none !important; border-radius: 16px 0 0 16px !important; padding: 12px 10px !important; text-decoration: none !important; cursor: pointer !important; width: 44px !important; box-shadow: -4px 6px 20px rgba(37, 211, 102, 0.4) !important; transition: transform 0.2s ease !important;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="width: 22px !important; height: 22px !important; max-width: 22px !important; max-height: 22px !important; flex-shrink: 0 !important; display: block !important;">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+  </div>
+
 </body>
 </html>

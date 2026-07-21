@@ -8,14 +8,12 @@ const progressPercent = document.getElementById('loader-percentage');
 // =========================================================================
 let scene, camera, renderer;
 let earthMesh, cloudsMesh, atmosphereMesh, karmanRing;
-let centerSprite, leftSprite, rightSprite, building2Sprite, building1Sprite;
+let leftSprite, rightSprite, khivaSprite;
 let sunLight, ambientLight, atmosphereMaterial;
 let raycaster, mouse;
-let isCenterHovered = false;
 let isLeftHovered = false;
 let isRightHovered = false;
-let isBuilding2Hovered = false;
-let isBuilding1Hovered = false;
+let isKhivaHovered = false;
 let baseEarthRotation = 0;
 let baseCloudsRotation = 0;
 let scrollOffset = 0; // Driven by drag coordinates in single-page mode
@@ -84,7 +82,7 @@ function initThree() {
 
   // 2. Camera
   const heroSection = canvas ? canvas.closest('.hero-section') : null;
-  const initW = heroSection ? heroSection.offsetWidth  : window.innerWidth;
+  const initW = heroSection ? heroSection.offsetWidth : window.innerWidth;
   const initH = heroSection ? heroSection.offsetHeight : window.innerHeight;
   camera = new THREE.PerspectiveCamera(45, initW / initH, 0.1, 1000);
   camera.position.z = 4.0;
@@ -115,15 +113,13 @@ function initThree() {
   const textureLoader = new THREE.TextureLoader(loadingManager);
 
   // Load equirectangular maps (using local assets)
-  const earthDiffuseMap = textureLoader.load('assets/earth-blue-marble.jpg');
-  const earthBumpMap = textureLoader.load('assets/earth-topology.png');
-  const cloudAlphaMap = textureLoader.load('assets/earth_clouds_2048.png');
-  const centerTexture = textureLoader.load('assets/building-4.png');
-  const leftTexture = textureLoader.load('assets/st_basils.png');
-  const rightTexture = textureLoader.load('assets/st_isaacs.png');
-  const building2Texture = textureLoader.load('assets/building-2.png');
-  const building1Texture = textureLoader.load('assets/building-1.png');
-  const planeTexture = textureLoader.load('assets/plane.png');
+  const earthDiffuseMap = textureLoader.load('assets/landing_page/earth-blue-marble.jpg');
+  const earthBumpMap = textureLoader.load('assets/landing_page/earth-topology.png');
+  const cloudAlphaMap = textureLoader.load('assets/landing_page/earth_clouds_2048.png');
+  const leftTexture = textureLoader.load('assets/landing_page/st_basils.png?v=2026_tight3d');
+  const rightTexture = textureLoader.load('assets/landing_page/st_isaacs.png?v=2026_tight3d');
+  const khivaTexture = textureLoader.load('assets/landing_page/khiva.png');
+  const planeTexture = textureLoader.load('assets/landing_page/plane.png');
 
   // 6. Earth Mesh Layer
   const earthGeometry = new THREE.SphereGeometry(2, 64, 64);
@@ -198,21 +194,12 @@ function initThree() {
   karmanRing.renderOrder = 1; // Rendered first (behind sprite)
   scene.add(karmanRing);
 
-  // 10. Landmark 3D Sprite Components (Center, Left, and Right Landmarks)
-  // Center Landmark (Hermitage Museum / building-4.png, loaded via centerTexture)
-  const centerMaterial = new THREE.SpriteMaterial({
-    map: centerTexture,
-    transparent: true
-  });
-  centerSprite = new THREE.Sprite(centerMaterial);
-  centerSprite.renderOrder = 4; // Rendered in front of left and right sprites (renderOrder = 3)
-  scene.add(centerSprite); // Added to scene to remain stationary when Earth rotates
-
+  // 10. Landmark 3D Sprite Components (Left, and Right Landmarks)
   // Left Landmark (St. Basil's domes, loaded via leftTexture)
   const leftMaterial = new THREE.SpriteMaterial({
     map: leftTexture,
     transparent: true,
-    rotation: 18 * (Math.PI / 180) // Rotate 18 degrees counter-clockwise
+    rotation: 0 // 90 degrees straight upright
   });
   leftSprite = new THREE.Sprite(leftMaterial);
   leftSprite.renderOrder = 3;
@@ -222,31 +209,22 @@ function initThree() {
   const rightMaterial = new THREE.SpriteMaterial({
     map: rightTexture,
     transparent: true,
-    rotation: -32 * (Math.PI / 180) // Rotate 32 degrees clockwise
+    rotation: -29 * (Math.PI / 180) // Rotate 29 degrees clockwise (1 deg anticlockwise from -30)
   });
   rightSprite = new THREE.Sprite(rightMaterial);
   rightSprite.renderOrder = 3;
   scene.add(rightSprite); // Added to scene to remain stationary when Earth rotates
 
-  // Building 2 Landmark (Kremlin Palace + Alexander Column, loaded via building2Texture)
-  const building2Material = new THREE.SpriteMaterial({
-    map: building2Texture,
+  // Khiva Landmark (Khiva mosque, loaded via khivaTexture)
+  const khivaMaterial = new THREE.SpriteMaterial({
+    map: khivaTexture,
     transparent: true,
-    rotation: -13 * (Math.PI / 180) // Rotate 13 degrees clockwise
+    rotation: 30 * (Math.PI / 180) // Rotate 30 degrees anticlockwise
   });
-  building2Sprite = new THREE.Sprite(building2Material);
-  building2Sprite.renderOrder = 3;
-  scene.add(building2Sprite); // Added to scene to remain stationary when Earth rotates
+  khivaSprite = new THREE.Sprite(khivaMaterial);
+  khivaSprite.renderOrder = 3;
+  scene.add(khivaSprite); // Added to scene to remain stationary when Earth rotates
 
-  // Building 1 Landmark (left of St. Basil's, loaded via building1Texture)
-  const building1Material = new THREE.SpriteMaterial({
-    map: building1Texture,
-    transparent: true,
-    rotation: 27 * (Math.PI / 180) // Rotate 27 degrees counter-clockwise
-  });
-  building1Sprite = new THREE.Sprite(building1Material);
-  building1Sprite.renderOrder = 3;
-  scene.add(building1Sprite); // Added to scene to remain stationary when Earth rotates
 
   // Plane Sprite (for flying sequence)
   const planeMaterial = new THREE.SpriteMaterial({
@@ -270,7 +248,7 @@ function initThree() {
 
   // Trigger initial resize positioning
   resizeCanvas();
-  
+
   // Begin animation rendering loop
   animate();
 }
@@ -330,7 +308,7 @@ function initThemeToggles() {
       // Cinematic transition back to shadowy night lighting
       gsap.to(ambientLight, { intensity: 0.4, duration: 0.8, ease: 'power1.out' });
       gsap.to(sunLight, { intensity: 1.5, duration: 0.8, ease: 'power1.out' });
-      
+
       // Fade Kármán line atmosphere glow to neon blue
       if (atmosphereMaterial) {
         gsap.to(atmosphereMaterial.uniforms.uColor.value, { r: 0.0, g: 0.8, b: 1.0, duration: 0.8 });
@@ -344,7 +322,7 @@ function initThemeToggles() {
       // Cinematic transition to bright daylight (fully illuminated globe structures)
       gsap.to(ambientLight, { intensity: 1.8, duration: 0.8, ease: 'power1.out' });
       gsap.to(sunLight, { intensity: 1.0, duration: 0.8, ease: 'power1.out' });
-      
+
       // Fade Kármán line atmosphere glow to pure white
       if (atmosphereMaterial) {
         gsap.to(atmosphereMaterial.uniforms.uColor.value, { r: 1.0, g: 1.0, b: 1.0, duration: 0.8 });
@@ -387,28 +365,6 @@ function animate() {
   if (raycaster && mouse) {
     raycaster.setFromCamera(mouse, camera);
 
-    // 1. Center Landmark
-    if (centerSprite) {
-      const intersects = raycaster.intersectObject(centerSprite);
-      if (intersects.length > 0) {
-        if (!isCenterHovered) {
-          isCenterHovered = true;
-          gsap.to(centerSprite.position, { y: centerSprite.hoverY, duration: 0.45, ease: 'power2.out' });
-          gsap.to(centerSprite.scale, { x: 2.95, y: 2.95, duration: 0.45, ease: 'power2.out' });
-        }
-        const hoverTime = Date.now() * 0.0035;
-        // Bob gently around hoverY
-        centerSprite.position.y = centerSprite.hoverY + Math.sin(hoverTime) * 0.012;
-      } else {
-        if (isCenterHovered) {
-          isCenterHovered = false;
-          gsap.killTweensOf(centerSprite.position);
-          gsap.killTweensOf(centerSprite.scale);
-          gsap.to(centerSprite.position, { y: centerSprite.restingY, duration: 0.45, ease: 'power2.out' });
-          gsap.to(centerSprite.scale, { x: 2.75, y: 2.75, duration: 0.45, ease: 'power2.out' });
-        }
-      }
-    }
 
     // 2. Left Landmark
     if (leftSprite) {
@@ -417,7 +373,7 @@ function animate() {
         if (!isLeftHovered) {
           isLeftHovered = true;
           gsap.to(leftSprite.position, { y: leftSprite.hoverY, duration: 0.45, ease: 'power2.out' });
-          gsap.to(leftSprite.scale, { x: 1.90, y: 2.50, duration: 0.45, ease: 'power2.out' });
+          gsap.to(leftSprite.scale, { x: 1.83, y: 2.50, duration: 0.45, ease: 'power2.out' });
         }
         const hoverTime = Date.now() * 0.0035;
         // Bob gently around hoverY
@@ -428,7 +384,7 @@ function animate() {
           gsap.killTweensOf(leftSprite.position);
           gsap.killTweensOf(leftSprite.scale);
           gsap.to(leftSprite.position, { y: leftSprite.restingY, duration: 0.45, ease: 'power2.out' });
-          gsap.to(leftSprite.scale, { x: 1.70, y: 2.30, duration: 0.45, ease: 'power2.out' });
+          gsap.to(leftSprite.scale, { x: 1.68, y: 2.30, duration: 0.45, ease: 'power2.out' });
         }
       }
     }
@@ -440,7 +396,7 @@ function animate() {
         if (!isRightHovered) {
           isRightHovered = true;
           gsap.to(rightSprite.position, { y: rightSprite.hoverY, duration: 0.45, ease: 'power2.out' });
-          gsap.to(rightSprite.scale, { x: 1.80, y: 1.80, duration: 0.45, ease: 'power2.out' });
+          gsap.to(rightSprite.scale, { x: 1.87, y: 1.62, duration: 0.45, ease: 'power2.out' });
         }
         const hoverTime = Date.now() * 0.0035;
         // Bob gently around hoverY
@@ -451,55 +407,34 @@ function animate() {
           gsap.killTweensOf(rightSprite.position);
           gsap.killTweensOf(rightSprite.scale);
           gsap.to(rightSprite.position, { y: rightSprite.restingY, duration: 0.45, ease: 'power2.out' });
-          gsap.to(rightSprite.scale, { x: 1.60, y: 1.60, duration: 0.45, ease: 'power2.out' });
+          gsap.to(rightSprite.scale, { x: 1.66, y: 1.44, duration: 0.45, ease: 'power2.out' });
         }
       }
     }
 
-    // 4. Building 2 Landmark (just right of center building 4)
-    if (building2Sprite) {
-      const intersects = raycaster.intersectObject(building2Sprite);
+    // 4. Khiva Landmark (Khiva mosque) - Positioned on the left side
+    if (khivaSprite) {
+      const intersects = raycaster.intersectObject(khivaSprite);
       if (intersects.length > 0) {
-        if (!isBuilding2Hovered) {
-          isBuilding2Hovered = true;
-          gsap.to(building2Sprite.position, { y: building2Sprite.hoverY, duration: 0.45, ease: 'power2.out' });
-          gsap.to(building2Sprite.scale, { x: 2.10, y: 2.10, duration: 0.45, ease: 'power2.out' });
+        if (!isKhivaHovered) {
+          isKhivaHovered = true;
+          gsap.to(khivaSprite.position, { y: khivaSprite.hoverY, duration: 0.45, ease: 'power2.out' });
+          gsap.to(khivaSprite.scale, { x: 2.25, y: 2.25, duration: 0.45, ease: 'power2.out' });
         }
         const hoverTime = Date.now() * 0.0035;
         // Bob gently around hoverY
-        building2Sprite.position.y = building2Sprite.hoverY + Math.sin(hoverTime) * 0.012;
+        khivaSprite.position.y = khivaSprite.hoverY + Math.sin(hoverTime) * 0.012;
       } else {
-        if (isBuilding2Hovered) {
-          isBuilding2Hovered = false;
-          gsap.killTweensOf(building2Sprite.position);
-          gsap.killTweensOf(building2Sprite.scale);
-          gsap.to(building2Sprite.position, { y: building2Sprite.restingY, duration: 0.45, ease: 'power2.out' });
-          gsap.to(building2Sprite.scale, { x: 1.90, y: 1.90, duration: 0.45, ease: 'power2.out' });
+        if (isKhivaHovered) {
+          isKhivaHovered = false;
+          gsap.killTweensOf(khivaSprite.position);
+          gsap.killTweensOf(khivaSprite.scale);
+          gsap.to(khivaSprite.position, { y: khivaSprite.restingY, duration: 0.45, ease: 'power2.out' });
+          gsap.to(khivaSprite.scale, { x: 2.00, y: 2.00, duration: 0.45, ease: 'power2.out' });
         }
       }
     }
 
-    // 5. Building 1 Landmark (left of St. Basil's)
-    if (building1Sprite) {
-      const intersects = raycaster.intersectObject(building1Sprite);
-      if (intersects.length > 0) {
-        if (!isBuilding1Hovered) {
-          isBuilding1Hovered = true;
-          gsap.to(building1Sprite.position, { y: building1Sprite.hoverY, duration: 0.45, ease: 'power2.out' });
-          gsap.to(building1Sprite.scale, { x: 1.80, y: 2.40, duration: 0.45, ease: 'power2.out' });
-        }
-        const hoverTime = Date.now() * 0.0035;
-        building1Sprite.position.y = building1Sprite.hoverY + Math.sin(hoverTime) * 0.012;
-      } else {
-        if (isBuilding1Hovered) {
-          isBuilding1Hovered = false;
-          gsap.killTweensOf(building1Sprite.position);
-          gsap.killTweensOf(building1Sprite.scale);
-          gsap.to(building1Sprite.position, { y: building1Sprite.restingY, duration: 0.45, ease: 'power2.out' });
-          gsap.to(building1Sprite.scale, { x: 1.60, y: 2.20, duration: 0.45, ease: 'power2.out' });
-        }
-      }
-    }
   }
 
   // Update Plane and Smoke Trail
@@ -587,7 +522,7 @@ function spawnSmokeParticle(x, y, z) {
   const sprite = new THREE.Sprite(material);
   sprite.position.set(x, y, z);
   sprite.renderOrder = 2.4; // Rendered behind the buildings
-  
+
   const startScale = 0.06 + Math.random() * 0.04;
   sprite.scale.set(startScale, startScale, 1);
   scene.add(sprite);
@@ -613,7 +548,7 @@ function resizeCanvas() {
   if (!camera || !renderer) return;
 
   const heroSection = canvas ? canvas.closest('.hero-section') : null;
-  const width  = heroSection ? heroSection.offsetWidth  : window.innerWidth;
+  const width = heroSection ? heroSection.offsetWidth : window.innerWidth;
   const height = heroSection ? heroSection.offsetHeight : window.innerHeight;
 
   // Update camera projection parameters
@@ -627,81 +562,66 @@ function resizeCanvas() {
   const scaleVal = 1.9;
 
   let earthY;
+  let earthX = 0.35; // Shift globe and 3D elements a bit right
   if (width < 768) {
-    // Mobile viewports (portrait): scale up and push down to target ~28% height visibility
+    // Mobile viewports (portrait): pushed downside by 5%, shifted slightly right
     camera.position.z = 5.0;
-    earthY = -4.25;
+    earthY = -4.46;
+    earthX = 0.20;
   } else {
-    // Desktop viewports (landscape): scale up and push down to target ~38% height visibility
+    // Desktop viewports (landscape): pushed downside by 5%, shifted right
     camera.position.z = 4.0;
-    earthY = -4.1;
+    earthY = -4.30;
+    earthX = 0.35;
   }
 
   meshes.forEach(mesh => {
     if (mesh) {
+      mesh.position.x = earthX;
       mesh.position.y = earthY;
       mesh.scale.set(scaleVal, scaleVal, scaleVal);
     }
   });
 
-  // Calculate and store world space coordinates for stationary sprites (raised above the Earth's curve)
-  if (centerSprite) {
-    centerSprite.restingY = earthY + 2.25 * scaleVal;
-    centerSprite.hoverY = earthY + 2.265 * scaleVal; // Micro-jump (0.015 offset)
-    centerSprite.baseX = 0;
-
-    // Apply position immediately if not currently in a hover tween state
-    if (!isCenterHovered) {
-      centerSprite.position.set(centerSprite.baseX, centerSprite.restingY, 0);
-      centerSprite.scale.set(2.75, 2.75, 1.0);
-    }
-  }
 
   if (leftSprite) {
-    leftSprite.restingY = earthY + 2.15 * scaleVal;
-    leftSprite.hoverY = earthY + 2.165 * scaleVal; // Micro-jump (0.015 offset)
-    leftSprite.baseX = -0.65 * scaleVal; // Spaced slightly wider for larger scale
- 
+    leftSprite.restingY = earthY + 2.48 * scaleVal; // Moved a bit more up
+    leftSprite.hoverY = earthY + 2.495 * scaleVal;  // Micro-jump on hover
+    leftSprite.baseX = earthX + 0.0 * scaleVal; // Shifted right with globe
+    leftSprite.rotation.z = 0; // 90 degrees straight upright
+
     // Apply position immediately if not currently in a hover tween state
     if (!isLeftHovered) {
       leftSprite.position.set(leftSprite.baseX, leftSprite.restingY, 0);
-      leftSprite.scale.set(1.70, 2.30, 1.0);
+      leftSprite.scale.set(1.68, 2.30, 1.0);
     }
   }
 
   if (rightSprite) {
-    rightSprite.restingY = earthY + 1.90 * scaleVal; // Lowered further downside
-    rightSprite.hoverY = earthY + 1.915 * scaleVal; // Micro-jump (0.015 offset)
-    rightSprite.baseX = 1.18 * scaleVal; // Shifted further right
- 
+    rightSprite.restingY = earthY + 2.058 * scaleVal; // Moved down by 2% towards Kármán line
+    rightSprite.hoverY = earthY + 2.073 * scaleVal; // Micro-jump on hover
+    rightSprite.baseX = earthX + 1.00 * scaleVal; // Balanced position towards St. Basil's
+    rightSprite.rotation.z = -29 * (Math.PI / 180); // Rotate 29 degrees clockwise
+
     // Apply position immediately if not currently in a hover tween state
     if (!isRightHovered) {
       rightSprite.position.set(rightSprite.baseX, rightSprite.restingY, 0);
-      rightSprite.scale.set(1.60, 1.60, 1.0);
+      rightSprite.scale.set(1.66, 1.44, 1.0);
     }
   }
 
-  if (building2Sprite) {
-    building2Sprite.restingY = earthY + 2.05 * scaleVal; // Moved downside from 2.15
-    building2Sprite.hoverY = earthY + 2.065 * scaleVal; // Micro-jump (0.015 offset)
-    building2Sprite.baseX = 0.58 * scaleVal;
+  if (khivaSprite) {
+    khivaSprite.restingY = earthY + 1.941 * scaleVal; // 2% closer to Kármán line
+    khivaSprite.hoverY = earthY + 1.956 * scaleVal;  // Micro-jump
+    khivaSprite.baseX = earthX - 1.10 * scaleVal;    // Shifted right with globe
 
-    if (!isBuilding2Hovered) {
-      building2Sprite.position.set(building2Sprite.baseX, building2Sprite.restingY, 0);
-      building2Sprite.scale.set(1.90, 1.90, 1.0);
+    // Apply position immediately if not currently in a hover tween state
+    if (!isKhivaHovered) {
+      khivaSprite.position.set(khivaSprite.baseX, khivaSprite.restingY, 0);
+      khivaSprite.scale.set(2.00, 2.00, 1.0);
     }
   }
 
-  if (building1Sprite) {
-    building1Sprite.restingY = earthY + 2.00 * scaleVal; // Raised slightly up the left curve
-    building1Sprite.hoverY = earthY + 2.015 * scaleVal; // Micro-jump (0.015 offset)
-    building1Sprite.baseX = -1.30 * scaleVal; // Left of St. Basil's (which is at -0.65 * scaleVal)
-
-    if (!isBuilding1Hovered) {
-      building1Sprite.position.set(building1Sprite.baseX, building1Sprite.restingY, 0);
-      building1Sprite.scale.set(1.60, 2.20, 1.0);
-    }
-  }
 
   // Calculate dynamic screen boundaries at Z = 0
   const vFov = (camera.fov * Math.PI) / 180;
@@ -717,7 +637,7 @@ function resizeCanvas() {
 
   if (planeSprite) {
     planeSprite.scale.set(0.65, 0.65, 1.0); // Size of the plane
-    
+
     // Calculate angle of trajectory
     const dx = planeEndX - planeStartX;
     const dy = planeEndY - planeStartY;
@@ -734,7 +654,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Setup layout triggers
   window.addEventListener('resize', resizeCanvas);
-  
+
   // Setup mouse/touch drag system
   initDragInteraction();
 
@@ -748,11 +668,14 @@ window.addEventListener('DOMContentLoaded', () => {
       const linkUrl = new URL(link.href, window.location.href);
       const linkPath = linkUrl.pathname.split('/').pop() || 'index.html';
       const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-      
+
       const resolvedLinkPath = (linkPath === 'index.html' || linkPath === '') ? 'index.html' : linkPath;
       const resolvedCurrentPath = (currentPath === 'index.html' || currentPath === '') ? 'index.html' : currentPath;
 
-      if (linkUrl.origin === window.location.origin && resolvedLinkPath === resolvedCurrentPath) {
+      // Only prevent reload if the full destination (path + query params) is identical to current page
+      if (linkUrl.origin === window.location.origin &&
+        resolvedLinkPath === resolvedCurrentPath &&
+        linkUrl.search === window.location.search) {
         link.addEventListener('click', (e) => {
           if (!linkUrl.hash || linkUrl.hash === '#') {
             e.preventDefault();
@@ -765,6 +688,24 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     } catch (err) {
       // Ignore invalid URLs
+    }
+  });
+
+  // Make entire university card (.dest-card) clickable for better UX
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.dest-card');
+    if (card) {
+      const clickedLink = e.target.closest('a[href]');
+      if (clickedLink) {
+        return; // Allow standard anchor click behavior
+      }
+      const link = card.querySelector('a[href]');
+      if (link) {
+        const targetHref = link.getAttribute('href') || link.href;
+        if (targetHref) {
+          window.location.href = targetHref;
+        }
+      }
     }
   });
 
@@ -885,4 +826,97 @@ function initStackingCards() {
       }
     });
   });
+}
+
+
+// =========================================================================
+// FLOATING SIDE WIDGETS SCROLL TRIGGER & VISIBILITY
+// =========================================================================
+function initFloatingSideWidgets() {
+  const container = document.getElementById('floatingSideWidgets');
+  if (!container) return;
+
+  function updateSideVisibility() {
+    // Target Why Choose Us section on landing page or default threshold
+    const whySection = document.querySelector('.home-why-section') ||
+      document.querySelector('.why-choose-us-section') ||
+      document.querySelector('#why-choose-us') ||
+      document.querySelector('.why-section');
+
+    let threshold = 250; // Default scroll threshold
+    if (whySection) {
+      threshold = Math.max(150, whySection.offsetTop - 100);
+    }
+
+    if (window.scrollY >= threshold) {
+      container.style.opacity = '1';
+      container.style.pointerEvents = 'auto';
+      container.style.transform = 'translateY(-50%) translateX(0)';
+    } else {
+      container.style.opacity = '0';
+      container.style.pointerEvents = 'none';
+      container.style.transform = 'translateY(-50%) translateX(40px)';
+    }
+  }
+
+  updateSideVisibility();
+  window.addEventListener('scroll', updateSideVisibility, { passive: true });
+}
+
+// =========================================================================
+// SMOOTH HASH NAVIGATION (About Us & Section Anchor Links)
+// =========================================================================
+function initHashNavigation() {
+  document.addEventListener('click', (e) => {
+    const anchor = e.target.closest('a[href*="#"]');
+    if (anchor) {
+      try {
+        const url = new URL(anchor.href, window.location.href);
+        const linkPath = (url.pathname.split('/').pop() || 'index.html').replace('.html', '');
+        const currentPath = (window.location.pathname.split('/').pop() || 'index.html').replace('.html', '');
+
+        if (url.origin === window.location.origin && linkPath === currentPath && url.hash && url.hash !== '#') {
+          const targetEl = document.querySelector(url.hash);
+          if (targetEl) {
+            e.preventDefault();
+            const elementPosition = targetEl.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - 85;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+
+            if (window.history && window.history.pushState) {
+              window.history.pushState(null, '', url.hash);
+            }
+          }
+        }
+      } catch (err) { }
+    }
+  });
+
+  if (window.location.hash && window.location.hash !== '#') {
+    setTimeout(() => {
+      const targetEl = document.querySelector(window.location.hash);
+      if (targetEl) {
+        const elementPosition = targetEl.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - 85;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 350);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initFloatingSideWidgets();
+    initHashNavigation();
+  });
+} else {
+  initFloatingSideWidgets();
+  initHashNavigation();
 }
