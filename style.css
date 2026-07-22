@@ -5146,13 +5146,14 @@ html.light-theme .stack-card-btn {
 }
 
 .about-image-card:hover .about-img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
 .about-img-glass-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(2, 6, 23, 0.1) 0%, rgba(2, 6, 23, 0.65) 100%);
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.05) 0%, rgba(2, 6, 23, 0.35) 100%);
+  pointer-events: none;
 }
 
 .about-badge-established {
@@ -7832,13 +7833,14 @@ html.light-theme .nav-link.active {
   gap: 16px !important;
   z-index: 1002 !important;
   margin-left: auto !important;
+}
+
 /* ── GLOBAL IMAGE COPY & DRAG PROTECTION ────────────────────────────── */
 img {
   -webkit-user-drag: none !important;
   -khtml-user-drag: none !important;
   -moz-user-drag: none !important;
   -o-user-drag: none !important;
-  user-drag: none !important;
   user-select: none !important;
   -webkit-user-select: none !important;
   -moz-user-select: none !important;

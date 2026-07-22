@@ -1631,7 +1631,9 @@
         } else if (country === 'uzbekistan') {
           if (russiaGrid) { russiaGrid.classList.remove('active'); russiaGrid.style.display = 'none'; }
           if (uzbekGrid) { uzbekGrid.classList.add('active'); uzbekGrid.style.display = 'grid'; }
-           // Filter matching cards and limit visible count to 4
+        }
+
+        // Filter matching cards and limit visible count to 4
         const matchingCards = getMatchingCards(country);
         
         // Hide cards not in matching set
@@ -2136,7 +2138,7 @@
       <!-- Left Column: Visual Story & Director Quote -->
       <div class="about-visual-col">
         <div class="about-image-card">
-          <img src="assets/about_us/about_us_office.jpg?v=2026_office" alt="UNIMED Global Office Consultation"
+          <img src="assets/about_us/about_us_office.jpg?v=2026_office_calibrated" alt="UNIMED Global Office Consultation"
             class="about-img">
           <div class="about-img-glass-overlay"></div>
 
