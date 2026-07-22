@@ -3,307 +3,341 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Portal — UNIMED Global</title>
-  <meta name="description" content="Authorized Administrative Portal for UNIMED Global Admissions & Student Support.">
+  <title>Admin Sign In — UNIMED Global</title>
   
   <!-- Preconnect Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
   <script src="theme.js"></script>
+
+  <style>
+    /* Fullscreen Standalone Page Reset (No Navbar, No Footer, No Extras) */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Outfit', 'Inter Tight', sans-serif;
+      box-sizing: border-box;
+    }
+
+    .admin-standalone-wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 35% 50%, #2e281e 0%, #151518 70%);
+      transition: background 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+      overflow: hidden;
+    }
+
+    /* Light Theme (Color and White mode) */
+    html.light-theme .admin-standalone-wrapper {
+      background: radial-gradient(circle at 35% 50%, #ffffff 0%, #e2e8f0 75%);
+    }
+
+    /* Warm Ambient Lamp Glow Layer */
+    .lamp-glow-overlay {
+      position: absolute;
+      top: 50%;
+      left: 38%;
+      transform: translate(-50%, -55%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(254, 240, 138, 0.28) 0%, rgba(245, 158, 11, 0.08) 45%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    html.light-theme .lamp-glow-overlay {
+      background: radial-gradient(circle, rgba(253, 224, 71, 0.35) 0%, rgba(59, 130, 246, 0.08) 50%, rgba(255, 255, 255, 0) 75%);
+    }
+
+    /* Central Layout Container */
+    .lamp-login-stage {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      max-width: 900px;
+      width: 90%;
+    }
+
+    /* ── LEFT LAMP FIXTURE ─────────────────────────────────────────── */
+    .lamp-fixture-wrap {
+      position: relative;
+      width: 260px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .lamp-svg {
+      width: 220px;
+      height: 280px;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.5));
+      transition: filter 0.5s ease;
+    }
+
+    html.light-theme .lamp-svg {
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.12));
+    }
+
+    /* Lamp Glow Effect inside SVG */
+    .lamp-shade-glow {
+      fill: #ffffff;
+      filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 60px rgba(254, 240, 138, 0.8));
+      transition: fill 0.4s, filter 0.4s;
+    }
+
+    html.light-theme .lamp-shade-glow {
+      fill: #ffffff;
+      filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.7)) drop-shadow(0 0 45px rgba(251, 191, 36, 0.5));
+    }
+
+    /* Interactive Pull Chain */
+    .pull-chain-group {
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .pull-chain-group:hover .pull-knob {
+      transform: scale(1.3);
+      filter: drop-shadow(0 0 10px #fbbf24);
+    }
+
+    /* Cord Pull Animation */
+    .pulling {
+      animation: cordPullBounce 0.4s ease-in-out;
+    }
+
+    @keyframes cordPullBounce {
+      0% { transform: translateY(0); }
+      40% { transform: translateY(14px); }
+      70% { transform: translateY(-3px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* ── RIGHT GLASSMORPHISM LOGIN FORM ────────────────────────────── */
+    .glass-login-card {
+      width: 340px;
+      background: rgba(30, 30, 35, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 42px 36px 36px 36px;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+      box-sizing: border-box;
+      transition: background 0.6s, border-color 0.6s, box-shadow 0.6s;
+    }
+
+    html.light-theme .glass-login-card {
+      background: rgba(255, 255, 255, 0.82);
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+      margin: 0 0 28px 0;
+      letter-spacing: -0.02em;
+      transition: color 0.5s;
+    }
+
+    html.light-theme .card-title {
+      color: #0f172a;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .field-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #a1a1aa;
+      transition: color 0.5s;
+    }
+
+    html.light-theme .field-label {
+      color: #64748b;
+    }
+
+    .field-input {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.25s, background 0.25s, color 0.25s;
+    }
+
+    html.light-theme .field-input {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    .field-input::placeholder {
+      color: #52525b;
+    }
+
+    html.light-theme .field-input::placeholder {
+      color: #94a3b8;
+    }
+
+    .field-input:focus {
+      border-color: #e5a93b;
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    html.light-theme .field-input:focus {
+      border-color: #e5a93b;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(229, 169, 59, 0.2);
+    }
+
+    /* Golden Pill Button */
+    .gold-sign-in-btn {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #1a150b;
+      background: linear-gradient(180deg, #FEE180 0%, #E5A93B 100%);
+      border: none;
+      padding: 15px;
+      border-radius: 100px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(229, 169, 59, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    }
+
+    .gold-sign-in-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(229, 169, 59, 0.5);
+      filter: brightness(1.06);
+    }
+
+    .gold-sign-in-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 720px) {
+      .lamp-login-stage {
+        flex-direction: column;
+        gap: 30px;
+      }
+      .lamp-fixture-wrap {
+        height: 200px;
+      }
+      .lamp-svg {
+        height: 200px;
+      }
+    }
+  </style>
 </head>
-<body class="admin-page-body">
+<body>
 
-  <!-- Ambient Light Beam / Scene Background Glow -->
-  <div class="admin-ambient-glow" id="ambientGlow"></div>
-
-  <!-- NAVIGATION BAR (Admin Portal: UNIMED GLOBAL only) -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-container" style="justify-content: center !important;">
-      <a href="index.html" class="nav-logo" style="gap: 0 !important;">
-        <span class="logo-text" style="font-size: 1.5rem !important;">UNIMED <span class="logo-highlight">GLOBAL</span></span>
-      </a>
-    </div>
-  </nav>
-
-
-  <!-- MAIN VIEWPORT CONTAINER -->
-  <main class="admin-main-viewport">
-    <div class="admin-login-container">
-      
-      <!-- LEFT COLUMN: INTERACTIVE DAY/NIGHT LANTERN SCENE -->
-      <section class="admin-scene-card" id="adminSceneCard">
-        
-        <!-- Lantern Fixture & Light Cone -->
-        <div class="lantern-wrapper">
-          
-          <!-- Ceiling Suspension Chain -->
-          <div class="lantern-chain"></div>
-
-          <!-- Lantern Body SVG -->
-          <div class="lantern-svg-box" id="lanternSvgBox" title="Click to swing lantern">
-            <svg width="140" height="160" viewBox="0 0 140 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Top Cap Ring & Dome -->
-              <circle cx="70" cy="12" r="8" stroke="#F59E0B" stroke-width="4"/>
-              <path d="M40 32C40 24 53 18 70 18C87 18 100 24 100 32H40Z" fill="url(#lanternMetalGrad)"/>
-              <rect x="36" y="32" width="68" height="8" rx="2" fill="#D97706"/>
-              
-              <!-- Glass Chamber -->
-              <path d="M42 40L35 120H105L98 40H42Z" fill="url(#glassBgGrad)" stroke="#F59E0B" stroke-width="2"/>
-              
-              <!-- Inner Glowing Flame -->
-              <g id="lanternFlameGroup">
-                <circle cx="70" cy="80" r="28" fill="url(#flameGlowGrad)" opacity="0.85"/>
-                <path d="M70 60C62 74 65 88 70 94C75 88 78 74 70 60Z" fill="#FEF08A"/>
-                <ellipse cx="70" cy="82" rx="4" ry="7" fill="#FFFFFF"/>
-              </g>
-
-              <!-- Metal Cage Struts -->
-              <line x1="50" y1="40" x2="45" y2="120" stroke="#78350F" stroke-width="2"/>
-              <line x1="70" y1="40" x2="70" y2="120" stroke="#78350F" stroke-width="2"/>
-              <line x1="90" y1="40" x2="95" y2="120" stroke="#78350F" stroke-width="2"/>
-
-              <!-- Bottom Base Base Rim -->
-              <rect x="30" y="120" width="80" height="12" rx="3" fill="url(#lanternMetalGrad)"/>
-              <rect x="40" y="132" width="60" height="8" rx="2" fill="#B45309"/>
-
-              <!-- Gradients Definition -->
-              <defs>
-                <linearGradient id="lanternMetalGrad" x1="30" y1="18" x2="110" y2="132" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#FBBF24"/>
-                  <stop offset="50%" stop-color="#D97706"/>
-                  <stop offset="100%" stop-color="#78350F"/>
-                </linearGradient>
-                <linearGradient id="glassBgGrad" x1="70" y1="40" x2="70" y2="120" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="rgba(253, 224, 71, 0.25)"/>
-                  <stop offset="100%" stop-color="rgba(245, 158, 11, 0.05)"/>
-                </linearGradient>
-                <radialGradient id="flameGlowGrad" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#FEF08A" stop-opacity="1"/>
-                  <stop offset="40%" stop-color="#F59E0B" stop-opacity="0.8"/>
-                  <stop offset="100%" stop-color="#D97706" stop-opacity="0"/>
-                </radialGradient>
-              </defs>
-            </svg>
-          </div>
-
-          <!-- Downward Projected Light Cone -->
-          <div class="lantern-light-cone" id="lanternLightCone"></div>
-
-          <!-- Interactive Pull Cord Hook Switch -->
-          <div class="lantern-pull-cord" id="lanternPullCord">
-            <div class="lantern-cord-line"></div>
-            <div class="lantern-cord-hook">⚡</div>
-            <div class="lantern-hook-label" id="lanternHookLabel">Pull for Day</div>
-          </div>
-        </div>
-
-        <!-- Scene Badge & Description -->
-        <span class="admin-scene-tag" id="sceneModeTag">
-          <span class="scene-mode-dot">●</span> <span id="sceneModeText">Night Mode Illumination</span>
-        </span>
-        <h2 class="admin-scene-title">Illuminated Knowledge</h2>
-        <p class="admin-scene-desc">
-          Pull the lantern hook to switch room lighting between Day & Night modes. Manage global university databases, student support queues, and admission records seamlessly.
-        </p>
-      </section>
-
-      <!-- RIGHT COLUMN: GLASSMORPHIC LOGIN CARD -->
-      <section class="admin-form-card">
-        <div class="admin-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          UNIMED Global Portal
-        </div>
-        <h1 class="admin-form-title">Admin Sign In</h1>
-        <p class="admin-form-sub">Enter authorized credentials to access administrative dashboard.</p>
-
-        <form id="adminLoginForm" onsubmit="event.preventDefault(); handleAdminLogin();">
-          <div class="admin-field-group">
-            
-            <!-- Email / Username Field -->
-            <div class="admin-field">
-              <label for="adminEmail" class="admin-field-label">Username or Admin Email</label>
-              <div class="admin-input-wrap">
-                <svg class="admin-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                <input type="text" id="adminEmail" class="admin-input" placeholder="admin@unimedglobal.com" required autocomplete="username">
-              </div>
-            </div>
-
-            <!-- Password Field -->
-            <div class="admin-field">
-              <label for="adminPassword" class="admin-field-label">Security Password</label>
-              <div class="admin-input-wrap">
-                <svg class="admin-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                </svg>
-                <input type="password" id="adminPassword" class="admin-input" placeholder="••••••••••••" required autocomplete="current-password">
-                <button type="button" class="admin-eye-toggle" id="adminEyeToggle" aria-label="Toggle Password Visibility">
-                  <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Row: Remember & Forgot Password -->
-          <div class="admin-row-between">
-            <label class="admin-checkbox-label">
-              <input type="checkbox" class="admin-checkbox" checked> Remember session
-            </label>
-            <a href="#" onclick="alert('Please contact System Administrator (Arijit Dutta / Pawan Kumar) for credential reset.'); return false;" class="admin-forgot-link">Forgot password?</a>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="submit" class="admin-submit-btn">
-            <span>Sign In to Dashboard</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </button>
-        </form>
-      </section>
-
-    </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer-section">
-    <div class="footer-wrapper">
-      <div class="footer-col">
-        <a href="index.html" class="nav-logo">
-          <div class="logo-mark">UG</div>
-          <span class="logo-text">UNIMED <span class="logo-highlight">GLOBAL</span></span>
-        </a>
-        <p class="footer-desc">
-          Official Direct Representative for Top Foreign Medical Universities. Guiding Indian &amp; International students to successful medical careers.
-        </p>
-      </div>
-
-      <div class="footer-col">
-        <h4 class="footer-col-title">Quick Links</h4>
-        <div class="footer-links">
-          <a href="index.html" class="footer-link-a">Home</a>
-          <a href="why-choose-us.html" class="footer-link-a">Why Choose Us</a>
-          <a href="universities.html" class="footer-link-a">Universities</a>
-          <a href="admission.html" class="footer-link-a">Admission Process</a>
-          <a href="contact.html" class="footer-link-a">Contact Us</a>
-          <a href="admin.html" class="footer-link-a">Admin Portal</a>
-        </div>
-      </div>
-
-      <div class="footer-col">
-        <h4 class="footer-col-title">Contact</h4>
-        <p class="footer-desc">
-          Director: Arijit Dutta (Kolkata)<br>
-          Co-Founder: Pawan Kumar (Nepal &amp; Bihar, India)<br>
-          WhatsApp: +91 9163654664, +91 9661994131<br>
-          Instagram: @unimed_global
-        </p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">&copy; 2026 UNIMED Global. All Rights Reserved. Authorized Admin System.</p>
-    </div>
-  </footer>
-
-  <!-- Floating Side Action Widgets (Enquiry Now, Instagram, WhatsApp) -->
-  <div id="floatingSideWidgets" style="position: fixed !important; right: 0 !important; top: 50% !important; transform: translateY(-50%) translateX(40px) !important; z-index: 999999 !important; display: flex !important; flex-direction: column !important; gap: 10px !important; align-items: flex-end !important; margin: 0 !important; padding: 0 !important; opacity: 0 !important; pointer-events: none !important; transition: opacity 0.4s ease, transform 0.4s ease !important;">
+  <!-- Fullscreen Standalone Container -->
+  <div class="admin-standalone-wrapper" id="adminWrapper">
     
-    <!-- Enquiry Tab (Direct link to contact.html) -->
-    <a href="contact.html" class="side-widget-tab tab-enquiry" id="sideEnquiryBtn" aria-label="Enquire Now" style="display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 8px !important; background: #141a29 !important; color: #00f2fe !important; border: 1px solid rgba(0, 242, 254, 0.3) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; padding: 12px 10px 10px 10px !important; text-decoration: none !important; cursor: pointer !important; width: 46px !important; box-sizing: border-box !important; box-shadow: -4px 6px 20px rgba(0,0,0,0.4) !important; transition: transform 0.2s ease !important;">
-      <span class="side-widget-text" style="writing-mode: vertical-rl !important; text-orientation: mixed !important; transform: rotate(180deg) !important; font-family: 'Outfit', sans-serif !important; font-size: 0.65rem !important; font-weight: 800 !important; letter-spacing: 0.12em !important; text-transform: uppercase !important; color: inherit !important; line-height: 1 !important; white-space: nowrap !important;">ENQUIRE NOW</span>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px !important; height: 20px !important; max-width: 20px !important; max-height: 20px !important; flex-shrink: 0 !important; display: block !important;">
-        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-        <line x1="7" y1="7" x2="7.01" y2="7"></line>
-      </svg>
-    </a>
+    <!-- Warm Radial Lamp Light Beam Overlay -->
+    <div class="lamp-glow-overlay"></div>
 
-    <!-- Instagram Tab (Exact same size 46x46 as WhatsApp) -->
-    <a href="https://instagram.com/unimed_global" target="_blank" rel="noopener" class="side-widget-tab tab-instagram" aria-label="Instagram" style="display: flex !important; align-items: center !important; justify-content: center !important; background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045) !important; color: #ffffff !important; border: 1px solid rgba(253, 29, 29, 0.4) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; width: 46px !important; height: 46px !important; box-sizing: border-box !important; text-decoration: none !important; cursor: pointer !important; box-shadow: -4px 6px 20px rgba(225, 48, 108, 0.4) !important; transition: transform 0.2s ease !important; flex-shrink: 0 !important;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px !important; height: 22px !important; max-width: 22px !important; max-height: 22px !important; flex-shrink: 0 !important; display: block !important;">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-      </svg>
-    </a>
+    <div class="lamp-login-stage">
+      
+      <!-- LEFT MINIMALIST TABLE LAMP -->
+      <div class="lamp-fixture-wrap">
+        <svg class="lamp-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          
+          <!-- Dome Lamp Shade (White Glowing Cap) -->
+          <path class="lamp-shade-glow" d="M 25 85 C 25 32, 175 32, 175 85 Z" />
+          <path d="M 25 85 L 175 85" stroke="#E2E8F0" stroke-width="3" stroke-linecap="round" />
+          
+          <!-- Post / Column -->
+          <rect x="96" y="85" width="8" height="115" fill="#E2E8F0" rx="4" />
+          
+          <!-- Base Stand -->
+          <rect x="55" y="196" width="90" height="10" fill="#E2E8F0" rx="5" />
 
-    <!-- WhatsApp Tab (Exact same size 46x46 as Instagram) -->
-    <a href="https://wa.me/919163654664?text=Hi%20UNIMED%20Global!%20I%20want%20to%20know%20more%20about%20MBBS%20admissions." target="_blank" rel="noopener" class="side-widget-tab tab-whatsapp" aria-label="WhatsApp" style="display: flex !important; align-items: center !important; justify-content: center !important; background: #25D366 !important; color: #ffffff !important; border: 1px solid rgba(37, 211, 102, 0.4) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; width: 46px !important; height: 46px !important; box-sizing: border-box !important; text-decoration: none !important; cursor: pointer !important; box-shadow: -4px 6px 20px rgba(37, 211, 102, 0.4) !important; transition: transform 0.2s ease !important; flex-shrink: 0 !important;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="width: 22px !important; height: 22px !important; max-width: 22px !important; max-height: 22px !important; flex-shrink: 0 !important; display: block !important;">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
-    </a>
+          <!-- Interactive Pull Chain & Knob -->
+          <g class="pull-chain-group" id="pullChainGroup" title="Click hook to turn on/off light & toggle color mode">
+            <!-- Hanging Chain line -->
+            <line id="chainLine" x1="130" y1="85" x2="130" y2="142" stroke="#E5A93B" stroke-width="2" stroke-dasharray="3 3" />
+            <!-- Spherical Knob Hook -->
+            <circle id="pullKnob" class="pull-knob" cx="130" cy="146" r="7" fill="#E5A93B" style="transition: transform 0.2s;" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- RIGHT MINIMALIST GLASSMORPHISM LOGIN CARD -->
+      <main class="glass-login-card">
+        <h1 class="card-title">Welcome</h1>
+
+        <form onsubmit="event.preventDefault(); alert('UNIMED Global Admin Portal Access Granted!');">
+          <div class="form-group">
+            
+            <div class="field-block">
+              <label for="username" class="field-label">Username</label>
+              <input type="text" id="username" class="field-input" placeholder="Enter name" required autocomplete="username">
+            </div>
+
+            <div class="field-block">
+              <label for="password" class="field-label">Password</label>
+              <input type="password" id="password" class="field-input" placeholder="Enter Password" required autocomplete="current-password">
+            </div>
+
+          </div>
+
+          <button type="submit" class="gold-sign-in-btn">Sign In</button>
+        </form>
+      </main>
+
+    </div>
   </div>
 
   <script>
-    // Password Eye Toggle
-    const adminEyeToggle = document.getElementById('adminEyeToggle');
-    const adminPassword = document.getElementById('adminPassword');
-    if (adminEyeToggle && adminPassword) {
-      adminEyeToggle.addEventListener('click', () => {
-        const isPassword = adminPassword.type === 'password';
-        adminPassword.type = isPassword ? 'text' : 'password';
-        adminEyeToggle.innerHTML = isPassword 
-          ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`
-          : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
-      });
-    }
-
-    // Lantern Hook Pull Day/Night Switch Logic
-    const lanternPullCord = document.getElementById('lanternPullCord');
-    const lanternSvgBox = document.getElementById('lanternSvgBox');
-    const lanternHookLabel = document.getElementById('lanternHookLabel');
-    const sceneModeText = document.getElementById('sceneModeText');
+    const pullChainGroup = document.getElementById('pullChainGroup');
     const htmlEl = document.documentElement;
 
-    function updateLanternUI() {
-      const isLight = htmlEl.classList.contains('light-theme');
-      if (isLight) {
-        if (lanternHookLabel) lanternHookLabel.innerText = "Pull for Night";
-        if (sceneModeText) sceneModeText.innerText = "Golden Daylight Illumination";
-      } else {
-        if (lanternHookLabel) lanternHookLabel.innerText = "Pull for Day";
-        if (sceneModeText) sceneModeText.innerText = "Night Mode Illumination";
-      }
-    }
+    function toggleLampTheme() {
+      // Trigger cord pull bounce animation
+      pullChainGroup.classList.remove('pulling');
+      void pullChainGroup.offsetWidth; // trigger reflow
+      pullChainGroup.classList.add('pulling');
 
-    function toggleDayNightLantern() {
-      // Cord pull bounce animation
-      if (lanternPullCord) {
-        lanternPullCord.style.transform = "translateY(16px)";
-        setTimeout(() => {
-          lanternPullCord.style.transform = "translateY(-4px)";
-          setTimeout(() => {
-            lanternPullCord.style.transform = "translateY(0)";
-          }, 150);
-        }, 150);
-      }
-
-      // Lantern swing
-      if (lanternSvgBox) {
-        lanternSvgBox.style.transform = "rotate(8deg) scale(1.05)";
-        setTimeout(() => {
-          lanternSvgBox.style.transform = "rotate(-5deg)";
-          setTimeout(() => {
-            lanternSvgBox.style.transform = "rotate(0) scale(1)";
-          }, 200);
-        }, 200);
-      }
-
-      // Toggle state
+      // Toggle site theme state
       const isLight = htmlEl.classList.contains('light-theme');
       if (isLight) {
         try { localStorage.setItem('theme', 'dark'); } catch (e) {}
@@ -314,24 +348,12 @@
         htmlEl.classList.add('light-theme');
         window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: 'light' } }));
       }
-      updateLanternUI();
     }
 
-    if (lanternPullCord) {
-      lanternPullCord.addEventListener('click', toggleDayNightLantern);
-    }
-    if (lanternSvgBox) {
-      lanternSvgBox.addEventListener('click', toggleDayNightLantern);
-    }
-
-    // Sync on system theme changed
-    window.addEventListener('themeChanged', updateLanternUI);
-    updateLanternUI();
-
-    function handleAdminLogin() {
-      const email = document.getElementById('adminEmail').value;
-      alert(`Welcome to UNIMED Global Admin Portal, ${email}!\n\n(Demo Access Granted)`);
+    if (pullChainGroup) {
+      pullChainGroup.addEventListener('click', toggleLampTheme);
     }
   </script>
+
 </body>
 </html>
