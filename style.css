@@ -3911,6 +3911,36 @@ html.light-theme .form-select {
   text-transform: capitalize;
 }
 
+/* Star asterisk on 20L */
+.stat-star {
+  font-size: 0.6em;
+  vertical-align: super;
+  line-height: 0;
+  margin-left: 2px;
+  color: var(--color-accent);
+}
+
+html.light-theme .stat-star {
+  color: #2563eb;
+}
+
+/* Subnote under stat label */
+.stat-subnote {
+  display: block;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  opacity: 0.85;
+  margin-top: 6px;
+  line-height: 1.35;
+}
+
+html.light-theme .stat-subnote {
+  color: #6b7280;
+}
+
+
 /* ── Light theme overrides for stats ──────────────────────────────── */
 html.light-theme .stat-num,
 html.light-theme .stat-plus,
