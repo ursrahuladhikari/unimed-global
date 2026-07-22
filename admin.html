@@ -14,7 +14,7 @@
   <script src="theme.js"></script>
 
   <style>
-    /* Fullscreen Standalone Page Reset (No Navbar, No Footer, No Extras) */
+    /* Fullscreen Standalone Page Reset */
     html, body {
       margin: 0;
       padding: 0;
@@ -42,22 +42,23 @@
       background: radial-gradient(circle at 35% 50%, #ffffff 0%, #e2e8f0 75%);
     }
 
-    /* Warm Ambient Lamp Glow Layer */
+    /* Soft Radial Ambient Lamp Glow Layer (Frameless & Smooth) */
     .lamp-glow-overlay {
       position: absolute;
       top: 50%;
-      left: 38%;
+      left: 35%;
       transform: translate(-50%, -55%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(254, 240, 138, 0.28) 0%, rgba(245, 158, 11, 0.08) 45%, rgba(0, 0, 0, 0) 70%);
+      width: 900px;
+      height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(254, 240, 138, 0.25) 0%, rgba(245, 158, 11, 0.06) 45%, rgba(0, 0, 0, 0) 70%);
       pointer-events: none;
       z-index: 1;
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition: opacity 0.6s ease, background 0.6s ease;
     }
 
     html.light-theme .lamp-glow-overlay {
-      background: radial-gradient(circle, rgba(253, 224, 71, 0.35) 0%, rgba(59, 130, 246, 0.08) 50%, rgba(255, 255, 255, 0) 75%);
+      background: radial-gradient(circle, rgba(253, 224, 71, 0.32) 0%, rgba(59, 130, 246, 0.07) 50%, rgba(255, 255, 255, 0) 75%);
     }
 
     /* Central Layout Container */
@@ -67,75 +68,88 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 60px;
-      max-width: 900px;
-      width: 90%;
+      gap: 70px;
+      max-width: 980px;
+      width: 92%;
     }
 
-    /* ── LEFT LAMP FIXTURE ─────────────────────────────────────────── */
+    /* ── LEFT LAMP FIXTURE (Enlarged & Frameless) ─────────────────── */
     .lamp-fixture-wrap {
       position: relative;
-      width: 260px;
-      height: 320px;
+      width: 320px;
+      height: 390px;
       display: flex;
       align-items: center;
       justify-content: center;
       user-select: none;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      outline: none !important;
     }
 
     .lamp-svg {
-      width: 220px;
-      height: 280px;
-      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.5));
-      transition: filter 0.5s ease;
+      width: 300px;
+      height: 370px;
+      display: block;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      outline: none !important;
+      overflow: visible;
     }
 
-    html.light-theme .lamp-svg {
-      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.12));
-    }
-
-    /* Lamp Glow Effect inside SVG */
+    /* Lamp Glow Effect inside SVG Cap */
     .lamp-shade-glow {
       fill: #ffffff;
-      filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 60px rgba(254, 240, 138, 0.8));
-      transition: fill 0.4s, filter 0.4s;
+      transition: fill 0.4s;
     }
 
     html.light-theme .lamp-shade-glow {
       fill: #ffffff;
-      filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.7)) drop-shadow(0 0 45px rgba(251, 191, 36, 0.5));
     }
 
-    /* Interactive Pull Chain */
+    /* Interactive Pull Chain (Generous Hit Region, No Jittering) */
     .pull-chain-group {
       cursor: pointer;
-      transition: transform 0.15s ease;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .pull-knob {
+      transition: fill 0.25s ease;
     }
 
     .pull-chain-group:hover .pull-knob {
-      transform: scale(1.3);
-      filter: drop-shadow(0 0 10px #fbbf24);
+      fill: #FEE180;
     }
 
-    /* Cord Pull Animation */
+    .pull-chain-line {
+      transition: stroke 0.25s ease;
+    }
+
+    .pull-chain-group:hover .pull-chain-line {
+      stroke: #FEE180;
+    }
+
+    /* Smooth Silky Cord Pull Animation */
     .pulling {
-      animation: cordPullBounce 0.4s ease-in-out;
+      animation: smoothCordPull 0.45s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    @keyframes cordPullBounce {
+    @keyframes smoothCordPull {
       0% { transform: translateY(0); }
-      40% { transform: translateY(14px); }
-      70% { transform: translateY(-3px); }
+      40% { transform: translateY(16px); }
+      70% { transform: translateY(-2px); }
       100% { transform: translateY(0); }
     }
 
     /* ── RIGHT GLASSMORPHISM LOGIN FORM ────────────────────────────── */
     .glass-login-card {
-      width: 340px;
+      width: 350px;
       background: rgba(30, 30, 35, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 28px;
-      padding: 42px 36px 36px 36px;
+      padding: 44px 38px 38px 38px;
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
@@ -151,7 +165,7 @@
 
     .card-title {
       font-size: 1.85rem;
-      font-weight: 700;
+      font-weight: 800;
       color: #ffffff;
       text-align: center;
       margin: 0 0 28px 0;
@@ -161,6 +175,14 @@
 
     html.light-theme .card-title {
       color: #0f172a;
+    }
+
+    .card-title-highlight {
+      color: #00f2fe;
+    }
+
+    html.light-theme .card-title-highlight {
+      color: #2563eb;
     }
 
     .form-group {
@@ -253,16 +275,18 @@
     }
 
     /* Responsive adjustments */
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
       .lamp-login-stage {
         flex-direction: column;
-        gap: 30px;
+        gap: 25px;
       }
       .lamp-fixture-wrap {
-        height: 200px;
+        width: 240px;
+        height: 260px;
       }
       .lamp-svg {
-        height: 200px;
+        width: 230px;
+        height: 250px;
       }
     }
   </style>
@@ -277,33 +301,35 @@
 
     <div class="lamp-login-stage">
       
-      <!-- LEFT MINIMALIST TABLE LAMP -->
+      <!-- LEFT ENLARGED MINIMALIST TABLE LAMP -->
       <div class="lamp-fixture-wrap">
         <svg class="lamp-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
           
           <!-- Dome Lamp Shade (White Glowing Cap) -->
-          <path class="lamp-shade-glow" d="M 25 85 C 25 32, 175 32, 175 85 Z" />
-          <path d="M 25 85 L 175 85" stroke="#E2E8F0" stroke-width="3" stroke-linecap="round" />
+          <path class="lamp-shade-glow" d="M 20 85 C 20 28, 180 28, 180 85 Z" />
+          <path d="M 20 85 L 180 85" stroke="#E2E8F0" stroke-width="3.5" stroke-linecap="round" />
           
           <!-- Post / Column -->
-          <rect x="96" y="85" width="8" height="115" fill="#E2E8F0" rx="4" />
+          <rect x="95" y="85" width="10" height="118" fill="#E2E8F0" rx="5" />
           
           <!-- Base Stand -->
-          <rect x="55" y="196" width="90" height="10" fill="#E2E8F0" rx="5" />
+          <rect x="50" y="200" width="100" height="12" fill="#E2E8F0" rx="6" />
 
-          <!-- Interactive Pull Chain & Knob -->
+          <!-- Interactive Pull Chain & Knob (With Generous Invisible Hit Region) -->
           <g class="pull-chain-group" id="pullChainGroup" title="Click hook to turn on/off light & toggle color mode">
+            <!-- Invisible Generous Hit-Box to prevent hover jittering -->
+            <rect x="110" y="75" width="50" height="95" fill="transparent" pointer-events="all" />
             <!-- Hanging Chain line -->
-            <line id="chainLine" x1="130" y1="85" x2="130" y2="142" stroke="#E5A93B" stroke-width="2" stroke-dasharray="3 3" />
+            <line id="chainLine" class="pull-chain-line" x1="135" y1="85" x2="135" y2="145" stroke="#E5A93B" stroke-width="2.5" stroke-dasharray="3 3" />
             <!-- Spherical Knob Hook -->
-            <circle id="pullKnob" class="pull-knob" cx="130" cy="146" r="7" fill="#E5A93B" style="transition: transform 0.2s;" />
+            <circle id="pullKnob" class="pull-knob" cx="135" cy="150" r="8" fill="#E5A93B" />
           </g>
         </svg>
       </div>
 
       <!-- RIGHT MINIMALIST GLASSMORPHISM LOGIN CARD -->
       <main class="glass-login-card">
-        <h1 class="card-title">Welcome</h1>
+        <h1 class="card-title">UNIMED <span class="card-title-highlight">Global</span></h1>
 
         <form onsubmit="event.preventDefault(); alert('UNIMED Global Admin Portal Access Granted!');">
           <div class="form-group">

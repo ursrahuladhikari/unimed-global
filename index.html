@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <script src="theme.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UNIMED Global | Guiding Future Doctors</title>
-  <meta name="description" content="Complete your MBBS in Russia & Uzbekistan under 20 Lakh. Expert guidance for 2026-27 intake. Apply now with UNIMED Global.">
+  <meta name="description"
+    content="Complete your MBBS in top-tier state medical universities in Russia & Uzbekistan with affordable tuition fees. Expert, hassle-free guidance from counselling to graduation. Apply now with UNIMED Global.">
   <link rel="stylesheet" href="style.css?v=2026">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet">
   <style>
     /* ── HERO SECTION ─────────────────────────────────────── */
     .hero-section {
@@ -18,11 +22,13 @@
       height: 100vh;
       overflow: hidden;
     }
+
     .hero-section .canvas-wrapper {
       position: absolute;
       inset: 0;
       z-index: 1;
     }
+
     .hero-overlay {
       position: absolute;
       top: 50%;
@@ -35,6 +41,7 @@
       flex-direction: column;
       gap: 24px;
     }
+
     .scroll-indicator {
       position: absolute;
       bottom: 36px;
@@ -52,114 +59,287 @@
       text-transform: uppercase;
       animation: bounce-gentle 2.5s ease-in-out infinite;
     }
-    .scroll-indicator svg { opacity: 0.6; }
+
+    .scroll-indicator svg {
+      opacity: 0.6;
+    }
+
     @keyframes bounce-gentle {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50%      { transform: translateX(-50%) translateY(8px); }
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(8px);
+      }
     }
 
     /* ── MARQUEE ──────────────────────────────────────────── */
     .marquee-section {
-      position: relative; z-index: 2;
-      padding: 56px 0; overflow: hidden;
+      position: relative;
+      z-index: 2;
+      padding: 56px 0;
+      overflow: hidden;
       background: var(--color-glass-bg);
       border-top: 1px solid var(--color-glass-border);
       border-bottom: 1px solid var(--color-glass-border);
       backdrop-filter: blur(20px);
     }
+
     .marquee-label {
-      text-align: center; font-size: 0.7rem; font-weight: 800;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--color-text-muted); margin-bottom: 32px; padding: 0 20px;
+      font-family: 'Instrument Serif', Georgia, serif !important;
+      font-style: italic !important;
+      font-weight: 400 !important;
+      font-size: clamp(1.25rem, 2.2vw, 1.85rem) !important;
+      text-transform: none !important;
+      letter-spacing: 0.02em !important;
+      color: var(--color-text) !important;
+      text-align: center;
+      margin-bottom: 28px;
+      padding: 0 20px;
+      line-height: 1.3;
+      opacity: 0;
+      transform: translateY(24px) scale(0.97);
+      filter: blur(4px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
     }
-    .marquee-row { overflow: hidden; width: 100%; }
+
+    .marquee-label.reveal-active {
+      opacity: 1 !important;
+      transform: translateY(0) scale(1) !important;
+      filter: blur(0) !important;
+    }
+
+    .marquee-row {
+      overflow: hidden;
+      width: 100%;
+    }
+
     .marquee-track {
-      display: flex; gap: 24px; width: max-content;
+      display: flex;
+      gap: 24px;
+      width: max-content;
       animation: marqRTL 32s linear infinite;
     }
+
     @keyframes marqRTL {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
     }
+
     .marquee-card {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 28px; border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 28px;
+      border-radius: 60px;
       border: 1px solid var(--color-glass-border);
-      background: rgba(255,255,255,0.025);
-      white-space: nowrap; flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.025);
+      white-space: nowrap;
+      flex-shrink: 0;
       transition: border-color 0.3s, background 0.3s;
     }
-    .marquee-card:hover { border-color: var(--color-accent); background: rgba(0,242,254,0.05); }
-    .mq-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
-    .mq-text { display: flex; flex-direction: column; gap: 2px; }
-    .mq-name { font-size: 0.9rem; font-weight: 700; color: var(--color-text); }
-    .mq-country { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); }
+
+    .marquee-card:hover {
+      border-color: var(--color-accent);
+      background: rgba(0, 242, 254, 0.05);
+    }
+
+    .mq-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .mq-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .mq-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .mq-country {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted);
+    }
 
     /* ── WHY CHOOSE US – HOME ─────────────────────────────── */
     .home-why-section {
-      position: relative; z-index: 2;
+      position: relative;
+      z-index: 2;
       padding: 100px 0;
       max-width: 100% !important;
       width: 100% !important;
     }
+
     .why-top {
-      text-align: center; max-width: 720px;
+      text-align: center;
+      max-width: 720px;
       margin: 0 auto 0;
     }
+
     .why-tag {
-      display: inline-block; font-size: 0.68rem; font-weight: 800;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--color-accent); background: rgba(0,242,254,0.08);
-      border: 1px solid rgba(0,242,254,0.18);
-      padding: 6px 18px; border-radius: 30px; margin-bottom: 22px;
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.18);
+      padding: 6px 18px;
+      border-radius: 30px;
+      margin-bottom: 22px;
     }
+
     .why-title {
-      font-size: 3.2rem; font-weight: 800; line-height: 1.15;
-      color: var(--color-text); margin-bottom: 20px;
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--color-text);
+      margin-bottom: 20px;
     }
+
     .why-title span {
       background: linear-gradient(120deg, var(--color-accent), #3b82f6 80%);
-      -webkit-background-clip: text; background-clip: text;
+      -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .why-subtitle { font-size: 1.05rem; line-height: 1.7; color: var(--color-text-muted); }
+
+    .why-subtitle {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--color-text-muted);
+    }
 
     .why-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px; max-width: 100% !important; width: 100% !important; padding: 0 8%; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 100% !important;
+      width: 100% !important;
+      padding: 0 8%;
+      margin: 0 auto;
     }
-    .why-card {
-      position: relative; background: var(--color-glass-bg);
-      border: 1px solid var(--color-glass-border); border-radius: 20px;
-      padding: 36px 30px; backdrop-filter: blur(12px);
-      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; overflow: hidden;
-    }
-    .why-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 3px; background: linear-gradient(90deg, var(--color-accent), #3b82f6);
-      opacity: 0; transition: opacity 0.3s; border-radius: 20px 20px 0 0;
-    }
-    .why-card:hover { border-color: rgba(0,242,254,0.25); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
-    .why-card:hover::before { opacity: 1; }
-    .why-card-icon { font-size: 2.2rem; margin-bottom: 18px; display: block; }
-    .why-card-title { font-size: 1.05rem; font-weight: 700; color: var(--color-text); margin-bottom: 10px; }
-    .why-card-desc { font-size: 0.85rem; line-height: 1.65; color: var(--color-text-muted); }
 
-    .home-footer { position: relative; z-index: 2; border-top: 1px solid var(--color-glass-border); }
+    .why-card {
+      position: relative;
+      background: var(--color-glass-bg);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 20px;
+      padding: 36px 30px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+    }
+
+    .why-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-accent), #3b82f6);
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .why-card:hover {
+      border-color: rgba(0, 242, 254, 0.25);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+
+    .why-card:hover::before {
+      opacity: 1;
+    }
+
+    .why-card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .why-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 10px;
+    }
+
+    .why-card-desc {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--color-text-muted);
+    }
+
+    .home-footer {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--color-glass-border);
+    }
 
     @media (max-width: 1024px) {
-      .why-grid { grid-template-columns: repeat(2,1fr); }
-      .home-why-section { padding: 70px 40px; }
-      .why-title { font-size: 2.4rem; }
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .home-why-section {
+        padding: 70px 40px;
+      }
+
+      .why-title {
+        font-size: 2.4rem;
+      }
     }
+
     @media (max-width: 768px) {
-      .hero-overlay { left: 0; right: 0; margin: 0 auto; width: 100%; max-width: 100%; text-align: center; align-items: center; }
-      .why-grid { grid-template-columns: 1fr; }
-      .home-why-section { padding: 60px 20px; }
-      .why-title { font-size: 2rem; }
+      .hero-overlay {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+        align-items: center;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .home-why-section {
+        padding: 60px 20px;
+      }
+
+      .why-title {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
+
 <body class="home-page">
 
   <!-- ===================================================================== -->
@@ -172,7 +352,7 @@
     </div>
   </div>
   <script>
-    // Inline fail-safe: guarantee preloader fades out quickly regardless of JS/CDN state
+    // Inline fail-safe: guarantee preloader fades out quickly regardless of JS/CDN state 
     (function() {
       setTimeout(function() {
         var p = document.getElementById('preloader');
@@ -181,7 +361,7 @@
           if (pct) pct.textContent = '100%';
           p.classList.add('fade-out');
         }
-      }, 1000);
+      }, 100);
     })();
   </script>
 
@@ -203,10 +383,27 @@
     </nav>
     <div class="nav-actions">
       <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
-        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+        </svg>
       </button>
-      <a href="contact.html" class="cta-btn">Enquire Now</a>
+      <a href="contact.html" class="cta-btn">
+        <span class="cta-btn-text">Enquire Now</span>
+        <span class="cta-btn-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </span>
+      </a>
       <!-- Hamburger -->
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open Menu" aria-expanded="false">
         <span class="bar"></span>
@@ -222,7 +419,10 @@
     <div class="mobile-nav-header">
       <a href="index.html" class="mobile-nav-logo">UNIMED <span>Global</span></a>
       <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Menu">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
       </button>
     </div>
     <div class="mobile-nav-links">
@@ -254,23 +454,42 @@
         <span class="trust-badge-icon">✓</span>
         <span>Trusted by 100+ Students · 2026-27 Intake Open</span>
       </div>
-      <h1 class="hero-title">Guiding Future Doctors to a <span class="hero-title-accent">Global Career</span></h1>
+      <h1 class="hero-title">Building Future Doctors<br>to a<br><span class="hero-title-accent">Global Career</span></h1>
       <p class="hero-description">
-        Complete your MBBS in top-tier state medical universities in Russia &amp; Uzbekistan under 20 Lakh. Expert, hassle-free guidance from counselling to graduation.
+        Complete your MBBS in top-tier state medical universities<br>
+        in Russia &amp; Uzbekistan with affordable tuition fees.<br>
+        Expert, hassle-free guidance from counselling to graduation.
       </p>
       <div class="hero-buttons">
-        <a href="contact.html" class="btn-primary">
-          <span>Apply Now</span>
-          <span>→</span>
+        <a href="contact.html" class="cta-btn hero-cta-btn btn-primary">
+          <span class="cta-btn-text">Apply Now</span>
+          <span class="cta-btn-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </span>
         </a>
-        <a href="universities.html" class="btn-secondary">Explore Universities</a>
+        <a href="universities.html" class="cta-btn hero-cta-btn btn-secondary hero-cta-secondary">
+          <span class="cta-btn-text">Explore Universities</span>
+          <span class="cta-btn-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </span>
+        </a>
       </div>
     </div>
 
     <!-- Scroll cue -->
     <div class="scroll-indicator">
       <span>Scroll</span>
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12l7 7 7-7" />
+      </svg>
     </div>
 
   </section>
@@ -279,120 +498,227 @@
   <!-- SECTION 2: PARTNER UNIVERSITY LOGOS – RIGHT TO LEFT MARQUEE          -->
   <!-- ===================================================================== -->
   <section class="marquee-section">
-    <p class="marquee-label">Our Official Partner Universities — Russia &amp; Uzbekistan</p>
+    <p class="marquee-label">Shaping the Future with Our Global Network Partners</p>
     <div class="marquee-row">
       <!-- The track is duplicated so the animation loops seamlessly -->
       <div class="marquee-track" id="marquee-track">
 
-        <!-- Russia -->
+        <!-- 1. Bashkir State Medical University -->
         <div class="marquee-card">
-          <img src="assets/official_partners/logo_bsmu.png" alt="Bashkir State Medical University Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_bsmu.png" alt="Bashkir State Medical University Logo"
+            class="mq-logo">
           <div class="mq-text">
             <span class="mq-name">Bashkir State Medical University</span>
             <span class="mq-country">🇷🇺 Russia · Ufa</span>
           </div>
         </div>
 
+        <!-- 2. Far Eastern Federal University -->
         <div class="marquee-card">
-          <img src="assets/official_partners/logo_fefu.png" alt="Far Eastern Federal University Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_far.png" alt="Far Eastern Federal University Logo"
+            class="mq-logo">
           <div class="mq-text">
             <span class="mq-name">Far Eastern Federal University</span>
             <span class="mq-country">🇷🇺 Russia · Vladivostok</span>
           </div>
         </div>
 
+        <!-- 3. Syktyvkar State University -->
         <div class="marquee-card">
-          <img src="assets/official_partners/logo_ssu.png" alt="Syktyvkar State University Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_syktyvnkar.png" alt="Syktyvkar State University Logo"
+            class="mq-logo">
           <div class="mq-text">
             <span class="mq-name">Syktyvkar State University</span>
             <span class="mq-country">🇷🇺 Russia · Syktyvkar</span>
           </div>
         </div>
 
+        <!-- 4. Omsk State Medical University -->
         <div class="marquee-card">
-          <img src="assets/marquee_partners/logo_nwmsu.png" alt="North Western State Medical University Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_omsk.png" alt="Omsk State Medical University Logo"
+            class="mq-logo">
           <div class="mq-text">
-            <span class="mq-name">North Western State Medical University</span>
-            <span class="mq-country">🇷🇺 Russia · St. Petersburg</span>
+            <span class="mq-name">Omsk State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · Omsk</span>
           </div>
         </div>
 
+        <!-- 5. Ulyanovsk State University -->
         <div class="marquee-card">
-          <img src="assets/marquee_partners/logo_spsuvm.png" alt="Saint Petersburg State University of Veterinary Medicine Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_ulyanovsk.png" alt="Ulyanovsk State University Logo"
+            class="mq-logo">
           <div class="mq-text">
-            <span class="mq-name">St. Petersburg State Uni. of Veterinary Medicine</span>
-            <span class="mq-country">🇷🇺 Russia · St. Petersburg</span>
+            <span class="mq-name">Ulyanovsk State University</span>
+            <span class="mq-country">🇷🇺 Russia · Ulyanovsk</span>
           </div>
         </div>
 
-        <!-- Uzbekistan -->
+        <!-- 6. Astrakhan State Medical University -->
         <div class="marquee-card">
-          <img src="assets/official_partners/logo_gsu.png" alt="Gulistan State University Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo-astrakhan.jpg" alt="Astrakhan State Medical University Logo"
+            class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Astrakhan State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · Astrakhan</span>
+          </div>
+        </div>
+
+        <!-- 7. Yaroslavl State Medical University -->
+        <div class="marquee-card">
+          <img src="assets/collaboration_partners/c.logo_yaro.jpeg" alt="Yaroslavl State Medical University Logo"
+            class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Yaroslavl State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · Yaroslavl</span>
+          </div>
+        </div>
+
+        <!-- 8. Volgograd State Medical University -->
+        <div class="marquee-card">
+          <img src="assets/collaboration_partners/c.logo_volgograd.png" alt="Volgograd State Medical University Logo"
+            class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Volgograd State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · Volgograd</span>
+          </div>
+        </div>
+
+        <!-- 9. Kabardino Balkarian State University -->
+        <div class="marquee-card">
+          <img src="assets/collaboration_partners/c.logo_kabardino.png" alt="Kabardino Balkarian State University Logo"
+            class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Kabardino Balkarian State University</span>
+            <span class="mq-country">🇷🇺 Russia · Nalchik</span>
+          </div>
+        </div>
+
+        <!-- 10. Gulistan State University -->
+        <div class="marquee-card">
+          <img src="assets/collaboration_partners/c.logo_gulistan.png" alt="Gulistan State University Logo"
+            class="mq-logo">
           <div class="mq-text">
             <span class="mq-name">Gulistan State University</span>
             <span class="mq-country">🇺🇿 Uzbekistan · Gulistan</span>
           </div>
         </div>
 
+        <!-- 11. Tashkent Pharmaceutical Institute -->
         <div class="marquee-card">
-          <img src="assets/official_partners/logo_tpi.png" alt="Tashkent Pharmaceutical Institute Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_tashkent.png" alt="Tashkent Pharmaceutical Institute Logo"
+            class="mq-logo">
           <div class="mq-text">
             <span class="mq-name">Tashkent Pharmaceutical Institute</span>
             <span class="mq-country">🇺🇿 Uzbekistan · Tashkent</span>
           </div>
         </div>
 
-        <!-- Duplicate set for seamless loop -->
+        <!-- DUPLICATED SET FOR SEAMLESS LOOPING ANIMATION -->
+
+        <!-- 1. Bashkir State Medical University -->
         <div class="marquee-card">
-          <img src="assets/official_partners/logo_bsmu.png" alt="Bashkir State Medical University Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_bsmu.png" alt="Bashkir State Medical University Logo"
+            class="mq-logo">
           <div class="mq-text">
             <span class="mq-name">Bashkir State Medical University</span>
             <span class="mq-country">🇷🇺 Russia · Ufa</span>
           </div>
         </div>
 
+        <!-- 2. Far Eastern Federal University -->
         <div class="marquee-card">
-          <img src="assets/official_partners/logo_fefu.png" alt="Far Eastern Federal University Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_far.png" alt="Far Eastern Federal University Logo"
+            class="mq-logo">
           <div class="mq-text">
             <span class="mq-name">Far Eastern Federal University</span>
             <span class="mq-country">🇷🇺 Russia · Vladivostok</span>
           </div>
         </div>
 
+        <!-- 3. Syktyvkar State University -->
         <div class="marquee-card">
-          <img src="assets/official_partners/logo_ssu.png" alt="Syktyvkar State University Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_syktyvnkar.png" alt="Syktyvkar State University Logo"
+            class="mq-logo">
           <div class="mq-text">
             <span class="mq-name">Syktyvkar State University</span>
             <span class="mq-country">🇷🇺 Russia · Syktyvkar</span>
           </div>
         </div>
 
+        <!-- 4. Omsk State Medical University -->
         <div class="marquee-card">
-          <img src="assets/marquee_partners/logo_nwmsu.png" alt="North Western State Medical University Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_omsk.png" alt="Omsk State Medical University Logo"
+            class="mq-logo">
           <div class="mq-text">
-            <span class="mq-name">North Western State Medical University</span>
-            <span class="mq-country">🇷🇺 Russia · St. Petersburg</span>
+            <span class="mq-name">Omsk State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · Omsk</span>
           </div>
         </div>
 
+        <!-- 5. Ulyanovsk State University -->
         <div class="marquee-card">
-          <img src="assets/marquee_partners/logo_spsuvm.png" alt="St. Petersburg State University of Veterinary Medicine Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_ulyanovsk.png" alt="Ulyanovsk State University Logo"
+            class="mq-logo">
           <div class="mq-text">
-            <span class="mq-name">St. Petersburg State Uni. of Veterinary Medicine</span>
-            <span class="mq-country">🇷🇺 Russia · St. Petersburg</span>
+            <span class="mq-name">Ulyanovsk State University</span>
+            <span class="mq-country">🇷🇺 Russia · Ulyanovsk</span>
           </div>
         </div>
 
+        <!-- 6. Astrakhan State Medical University -->
         <div class="marquee-card">
-          <img src="assets/official_partners/logo_gsu.png" alt="Gulistan State University Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo-astrakhan.jpg" alt="Astrakhan State Medical University Logo"
+            class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Astrakhan State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · Astrakhan</span>
+          </div>
+        </div>
+
+        <!-- 7. Yaroslavl State Medical University -->
+        <div class="marquee-card">
+          <img src="assets/collaboration_partners/c.logo_yaro.jpeg" alt="Yaroslavl State Medical University Logo"
+            class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Yaroslavl State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · Yaroslavl</span>
+          </div>
+        </div>
+
+        <!-- 8. Volgograd State Medical University -->
+        <div class="marquee-card">
+          <img src="assets/collaboration_partners/c.logo_volgograd.png" alt="Volgograd State Medical University Logo"
+            class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Volgograd State Medical University</span>
+            <span class="mq-country">🇷🇺 Russia · Volgograd</span>
+          </div>
+        </div>
+
+        <!-- 9. Kabardino Balkarian State University -->
+        <div class="marquee-card">
+          <img src="assets/collaboration_partners/c.logo_kabardino.png" alt="Kabardino Balkarian State University Logo"
+            class="mq-logo">
+          <div class="mq-text">
+            <span class="mq-name">Kabardino Balkarian State University</span>
+            <span class="mq-country">🇷🇺 Russia · Nalchik</span>
+          </div>
+        </div>
+
+        <!-- 10. Gulistan State University -->
+        <div class="marquee-card">
+          <img src="assets/collaboration_partners/c.logo_gulistan.png" alt="Gulistan State University Logo"
+            class="mq-logo">
           <div class="mq-text">
             <span class="mq-name">Gulistan State University</span>
             <span class="mq-country">🇺🇿 Uzbekistan · Gulistan</span>
           </div>
         </div>
 
+        <!-- 11. Tashkent Pharmaceutical Institute -->
         <div class="marquee-card">
-          <img src="assets/official_partners/logo_tpi.png" alt="Tashkent Pharmaceutical Institute Logo" class="mq-logo">
+          <img src="assets/collaboration_partners/c.logo_tashkent.png" alt="Tashkent Pharmaceutical Institute Logo"
+            class="mq-logo">
           <div class="mq-text">
             <span class="mq-name">Tashkent Pharmaceutical Institute</span>
             <span class="mq-country">🇺🇿 Uzbekistan · Tashkent</span>
@@ -446,24 +772,28 @@
     <div class="why-pills-container">
       <div class="why-pills">
         <span class="why-pill why-pill--purple">
-          <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 4l5 5M3 21l12-12M20.5 2.5a2.12 2.12 0 0 1 3 3L22 7l-3-3 1.5-1.5z"/>
+          <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 4l5 5M3 21l12-12M20.5 2.5a2.12 2.12 0 0 1 3 3L22 7l-3-3 1.5-1.5z" />
           </svg>
           Affordability
         </span>
         <span class="why-pill why-pill--blue">
-          <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .5 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
-            <path d="M9 18h6M10 22h4"/>
+          <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .5 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+            <path d="M9 18h6M10 22h4" />
           </svg>
           Guidance
         </span>
         <span class="why-pill why-pill--orange">
-          <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="5" r="3"/>
-            <circle cx="5" cy="19" r="3"/>
-            <circle cx="19" cy="19" r="3"/>
-            <path d="M5 16l5-8M19 16l-5-8M8 19h8"/>
+          <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5" r="3" />
+            <circle cx="5" cy="19" r="3" />
+            <circle cx="19" cy="19" r="3" />
+            <path d="M5 16l5-8M19 16l-5-8M8 19h8" />
           </svg>
           Support
         </span>
@@ -510,35 +840,48 @@
 
     <!-- Sticky Stacking Cards (Scroll Deck) -->
     <div class="why-stacking-wrapper" id="whyStackingWrapper">
-      
+
       <!-- Card 1 -->
       <div class="stack-card" style="--card-index: 0;">
         <div class="stack-card-inner">
           <div class="stack-card-content">
             <span class="stack-card-badge">01 / Direct Representation</span>
             <h3 class="stack-card-title">Certified Government University Representative</h3>
-            <p class="stack-card-desc">UNIMED Global is an officially authorized, direct representative for premier government medical universities in Russia and Uzbekistan. We eliminate intermediary agents to guarantee genuine seat allocations.</p>
+            <p class="stack-card-desc">UNIMED Global is an officially authorized, direct representative for premier
+              government medical universities in Russia and Uzbekistan. We eliminate intermediary agents to guarantee
+              genuine seat allocations.</p>
             <div class="stack-card-highlights">
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Direct University Tie-Ups
               </span>
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Certified Agency
               </span>
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 100% Genuine Seats
               </span>
             </div>
             <a href="universities.html" class="stack-card-btn">
               Explore Partner Universities
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round" width="16" height="16">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
             </a>
           </div>
           <div class="stack-card-image-wrap">
-            <img src="assets/why_choose_us/01_directrepresentaive.jpeg" alt="Direct Partner University Campus" class="stack-card-img">
+            <img src="assets/why_choose_us/01_directrepresentaive.jpeg" alt="Direct Partner University Campus"
+              class="stack-card-img">
             <div class="stack-img-overlay"></div>
           </div>
         </div>
@@ -550,28 +893,40 @@
           <div class="stack-card-content">
             <span class="stack-card-badge">02 / Fast Verification</span>
             <h3 class="stack-card-title">Official Admission Letter Released in 48 Hours</h3>
-            <p class="stack-card-desc">Through our direct communication channels with university admission boards, we process your documents and guarantee the release of your official invitation letter within 48 hours.</p>
+            <p class="stack-card-desc">Through our direct communication channels with university admission boards, we
+              process your documents and guarantee the release of your official invitation letter within 48 hours.</p>
             <div class="stack-card-highlights">
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Instant Application Filing
               </span>
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 48-Hour Guarantee
               </span>
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Express Embassy Filing
               </span>
             </div>
             <a href="admission.html" class="stack-card-btn">
               Start Application Now
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round" width="16" height="16">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
             </a>
           </div>
           <div class="stack-card-image-wrap">
-            <img src="assets/why_choose_us/02_fastverification.jpeg" alt="Expert Student Counselling" class="stack-card-img">
+            <img src="assets/why_choose_us/02_fastverification.jpeg" alt="Expert Student Counselling"
+              class="stack-card-img">
             <div class="stack-img-overlay"></div>
           </div>
         </div>
@@ -583,28 +938,40 @@
           <div class="stack-card-content">
             <span class="stack-card-badge">03 / Financial Clarity</span>
             <h3 class="stack-card-title">Zero Hidden Charges & Low Processing Fees</h3>
-            <p class="stack-card-desc">Absolute transparency is our promise. Every single expense — tuition fees, hostel rent, medical insurance, and service charges — is declared upfront with zero surprise costs.</p>
+            <p class="stack-card-desc">Absolute transparency is our promise. Every single expense — tuition fees, hostel
+              rent, medical insurance, and service charges — is declared upfront with zero surprise costs.</p>
             <div class="stack-card-highlights">
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Upfront Cost Itemization
               </span>
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Student-Friendly Rates
               </span>
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Zero Surprise Expenses
               </span>
             </div>
             <a href="contact.html" class="stack-card-btn">
               Get Complete Fee Structure
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round" width="16" height="16">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
             </a>
           </div>
           <div class="stack-card-image-wrap">
-            <img src="assets/why_choose_us/03_financialclarity.jpeg" alt="Modern World Class Campus" class="stack-card-img">
+            <img src="assets/why_choose_us/03_financialclarity.jpeg" alt="Modern World Class Campus"
+              class="stack-card-img">
             <div class="stack-img-overlay"></div>
           </div>
         </div>
@@ -616,24 +983,36 @@
           <div class="stack-card-content">
             <span class="stack-card-badge">04 / On-Ground Care</span>
             <h3 class="stack-card-title">24/7 Dedicated In-Country Support Coordinators</h3>
-            <p class="stack-card-desc">Our local UNIMED teams are permanently stationed on-ground at campus hostels in Russia and Uzbekistan to manage your hostel settling, medical exams, biometrics, and local visa renewals.</p>
+            <p class="stack-card-desc">Our local UNIMED teams are permanently stationed on-ground at campus hostels in
+              Russia and Uzbekistan to manage your hostel settling, medical exams, biometrics, and local visa renewals.
+            </p>
             <div class="stack-card-highlights">
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Hostel Settling Escorts
               </span>
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Biometric & Medical Guidance
               </span>
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 6-Year Continuous Mentorship
               </span>
             </div>
             <a href="why-choose-us.html" class="stack-card-btn">
               Learn About On-Ground Care
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round" width="16" height="16">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
             </a>
           </div>
           <div class="stack-card-image-wrap">
@@ -649,28 +1028,40 @@
           <div class="stack-card-content">
             <span class="stack-card-badge">05 / Escorted Journeys</span>
             <h3 class="stack-card-title">Group Travel, Flight Escorts & Airport Pickups</h3>
-            <p class="stack-card-desc">Fly safely in organized student cohorts with detailed pre-departure briefings, escorted flights, direct airport pickups, and instant local SIM card setups upon arrival.</p>
+            <p class="stack-card-desc">Fly safely in organized student cohorts with detailed pre-departure briefings,
+              escorted flights, direct airport pickups, and instant local SIM card setups upon arrival.</p>
             <div class="stack-card-highlights">
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Escorted Group Flights
               </span>
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Airport Pickup Team
               </span>
               <span class="stack-hl-item">
-                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="stack-hl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Day-One SIM & Connectivity
               </span>
             </div>
             <a href="contact.html" class="stack-card-btn">
               Book Free Counselling Session
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round" width="16" height="16">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
             </a>
           </div>
           <div class="stack-card-image-wrap">
-            <img src="assets/why_choose_us/05_escortedjourney.jpeg" alt="Group Travel and Flight Escorts" class="stack-card-img">
+            <img src="assets/why_choose_us/05_escortedjourney.jpeg" alt="Group Travel and Flight Escorts"
+              class="stack-card-img">
             <div class="stack-img-overlay"></div>
           </div>
         </div>
@@ -687,12 +1078,14 @@
     <div class="dest-top">
       <span class="dest-tag">Global Opportunities</span>
       <h2 class="dest-title">Popular Study <span>Destinations</span></h2>
-      
+
       <!-- Country Toggle Buttons -->
       <div class="dest-toggle-container">
-        <button class="dest-toggle-btn active" data-country="all">All Countries <span class="dest-count-badge">11</span></button>
+        <button class="dest-toggle-btn active" data-country="all">All Countries <span
+            class="dest-count-badge">11</span></button>
         <button class="dest-toggle-btn" data-country="russia">Russia <span class="dest-count-badge">9</span></button>
-        <button class="dest-toggle-btn" data-country="uzbekistan">Uzbekistan <span class="dest-count-badge">2</span></button>
+        <button class="dest-toggle-btn" data-country="uzbekistan">Uzbekistan <span
+            class="dest-count-badge">2</span></button>
       </div>
     </div>
 
@@ -700,25 +1093,29 @@
     <div class="dest-grid-container">
       <!-- RUSSIA UNIVERSITIES -->
       <div class="dest-grid active" id="grid-russia">
-        
+
         <!-- Bashkir State Medical University -->
         <div class="dest-card">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=bsmu"><img src="assets/universities/campus_baskir.png" alt="Bashkir State Medical University" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=bsmu"><img src="assets/universities/campus_baskir.png"
+                alt="Bashkir State Medical University" class="dest-card-img"></a>
             <span class="dest-card-badge">🇷🇺 Russia</span>
             <a href="uni-info.html?uni=bsmu" class="dest-card-arrow" aria-label="View Details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
             </a>
           </div>
           <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=bsmu" style="color: inherit; text-decoration: none;">Bashkir State Medical University</a></h3>
-            
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=bsmu"
+                style="color: inherit; text-decoration: none;">Bashkir State Medical University</a></h3>
+
             <div class="dest-card-details">
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
@@ -726,14 +1123,16 @@
                 <span>₽405,000 / Yr</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
                   <circle cx="12" cy="10" r="3"></circle>
                 </svg>
                 <span>Ufa, Russia</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
@@ -752,21 +1151,25 @@
         <!-- Far Eastern Federal University -->
         <div class="dest-card">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=fefu"><img src="assets/universities/campus_fareastern.png" alt="Far Eastern Federal University" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=fefu"><img src="assets/universities/campus_fareastern.png"
+                alt="Far Eastern Federal University" class="dest-card-img"></a>
             <span class="dest-card-badge">🇷🇺 Russia</span>
             <a href="uni-info.html?uni=fefu" class="dest-card-arrow" aria-label="View Details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
             </a>
           </div>
           <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=fefu" style="color: inherit; text-decoration: none;">Far Eastern Federal University</a></h3>
-            
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=fefu"
+                style="color: inherit; text-decoration: none;">Far Eastern Federal University</a></h3>
+
             <div class="dest-card-details">
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
@@ -774,14 +1177,16 @@
                 <span>₽500,000 / Yr</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
                   <circle cx="12" cy="10" r="3"></circle>
                 </svg>
                 <span>Vladivostok, Russia</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
@@ -800,21 +1205,25 @@
         <!-- Syktyvkar State University -->
         <div class="dest-card">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=syktyvkar"><img src="assets/universities/campus_syktyvkar.png" alt="Syktyvkar State University" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=syktyvkar"><img src="assets/universities/campus_syktyvkar.png"
+                alt="Syktyvkar State University" class="dest-card-img"></a>
             <span class="dest-card-badge">🇷🇺 Russia</span>
             <a href="uni-info.html?uni=syktyvkar" class="dest-card-arrow" aria-label="View Details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
             </a>
           </div>
           <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=syktyvkar" style="color: inherit; text-decoration: none;">Syktyvkar State University</a></h3>
-            
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=syktyvkar"
+                style="color: inherit; text-decoration: none;">Syktyvkar State University</a></h3>
+
             <div class="dest-card-details">
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
@@ -822,14 +1231,16 @@
                 <span>₽300,150 / Yr</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
                   <circle cx="12" cy="10" r="3"></circle>
                 </svg>
                 <span>Syktyvkar, Russia</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
@@ -848,21 +1259,25 @@
         <!-- Volgograd State Medical University -->
         <div class="dest-card">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=volgograd"><img src="assets/universities/campus_volgograd.png" alt="Volgograd State Medical University" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=volgograd"><img src="assets/universities/campus_volgograd.png"
+                alt="Volgograd State Medical University" class="dest-card-img"></a>
             <span class="dest-card-badge">🇷🇺 Russia</span>
             <a href="uni-info.html?uni=volgograd" class="dest-card-arrow" aria-label="View Details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
             </a>
           </div>
           <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=volgograd" style="color: inherit; text-decoration: none;">Volgograd State Medical University</a></h3>
-            
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=volgograd"
+                style="color: inherit; text-decoration: none;">Volgograd State Medical University</a></h3>
+
             <div class="dest-card-details">
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
@@ -870,14 +1285,16 @@
                 <span>₽505,000 / Yr</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
                   <circle cx="12" cy="10" r="3"></circle>
                 </svg>
                 <span>Volgograd, Russia</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
@@ -896,28 +1313,44 @@
         <!-- Extra Card 5: Omsk State Medical University -->
         <div class="dest-card dest-card--extra">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=omsk"><img src="assets/universities/campus_omsk.png" alt="Omsk State Medical University" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=omsk"><img src="assets/universities/campus_omsk.png"
+                alt="Omsk State Medical University" class="dest-card-img"></a>
             <span class="dest-card-badge">🇷🇺 Russia</span>
             <a href="uni-info.html?uni=omsk" class="dest-card-arrow" aria-label="View Details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
             </a>
           </div>
           <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=omsk" style="color: inherit; text-decoration: none;">Omsk State Medical University</a></h3>
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=omsk"
+                style="color: inherit; text-decoration: none;">Omsk State Medical University</a></h3>
             <div class="dest-card-details">
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="4" x2="12" y2="20"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
                 <span>₽340,000 / Yr</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
                 <span>Omsk, Russia</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
                 <span>6 Years (English)</span>
               </div>
             </div>
@@ -932,28 +1365,44 @@
         <!-- Extra Card 6: Ulyanovsk State University -->
         <div class="dest-card dest-card--extra">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=ulyanovsk"><img src="assets/universities/campus_ulyanovsk.png" alt="Ulyanovsk State University" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=ulyanovsk"><img src="assets/universities/campus_ulyanovsk.png"
+                alt="Ulyanovsk State University" class="dest-card-img"></a>
             <span class="dest-card-badge">🇷🇺 Russia</span>
             <a href="uni-info.html?uni=ulyanovsk" class="dest-card-arrow" aria-label="View Details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
             </a>
           </div>
           <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=ulyanovsk" style="color: inherit; text-decoration: none;">Ulyanovsk State University</a></h3>
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=ulyanovsk"
+                style="color: inherit; text-decoration: none;">Ulyanovsk State University</a></h3>
             <div class="dest-card-details">
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="4" x2="12" y2="20"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
                 <span>₽350,000 / Yr</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
                 <span>Ulyanovsk, Russia</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
                 <span>6 Years (English)</span>
               </div>
             </div>
@@ -968,28 +1417,44 @@
         <!-- Extra Card 7: Kabardino Balkarian State University -->
         <div class="dest-card dest-card--extra">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=kbsu"><img src="assets/universities/campus_kabardino.png?v=2026_kbsu" alt="Kabardino Balkarian State University" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=kbsu"><img src="assets/universities/campus_kabardino.png?v=2026_kbsu"
+                alt="Kabardino Balkarian State University" class="dest-card-img"></a>
             <span class="dest-card-badge">🇷🇺 Russia</span>
             <a href="uni-info.html?uni=kbsu" class="dest-card-arrow" aria-label="View Details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
             </a>
           </div>
           <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=kbsu" style="color: inherit; text-decoration: none;">Kabardino Balkarian State University</a></h3>
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=kbsu"
+                style="color: inherit; text-decoration: none;">Kabardino Balkarian State University</a></h3>
             <div class="dest-card-details">
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="4" x2="12" y2="20"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
                 <span>₽324,000 / Yr</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
                 <span>Nalchik, Russia</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
                 <span>6 Years (English)</span>
               </div>
             </div>
@@ -1005,25 +1470,29 @@
 
       <!-- UZBEKISTAN UNIVERSITIES -->
       <div class="dest-grid" id="grid-uzbekistan">
-        
+
         <!-- Gulistan State University -->
         <div class="dest-card">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=gsu"><img src="assets/universities/campus_gulistan.png" alt="Gulistan State University" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=gsu"><img src="assets/universities/campus_gulistan.png"
+                alt="Gulistan State University" class="dest-card-img"></a>
             <span class="dest-card-badge">🇺🇿 Uzbekistan</span>
             <a href="uni-info.html?uni=gsu" class="dest-card-arrow" aria-label="View Details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
             </a>
           </div>
           <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=gsu" style="color: inherit; text-decoration: none;">Gulistan State University</a></h3>
-            
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=gsu"
+                style="color: inherit; text-decoration: none;">Gulistan State University</a></h3>
+
             <div class="dest-card-details">
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
@@ -1031,14 +1500,16 @@
                 <span>$2,800 / Yr</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
                   <circle cx="12" cy="10" r="3"></circle>
                 </svg>
                 <span>Gulistan, Uzbekistan</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
@@ -1057,21 +1528,25 @@
         <!-- Tashkent Pharmaceutical Institute -->
         <div class="dest-card">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=tpi"><img src="assets/universities/campus_tashkent.png" alt="Tashkent Pharmaceutical Institute" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=tpi"><img src="assets/universities/campus_tashkent.png"
+                alt="Tashkent Pharmaceutical Institute" class="dest-card-img"></a>
             <span class="dest-card-badge">🇺🇿 Uzbekistan</span>
             <a href="uni-info.html?uni=tpi" class="dest-card-arrow" aria-label="View Details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
             </a>
           </div>
           <div class="dest-card-content">
-            <h3 class="dest-card-title"><a href="uni-info.html?uni=tpi" style="color: inherit; text-decoration: none;">Tashkent Pharmaceutical Institute</a></h3>
-            
+            <h3 class="dest-card-title"><a href="uni-info.html?uni=tpi"
+                style="color: inherit; text-decoration: none;">Tashkent Pharmaceutical Institute</a></h3>
+
             <div class="dest-card-details">
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
                   <line x1="12" y1="4" x2="12" y2="20"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
@@ -1079,14 +1554,16 @@
                 <span>$3,500 / Yr</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
                   <circle cx="12" cy="10" r="3"></circle>
                 </svg>
                 <span>Tashkent, Uzbekistan</span>
               </div>
               <div class="dest-detail-item">
-                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
@@ -1108,7 +1585,10 @@
       <div class="dest-view-more-wrap">
         <button id="destViewMoreBtn" class="dest-view-more-btn">
           <span>View More Universities</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
         </button>
       </div>
 
@@ -1139,7 +1619,7 @@
         const country = getActiveCountry();
         const allCards = Array.from(document.querySelectorAll('.dest-card'));
 
-        // Show/hide grid containers
+       // Show/hide grid containers
         const russiaGrid = document.getElementById('grid-russia');
         const uzbekGrid  = document.getElementById('grid-uzbekistan');
         if (country === 'all') {
@@ -1151,9 +1631,7 @@
         } else if (country === 'uzbekistan') {
           if (russiaGrid) { russiaGrid.classList.remove('active'); russiaGrid.style.display = 'none'; }
           if (uzbekGrid) { uzbekGrid.classList.add('active'); uzbekGrid.style.display = 'grid'; }
-        }
-
-        // Filter matching cards and limit visible count to 4
+           // Filter matching cards and limit visible count to 4
         const matchingCards = getMatchingCards(country);
         
         // Hide cards not in matching set
@@ -1245,50 +1723,61 @@
       <!-- Row 1 (6 Universities) -->
       <div class="partners-row partners-row--6">
         <div class="partner-logo-card" title="Bashkir State Medical University">
-          <img src="assets/official_partners/logo_bashkir.png?v=2026_clean" alt="Bashkir State Medical University" class="partner-logo-img">
+          <img src="assets/official_partners/logo_bashkir.png?v=2026_clean" alt="Bashkir State Medical University"
+            class="partner-logo-img">
         </div>
 
         <div class="partner-logo-card" title="Far Eastern Federal University">
-          <img src="assets/official_partners/logo_fefu.png?v=2026_clean" alt="Far Eastern Federal University" class="partner-logo-img">
+          <img src="assets/official_partners/logo_fefu.png?v=2026_clean" alt="Far Eastern Federal University"
+            class="partner-logo-img">
         </div>
 
         <div class="partner-logo-card" title="Syktyvkar State University">
-          <img src="assets/official_partners/logo_syktyvnkar.png?v=2026_v3" alt="Syktyvkar State University" class="partner-logo-img" style="transform: scale(1.65) !important;">
+          <img src="assets/official_partners/logo_syktyvnkar.png?v=2026_v3" alt="Syktyvkar State University"
+            class="partner-logo-img" style="transform: scale(1.65) !important;">
         </div>
 
         <div class="partner-logo-card" title="Omsk State Medical University">
-          <img src="assets/official_partners/logo_omsk.png?v=2026_clean" alt="Omsk State Medical University" class="partner-logo-img">
+          <img src="assets/official_partners/logo_omsk.png?v=2026_clean" alt="Omsk State Medical University"
+            class="partner-logo-img">
         </div>
 
         <div class="partner-logo-card" title="Ulyanovsk State University">
-          <img src="assets/official_partners/logo_ulyanovsk.png?v=2026_clean" alt="Ulyanovsk State University" class="partner-logo-img">
+          <img src="assets/official_partners/logo_ulyanovsk.png?v=2026_clean" alt="Ulyanovsk State University"
+            class="partner-logo-img">
         </div>
 
         <div class="partner-logo-card" title="Astrakhan State Medical University">
-          <img src="assets/official_partners/logo_astra.jpeg?v=2026_clean" alt="Astrakhan State Medical University" class="partner-logo-img">
+          <img src="assets/official_partners/logo_astra.png?v=2026_pure_white_v2"
+            alt="Astrakhan State Medical University" class="partner-logo-img">
         </div>
       </div>
 
       <!-- Row 2 (5 Universities) -->
       <div class="partners-row partners-row--5">
         <div class="partner-logo-card" title="Yaroslavl State Medical University">
-          <img src="assets/official_partners/logo_yaro.jpeg?v=2026_clean" alt="Yaroslavl State Medical University" class="partner-logo-img">
+          <img src="assets/official_partners/logo_yaro.jpeg?v=2026_clean" alt="Yaroslavl State Medical University"
+            class="partner-logo-img">
         </div>
 
         <div class="partner-logo-card" title="Volgograd State Medical University">
-          <img src="assets/official_partners/logo_volgograd.png?v=2026_clean" alt="Volgograd State Medical University" class="partner-logo-img">
+          <img src="assets/official_partners/logo_volgograd.png?v=2026_clean" alt="Volgograd State Medical University"
+            class="partner-logo-img">
         </div>
 
         <div class="partner-logo-card" title="Kabardino Balkarian State University">
-          <img src="assets/official_partners/logo_kabardino.png?v=2026_clean" alt="Kabardino Balkarian State University" class="partner-logo-img">
+          <img src="assets/official_partners/logo_kabardino.png?v=2026_clean" alt="Kabardino Balkarian State University"
+            class="partner-logo-img">
         </div>
 
         <div class="partner-logo-card" title="Gulistan State University">
-          <img src="assets/official_partners/logo_gulistan.png?v=2026_clean" alt="Gulistan State University" class="partner-logo-img">
+          <img src="assets/official_partners/logo_gulistan.png?v=2026_clean" alt="Gulistan State University"
+            class="partner-logo-img">
         </div>
 
         <div class="partner-logo-card" title="Tashkent Pharmaceutical Institute">
-          <img src="assets/official_partners/logo_tashkent.png?v=2026_clean" alt="Tashkent Pharmaceutical Institute" class="partner-logo-img">
+          <img src="assets/official_partners/logo_tashkent.png?v=2026_clean" alt="Tashkent Pharmaceutical Institute"
+            class="partner-logo-img">
         </div>
       </div>
 
@@ -1303,7 +1792,8 @@
     <div class="testimonials-header" id="testimonialsHighlight">
       <span class="testimonials-tag">Testimonials</span>
       <h2 class="testimonials-title">
-        <span class="hw">What</span> <span class="hw">Our</span> <span class="hw testimonials-serif-italic">Students</span> <span class="hw testimonials-serif-italic">Say</span>
+        <span class="hw">What</span> <span class="hw">Our</span> <span
+          class="hw testimonials-serif-italic">Students</span> <span class="hw testimonials-serif-italic">Say</span>
       </h2>
     </div>
 
@@ -1311,90 +1801,145 @@
       <div class="testimonials-track">
         <!-- Card 1 -->
         <div class="testimonial-card">
-          <p class="testimonial-quote">The admission process for Far Eastern Federal University was incredibly smooth. UNIMED handled everything from visa to documentation.</p>
+          <p class="testimonial-quote">The admission process for Far Eastern Federal University was incredibly smooth.
+            UNIMED handled everything from visa to documentation.</p>
           <div class="testimonial-student">
             <div class="testimonial-avatar" style="background: linear-gradient(135deg, #06b6d4, #10b981);">AP</div>
             <div class="testimonial-info">
               <span class="testimonial-name">Anjali Patel</span>
               <span class="testimonial-meta">Far Eastern Federal University</span>
               <div class="testimonial-stars">
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
         <!-- Card 2 -->
         <div class="testimonial-card">
-          <p class="testimonial-quote">Syktyvkar State University has been amazing. The clinical practice is top-notch and the hostel facilities are very comfortable.</p>
+          <p class="testimonial-quote">Syktyvkar State University has been amazing. The clinical practice is top-notch
+            and the hostel facilities are very comfortable.</p>
           <div class="testimonial-student">
             <div class="testimonial-avatar" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">KM</div>
             <div class="testimonial-info">
               <span class="testimonial-name">Karan Malhotra</span>
               <span class="testimonial-meta">Syktyvkar State University</span>
               <div class="testimonial-stars">
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
         <!-- Card 3 -->
         <div class="testimonial-card">
-          <p class="testimonial-quote">I was skeptical about moving to Uzbekistan, but Gulistan State University has exceeded my expectations. Thanks to UNIMED!</p>
+          <p class="testimonial-quote">I was skeptical about moving to Uzbekistan, but Gulistan State University has
+            exceeded my expectations. Thanks to UNIMED!</p>
           <div class="testimonial-student">
             <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">PS</div>
             <div class="testimonial-info">
               <span class="testimonial-name">Priya Sen</span>
               <span class="testimonial-meta">Gulistan State University</span>
               <div class="testimonial-stars">
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
         <!-- Card 4 -->
         <div class="testimonial-card">
-          <p class="testimonial-quote">Spb State University of Veterinary Medicine was my dream. UNIMED's guidance made the admission and visa process simple and stress-free.</p>
+          <p class="testimonial-quote">Spb State University of Veterinary Medicine was my dream. UNIMED's guidance made
+            the admission and visa process simple and stress-free.</p>
           <div class="testimonial-student">
             <div class="testimonial-avatar" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">RD</div>
             <div class="testimonial-info">
               <span class="testimonial-name">Rohit Das</span>
               <span class="testimonial-meta">SPb State University of Vet Medicine</span>
               <div class="testimonial-stars">
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
         <!-- Card 5 -->
         <div class="testimonial-card">
-          <p class="testimonial-quote">Excellent support even after arriving in Russia. They helped with my local registration and sim card on day one.</p>
+          <p class="testimonial-quote">Excellent support even after arriving in Russia. They helped with my local
+            registration and sim card on day one.</p>
           <div class="testimonial-student">
             <div class="testimonial-avatar" style="background: linear-gradient(135deg, #10b981, #f59e0b);">MN</div>
             <div class="testimonial-info">
               <span class="testimonial-name">Meera Nair</span>
               <span class="testimonial-meta">Bashkir State Medical University</span>
               <div class="testimonial-stars">
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
               </div>
             </div>
           </div>
@@ -1403,90 +1948,145 @@
         <!-- DUPLICATE SET FOR INFINITE LOOP -->
         <!-- Card 1 -->
         <div class="testimonial-card">
-          <p class="testimonial-quote">The admission process for Far Eastern Federal University was incredibly smooth. UNIMED handled everything from visa to documentation.</p>
+          <p class="testimonial-quote">The admission process for Far Eastern Federal University was incredibly smooth.
+            UNIMED handled everything from visa to documentation.</p>
           <div class="testimonial-student">
             <div class="testimonial-avatar" style="background: linear-gradient(135deg, #06b6d4, #10b981);">AP</div>
             <div class="testimonial-info">
               <span class="testimonial-name">Anjali Patel</span>
               <span class="testimonial-meta">Far Eastern Federal University</span>
               <div class="testimonial-stars">
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
         <!-- Card 2 -->
         <div class="testimonial-card">
-          <p class="testimonial-quote">Syktyvkar State University has been amazing. The clinical practice is top-notch and the hostel facilities are very comfortable.</p>
+          <p class="testimonial-quote">Syktyvkar State University has been amazing. The clinical practice is top-notch
+            and the hostel facilities are very comfortable.</p>
           <div class="testimonial-student">
             <div class="testimonial-avatar" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">KM</div>
             <div class="testimonial-info">
               <span class="testimonial-name">Karan Malhotra</span>
               <span class="testimonial-meta">Syktyvkar State University</span>
               <div class="testimonial-stars">
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
         <!-- Card 3 -->
         <div class="testimonial-card">
-          <p class="testimonial-quote">I was skeptical about moving to Uzbekistan, but Gulistan State University has exceeded my expectations. Thanks to UNIMED!</p>
+          <p class="testimonial-quote">I was skeptical about moving to Uzbekistan, but Gulistan State University has
+            exceeded my expectations. Thanks to UNIMED!</p>
           <div class="testimonial-student">
             <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">PS</div>
             <div class="testimonial-info">
               <span class="testimonial-name">Priya Sen</span>
               <span class="testimonial-meta">Gulistan State University</span>
               <div class="testimonial-stars">
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
         <!-- Card 4 -->
         <div class="testimonial-card">
-          <p class="testimonial-quote">Spb State University of Veterinary Medicine was my dream. UNIMED's guidance made the admission and visa process simple and stress-free.</p>
+          <p class="testimonial-quote">Spb State University of Veterinary Medicine was my dream. UNIMED's guidance made
+            the admission and visa process simple and stress-free.</p>
           <div class="testimonial-student">
             <div class="testimonial-avatar" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">RD</div>
             <div class="testimonial-info">
               <span class="testimonial-name">Rohit Das</span>
               <span class="testimonial-meta">SPb State University of Vet Medicine</span>
               <div class="testimonial-stars">
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
         <!-- Card 5 -->
         <div class="testimonial-card">
-          <p class="testimonial-quote">Excellent support even after arriving in Russia. They helped with my local registration and sim card on day one.</p>
+          <p class="testimonial-quote">Excellent support even after arriving in Russia. They helped with my local
+            registration and sim card on day one.</p>
           <div class="testimonial-student">
             <div class="testimonial-avatar" style="background: linear-gradient(135deg, #10b981, #f59e0b);">MN</div>
             <div class="testimonial-info">
               <span class="testimonial-name">Meera Nair</span>
               <span class="testimonial-meta">Bashkir State Medical University</span>
               <div class="testimonial-stars">
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg class="testimonial-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg class="testimonial-star-icon" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
               </div>
             </div>
           </div>
@@ -1518,27 +2118,28 @@
         });
       }
 
-      window.addEventListener('scroll', updateHighlight, { passive: true });
+      window.addEventListener('scroll', updaHighlight, { passive: true });
       window.addEventListener('resize', updateHighlight);
       updateHighlight();
     })();
   </script>
 
 
-  
+
 
   <!-- ===================================================================== -->
   <!-- ABOUT US SECTION                                                      -->
   <!-- ===================================================================== -->
   <section class="about-section" id="about-us">
     <div class="about-container">
-      
+
       <!-- Left Column: Visual Story & Director Quote -->
       <div class="about-visual-col">
         <div class="about-image-card">
-          <img src="assets/about_us/about_us_office.jpg?v=2026_office" alt="UNIMED Global Office Consultation" class="about-img">
+          <img src="assets/about_us/about_us_office.jpg?v=2026_office" alt="UNIMED Global Office Consultation"
+            class="about-img">
           <div class="about-img-glass-overlay"></div>
-          
+
           <div class="about-badge-established">
             <span class="about-est-year">120+</span>
             <span class="about-est-label">STUDENTS</span>
@@ -1558,7 +2159,8 @@
           <div class="about-quote-card">
             <div class="about-quote-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">PK</div>
             <div class="about-quote-text">
-              <p class="about-quote-p">"Guiding medical aspirants with dedicated mentorship &amp; full admission support."</p>
+              <p class="about-quote-p">"Guiding medical aspirants with dedicated mentorship &amp; full admission
+                support."</p>
               <span class="about-quote-author">Pawan Kumar — Co-Founder (Nepal &amp; Bihar, India)</span>
             </div>
           </div>
@@ -1569,15 +2171,37 @@
       <div class="about-content-col" id="aboutHighlight">
         <span class="about-tag">About Us</span>
         <h2 class="about-heading">
-          <span class="hw">Pioneering</span> <span class="hw">Medical</span> <span class="hw">Admissions</span> <span class="hw about-heading-accent">Since</span> <span class="hw about-heading-accent">2022</span>
+          <span class="hw">Pioneering</span> <span class="hw">Medical</span> <span class="hw">Admissions</span> <span
+            class="hw about-heading-accent">Since</span> <span class="hw about-heading-accent">2022</span>
         </h2>
-        
+
         <p class="about-description">
-          <span class="hw">Welcome</span> <span class="hw">to</span> <span class="hw"><strong>UNIMED Global</strong>,</span> <span class="hw">an</span> <span class="hw">educational</span> <span class="hw">consultancy</span> <span class="hw">curated</span> <span class="hw">by</span> <span class="hw">the</span> <span class="hw">students</span> <span class="hw">for</span> <span class="hw">the</span> <span class="hw">students,</span> <span class="hw">as</span> <span class="hw">we</span> <span class="hw">were</span> <span class="hw">once</span> <span class="hw">in</span> <span class="hw">your</span> <span class="hw">exact</span> <span class="hw">position.</span> <span class="hw">We</span> <span class="hw">are</span> <span class="hw">dedicated</span> <span class="hw">to</span> <span class="hw">help</span> <span class="hw">students</span> <span class="hw">making</span> <span class="hw">the</span> <span class="hw">best</span> <span class="hw">decisions.</span>
+          <span class="hw">Welcome</span> <span class="hw">to</span> <span class="hw"><strong>UNIMED
+              Global</strong>,</span> <span class="hw">an</span> <span class="hw">educational</span> <span
+            class="hw">consultancy</span> <span class="hw">curated</span> <span class="hw">by</span> <span
+            class="hw">the</span> <span class="hw">students</span> <span class="hw">for</span> <span
+            class="hw">the</span> <span class="hw">students,</span> <span class="hw">as</span> <span
+            class="hw">we</span> <span class="hw">were</span> <span class="hw">once</span> <span class="hw">in</span>
+          <span class="hw">your</span> <span class="hw">exact</span> <span class="hw">position.</span> <span
+            class="hw">We</span> <span class="hw">are</span> <span class="hw">dedicated</span> <span
+            class="hw">to</span> <span class="hw">help</span> <span class="hw">students</span> <span
+            class="hw">making</span> <span class="hw">the</span> <span class="hw">best</span> <span
+            class="hw">decisions.</span>
         </p>
 
         <p class="about-subdescription">
-          <span class="hw">Our</span> <span class="hw">expertise</span> <span class="hw">lies</span> <span class="hw">in</span> <span class="hw">providing</span> <span class="hw"><strong>personalized guidance</strong></span> <span class="hw">and</span> <span class="hw">support</span> <span class="hw">to</span> <span class="hw">doctors</span> <span class="hw">and</span> <span class="hw">students</span> <span class="hw">seeking</span> <span class="hw">to</span> <span class="hw">study</span> <span class="hw">in</span> <span class="hw">Russia</span> <span class="hw">&</span> <span class="hw">Uzbekistan.</span> <span class="hw">We</span> <span class="hw">strive</span> <span class="hw">to</span> <span class="hw">make</span> <span class="hw">the</span> <span class="hw">admission</span> <span class="hw">process</span> <span class="hw"><strong>seamless and hassle-free</strong>,</span> <span class="hw">ensuring</span> <span class="hw">that</span> <span class="hw">our</span> <span class="hw">students</span> <span class="hw">achieve</span> <span class="hw">their</span> <span class="hw">dreams.</span>
+          <span class="hw">Our</span> <span class="hw">expertise</span> <span class="hw">lies</span> <span
+            class="hw">in</span> <span class="hw">providing</span> <span class="hw"><strong>personalized
+              guidance</strong></span> <span class="hw">and</span> <span class="hw">support</span> <span
+            class="hw">to</span> <span class="hw">doctors</span> <span class="hw">and</span> <span
+            class="hw">students</span> <span class="hw">seeking</span> <span class="hw">to</span> <span
+            class="hw">study</span> <span class="hw">in</span> <span class="hw">Russia</span> <span class="hw">&</span>
+          <span class="hw">Uzbekistan.</span> <span class="hw">We</span> <span class="hw">strive</span> <span
+            class="hw">to</span> <span class="hw">make</span> <span class="hw">the</span> <span
+            class="hw">admission</span> <span class="hw">process</span> <span class="hw"><strong>seamless and
+              hassle-free</strong>,</span> <span class="hw">ensuring</span> <span class="hw">that</span> <span
+            class="hw">our</span> <span class="hw">students</span> <span class="hw">achieve</span> <span
+            class="hw">their</span> <span class="hw">dreams.</span>
         </p>
 
         <!-- Milestone Stats Grid -->
@@ -1612,15 +2236,23 @@
       <span class="counselling-cta-tag">Get Guidance</span>
       <div class="counselling-cta-highlight-container" id="counsellingHighlight">
         <h2 class="counselling-cta-title">
-          <span class="hw">Not</span> <span class="hw">Sure</span> <span class="hw">Which</span> <span class="hw">Country</span> <span class="hw cta-serif-italic">Is</span> <span class="hw cta-serif-italic">Right</span> <span class="hw cta-serif-italic">for</span> <span class="hw cta-serif-italic">You?</span>
+          <span class="hw">Not</span> <span class="hw">Sure</span> <span class="hw">Which</span> <span
+            class="hw">Country</span> <span class="hw cta-serif-italic">Is</span> <span
+            class="hw cta-serif-italic">Right</span> <span class="hw cta-serif-italic">for</span> <span
+            class="hw cta-serif-italic">You?</span>
         </h2>
         <h2 class="counselling-cta-title">
-          <span class="hw">Not</span> <span class="hw">sure</span> <span class="hw">Which</span> <span class="hw">course</span> <span class="hw cta-serif-italic">is</span> <span class="hw cta-serif-italic">right</span> <span class="hw cta-serif-italic">for</span> <span class="hw cta-serif-italic">You?</span>
+          <span class="hw">Not</span> <span class="hw">Sure</span> <span class="hw">Which</span> <span
+            class="hw">Course</span> <span class="hw cta-serif-italic">Is</span> <span
+            class="hw cta-serif-italic">Right</span> <span class="hw cta-serif-italic">for</span> <span
+            class="hw cta-serif-italic">You?</span>
         </h2>
       </div>
-      <p class="counselling-cta-desc">Get a free profile evaluation and a personalised country recommendation from our experts.</p>
+      <p class="counselling-cta-desc">Get a free profile evaluation and a personalised country recommendation from our
+        experts.</p>
       <a href="contact.html" class="btn-primary counselling-cta-btn">
-        <svg class="counselling-btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <svg class="counselling-btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
           <line x1="16" y1="2" x2="16" y2="6"></line>
           <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -1636,13 +2268,51 @@
   <!-- SITE FOOTER                                                           -->
   <!-- ===================================================================== -->
   <footer class="footer-wrapper home-footer">
+
+    <!-- DYNAMIC ROTATING WORD HERO BANNER -->
+    <div class="bottom-hero-banner">
+      <div class="bottom-hero-container">
+        <h2 class="bottom-hero-title">
+          <span class="bottom-hero-static">Let's</span>
+          <span class="word-rotator-wrapper">
+            <span class="word-rotator-inner" id="rotatorInner">
+              <span class="rotator-word">build</span>
+              <span class="rotator-word">create</span>
+              <span class="rotator-word">design</span>
+              <span class="rotator-word">shape</span>
+              <span class="rotator-word">launch</span>
+            </span>
+          </span>
+        </h2>
+        <h3 class="bottom-hero-subtitle">your medical future together.</h3>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        const rotatorInner = document.getElementById('rotatorInner');
+        if (!rotatorInner) return;
+        const words = rotatorInner.querySelectorAll('.rotator-word');
+        if (!words.length) return;
+        
+        let currentIndex = 0;
+        const totalWords = words.length;
+
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % totalWords;
+          rotatorInner.style.transform = `translateY(-${currentIndex * 1.25}em)`;
+        }, 1500);
+      })();
+    </script>
+
     <div class="footer-grid">
       <div class="footer-col">
         <div class="footer-logo">
           <img src="assets/common/logo.png" alt="UniMed Global Logo" class="footer-logo-img">
           <span class="footer-logo-text">UNIMED <span class="footer-logo-accent">Global</span></span>
         </div>
-        <p class="footer-desc">Empowering medical aspirants with world-class education pathways. Together for a healthier tomorrow.</p>
+        <p class="footer-desc">Empowering medical aspirants with world-class education pathways. Together for a
+          healthier tomorrow.</p>
       </div>
       <div class="footer-col">
         <h4 class="footer-col-title">Sitemap</h4>
@@ -1697,7 +2367,7 @@
           const elapsed  = now - start;
           const progress = Math.min(elapsed / duration, 1);
           const eased    = 1 - Math.pow(1 - progress, 3);
-          el.textContent = Math.round(eased * target);
+          el.textContent = Math.floor(eased * target);
           if (progress < 1) requestAnimationFrame(tick);
         }
         requestAnimationFrame(tick);
@@ -1731,9 +2401,9 @@
       function updateHighlight() {
         const rect      = para.getBoundingClientRect();
         const winH      = window.innerHeight;
-        // progress 0→1 as the paragraph travels from bottom of viewport to top
+        // progress 0->1 as the paragraph travels from bottom of viewport to top
         const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
-        const litCount  = Math.round(progress * total * 1.5);  // slightly ahead of scroll
+        const litCount  = Math.round(progress * total * 1.5);
 
         words.forEach((w, i) => {
           if (i < litCount) {
@@ -1746,7 +2416,7 @@
 
       window.addEventListener('scroll', updateHighlight, { passive: true });
       window.addEventListener('resize', updateHighlight);
-      updateHighlight();  // run once on load
+      updateHighlight();
     })();
   </script>
 
@@ -1761,9 +2431,9 @@
       function updateHighlight() {
         const rect      = para.getBoundingClientRect();
         const winH      = window.innerHeight;
-        // progress 0→1 as the paragraph travels from bottom of viewport to top
+        // progress 0->1 as the paragraph travels from bottom of viewport to top
         const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
-        const litCount  = Math.round(progress * total * 1.5);  // slightly ahead of scroll
+        const litCount  = Math.round(progress * total * 1.5);
 
         words.forEach((w, i) => {
           if (i < litCount) {
@@ -1776,7 +2446,7 @@
 
       window.addEventListener('scroll', updateHighlight, { passive: true });
       window.addEventListener('resize', updateHighlight);
-      updateHighlight();  // run once on load
+      updateHighlight();
     })();
   </script>
 
@@ -1790,8 +2460,8 @@
 
       function updateHighlight() {
         const rect      = para.getBoundingClientRect();
-        const winH      = window.innerHeight;
-        // progress 0→1 as paragraph travels from bottom of viewport to top
+        const winH    = window.innerHeight;
+        // progress 0→1 araph travels from bottom of viewport to top
         const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
         const litCount  = Math.round(progress * total * 1.5);  // slightly ahead of scroll
 
@@ -1810,21 +2480,61 @@
     })();
   </script>
 
-      <!-- Floating Side Action Widgets (Enquiry Now, Instagram, WhatsApp) -->
-  <div id="floatingSideWidgets" style="position: fixed !important; right: 0 !important; top: 50% !important; transform: translateY(-50%) translateX(40px) !important; z-index: 999999 !important; display: flex !important; flex-direction: column !important; gap: 10px !important; align-items: flex-end !important; margin: 0 !important; padding: 0 !important; opacity: 0 !important; pointer-events: none !important; transition: opacity 0.4s ease, transform 0.4s ease !important;">
-    
+  <!-- Marquee Label Scroll Reveal & Motion Animation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const marqueeLabel = document.querySelector('.marquee-label');
+      if (!marqueeLabel) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            marqueeLabel.classList.add('reveal-active');
+          }
+        });
+      }, { threshold: 0.15 });
+      observer.observe(marqueeLabel);
+
+      // Scroll-driven subtle motion
+      window.addEventListener('scroll', () => {
+        const rect = marqueeLabel.getBoundingClientRect();
+        const winH = window.innerHeight;
+        if (rect.top < winH && rect.bottom > 0) {
+          const scrollProgress = (winH - rect.top) / (winH + rect.height);
+          const shiftY = (scrollProgress - 0.5) * -12;
+          if (marqueeLabel.classList.contains('reveal-active')) {
+            marqueeLabel.style.transform = `translateY(${shiftY}px) scale(1)`;
+          }
+        }
+      }, { passive: true });
+    });
+  </script>
+
+  <!-- Floating Side Action Widgets (Enquiry Now, Instagram, WhatsApp) -->
+  <div id="floatingSideWidgets"
+    style="position: fixed !important; right: 0 !important; top: 50% !important; transform: translateY(-50%) translateX(40px) !important; z-index: 999999 !important; display: flex !important; flex-direction: column !important; gap: 10px !important; align-items: flex-end !important; margin: 0 !important; padding: 0 !important; opacity: 0 !important; pointer-events: none !important; transition: opacity 0.4s ease, transform 0.4s ease !important;">
+
     <!-- Enquiry Tab (Direct link to contact.html) -->
-    <a href="contact.html" class="side-widget-tab tab-enquiry" id="sideEnquiryBtn" aria-label="Enquire Now" style="display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 8px !important; background: #141a29 !important; color: #00f2fe !important; border: 1px solid rgba(0, 242, 254, 0.3) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; padding: 12px 10px 10px 10px !important; text-decoration: none !important; cursor: pointer !important; width: 46px !important; box-sizing: border-box !important; box-shadow: -4px 6px 20px rgba(0,0,0,0.4) !important; transition: transform 0.2s ease !important;">
-      <span class="side-widget-text" style="writing-mode: vertical-rl !important; text-orientation: mixed !important; transform: rotate(180deg) !important; font-family: 'Outfit', sans-serif !important; font-size: 0.65rem !important; font-weight: 800 !important; letter-spacing: 0.12em !important; text-transform: uppercase !important; color: inherit !important; line-height: 1 !important; white-space: nowrap !important;">ENQUIRE NOW</span>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px !important; height: 20px !important; max-width: 20px !important; max-height: 20px !important; flex-shrink: 0 !important; display: block !important;">
+    <a href="contact.html" class="side-widget-tab tab-enquiry" id="sideEnquiryBtn" aria-label="Enquire Now"
+      style="display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 8px !important; background: #141a29 !important; color: #00f2fe !important; border: 1px solid rgba(0, 242, 254, 0.3) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; padding: 12px 10px 10px 10px !important; text-decoration: none !important; cursor: pointer !important; width: 46px !important; box-sizing: border-box !important; box-shadow: -4px 6px 20px rgba(0,0,0,0.4) !important; transition: transform 0.2s ease !important;">
+      <span class="side-widget-text"
+        style="writing-mode: vertical-rl !important; text-orientation: mixed !important; transform: rotate(180deg) !important; font-family: 'Outfit', sans-serif !important; font-size: 0.65rem !important; font-weight: 800 !important; letter-spacing: 0.12em !important; text-transform: uppercase !important; color: inherit !important; line-height: 1 !important; white-space: nowrap !important;">ENQUIRE
+        NOW</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round"
+        style="width: 20px !important; height: 20px !important; max-width: 20px !important; max-height: 20px !important; flex-shrink: 0 !important; display: block !important;">
         <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
         <line x1="7" y1="7" x2="7.01" y2="7"></line>
       </svg>
     </a>
 
     <!-- Instagram Tab (Exact same size 46x46 as WhatsApp) -->
-    <a href="https://instagram.com/unimed_global" target="_blank" rel="noopener" class="side-widget-tab tab-instagram" aria-label="Instagram" style="display: flex !important; align-items: center !important; justify-content: center !important; background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045) !important; color: #ffffff !important; border: 1px solid rgba(253, 29, 29, 0.4) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; width: 46px !important; height: 46px !important; box-sizing: border-box !important; text-decoration: none !important; cursor: pointer !important; box-shadow: -4px 6px 20px rgba(225, 48, 108, 0.4) !important; transition: transform 0.2s ease !important; flex-shrink: 0 !important;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px !important; height: 22px !important; max-width: 22px !important; max-height: 22px !important; flex-shrink: 0 !important; display: block !important;">
+    <a href="https://instagram.com/unimed_global" target="_blank" rel="noopener" class="side-widget-tab tab-instagram"
+      aria-label="Instagram"
+      style="display: flex !important; align-items: center !important; justify-content: center !important; background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045) !important; color: #ffffff !important; border: 1px solid rgba(253, 29, 29, 0.4) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; width: 46px !important; height: 46px !important; box-sizing: border-box !important; text-decoration: none !important; cursor: pointer !important; box-shadow: -4px 6px 20px rgba(225, 48, 108, 0.4) !important; transition: transform 0.2s ease !important; flex-shrink: 0 !important;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round"
+        style="width: 22px !important; height: 22px !important; max-width: 22px !important; max-height: 22px !important; flex-shrink: 0 !important; display: block !important;">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -1832,12 +2542,17 @@
     </a>
 
     <!-- WhatsApp Tab (Exact same size 46x46 as Instagram) -->
-    <a href="https://wa.me/919163654664?text=Hi%20UNIMED%20Global!%20I%20want%20to%20know%20more%20about%20MBBS%20admissions." target="_blank" rel="noopener" class="side-widget-tab tab-whatsapp" aria-label="WhatsApp" style="display: flex !important; align-items: center !important; justify-content: center !important; background: #25D366 !important; color: #ffffff !important; border: 1px solid rgba(37, 211, 102, 0.4) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; width: 46px !important; height: 46px !important; box-sizing: border-box !important; text-decoration: none !important; cursor: pointer !important; box-shadow: -4px 6px 20px rgba(37, 211, 102, 0.4) !important; transition: transform 0.2s ease !important; flex-shrink: 0 !important;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="width: 22px !important; height: 22px !important; max-width: 22px !important; max-height: 22px !important; flex-shrink: 0 !important; display: block !important;">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    <a href="https://wa.me/919163654664?text=Hi%20UNIMED%20Global!%20I%20want%20to%20know%20more%20about%20MBBS%20admissions."
+      target="_blank" rel="noopener" class="side-widget-tab tab-whatsapp" aria-label="WhatsApp"
+      style="display: flex !important; align-items: center !important; justify-content: center !important; background: #25D366 !important; color: #ffffff !important; border: 1px solid rgba(37, 211, 102, 0.4) !important; border-right: none !important; border-radius: 14px 0 0 14px !important; width: 46px !important; height: 46px !important; box-sizing: border-box !important; text-decoration: none !important; cursor: pointer !important; box-shadow: -4px 6px 20px rgba(37, 211, 102, 0.4) !important; transition: transform 0.2s ease !important; flex-shrink: 0 !important;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"
+        style="width: 22px !important; height: 22px !important; max-width: 22px !important; max-height: 22px !important; flex-shrink: 0 !important; display: block !important;">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
       </svg>
     </a>
   </div>
 
 </body>
+
 </html>

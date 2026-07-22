@@ -1007,8 +1007,31 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     initFloatingSideWidgets();
     initHashNavigation();
+    initImageProtection();
   });
 } else {
   initFloatingSideWidgets();
   initHashNavigation();
+  initImageProtection();
+}
+
+// =========================================================================
+// GLOBAL IMAGE COPY PROTECTION (PREVENT RIGHT-CLICK, DRAG, & SAVE)
+// =========================================================================
+function initImageProtection() {
+  // Prevent context menu (Right-Click) on all images
+  document.addEventListener('contextmenu', function (e) {
+    if (e.target.tagName === 'IMG' || e.target.closest('img')) {
+      e.preventDefault();
+      return false;
+    }
+  }, true);
+
+  // Prevent drag and drop of all images to desktop or folders
+  document.addEventListener('dragstart', function (e) {
+    if (e.target.tagName === 'IMG' || e.target.closest('img')) {
+      e.preventDefault();
+      return false;
+    }
+  }, true);
 }

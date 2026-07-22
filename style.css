@@ -170,11 +170,11 @@ html.light-theme .hero-section {
 }
 
 html.light-theme .hero-title {
-  color: var(--aw-text-primary) !important;
-  font-size: clamp(2.6rem, 6vw, 5.5rem) !important;
+  color: #0f172a !important;
+  font-size: 3.2rem !important;
   font-weight: 800 !important;
-  line-height: 1.08 !important;
-  letter-spacing: -0.03em !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.02em !important;
   -webkit-text-fill-color: unset !important;
   background: none !important;
   -webkit-background-clip: unset !important;
@@ -194,11 +194,20 @@ html.light-theme .hero-title-accent {
 }
 
 html.light-theme .hero-description {
-  color: var(--aw-text-muted) !important;
-  font-size: 1rem !important;
-  font-weight: 400 !important;
-  line-height: 1.65 !important;
-  max-width: 460px;
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  color: #0f172a !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  line-height: 1.6 !important;
+  max-width: 680px !important;
+  padding: 16px 24px !important;
+  border-radius: 20px !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+  margin: 16px 0 !important;
 }
 
 html.light-theme .trust-badge {
@@ -270,10 +279,9 @@ html.light-theme .marquee-section {
 }
 
 html.light-theme .marquee-label {
-  color: var(--aw-text-light);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  color: #0f172a !important;
+  font-family: 'Instrument Serif', Georgia, serif !important;
+  font-style: italic !important;
 }
 
 html.light-theme .marquee-card {
@@ -1456,9 +1464,21 @@ html.light-theme .mobile-cta-btn {
 }
 
 .hero-description {
-  font-size: 1.05rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
   line-height: 1.6;
-  color: var(--color-text-muted);
+  max-width: 680px;
+  padding: 16px 24px;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  color: #f8fafc;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  margin: 16px 0;
 }
 
 .hero-buttons {
@@ -3578,7 +3598,7 @@ html.light-theme .form-select {
   }
 
   .nav-actions .theme-toggle-btn {
-    /* keep theme toggle visible on mobile */
+    display: flex !important;
   }
 
   .nav-actions .cta-btn {
@@ -7173,5 +7193,659 @@ html.light-theme .admin-submit-btn {
     padding: 32px 24px;
   }
 }
+
+/* ── Integrated Footer Hero Banner with Word Rotator ───────────────── */
+.footer-wrapper {
+  margin-top: 0 !important;
+  padding-top: 60px !important;
+}
+
+.bottom-hero-banner {
+  background: transparent !important;
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 0 0 50px 0 !important;
+  margin-bottom: 50px !important;
+  border-top: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+html.light-theme .bottom-hero-banner {
+  background: transparent !important;
+  border-bottom-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.bottom-hero-container {
+  max-width: 1200px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  text-align: left !important;
+}
+
+.bottom-hero-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Outfit', 'Inter Tight', sans-serif !important;
+  font-size: clamp(2.4rem, 5.5vw, 5.2rem) !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.03em !important;
+  margin: 0 0 10px 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.28em !important;
+}
+
+.bottom-hero-static {
+  color: #ffffff !important;
+}
+
+.word-rotator-wrapper {
+  display: inline-block !important;
+  position: relative !important;
+  height: 1.25em !important;
+  overflow: hidden !important;
+  vertical-align: bottom !important;
+}
+
+.word-rotator-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  transition: transform 0.65s cubic-bezier(0.65, 0, 0.35, 1) !important;
+}
+
+.rotator-word {
+  height: 1.25em !important;
+  line-height: 1.25em !important;
+  display: flex !important;
+  align-items: center !important;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #ffffff 30%, #00f2fe 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  white-space: nowrap !important;
+  font-weight: 800 !important;
+}
+
+.bottom-hero-subtitle {
+  font-family: -apple-system, BlinkMacSystemFont, 'Outfit', 'Inter Tight', sans-serif !important;
+  font-size: clamp(2.2rem, 5.2vw, 4.8rem) !important;
+  font-weight: 700 !important;
+  color: #8a99ad !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.03em !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .bottom-hero-banner {
+    padding: 0 0 36px 0 !important;
+    margin-bottom: 36px !important;
+  }
+}
+
+/* ── University Detail Hero Title Visibility Fix in Light Theme ─────── */
+.ud-hero-title,
+h1.ud-hero-title,
+#uniTitle,
+html.light-theme .ud-hero-title,
+html.light-theme h1.ud-hero-title,
+html.light-theme #uniTitle {
+  color: #ffffff !important;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 2px 6px rgba(0, 0, 0, 0.95) !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.ud-hero-location,
+p.ud-hero-location,
+#uniLocation,
+html.light-theme .ud-hero-location,
+html.light-theme p.ud-hero-location,
+html.light-theme #uniLocation {
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.ud-country-chip,
+html.light-theme .ud-country-chip,
+html.light-theme #uniCountry {
+  color: #ffffff !important;
+  background: rgba(15, 23, 42, 0.65) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
+}
+
+.ud-back-btn,
+html.light-theme .ud-back-btn {
+  color: #ffffff !important;
+  background: rgba(15, 23, 42, 0.65) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* ── Sleek Navbar Enquiry Button with Position Exchange Hover ──────── */
+.cta-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  background: #18181b !important;
+  color: #ffffff !important;
+  border-radius: 999px !important;
+  padding: 6px 6px 6px 20px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease !important;
+}
+
+html.light-theme .cta-btn {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25) !important;
+}
+
+.cta-btn-text {
+  order: 1 !important;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  white-space: nowrap !important;
+}
+
+.cta-btn-icon {
+  order: 2 !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.35s ease, color 0.35s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.cta-btn-icon svg {
+  width: 14px !important;
+  height: 14px !important;
+  stroke: currentColor !important;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* Hover position exchange animation */
+.cta-btn:hover {
+  background: #090d16 !important;
+  border-color: rgba(0, 242, 254, 0.5) !important;
+  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.25) !important;
+}
+
+.cta-btn:hover .cta-btn-text {
+  transform: translateX(44px) !important;
+}
+
+.cta-btn:hover .cta-btn-icon {
+  transform: translateX(-110px) rotate(45deg) !important;
+  background: #00f2fe !important;
+  color: #090d16 !important;
+}
+
+/* ── Secondary Button (Explore Universities) High Visibility Fix ────── */
+.btn-secondary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  text-decoration: none !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  padding: 14px 30px !important;
+  border-radius: 100px !important;
+  background: rgba(15, 23, 42, 0.85) !important;
+  color: #ffffff !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.btn-secondary:hover {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border-color: #00f2fe !important;
+  color: #00f2fe !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 30px rgba(0, 242, 254, 0.3) !important;
+}
+
+html.light-theme .btn-secondary {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+html.light-theme .btn-secondary:hover {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.25) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* ── Bottom Rotator Banner Light Theme & Upper Line ("Let's") Visibility ── */
+.bottom-hero-static {
+  color: #ffffff !important;
+}
+
+html.light-theme .bottom-hero-static,
+html.light-theme span.bottom-hero-static {
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+}
+
+html.light-theme .bottom-hero-title,
+html.light-theme h2.bottom-hero-title {
+  color: #0f172a !important;
+}
+
+html.light-theme .bottom-hero-subtitle,
+html.light-theme h3.bottom-hero-subtitle {
+  color: #0f172a !important;
+}
+
+html.light-theme .rotator-word,
+html.light-theme span.rotator-word {
+  color: #0284c7 !important;
+  background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html.light-theme .bottom-hero-banner {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+/* ── Footer UniMed Logo Image & Branding Visibility ──────────────────── */
+.footer-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.footer-logo-img {
+  height: 38px !important;
+  width: auto !important;
+  max-width: 180px !important;
+  object-fit: contain !important;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+html.light-theme .footer-logo-img {
+  filter: brightness(0.9) contrast(1.1) !important;
+}
+
+.footer-logo-text {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: #ffffff !important;
+}
+
+html.light-theme .footer-logo-text {
+  color: #0f172a !important;
+}
+
+.footer-logo-accent {
+  color: #00f2fe !important;
+}
+
+html.light-theme .footer-logo-accent {
+  color: #0284c7 !important;
+}
+
+/* ── Hero Glass Buttons with Position-Exchange Hover ─────────────────── */
+/* ── Hero Glass Buttons with Position-Exchange Hover ─────────────────── */
+.hero-buttons {
+  display: flex !important;
+  gap: 16px !important;
+  margin-top: 20px !important;
+  align-items: center !important;
+}
+
+.hero-cta-btn {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  padding: 6px 10px 6px 22px !important;
+  border-radius: 999px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  overflow: hidden !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.hero-cta-btn .cta-btn-text {
+  display: inline-block !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease !important;
+  white-space: nowrap !important;
+  color: inherit !important;
+}
+
+.hero-cta-btn .cta-btn-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease !important;
+  flex-shrink: 0 !important;
+}
+
+/* 🟢 APPLY NOW — GREEN TRANSPARENT GLASS BUTTON (DARK MODE & LIGHT MODE) */
+.hero-cta-btn.btn-primary {
+  background: rgba(34, 197, 94, 0.25) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1.5px solid rgba(34, 197, 94, 0.5) !important;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.hero-cta-btn.btn-primary .cta-btn-icon {
+  background: rgba(34, 197, 94, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+}
+
+.hero-cta-btn.btn-primary:hover {
+  background: rgba(34, 197, 94, 0.45) !important;
+  border-color: #22c55e !important;
+  box-shadow: 0 12px 32px rgba(34, 197, 94, 0.45) !important;
+  transform: translateY(-2px) !important;
+}
+
+.hero-cta-btn.btn-primary:hover .cta-btn-text {
+  transform: translateX(44px) !important;
+  color: #ffffff !important;
+}
+
+.hero-cta-btn.btn-primary:hover .cta-btn-icon {
+  transform: translateX(-110px) rotate(-45deg) !important;
+  background: #ffffff !important;
+  color: #15803d !important;
+}
+
+/* 🔵 EXPLORE UNIVERSITIES — TRANSPARENT GLASS BUTTON (DARK MODE) */
+.hero-cta-btn.btn-secondary {
+  background: rgba(15, 23, 42, 0.55) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+.hero-cta-btn.btn-secondary .cta-btn-icon {
+  background: rgba(0, 242, 254, 0.2) !important;
+  border: 1px solid rgba(0, 242, 254, 0.4) !important;
+  color: #00f2fe !important;
+}
+
+.hero-cta-btn.btn-secondary:hover {
+  background: rgba(15, 23, 42, 0.82) !important;
+  border-color: rgba(0, 242, 254, 0.6) !important;
+  box-shadow: 0 12px 32px rgba(0, 242, 254, 0.25) !important;
+  transform: translateY(-2px) !important;
+}
+
+.hero-cta-btn.btn-secondary:hover .cta-btn-text {
+  transform: translateX(44px) !important;
+  color: #ffffff !important;
+}
+
+.hero-cta-btn.btn-secondary:hover .cta-btn-icon {
+  transform: translateX(-155px) rotate(-45deg) !important;
+  background: #00f2fe !important;
+  color: #0f172a !important;
+}
+
+/* ── LIGHT THEME OVERRIDES ───────────────────────────────────────────── */
+
+/* Light Theme Apply Now (Green Transparent Glass) */
+html.light-theme .hero-cta-btn.btn-primary {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border: 1.5px solid rgba(34, 197, 94, 0.45) !important;
+  color: #15803d !important;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+html.light-theme .hero-cta-btn.btn-primary .cta-btn-icon {
+  background: #22c55e !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+html.light-theme .hero-cta-btn.btn-primary:hover {
+  background: #22c55e !important;
+  border-color: #16a34a !important;
+  box-shadow: 0 12px 32px rgba(34, 197, 94, 0.35) !important;
+}
+
+html.light-theme .hero-cta-btn.btn-primary:hover .cta-btn-text {
+  color: #ffffff !important;
+}
+
+html.light-theme .hero-cta-btn.btn-primary:hover .cta-btn-icon {
+  background: #ffffff !important;
+  color: #15803d !important;
+}
+
+/* Light Theme Explore Universities (Transparent Glass -> Dark Navy Hover) */
+html.light-theme .hero-cta-btn.btn-secondary {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1.5px solid rgba(15, 23, 42, 0.2) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  color: #0f172a !important;
+}
+
+html.light-theme .hero-cta-btn.btn-secondary .cta-btn-text {
+  color: #0f172a !important;
+}
+
+html.light-theme .hero-cta-btn.btn-secondary .cta-btn-icon {
+  background: rgba(15, 23, 42, 0.08) !important;
+  border: 1px solid rgba(15, 23, 42, 0.2) !important;
+  color: #0f172a !important;
+}
+
+html.light-theme .hero-cta-btn.btn-secondary:hover {
+  background: #0f172a !important;
+  border-color: #0f172a !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.25) !important;
+}
+
+html.light-theme .hero-cta-btn.btn-secondary:hover .cta-btn-text {
+  color: #ffffff !important; /* Extremely high contrast white text over dark navy background on hover! */
+}
+
+html.light-theme .hero-cta-btn.btn-secondary:hover .cta-btn-icon {
+  background: #00f2fe !important;
+  color: #0f172a !important;
+}
+
+/* ── AWAKE FLOATING PILL CAPSULE NAVIGATION BAR & LOGO NO-OVERLAP ──── */
+.navbar-wrapper {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 80px !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 0 48px !important;
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* Logo positioning & sizing on far-left */
+.logo-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  text-decoration: none !important;
+  z-index: 1002 !important;
+  flex-shrink: 0 !important;
+  margin-right: auto !important;
+}
+
+.logo-img {
+  height: 38px !important;
+  width: auto !important;
+  max-width: 44px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+}
+
+.logo-text {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 1.38rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--color-text) !important;
+  white-space: nowrap !important;
+}
+
+html.light-theme .logo-text {
+  color: #0f172a !important;
+}
+
+/* Awake-Style Centered Floating Pill capsule Menu */
+.nav-menu {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 6px 10px !important;
+  border-radius: 999px !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  z-index: 1001 !important;
+  transition: all 0.3s ease !important;
+
+  /* Dark Theme Floating Pill Backdrop */
+  background: rgba(15, 23, 42, 0.65) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+}
+
+html.light-theme .nav-menu {
+  /* Light Theme Awake Floating Pill Backdrop */
+  background: rgba(241, 245, 249, 0.85) !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Pill Links inside Capsule */
+.nav-link {
+  padding: 8px 18px !important;
+  border-radius: 999px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all 0.25s ease !important;
+  border-bottom: none !important;
+  color: #94a3b8 !important;
+  white-space: nowrap !important;
+}
+
+.nav-link:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-bottom: none !important;
+}
+
+.nav-link.active {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  font-weight: 600 !important;
+  border-bottom: none !important;
+  padding-bottom: 8px !important;
+}
+
+/* Light Theme Pill Links */
+html.light-theme .nav-link {
+  color: #475569 !important;
+}
+
+html.light-theme .nav-link:hover {
+  color: #0f172a !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+html.light-theme .nav-link.active {
+  color: #0f172a !important;
+  background: #ffffff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Right Header Actions */
+.nav-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  z-index: 1002 !important;
+  margin-left: auto !important;
+/* ── GLOBAL IMAGE COPY & DRAG PROTECTION ────────────────────────────── */
+img {
+  -webkit-user-drag: none !important;
+  -khtml-user-drag: none !important;
+  -moz-user-drag: none !important;
+  -o-user-drag: none !important;
+  user-drag: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
+
+
 
 

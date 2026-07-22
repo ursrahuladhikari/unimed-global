@@ -47,7 +47,15 @@
           <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z" />
         </svg>
       </button>
-      <a href="contact.html" class="cta-btn">Enquire Now</a>
+      <a href="contact.html" class="cta-btn">
+        <span class="cta-btn-text">Enquire Now</span>
+        <span class="cta-btn-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </span>
+      </a>
       <!-- Hamburger -->
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open Menu" aria-expanded="false">
         <span class="bar"></span>
@@ -89,7 +97,7 @@
         <h2 class="dest-title">Our Partner <span>Medical Universities</span></h2>
         <p class="section-subtitle" style="text-align: center; max-width: 680px; margin: 0 auto 24px auto;">
           Official partner with 15+ top-tier state medical universities in Russia & Uzbekistan. Complete your degree
-          under 20 Lakh.
+          under 20 Lakh*.
         </p>
 
         <!-- Country Toggle Buttons -->
@@ -709,16 +717,10 @@
       <span class="counselling-cta-tag">Get Guidance</span>
       <div class="counselling-cta-highlight-container" id="counsellingHighlight">
         <h2 class="counselling-cta-title">
-          <span class="hw">Not</span> <span class="hw">Sure</span> <span class="hw">Which</span> <span
-            class="hw">Country</span> <span class="hw cta-serif-italic">Is</span> <span
-            class="hw cta-serif-italic">Right</span> <span class="hw cta-serif-italic">for</span> <span
-            class="hw cta-serif-italic">You?</span>
+          <span class="hw">Not</span> <span class="hw">Sure</span> <span class="hw">Which</span> <span class="hw">Country</span> <span class="hw cta-serif-italic">Is</span> <span class="hw cta-serif-italic">Right</span> <span class="hw cta-serif-italic">for</span> <span class="hw cta-serif-italic">You?</span>
         </h2>
         <h2 class="counselling-cta-title">
-          <span class="hw">Not</span> <span class="hw">sure</span> <span class="hw">Which</span> <span
-            class="hw">course</span> <span class="hw cta-serif-italic">is</span> <span
-            class="hw cta-serif-italic">right</span> <span class="hw cta-serif-italic">for</span> <span
-            class="hw cta-serif-italic">You?</span>
+          <span class="hw">Not</span> <span class="hw">Sure</span> <span class="hw">Which</span> <span class="hw">Course</span> <span class="hw cta-serif-italic">Is</span> <span class="hw cta-serif-italic">Right</span> <span class="hw cta-serif-italic">for</span> <span class="hw cta-serif-italic">You?</span>
         </h2>
       </div>
       <p class="counselling-cta-desc">Get a free profile evaluation and a personalised country recommendation from our
@@ -737,10 +739,44 @@
     </div>
   </section>
 
-  <!-- ========================================================================= -->
-  <!-- FOOTER                                                                    -->
-  <!-- ========================================================================= -->
   <footer class="footer-wrapper">
+
+    <!-- DYNAMIC ROTATING WORD HERO BANNER -->
+    <div class="bottom-hero-banner">
+      <div class="bottom-hero-container">
+        <h2 class="bottom-hero-title">
+          <span class="bottom-hero-static">Let's</span>
+          <span class="word-rotator-wrapper">
+            <span class="word-rotator-inner" id="rotatorInner">
+              <span class="rotator-word">build</span>
+              <span class="rotator-word">create</span>
+              <span class="rotator-word">design</span>
+              <span class="rotator-word">shape</span>
+              <span class="rotator-word">launch</span>
+            </span>
+          </span>
+        </h2>
+        <h3 class="bottom-hero-subtitle">your medical future together.</h3>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        const rotatorInner = document.getElementById('rotatorInner');
+        if (!rotatorInner) return;
+        const words = rotatorInner.querySelectorAll('.rotator-word');
+        if (!words.length) return;
+        
+        let currentIndex = 0;
+        const totalWords = words.length;
+
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % totalWords;
+          rotatorInner.style.transform = `translateY(-${currentIndex * 1.25}em)`;
+        }, 1500);
+      })();
+    </script>
+
     <div class="footer-grid">
       <div class="footer-col">
         <div class="footer-logo">
