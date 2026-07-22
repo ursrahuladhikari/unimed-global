@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <script src="theme.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Partner Universities | UNIMED Global</title>
@@ -11,7 +12,6 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Instrument+Serif:ital@0;1&display=swap"
     rel="stylesheet">
-  <script src="theme.js"></script>
 </head>
 
 <body>
@@ -27,6 +27,7 @@
     <nav class="nav-menu">
       <a href="index.html" class="nav-link">Home</a>
       <a href="index.html#about-us" class="nav-link">About Us</a>
+      <a href="why-choose-us.html" class="nav-link">Why Choose Us</a>
       <a href="universities.html" class="nav-link active">Universities</a>
       <a href="admission.html" class="nav-link">Admission</a>
       <a href="contact.html" class="nav-link">Contact</a>
@@ -47,8 +48,36 @@
         </svg>
       </button>
       <a href="contact.html" class="cta-btn">Enquire Now</a>
+      <!-- Hamburger -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open Menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Nav Overlay + Drawer -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-logo">UNIMED <span>Global</span></a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Menu">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">🏠 Home</a>
+      <a href="index.html#about-us" class="mobile-nav-link">👥 About Us</a>
+      <a href="why-choose-us.html" class="mobile-nav-link">⭐ Why Choose Us</a>
+      <a href="universities.html" class="mobile-nav-link active">🎓 Universities</a>
+      <a href="admission.html" class="mobile-nav-link">📋 Admission</a>
+      <a href="contact.html" class="mobile-nav-link">📞 Contact</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="contact.html" class="mobile-cta-btn">Enquire Now →</a>
+    </div>
+  </div>
 
   <!-- ========================================================================= -->
   <!-- MAIN DESTINATIONS SECTION (BIGGER CONTAINER MATCHING MAIN PAGE)            -->
@@ -742,7 +771,8 @@
         <h4 class="footer-col-title">Contact</h4>
         <p class="footer-desc">
           Director: Arijit Dutta (Kolkata)<br>
-          WhatsApp: +919163654664, +79867028518<br>
+          Co-Founder: Pawan Kumar (Nepal &amp; N. India)<br>
+          WhatsApp: +91 9163654664, +91 9661994131<br>
           Instagram: @unimed_global
         </p>
       </div>
@@ -887,6 +917,37 @@
     })();
   </script>
 
+  <!-- Scroll-highlight counselling animation -->
+  <script>
+    (function() {
+      const para   = document.getElementById('counsellingHighlight');
+      if (!para) return;
+      const words  = Array.from(para.querySelectorAll('.hw'));
+      const total  = words.length;
+
+      function updateHighlight() {
+        const rect      = para.getBoundingClientRect();
+        const winH      = window.innerHeight;
+        // progress 0→1 as the paragraph travels from bottom of viewport to top
+        const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
+        const litCount  = Math.round(progress * total * 1.5);  // slightly ahead of scroll
+
+        words.forEach((w, i) => {
+          if (i < litCount) {
+            w.classList.add('lit');
+          } else {
+            w.classList.remove('lit');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateHighlight, { passive: true });
+      window.addEventListener('resize', updateHighlight);
+      updateHighlight();  // run once on load
+    })();
+  </script>
+
+
 
   
 
@@ -924,6 +985,27 @@
     </a>
   </div>
 
+
+  <script>
+    // Mobile hamburger nav
+    (function() {
+      function initMobileNav() {
+        var btn = document.getElementById('hamburgerBtn');
+        var drawer = document.getElementById('mobileNavDrawer');
+        var overlay = document.getElementById('mobileNavOverlay');
+        var closeBtn = document.getElementById('mobileNavClose');
+        if (!btn || !drawer) return;
+        function open() { btn.classList.add('open'); btn.setAttribute('aria-expanded','true'); drawer.classList.add('open'); overlay.classList.add('visible'); document.body.style.overflow='hidden'; }
+        function close() { btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); drawer.classList.remove('open'); overlay.classList.remove('visible'); document.body.style.overflow=''; }
+        btn.addEventListener('click', open);
+        if (closeBtn) closeBtn.addEventListener('click', close);
+        if (overlay) overlay.addEventListener('click', close);
+        drawer.querySelectorAll('.mobile-nav-link').forEach(function(l){ l.addEventListener('click', close); });
+        document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileNav); } else { initMobileNav(); }
+    })();
+  </script>
 </body>
 
 </html>

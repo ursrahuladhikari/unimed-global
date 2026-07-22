@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="theme.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UNIMED Global | Guiding Future Doctors</title>
   <meta name="description" content="Complete your MBBS in Russia & Uzbekistan under 20 Lakh. Expert guidance for 2026-27 intake. Apply now with UNIMED Global.">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=2026">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <script src="theme.js"></script>
   <style>
     /* ── HERO SECTION ─────────────────────────────────────── */
     .hero-section {
@@ -153,7 +153,7 @@
       .why-title { font-size: 2.4rem; }
     }
     @media (max-width: 768px) {
-      .hero-overlay { left: 20px; right: 20px; width: auto; text-align: center; align-items: center; }
+      .hero-overlay { left: 0; right: 0; margin: 0 auto; width: 100%; max-width: 100%; text-align: center; align-items: center; }
       .why-grid { grid-template-columns: 1fr; }
       .home-why-section { padding: 60px 20px; }
       .why-title { font-size: 2rem; }
@@ -195,6 +195,8 @@
     </a>
     <nav class="nav-menu">
       <a href="index.html" class="nav-link active">Home</a>
+      <a href="#about-us" class="nav-link">About Us</a>
+      <a href="why-choose-us.html" class="nav-link">Why Choose Us</a>
       <a href="universities.html" class="nav-link">Universities</a>
       <a href="admission.html" class="nav-link">Admission</a>
       <a href="contact.html" class="nav-link">Contact</a>
@@ -205,8 +207,36 @@
         <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
       </button>
       <a href="contact.html" class="cta-btn">Enquire Now</a>
+      <!-- Hamburger -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open Menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Nav Overlay + Drawer -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-logo">UNIMED <span>Global</span></a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Menu">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link active">🏠 Home</a>
+      <a href="#about-us" class="mobile-nav-link">👥 About Us</a>
+      <a href="why-choose-us.html" class="mobile-nav-link">⭐ Why Choose Us</a>
+      <a href="universities.html" class="mobile-nav-link">🎓 Universities</a>
+      <a href="admission.html" class="mobile-nav-link">📋 Admission</a>
+      <a href="contact.html" class="mobile-nav-link">📞 Contact</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="contact.html" class="mobile-cta-btn">Enquire Now →</a>
+    </div>
+  </div>
 
   <!-- ===================================================================== -->
   <!-- SECTION 1: HERO – 3D GLOBE FULL VIEWPORT                             -->
@@ -659,9 +689,9 @@
       
       <!-- Country Toggle Buttons -->
       <div class="dest-toggle-container">
-        <button class="dest-toggle-btn active" data-country="all">All Countries</button>
-        <button class="dest-toggle-btn" data-country="russia">Russia</button>
-        <button class="dest-toggle-btn" data-country="uzbekistan">Uzbekistan</button>
+        <button class="dest-toggle-btn active" data-country="all">All Countries <span class="dest-count-badge">11</span></button>
+        <button class="dest-toggle-btn" data-country="russia">Russia <span class="dest-count-badge">9</span></button>
+        <button class="dest-toggle-btn" data-country="uzbekistan">Uzbekistan <span class="dest-count-badge">2</span></button>
       </div>
     </div>
 
@@ -1026,7 +1056,7 @@
         <!-- Tashkent Pharmaceutical Institute -->
         <div class="dest-card">
           <div class="dest-card-img-wrap">
-            <a href="uni-info.html?uni=tpi"><img src="assets/universities/campus_ulyanovsk.png" alt="Tashkent Pharmaceutical Institute" class="dest-card-img"></a>
+            <a href="uni-info.html?uni=tpi"><img src="assets/universities/campus_tashkent.png" alt="Tashkent Pharmaceutical Institute" class="dest-card-img"></a>
             <span class="dest-card-badge">🇺🇿 Uzbekistan</span>
             <a href="uni-info.html?uni=tpi" class="dest-card-arrow" aria-label="View Details">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1514,29 +1544,39 @@
           </div>
         </div>
 
-        <!-- Director Quote Card -->
-        <div class="about-quote-card">
-          <div class="about-quote-avatar">AD</div>
-          <div class="about-quote-text">
-            <p class="about-quote-p">"Building honest, transparent pathways for medical students since 2020."</p>
-            <span class="about-quote-author">Arijit Dutta — Director (Kolkata)</span>
+        <!-- Leadership Cards (side by side) -->
+        <div class="about-leadership-row">
+          <div class="about-quote-card">
+            <div class="about-quote-avatar">AD</div>
+            <div class="about-quote-text">
+              <p class="about-quote-p">"Building honest, transparent pathways for medical students since 2022."</p>
+              <span class="about-quote-author">Arijit Dutta — Director (Kolkata)</span>
+            </div>
+          </div>
+
+          <div class="about-quote-card">
+            <div class="about-quote-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">PK</div>
+            <div class="about-quote-text">
+              <p class="about-quote-p">"Guiding medical aspirants with dedicated mentorship &amp; full admission support."</p>
+              <span class="about-quote-author">Pawan Kumar — Co-Founder (Nepal &amp; North India)</span>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Right Column: Content & Milestones -->
-      <div class="about-content-col">
+      <div class="about-content-col" id="aboutHighlight">
         <span class="about-tag">About Us</span>
         <h2 class="about-heading">
-          Pioneering Medical Admissions <span class="about-heading-accent">Since 2020</span>
+          <span class="hw">Pioneering</span> <span class="hw">Medical</span> <span class="hw">Admissions</span> <span class="hw about-heading-accent">Since</span> <span class="hw about-heading-accent">2022</span>
         </h2>
         
         <p class="about-description">
-          Welcome to <strong>UNIMED Global</strong>, an educational consultancy curated by the students for the students, as we were once in your exact position. We are dedicated to help students making the best decisions.
+          <span class="hw">Welcome</span> <span class="hw">to</span> <span class="hw"><strong>UNIMED Global</strong>,</span> <span class="hw">an</span> <span class="hw">educational</span> <span class="hw">consultancy</span> <span class="hw">curated</span> <span class="hw">by</span> <span class="hw">the</span> <span class="hw">students</span> <span class="hw">for</span> <span class="hw">the</span> <span class="hw">students,</span> <span class="hw">as</span> <span class="hw">we</span> <span class="hw">were</span> <span class="hw">once</span> <span class="hw">in</span> <span class="hw">your</span> <span class="hw">exact</span> <span class="hw">position.</span> <span class="hw">We</span> <span class="hw">are</span> <span class="hw">dedicated</span> <span class="hw">to</span> <span class="hw">help</span> <span class="hw">students</span> <span class="hw">making</span> <span class="hw">the</span> <span class="hw">best</span> <span class="hw">decisions.</span>
         </p>
 
         <p class="about-subdescription">
-          Our expertise lies in providing <strong>personalized guidance</strong> and support to doctors and students seeking to study in Russia & Uzbekistan. We strive to make the admission process <strong>seamless and hassle-free</strong>, ensuring that our students achieve their dreams.
+          <span class="hw">Our</span> <span class="hw">expertise</span> <span class="hw">lies</span> <span class="hw">in</span> <span class="hw">providing</span> <span class="hw"><strong>personalized guidance</strong></span> <span class="hw">and</span> <span class="hw">support</span> <span class="hw">to</span> <span class="hw">doctors</span> <span class="hw">and</span> <span class="hw">students</span> <span class="hw">seeking</span> <span class="hw">to</span> <span class="hw">study</span> <span class="hw">in</span> <span class="hw">Russia</span> <span class="hw">&</span> <span class="hw">Uzbekistan.</span> <span class="hw">We</span> <span class="hw">strive</span> <span class="hw">to</span> <span class="hw">make</span> <span class="hw">the</span> <span class="hw">admission</span> <span class="hw">process</span> <span class="hw"><strong>seamless and hassle-free</strong>,</span> <span class="hw">ensuring</span> <span class="hw">that</span> <span class="hw">our</span> <span class="hw">students</span> <span class="hw">achieve</span> <span class="hw">their</span> <span class="hw">dreams.</span>
         </p>
 
         <!-- Milestone Stats Grid -->
@@ -1623,8 +1663,8 @@
         <h4 class="footer-col-title">Contact</h4>
         <p class="footer-desc">
           Director: Arijit Dutta (Kolkata)<br>
-          WhatsApp: +91 9163654664<br>
-          Russia: +7 9867028518<br>
+          Co-Founder: Pawan Kumar (Nepal &amp; N. India)<br>
+          WhatsApp: +91 9163654664, +91 9661994131<br>
           Instagram: @unimed_global
         </p>
       </div>
@@ -1721,6 +1761,36 @@
         const rect      = para.getBoundingClientRect();
         const winH      = window.innerHeight;
         // progress 0→1 as the paragraph travels from bottom of viewport to top
+        const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
+        const litCount  = Math.round(progress * total * 1.5);  // slightly ahead of scroll
+
+        words.forEach((w, i) => {
+          if (i < litCount) {
+            w.classList.add('lit');
+          } else {
+            w.classList.remove('lit');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateHighlight, { passive: true });
+      window.addEventListener('resize', updateHighlight);
+      updateHighlight();  // run once on load
+    })();
+  </script>
+
+  <!-- Scroll-highlight About Us animation -->
+  <script>
+    (function() {
+      const para   = document.getElementById('aboutHighlight');
+      if (!para) return;
+      const words  = Array.from(para.querySelectorAll('.hw'));
+      const total  = words.length;
+
+      function updateHighlight() {
+        const rect      = para.getBoundingClientRect();
+        const winH      = window.innerHeight;
+        // progress 0→1 as paragraph travels from bottom of viewport to top
         const progress  = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
         const litCount  = Math.round(progress * total * 1.5);  // slightly ahead of scroll
 

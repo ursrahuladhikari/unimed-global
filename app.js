@@ -564,10 +564,10 @@ function resizeCanvas() {
   let earthY;
   let earthX = 0.35; // Shift globe and 3D elements a bit right
   if (width < 768) {
-    // Mobile viewports (portrait): pushed downside by 5%, shifted slightly right
+    // Mobile viewports (portrait): symmetrically centered alignment (X = 0.0)
     camera.position.z = 5.0;
     earthY = -4.46;
-    earthX = 0.20;
+    earthX = 0.0;
   } else {
     // Desktop viewports (landscape): pushed downside by 5%, shifted right
     camera.position.z = 4.0;
@@ -647,8 +647,7 @@ function resizeCanvas() {
 
 // =========================================================================
 // APPLICATION STARTUP
-// =========================================================================
-window.addEventListener('DOMContentLoaded', () => {
+function initMainApp() {
   // Initialize Three.js scene (loads images and fades loader screen automatically)
   initThree();
 
@@ -711,11 +710,68 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Setup sticky stacking cards depth animation
   initStackingCards();
-});
+}
 
 // =========================================================================
-// GSAP + SCROLLTRIGGER STACKED HEADER CARD DECK SCROLL
+// MOBILE HAMBURGER NAVIGATION — Works on ALL pages
 // =========================================================================
+function initMobileNav() {
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+  const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+  const mobileNavClose = document.getElementById('mobileNavClose');
+
+  if (!hamburgerBtn || !mobileNavDrawer) return;
+
+  function openDrawer() {
+    hamburgerBtn.classList.add('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    mobileNavDrawer.classList.add('open');
+    mobileNavOverlay.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    hamburgerBtn.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    mobileNavDrawer.classList.remove('open');
+    mobileNavOverlay.classList.remove('visible');
+    document.body.style.overflow = '';
+  }
+
+  hamburgerBtn.addEventListener('click', openDrawer);
+  if (mobileNavClose) mobileNavClose.addEventListener('click', closeDrawer);
+  if (mobileNavOverlay) mobileNavOverlay.addEventListener('click', closeDrawer);
+
+  // Close on mobile nav link click (navigates away)
+  const mobileLinks = mobileNavDrawer.querySelectorAll('.mobile-nav-link');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      closeDrawer();
+    });
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDrawer();
+  });
+}
+
+// Run mobile nav on every page (no Three.js dependency)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMobileNav);
+} else {
+  initMobileNav();
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', initMainApp);
+} else {
+  initMainApp();
+}
+
+let activeStackTriggers = [];
+
 function initStackingCards() {
   if (typeof gsap === 'undefined') return;
 
@@ -726,15 +782,51 @@ function initStackingCards() {
   const wrappers = document.querySelectorAll('.why-stacking-wrapper');
   if (!wrappers.length) return;
 
-  wrappers.forEach((wrapper) => {
-    const cards = Array.from(wrapper.querySelectorAll('.stack-card'));
-    if (cards.length <= 1) return;
+  function resetAndCleanStack() {
+    activeStackTriggers.forEach(st => {
+      try { st.kill(); } catch (e) {}
+    });
+    activeStackTriggers = [];
 
-    const isMobile = window.innerWidth <= 768;
-    const headerOffset = isMobile ? 36 : 42;
-    const topPinOffset = isMobile ? 75 : 95;
+    wrappers.forEach(wrapper => {
+      wrapper.style.position = '';
+      wrapper.style.height = '';
+      wrapper.style.overflow = '';
+      wrapper.style.transform = '';
 
-    function buildStack() {
+      const cards = Array.from(wrapper.querySelectorAll('.stack-card'));
+      cards.forEach(card => {
+        card.style.position = '';
+        card.style.top = '';
+        card.style.left = '';
+        card.style.right = '';
+        card.style.width = '';
+        card.style.zIndex = '';
+        card.style.margin = '';
+        card.style.transform = '';
+
+        const img = card.querySelector('.stack-card-image-wrap');
+        if (img) img.style.opacity = '';
+      });
+    });
+  }
+
+  function setupStack() {
+    resetAndCleanStack();
+
+    const isMobileOrTablet = window.innerWidth <= 992;
+    if (isMobileOrTablet) {
+      // On mobile & tablet devices, allow standard vertical scrolling without pinning lock or absolute positioning
+      return;
+    }
+
+    wrappers.forEach((wrapper) => {
+      const cards = Array.from(wrapper.querySelectorAll('.stack-card'));
+      if (cards.length <= 1) return;
+
+      const headerOffset = 42;
+      const topPinOffset = 95;
+
       let maxCardHeight = 0;
       cards.forEach((card) => {
         card.style.position = 'relative';
@@ -770,16 +862,10 @@ function initStackingCards() {
         }
       });
 
-      return { maxCardHeight, totalWrapperHeight };
-    }
+      if (typeof ScrollTrigger !== 'undefined') {
+        const scrollDistance = Math.max(2400, cards.length * 850);
 
-    const { totalWrapperHeight } = buildStack();
-
-    if (typeof ScrollTrigger !== 'undefined') {
-      const scrollDistance = Math.max(2800, cards.length * 950);
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
+        const st = ScrollTrigger.create({
           trigger: wrapper,
           start: `top top+=${topPinOffset}`,
           end: `+=${scrollDistance}`,
@@ -787,44 +873,50 @@ function initStackingCards() {
           pinSpacing: true,
           scrub: 1,
           anticipatePin: 1,
-          invalidateOnRefresh: true
-        }
-      });
+          invalidateOnRefresh: true,
+          animation: (function() {
+            const tl = gsap.timeline();
+            for (let i = 1; i < cards.length; i++) {
+              tl.to({}, { duration: 0.7 });
 
-      for (let i = 1; i < cards.length; i++) {
-        // Hold active card in view for reading
-        tl.to({}, { duration: 0.7 });
+              const prevImage = cards[i - 1].querySelector('.stack-card-image-wrap');
+              const targetY = i * headerOffset;
 
-        const prevImage = cards[i - 1].querySelector('.stack-card-image-wrap');
-        const targetY = i * headerOffset;
+              tl.to(cards[i], {
+                y: targetY,
+                ease: 'power1.inOut',
+                duration: 1.2
+              });
 
-        // Next card slides up from bottom to its stacked header position
-        tl.to(cards[i], {
-          y: targetY,
-          ease: 'power1.inOut',
-          duration: 1.2
+              if (prevImage) {
+                tl.to(prevImage, {
+                  opacity: 0,
+                  ease: 'power1.inOut',
+                  duration: 0.6
+                }, '<');
+              }
+            }
+            tl.to({}, { duration: 0.9 });
+            return tl;
+          })()
         });
 
-        // Simultaneously fade out previous card's image as it gets covered
-        if (prevImage) {
-          tl.to(prevImage, {
-            opacity: 0,
-            ease: 'power1.inOut',
-            duration: 0.6
-          }, '<');
-        }
+        activeStackTriggers.push(st);
       }
+    });
+  }
 
-      // Final hold phase after all card headings are stacked together
-      tl.to({}, { duration: 0.9 });
-    }
+  setupStack();
 
-    window.addEventListener('resize', () => {
-      buildStack();
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      setupStack();
       if (typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.refresh();
       }
-    });
+    }, 150);
   });
 }
 

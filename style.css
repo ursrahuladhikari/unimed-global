@@ -13,20 +13,20 @@
 }
 
 html.light-theme {
-  /* ── Awake Agency light palette ─────────────────────────── */
-  --color-bg: #f5f4f0;
-  --color-bg-fill: #f5f4f0;
+  /* ── Light theme palette ─────────────────────────── */
+  --color-bg: #ffffff;
+  --color-bg-fill: #ffffff;
   --color-text: #0c0c0c;
   --color-text-muted: #6b7280;
-  --color-glass-bg: rgba(245, 244, 240, 0.92);
+  --color-glass-bg: rgba(255, 255, 255, 0.95);
   --color-glass-border: rgba(12, 12, 12, 0.1);
   --color-accent: #0c0c0c;
   --color-logo-green: #16a34a;
 
   /* Awake extra tokens */
-  --aw-bg: #f5f4f0;
+  --aw-bg: #ffffff;
   --aw-surface: #ffffff;
-  --aw-border: #e2e0da;
+  --aw-border: #e2e8f0;
   --aw-text-primary: #0c0c0c;
   --aw-text-muted: #6b7280;
   --aw-text-light: #9ca3af;
@@ -47,20 +47,67 @@ html.light-theme * {
   font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
 }
 
-/* Restore background */
-html.light-theme {
-  background: var(--aw-bg);
-  transition: background 0.5s ease, color 0.5s ease;
+/* Global Light Theme Master System Override */
+html.light-theme,
+html.light-theme body,
+html.light-theme main,
+html.light-theme section,
+html.light-theme header,
+html.light-theme div.hero-section,
+html.light-theme div.marquee-section,
+html.light-theme div.home-why-section,
+html.light-theme div.destinations-section,
+html.light-theme div.partners-section,
+html.light-theme div.about-section,
+html.light-theme div.counselling-cta-section,
+html.light-theme div.testimonials-section,
+html.light-theme main.adm-page-layout,
+html.light-theme header.adm-hero,
+html.light-theme section.adm-section,
+html.light-theme main.contact-page-layout,
+html.light-theme header.contact-hero,
+html.light-theme section.contact-section,
+html.light-theme main.why-page,
+html.light-theme header.why-hero,
+html.light-theme section.why-section,
+html.light-theme main.uni-info-page,
+html.light-theme main.detail-page-layout {
+  background-image: none !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #0c0c0c !important;
 }
 
-html.light-theme body {
-  background: var(--aw-bg);
-  color: var(--aw-text-primary);
+/* Light Theme Cards & Containers */
+html.light-theme .stack-card,
+html.light-theme .why-card,
+html.light-theme .why-pillar-card,
+html.light-theme .dest-card,
+html.light-theme .uni-card,
+html.light-theme .partner-logo-card,
+html.light-theme .testimonial-card,
+html.light-theme .about-stat-item,
+html.light-theme .about-quote-card,
+html.light-theme .adm-card,
+html.light-theme .adm-elig-card,
+html.light-theme .adm-doc-card,
+html.light-theme .adm-cta-card,
+html.light-theme .checklist-card,
+html.light-theme .contact-card,
+html.light-theme .contact-form,
+html.light-theme .info-block-card,
+html.light-theme .detail-card,
+html.light-theme .marquee-card {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0c0c0c !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
 }
 
 /* ── Navbar ──────────────────────────────────────────────────────────── */
 html.light-theme .navbar-wrapper {
-  background: rgba(245, 244, 240, 0.94);
+  background: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid var(--aw-border);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -273,6 +320,7 @@ html.light-theme .why-title {
   -webkit-text-fill-color: unset !important;
   background: none !important;
   -webkit-background-clip: unset !important;
+  background-clip: unset !important;
 }
 
 /* Serif italic accent in section headings */
@@ -285,6 +333,7 @@ html.light-theme .section-title-gradient {
   -webkit-text-fill-color: var(--aw-text-primary) !important;
   background: none !important;
   -webkit-background-clip: unset !important;
+  background-clip: unset !important;
 }
 
 html.light-theme .why-subtitle {
@@ -571,6 +620,7 @@ html.light-theme .stat-num {
   -webkit-text-fill-color: var(--aw-text-primary);
   background: none;
   -webkit-background-clip: unset;
+  background-clip: unset;
 }
 
 html.light-theme .stat-label {
@@ -1117,6 +1167,228 @@ html.light-theme .logo-img {
   display: flex;
   align-items: center;
   gap: 24px;
+}
+
+/* ── Hamburger Button ─────────────────────────────────────── */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid var(--color-glass-border);
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 8px;
+  transition: background 0.2s, border-color 0.2s;
+  z-index: 201;
+  position: relative;
+}
+
+.hamburger-btn:hover {
+  background: var(--color-glass-bg);
+  border-color: var(--color-accent);
+}
+
+.hamburger-btn .bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 4px;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-btn.open .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.open .bar:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.hamburger-btn.open .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile Nav Overlay ───────────────────────────────────── */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(2, 6, 23, 0.6);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.mobile-nav-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(300px, 85vw);
+  height: 100vh;
+  background: #0a1628;
+  border-left: 1px solid var(--color-glass-border);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 24px;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+}
+
+html.light-theme .mobile-nav-drawer {
+  background: #ffffff;
+  border-left-color: #e2e8f0;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav-drawer.open {
+  transform: translateX(0);
+}
+
+.mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-glass-border);
+}
+
+html.light-theme .mobile-nav-header {
+  border-bottom-color: #e2e8f0;
+}
+
+.mobile-nav-logo {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.mobile-nav-logo span {
+  color: var(--color-accent);
+}
+
+.mobile-nav-close {
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--color-glass-border);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.mobile-nav-close:hover {
+  background: var(--color-glass-bg);
+  border-color: var(--color-accent);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.mobile-nav-link {
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  padding: 12px 16px;
+  border-radius: 12px;
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  background: rgba(0, 242, 254, 0.07);
+  color: var(--color-text);
+}
+
+.mobile-nav-link.active {
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+html.light-theme .mobile-nav-link {
+  color: #475569;
+}
+
+html.light-theme .mobile-nav-link:hover,
+html.light-theme .mobile-nav-link.active {
+  background: #f1f5f9;
+  color: #0c0c0c;
+}
+
+html.light-theme .mobile-nav-link.active {
+  color: #0c0c0c;
+  font-weight: 700;
+}
+
+.mobile-nav-footer {
+  padding-top: 20px;
+  border-top: 1px solid var(--color-glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+html.light-theme .mobile-nav-footer {
+  border-top-color: #e2e8f0;
+}
+
+.mobile-cta-btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #020617;
+  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  padding: 13px 24px;
+  border-radius: 100px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.mobile-cta-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+html.light-theme .mobile-cta-btn {
+  background: #0c0c0c;
+  color: #ffffff;
 }
 
 .cta-btn {
@@ -1827,13 +2099,136 @@ html.light-theme .logo-img {
 /* ---- Eligibility grid ---- */
 .adm-elig-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1024px) {
+  .adm-elig-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
   .adm-elig-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Who Can Apply Banner ---- */
+.who-can-apply-banner {
+  margin-top: 24px;
+  background: var(--color-glass-bg);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 20px;
+  padding: 24px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.who-can-apply-banner::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00f2fe, #3b82f6, #10b981);
+}
+
+html.light-theme .who-can-apply-banner {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.who-can-apply-left {
+  flex: 1;
+}
+
+.who-can-apply-tag {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.who-can-apply-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0 0 6px 0;
+}
+
+html.light-theme .who-can-apply-title {
+  color: #0c0c0c;
+}
+
+.who-can-apply-desc {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+html.light-theme .who-can-apply-desc {
+  color: #475569;
+}
+
+.who-can-apply-flags {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.who-flag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-glass-border);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.who-flag-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+}
+
+html.light-theme .who-flag-chip {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #0f172a;
+}
+
+.who-flag-chip .flag-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .who-can-apply-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
   }
 }
 
@@ -3172,16 +3567,26 @@ html.light-theme .form-select {
 
   .nav-menu {
     display: none;
-    /* Fallback: menu could be expandable, keeping simple row for links */
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .mobile-nav-overlay {
+    display: block;
+  }
+
+  .nav-actions .theme-toggle-btn {
+    /* keep theme toggle visible on mobile */
+  }
+
+  .nav-actions .cta-btn {
+    display: none; /* hide desktop CTA — it appears in drawer */
   }
 
   .nav-actions {
-    gap: 12px;
-  }
-
-  .cta-btn {
-    padding: 8px 18px;
-    font-size: 0.8rem;
+    gap: 10px;
   }
 
   .hero-overlay {
@@ -3664,7 +4069,7 @@ html.light-theme .partners-heading-accent {
 /* ── Uncontained 2-Row Logo Layout (Whole Canvas Area, Max Sizing) ── */
 .partners-section {
   padding: 80px 4%;
-  background: var(--color-bg-fill);
+  background: transparent;
   text-align: center;
   width: 100%;
 }
@@ -3804,10 +4209,6 @@ html.light-theme .partner-logo-name {
   border: 1px solid var(--color-glass-border);
   padding: 3px 10px;
   border-radius: 100px;
-}
-
-border-radius: 30px;
-padding: 3px 12px;
 }
 
 html.light-theme .partner-logo-country {
@@ -4283,10 +4684,26 @@ html.light-theme .stack-card-btn {
 
 /* Responsive adjustments */
 @media (max-width: 992px) {
+  .why-stacking-wrapper {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 16px !important;
+    margin: 30px auto 50px auto !important;
+  }
+
   .stack-card {
-    top: calc(80px + var(--card-index, 0) * 18px);
-    padding: 32px 28px;
-    margin-bottom: 160px;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    transform: none !important;
+    padding: 28px 24px;
+    margin-bottom: 24px !important;
+  }
+
+  .stack-card:last-child {
+    margin-bottom: 0 !important;
   }
 
   .stack-card-inner {
@@ -4300,15 +4717,19 @@ html.light-theme .stack-card-btn {
 }
 
 @media (max-width: 640px) {
+  .why-stacking-wrapper {
+    padding: 0 12px !important;
+    margin: 20px auto 40px auto !important;
+  }
+
   .stack-card {
-    top: calc(75px + var(--card-index, 0) * 14px);
-    padding: 24px 20px;
+    padding: 20px 16px;
     border-radius: 20px;
-    margin-bottom: 120px;
+    margin-bottom: 20px !important;
   }
 
   .stack-card-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .stack-card-image-wrap {
@@ -4706,6 +5127,7 @@ html.light-theme .stack-card-btn {
   font-weight: 800;
   background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1;
 }
@@ -4719,21 +5141,43 @@ html.light-theme .stack-card-btn {
 }
 
 .about-quote-card {
-  margin-top: -30px;
   position: relative;
   z-index: 2;
-  margin-left: 24px;
-  margin-right: 24px;
+  flex: 1;
+  min-width: 0;
   background: rgba(15, 23, 42, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--color-glass-border);
-  padding: 18px 24px;
-  border-radius: 20px;
+  padding: 16px 18px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  gap: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.about-leadership-row {
+  margin-top: -30px;
+  position: relative;
+  z-index: 2;
+  margin-left: 16px;
+  margin-right: 16px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.about-leadership-row .about-quote-card {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 640px) {
+  .about-leadership-row {
+    flex-direction: column;
+  }
 }
 
 .about-quote-avatar {
@@ -4792,7 +5236,35 @@ html.light-theme .stack-card-btn {
 .about-heading-accent {
   background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.hw.about-heading-accent {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: initial;
+  color: rgba(148, 163, 184, 0.25);
+}
+
+.hw.about-heading-accent.lit {
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.light-theme .hw.about-heading-accent {
+  color: rgba(12, 12, 12, 0.16);
+}
+
+html.light-theme .hw.about-heading-accent.lit {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: #2563eb;
+  color: #2563eb;
 }
 
 .about-description {
@@ -4858,7 +5330,11 @@ html.light-theme .stack-card-btn {
 }
 
 html.light-theme .about-section {
-  background: #f8fafc;
+  background: #ffffff !important;
+}
+
+html.light-theme .destinations-section {
+  background: var(--aw-bg) !important;
 }
 
 html.light-theme .about-stat-item {
@@ -5609,5 +6085,585 @@ html.light-theme .dest-count-badge {
 html.light-theme .dest-toggle-btn.active .dest-count-badge {
   background: rgba(255, 255, 255, 0.3);
   color: #ffffff;
+}
+
+/* =========================================================================
+   COMPREHENSIVE MOBILE DEVICE OPTIMIZATION (PHONES & TABLETS)
+   ========================================================================= */
+
+/* Prevent horizontal overflow across the page */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+@media (max-width: 992px) {
+  /* Hero section tablet & mobile adjustment */
+  .hero-section {
+    min-height: 85vh !important;
+    padding-top: 90px !important;
+    padding-bottom: 40px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .hero-overlay {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 640px !important;
+    padding: 20px 24px !important;
+    margin: 0 auto !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 20px !important;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 7vw, 3.4rem) !important;
+    text-align: center !important;
+  }
+
+  .hero-description {
+    font-size: 1rem !important;
+    text-align: center !important;
+    max-width: 100% !important;
+  }
+
+  .hero-buttons {
+    width: 100% !important;
+    max-width: 360px !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin: 8px auto 0 auto !important;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .trust-badge {
+    align-self: center !important;
+  }
+
+  .canvas-wrapper {
+    position: absolute !important;
+    inset: 0 !important;
+    opacity: 0.55 !important;
+    pointer-events: none !important;
+  }
+
+  /* About section tablet */
+  .about-container {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Navbar Mobile Layout */
+  .navbar-wrapper {
+    padding: 0 16px !important;
+    height: 66px !important;
+  }
+
+  .logo-img {
+    height: 42px !important;
+  }
+
+  .logo-text {
+    font-size: 1.15rem !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .nav-menu {
+    gap: 14px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 2px !important;
+    max-width: 45vw !important;
+    scrollbar-width: none;
+  }
+  .nav-menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    font-size: 0.8rem !important;
+    white-space: nowrap !important;
+  }
+
+  .nav-actions {
+    gap: 10px !important;
+  }
+
+  .cta-btn {
+    padding: 8px 14px !important;
+    font-size: 0.76rem !important;
+    border-radius: 20px !important;
+    white-space: nowrap !important;
+  }
+
+  .theme-toggle-btn {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  /* Marquee Section */
+  .marquee-section {
+    padding: 36px 0 !important;
+  }
+
+  .marquee-label {
+    margin-bottom: 20px !important;
+    font-size: 0.65rem !important;
+  }
+
+  .marquee-card {
+    padding: 10px 18px !important;
+    border-radius: 40px !important;
+  }
+
+  .mq-logo {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .mq-name {
+    font-size: 0.82rem !important;
+  }
+
+  /* Why Choose Us Section */
+  .home-why-section {
+    padding: 50px 0 !important;
+  }
+
+  .why-title {
+    white-space: normal !important;
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem) !important;
+    text-align: center !important;
+  }
+
+  .why-highlight-container {
+    padding: 0 16px !important;
+  }
+
+  .why-highlight-text {
+    font-size: clamp(1.25rem, 4.2vw, 1.8rem) !important;
+    line-height: 1.4 !important;
+  }
+
+  .why-pills-container {
+    margin-bottom: 20px !important;
+  }
+
+  .why-pills {
+    gap: 8px !important;
+    justify-content: center !important;
+  }
+
+  .why-pill {
+    font-size: clamp(0.95rem, 3.5vw, 1.25rem) !important;
+    padding: 8px 18px !important;
+  }
+
+  /* Sticky Stacking Cards on Mobile */
+  .why-stacking-wrapper {
+    padding: 0 12px !important;
+    margin: 20px auto 40px auto !important;
+  }
+
+  .stack-card {
+    padding: 20px 16px !important;
+    border-radius: 18px !important;
+    margin-bottom: 24px !important;
+    top: 0 !important;
+    transform: none !important;
+  }
+
+  .stack-card-inner {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .stack-card-title {
+    font-size: 1.4rem !important;
+  }
+
+  .stack-card-desc {
+    font-size: 0.9rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .stack-card-image-wrap {
+    height: 190px !important;
+    border-radius: 14px !important;
+  }
+
+  .stack-hl-item {
+    font-size: 0.78rem !important;
+    padding: 4px 10px !important;
+  }
+
+  /* Destinations Section & Grid */
+  .destinations-section {
+    padding: 50px 16px !important;
+  }
+
+  .dest-title {
+    font-size: clamp(1.7rem, 5.5vw, 2.4rem) !important;
+  }
+
+  .dest-toggle-container {
+    gap: 6px !important;
+  }
+
+  .dest-toggle-btn {
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .dest-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .dest-card {
+    border-radius: 18px !important;
+  }
+
+  .dest-card-img-wrap {
+    height: 200px !important;
+  }
+
+  /* Partners Grid */
+  .partners-section {
+    padding: 50px 16px !important;
+  }
+
+  .partners-heading {
+    font-size: clamp(1.5rem, 5vw, 2.2rem) !important;
+    margin-bottom: 28px !important;
+  }
+
+  .partners-rows-container {
+    gap: 12px !important;
+  }
+
+  .partners-row--6, .partners-row--5 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .partner-logo-card {
+    height: 66px !important;
+    padding: 6px 10px !important;
+    border-radius: 14px !important;
+  }
+
+  .partner-logo-img {
+    height: 50px !important;
+    max-height: 50px !important;
+  }
+
+  /* Testimonials */
+  .testimonials-section {
+    padding: 50px 16px !important;
+  }
+
+  .testimonials-title {
+    font-size: clamp(1.5rem, 5vw, 2.2rem) !important;
+  }
+
+  .testimonial-card {
+    width: 290px !important;
+    padding: 20px 16px !important;
+    border-radius: 16px !important;
+  }
+
+  .testimonial-quote {
+    font-size: 0.88rem !important;
+  }
+
+  /* About Us Section Mobile */
+  .about-section {
+    padding: 50px 16px !important;
+  }
+
+  .about-container {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  .about-img {
+    height: 240px !important;
+    border-radius: 18px !important;
+  }
+
+  .about-badge-established {
+    top: 14px !important;
+    right: 14px !important;
+    padding: 8px 14px !important;
+  }
+
+  .about-est-year {
+    font-size: 1.15rem !important;
+  }
+
+  .about-quote-card {
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+    margin-top: -24px !important;
+    padding: 14px 16px !important;
+  }
+
+  .about-content-col {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .about-tag {
+    align-self: center !important;
+  }
+
+  .about-heading {
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem) !important;
+    text-align: center !important;
+  }
+
+  .about-description, .about-subdescription {
+    font-size: 0.92rem !important;
+    text-align: center !important;
+  }
+
+  .about-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .about-stat-item {
+    padding: 14px 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .about-stat-number {
+    font-size: 1.4rem !important;
+  }
+
+  /* Counselling Banner Mobile */
+  .counselling-cta-section {
+    padding: 40px 16px !important;
+  }
+
+  .counselling-cta-title {
+    font-size: clamp(1.4rem, 4.8vw, 2rem) !important;
+  }
+
+  .counselling-cta-desc {
+    font-size: 0.9rem !important;
+  }
+
+  .counselling-cta-btn {
+    width: 100% !important;
+    max-width: 280px !important;
+    justify-content: center !important;
+  }
+
+  /* Footer Mobile */
+  .footer-wrapper {
+    padding: 40px 20px 24px 20px !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column-reverse !important;
+    gap: 16px !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1.0rem !important;
+  }
+
+  .hero-buttons {
+    max-width: 100% !important;
+  }
+
+  .partners-row--6, .partners-row--5 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .testimonial-card {
+    width: 270px !important;
+  }
+
+  .side-widgets-container {
+    transform: translateY(-50%) scale(0.85) !important;
+    transform-origin: right center !important;
+  }
+}
+
+/* =========================================================================
+   MASTER LIGHT THEME SYSTEM OVERRIDE (FINAL CASCADE RULE)
+   ========================================================================= */
+html.light-theme,
+html.light-theme body,
+html.light-theme main,
+html.light-theme section,
+html.light-theme header,
+html.light-theme footer,
+html.light-theme div.hero-section,
+html.light-theme div.marquee-section,
+html.light-theme div.home-why-section,
+html.light-theme div.destinations-section,
+html.light-theme div.partners-section,
+html.light-theme div.about-section,
+html.light-theme div.counselling-cta-section,
+html.light-theme div.testimonials-section,
+html.light-theme main.adm-page-layout,
+html.light-theme header.adm-hero,
+html.light-theme section.adm-section,
+html.light-theme main.contact-page-layout,
+html.light-theme header.contact-hero,
+html.light-theme section.contact-section,
+html.light-theme main.why-page,
+html.light-theme header.why-hero,
+html.light-theme section.why-section,
+html.light-theme main.uni-info-page,
+html.light-theme main.detail-page-layout {
+  background-image: none !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #0c0c0c !important;
+}
+
+/* Master Light Theme Cards & Sub-components */
+html.light-theme .stack-card,
+html.light-theme .why-card,
+html.light-theme .why-pillar-card,
+html.light-theme .dest-card,
+html.light-theme .uni-card,
+html.light-theme .partner-logo-card,
+html.light-theme .testimonial-card,
+html.light-theme .about-stat-item,
+html.light-theme .about-quote-card,
+html.light-theme .adm-card,
+html.light-theme .adm-elig-card,
+html.light-theme .adm-doc-card,
+html.light-theme .adm-cta-card,
+html.light-theme .checklist-card,
+html.light-theme .contact-card,
+html.light-theme .contact-form,
+html.light-theme .info-block-card,
+html.light-theme .detail-card,
+html.light-theme .marquee-card,
+html.light-theme .footer-wrapper {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0c0c0c !important;
+}
+
+/* Master Light Theme Typography */
+html.light-theme h1,
+html.light-theme h2,
+html.light-theme h3,
+html.light-theme h4,
+html.light-theme h5,
+html.light-theme h6,
+html.light-theme .hero-title,
+html.light-theme .dest-title,
+html.light-theme .why-title,
+html.light-theme .partners-heading,
+html.light-theme .about-heading,
+html.light-theme .testimonials-title,
+html.light-theme .counselling-cta-title,
+html.light-theme .adm-hero-title,
+html.light-theme .adm-section-title,
+html.light-theme .stack-card-title,
+html.light-theme .why-card-title,
+html.light-theme .dest-card-title,
+html.light-theme .uni-name,
+html.light-theme .adm-elig-title,
+html.light-theme .adm-card-title,
+html.light-theme .footer-logo-text,
+html.light-theme .footer-col-title {
+  color: #0c0c0c !important;
+}
+
+html.light-theme p,
+html.light-theme span.why-subtitle,
+html.light-theme span.hero-description,
+html.light-theme .dest-detail-item,
+html.light-theme .about-description,
+html.light-theme .about-subdescription,
+html.light-theme .counselling-cta-desc,
+html.light-theme .adm-hero-sub,
+html.light-theme .adm-section-sub,
+html.light-theme .stack-card-desc,
+html.light-theme .why-card-desc,
+html.light-theme .adm-elig-desc,
+html.light-theme .adm-card-desc,
+html.light-theme .uni-desc,
+html.light-theme .footer-desc,
+html.light-theme .footer-link-a,
+html.light-theme .footer-copy {
+  color: #4b5563 !important;
+}
+
+/* Mobile Symmetrical Container Centering Override */
+@media (max-width: 768px) {
+  .hero-section,
+  .hero-overlay,
+  .marquee-section,
+  .home-why-section,
+  .why-top,
+  .why-highlight-container,
+  .why-pills-container,
+  .why-stacking-wrapper,
+  .destinations-section,
+  .dest-top,
+  .partners-section,
+  .testimonials-section,
+  .about-section,
+  .about-container,
+  .counselling-cta-section,
+  .footer-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
+
+  .hero-overlay {
+    position: relative !important;
+    top: auto !important;
+    transform: none !important;
+    padding: 24px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
 }
 

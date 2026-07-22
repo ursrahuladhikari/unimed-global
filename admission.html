@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="theme.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admission &amp; Eligibility | UNIMED Global</title>
@@ -9,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <script src="theme.js"></script>
 </head>
 <body>
 
@@ -24,6 +24,7 @@
     <nav class="nav-menu">
       <a href="index.html" class="nav-link">Home</a>
       <a href="index.html#about-us" class="nav-link">About Us</a>
+      <a href="why-choose-us.html" class="nav-link">Why Choose Us</a>
       <a href="universities.html" class="nav-link">Universities</a>
       <a href="admission.html" class="nav-link active">Admission</a>
       <a href="contact.html" class="nav-link">Contact</a>
@@ -34,8 +35,36 @@
         <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
       </button>
       <a href="contact.html" class="cta-btn">Enquire Now</a>
+      <!-- Hamburger -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open Menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Nav Overlay + Drawer -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-logo">UNIMED <span>Global</span></a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Menu">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">🏠 Home</a>
+      <a href="index.html#about-us" class="mobile-nav-link">👥 About Us</a>
+      <a href="why-choose-us.html" class="mobile-nav-link">⭐ Why Choose Us</a>
+      <a href="universities.html" class="mobile-nav-link">🎓 Universities</a>
+      <a href="admission.html" class="mobile-nav-link active">📋 Admission</a>
+      <a href="contact.html" class="mobile-nav-link">📞 Contact</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="contact.html" class="mobile-cta-btn">Enquire Now →</a>
+    </div>
+  </div>
 
   <!-- ========================================================================= -->
   <!-- MAIN PAGE CONTENT                                                          -->
@@ -88,6 +117,39 @@
           </div>
         </div>
 
+        <div class="adm-elig-card">
+          <div class="adm-elig-icon" style="--elig-c: #10b981;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+          </div>
+          <div>
+            <h4 class="adm-elig-title">Who Can Apply</h4>
+            <p class="adm-elig-desc">Direct admissions open for students from <strong>India 🇮🇳</strong>, <strong>Nepal 🇳🇵</strong>, and <strong>Bangladesh 🇧🇩</strong>.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Who Can Apply Banner -->
+      <div class="who-can-apply-banner">
+        <div class="who-can-apply-left">
+          <span class="who-can-apply-tag">ELIGIBLE REGIONS</span>
+          <h3 class="who-can-apply-title">Who Can Apply?</h3>
+          <p class="who-can-apply-desc">UNIMED Global welcomes medical aspirants from <strong>India</strong>, <strong>Nepal</strong>, and <strong>Bangladesh</strong> seeking MBBS admissions in top state medical universities in Russia &amp; Uzbekistan.</p>
+        </div>
+        <div class="who-can-apply-flags">
+          <div class="who-flag-chip">
+            <span class="flag-icon">🇮🇳</span>
+            <span class="flag-name">India</span>
+          </div>
+          <div class="who-flag-chip">
+            <span class="flag-icon">🇳🇵</span>
+            <span class="flag-name">Nepal</span>
+          </div>
+          <div class="who-flag-chip">
+            <span class="flag-icon">🇧🇩</span>
+            <span class="flag-name">Bangladesh</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -398,7 +460,8 @@
         <h4 class="footer-col-title">Contact</h4>
         <p class="footer-desc">
           Director: Arijit Dutta (Kolkata)<br>
-          WhatsApp: +919163654664, +79867028518<br>
+          Co-Founder: Pawan Kumar (Nepal &amp; N. India)<br>
+          WhatsApp: +91 9163654664, +91 9661994131<br>
           Instagram: @unimed_global
         </p>
       </div>
@@ -506,5 +569,26 @@
     </a>
   </div>
 
+
+  <script>
+    // Mobile hamburger nav
+    (function() {
+      function initMobileNav() {
+        var btn = document.getElementById('hamburgerBtn');
+        var drawer = document.getElementById('mobileNavDrawer');
+        var overlay = document.getElementById('mobileNavOverlay');
+        var closeBtn = document.getElementById('mobileNavClose');
+        if (!btn || !drawer) return;
+        function open() { btn.classList.add('open'); btn.setAttribute('aria-expanded','true'); drawer.classList.add('open'); overlay.classList.add('visible'); document.body.style.overflow='hidden'; }
+        function close() { btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); drawer.classList.remove('open'); overlay.classList.remove('visible'); document.body.style.overflow=''; }
+        btn.addEventListener('click', open);
+        if (closeBtn) closeBtn.addEventListener('click', close);
+        if (overlay) overlay.addEventListener('click', close);
+        drawer.querySelectorAll('.mobile-nav-link').forEach(function(l){ l.addEventListener('click', close); });
+        document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileNav); } else { initMobileNav(); }
+    })();
+  </script>
 </body>
 </html>
