@@ -7835,6 +7835,56 @@ html.light-theme .nav-link.active {
   margin-left: auto !important;
 }
 
+/* ── RESPONSIVE MOBILE & TABLET NAVBAR FIX (< 1024px) ─────────────── */
+@media (max-width: 1024px) {
+  .navbar-wrapper {
+    padding: 0 20px !important;
+    height: 70px !important;
+    justify-content: space-between !important;
+  }
+
+  .nav-menu {
+    display: none !important; /* Hide desktop floating pill menu on mobile/tablet to prevent collision */
+  }
+
+  .hamburger-btn {
+    display: flex !important;
+    z-index: 1003 !important;
+  }
+
+  .nav-actions {
+    gap: 10px !important;
+    margin-left: 0 !important;
+  }
+
+  /* Hide Enquiry button on mobile menu and header bar */
+  .mobile-nav-footer,
+  .mobile-cta-btn,
+  .nav-actions .cta-btn,
+  .nav-actions .hero-cta-btn {
+    display: none !important;
+  }
+
+  .logo-img {
+    height: 32px !important;
+    max-width: 38px !important;
+  }
+
+  .logo-text {
+    font-size: 1.15rem !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .nav-menu {
+    display: flex !important;
+  }
+
+  .hamburger-btn {
+    display: none !important;
+  }
+}
+
 /* ── GLOBAL IMAGE COPY & DRAG PROTECTION ────────────────────────────── */
 img {
   -webkit-user-drag: none !important;
