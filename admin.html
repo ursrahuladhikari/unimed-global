@@ -152,7 +152,7 @@
     }
 
     /* ========================================================================= */
-    /* MAIN ADMIN DASHBOARD INTERFACE (Shown after Login)                       */
+    /* MAIN ADMIN DASHBOARD INTERFACE                                            */
     /* ========================================================================= */
     .admin-dashboard-container {
       display: none;
@@ -388,6 +388,7 @@
     .admin-data-table th, .admin-data-table td {
       padding: 14px 16px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      vertical-align: middle;
     }
     html.light-theme .admin-data-table th, html.light-theme .admin-data-table td {
       border-bottom-color: #f1f5f9;
@@ -706,17 +707,21 @@
         <section class="tab-content-panel" id="tab-universities">
           
           <div class="admin-panel-card">
-            <div class="panel-card-header">
-              <h3 class="panel-card-title">Manage Partner Medical Universities</h3>
-              <button onclick="openAddUniModal()" class="action-btn action-btn-primary">+ Add New University</button>
+            <div class="panel-card-header" style="flex-wrap:wrap; gap:12px;">
+              <div>
+                <h3 class="panel-card-title">Manage Partner Medical Universities</h3>
+                <span style="font-size:0.85rem; color:#94a3b8;">All 11 partner state medical universities live on website</span>
+              </div>
+              <button onclick="openAddUniModal()" class="action-btn action-btn-primary" style="padding:10px 18px; font-size:0.9rem;">+ Add New University</button>
             </div>
 
             <table class="admin-data-table">
               <thead>
                 <tr>
-                  <th>University Name</th>
+                  <th>Campus Photo</th>
+                  <th>University Name &amp; ID</th>
                   <th>Country &amp; Location</th>
-                  <th>Budget / Fees</th>
+                  <th>Budget / Tuition Fees</th>
                   <th>Intake Status</th>
                   <th>Actions</th>
                 </tr>
@@ -844,6 +849,7 @@
             <h3 class="panel-card-title" style="margin-bottom:16px;">⚙️ Admin Settings &amp; Data Management</h3>
             <div style="display:flex; gap:16px; flex-wrap:wrap;">
               <button onclick="seedSampleLeads()" class="action-btn action-btn-primary">Load Sample Leads Data</button>
+              <button onclick="resetUnisToDefault()" class="action-btn action-btn-primary">Reset Universities to Default List</button>
               <button onclick="exportAllDataJSON()" class="action-btn action-btn-success">📥 Backup All Data (JSON)</button>
               <button onclick="clearAllData()" class="action-btn action-btn-danger">🗑️ Clear Cache &amp; Data</button>
             </div>
@@ -855,6 +861,81 @@
 
   </div>
 
+
+  <!-- ========================================================================= -->
+  <!-- ADD / EDIT UNIVERSITY MODAL                                              -->
+  <!-- ========================================================================= -->
+  <div id="uniModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.8); backdrop-filter:blur(16px); z-index:99999; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
+    <div style="width:100%; max-width:540px; background:#1e293b; border:1px solid rgba(255,255,255,0.15); border-radius:24px; padding:32px; box-shadow:0 25px 60px rgba(0,0,0,0.6); color:#ffffff; font-family:'Outfit', sans-serif; box-sizing:border-box;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h3 id="uniModalTitle" style="margin:0; font-size:1.3rem; font-weight:800;">+ Add New Medical University</h3>
+        <button onclick="closeUniModal()" style="background:none; border:none; color:#ffffff; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <form onsubmit="handleSaveUni(event)">
+        <input type="hidden" id="uniFormId">
+        
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div>
+            <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">University Name</label>
+            <input type="text" id="uniFormName" class="admin-input" placeholder="e.g. Kazan Federal University" required>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+            <div>
+              <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">Country</label>
+              <select id="uniFormCountry" class="admin-select" required>
+                <option value="Russia">Russia</option>
+                <option value="Uzbekistan">Uzbekistan</option>
+                <option value="Kazakhstan">Kazakhstan</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">City / Location</label>
+              <input type="text" id="uniFormLocation" class="admin-input" placeholder="e.g. Kazan" required>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+            <div>
+              <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">Total Fee / Budget Range</label>
+              <input type="text" id="uniFormBudget" class="admin-input" placeholder="e.g. ₹22L - ₹25L" required>
+            </div>
+            <div>
+              <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">Intake Status</label>
+              <select id="uniFormStatus" class="admin-select" required>
+                <option value="Open">Open</option>
+                <option value="Closing Soon">Closing Soon</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">Campus Photo URL / Path</label>
+            <input type="text" id="uniFormImage" class="admin-input" placeholder="e.g. assets/cards/c.bsmu_campus.png" oninput="previewModalImage()">
+            <div id="modalImgPreviewWrap" style="margin-top:8px; display:none;">
+              <img id="modalImgPreview" src="" alt="Campus Preview" style="width:100%; height:120px; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,0.15);">
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">University Logo URL / Path</label>
+            <input type="text" id="uniFormLogo" class="admin-input" placeholder="e.g. assets/collaboration_partners/c.logo_bsmu.png">
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:10px;">
+            <button type="button" onclick="closeUniModal()" class="action-btn" style="background:rgba(255,255,255,0.1); color:#ffffff;">Cancel</button>
+            <button type="submit" class="action-btn action-btn-success" style="padding:10px 20px;">💾 Save University</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
   <!-- SCRIPTS -->
   <script>
     // System Data Stores
@@ -864,11 +945,19 @@
       { id: "LEAD-103", name: "Vikram Singh", email: "vikram.s@example.com", phone: "+919599798618", country: "Russia (FEFU)", neet: "410", date: "2026-07-22 16:45", status: "Enrolled", message: "Visa documents submitted" }
     ];
 
+    // All 11 Partner Medical Universities Live on UNIMED Global Website
     var defaultUnis = [
-      { id: "bsmu", name: "Bashkir State Medical University", country: "Russia", location: "Ufa", budget: "₹22L - ₹25L", status: "Open" },
-      { id: "fefu", name: "Far Eastern Federal University", country: "Russia", location: "Vladivostok", budget: "₹24L - ₹28L", status: "Open" },
-      { id: "gulistan", name: "Gulistan State University", country: "Uzbekistan", location: "Gulistan", budget: "₹18L - ₹20L", status: "Open" },
-      { id: "omsk", name: "Omsk State Medical University", country: "Russia", location: "Omsk", budget: "₹23L - ₹26L", status: "Open" }
+      { id: "bsmu", name: "Bashkir State Medical University", country: "Russia", location: "Ufa", budget: "₹22L - ₹25L", status: "Open", image: "assets/cards/c.bsmu_campus.png", logo: "assets/collaboration_partners/c.logo_bsmu.png" },
+      { id: "fefu", name: "Far Eastern Federal University", country: "Russia", location: "Vladivostok", budget: "₹24L - ₹28L", status: "Open", image: "assets/cards/c.fefu_campus.png", logo: "assets/collaboration_partners/c.logo_far.png" },
+      { id: "ssu", name: "Syktyvkar State University", country: "Russia", location: "Syktyvkar", budget: "₹20L - ₹22L", status: "Open", image: "assets/cards/c.syktyvkar_campus.png", logo: "assets/collaboration_partners/c.logo_syktyvnkar.png" },
+      { id: "omsk", name: "Omsk State Medical University", country: "Russia", location: "Omsk", budget: "₹23L - ₹26L", status: "Open", image: "assets/cards/c.omsk_campus.png", logo: "assets/collaboration_partners/c.logo_omsk.png" },
+      { id: "ulyanovsk", name: "Ulyanovsk State University", country: "Russia", location: "Ulyanovsk", budget: "₹21L - ₹24L", status: "Open", image: "assets/cards/c.ulyanovsk_campus.png", logo: "assets/collaboration_partners/c.logo_ulyanovsk.png" },
+      { id: "astrakhan", name: "Astrakhan State Medical University", country: "Russia", location: "Astrakhan", budget: "₹22L - ₹25L", status: "Open", image: "assets/cards/c.astrakhan_campus.png", logo: "assets/collaboration_partners/c.logo-astrakhan.jpg" },
+      { id: "yaroslavl", name: "Yaroslavl State Medical University", country: "Russia", location: "Yaroslavl", budget: "₹23L - ₹25L", status: "Open", image: "assets/cards/c.yaroslavl_campus.png", logo: "assets/collaboration_partners/c.logo_yaro.jpeg" },
+      { id: "volgograd", name: "Volgograd State Medical University", country: "Russia", location: "Volgograd", budget: "₹24L - ₹27L", status: "Open", image: "assets/cards/c.volgograd_campus.png", logo: "assets/collaboration_partners/c.logo_volgograd.png" },
+      { id: "kbsu", name: "Kabardino Balkarian State University", country: "Russia", location: "Nalchik", budget: "₹19L - ₹22L", status: "Open", image: "assets/cards/c.kabardino_campus.png", logo: "assets/collaboration_partners/c.logo_kabardino.png" },
+      { id: "gulistan", name: "Gulistan State University", country: "Uzbekistan", location: "Gulistan", budget: "₹18L - ₹20L", status: "Open", image: "assets/cards/c.gulistan_campus.png", logo: "assets/collaboration_partners/c.logo_gulistan.png" },
+      { id: "tpi", name: "Tashkent Pharmaceutical Institute", country: "Uzbekistan", location: "Tashkent", budget: "₹17L - ₹19L", status: "Open", image: "assets/cards/c.tashkent_pharm.png", logo: "assets/collaboration_partners/c.logo_tashkent.png" }
     ];
 
     var defaultCoordinators = [
@@ -967,9 +1056,25 @@
       initDashboardData();
     }
 
+    function getUnis() {
+      try {
+        var raw = localStorage.getItem('unimed_universities');
+        if (raw) return JSON.parse(raw);
+      } catch(e) {}
+      return defaultUnis;
+    }
+
+    function saveUnis(unis) {
+      localStorage.setItem('unimed_universities', JSON.stringify(unis));
+      initDashboardData();
+    }
+
     function initDashboardData() {
       var leads = getLeads();
       document.getElementById('statTotalLeads').textContent = leads.length;
+
+      var unis = getUnis();
+      document.getElementById('statTotalUnis').textContent = unis.length;
 
       // Render Tables
       renderOverviewLeads(leads);
@@ -1008,7 +1113,7 @@
         return (l.name + ' ' + l.email + ' ' + l.phone + ' ' + l.country).toLowerCase().includes(query);
       });
 
-      tbody.innerHTML = filtered.map(function(l, idx) {
+      tbody.innerHTML = filtered.map(function(l) {
         var statusClass = l.status === 'New' ? 'status-new' : (l.status === 'Enrolled' ? 'status-enrolled' : 'status-contacted');
         var waPhone = l.phone.replace(/[^0-9]/g,'');
         return `
@@ -1060,21 +1165,150 @@
       a.click();
     }
 
-    // Universities Segment Render
+    // Universities Segment Controller with Photos & Delete/Edit Actions
     function renderUniversitiesTable() {
       var tbody = document.getElementById('universitiesTableBody');
       if (!tbody) return;
-      tbody.innerHTML = defaultUnis.map(function(u) {
+      var unis = getUnis();
+
+      tbody.innerHTML = unis.map(function(u) {
+        var imgHtml = u.image ? `<img src="${u.image}" alt="${escapeHtml(u.name)}" style="width:74px; height:48px; object-fit:cover; border-radius:10px; border:1px solid rgba(255,255,255,0.15);">` : `<div style="width:74px; height:48px; background:rgba(255,255,255,0.06); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">🏛️</div>`;
+        var logoHtml = u.logo ? `<img src="${u.logo}" alt="logo" style="width:26px; height:26px; object-fit:contain; border-radius:6px; background:#ffffff; padding:2px;">` : '';
+        
+        var statusClass = u.status === 'Open' ? 'status-enrolled' : (u.status === 'Closed' ? 'action-btn-danger' : 'status-contacted');
+
         return `
           <tr>
-            <td><strong>${escapeHtml(u.name)}</strong></td>
+            <td>${imgHtml}</td>
+            <td>
+              <div style="display:flex; align-items:center; gap:10px;">
+                ${logoHtml}
+                <div>
+                  <strong style="font-size:0.95rem;">${escapeHtml(u.name)}</strong>
+                  <div style="font-size:0.75rem; color:#94a3b8;">ID: <code>${escapeHtml(u.id)}</code></div>
+                </div>
+              </div>
+            </td>
             <td>${escapeHtml(u.country)} · ${escapeHtml(u.location)}</td>
-            <td>${escapeHtml(u.budget)}</td>
-            <td><span class="status-badge status-enrolled">${escapeHtml(u.status)}</span></td>
-            <td><button class="action-btn action-btn-primary">Edit Segment</button></td>
+            <td><strong style="color:#00f2fe;">${escapeHtml(u.budget)}</strong></td>
+            <td><span class="status-badge ${statusClass}">${escapeHtml(u.status)}</span></td>
+            <td>
+              <div style="display:flex; gap:6px;">
+                <button onclick="openEditUniModal('${u.id}')" class="action-btn action-btn-primary">✏️ Edit</button>
+                <button onclick="deleteUni('${u.id}')" class="action-btn action-btn-danger">🗑️ Remove</button>
+              </div>
+            </td>
           </tr>
         `;
       }).join('');
+    }
+
+    function openAddUniModal() {
+      document.getElementById('uniModalTitle').textContent = '+ Add New Medical University';
+      document.getElementById('uniFormId').value = '';
+      document.getElementById('uniFormName').value = '';
+      document.getElementById('uniFormCountry').value = 'Russia';
+      document.getElementById('uniFormLocation').value = '';
+      document.getElementById('uniFormBudget').value = '₹22L - ₹25L';
+      document.getElementById('uniFormStatus').value = 'Open';
+      document.getElementById('uniFormImage').value = '';
+      document.getElementById('uniFormLogo').value = '';
+      document.getElementById('modalImgPreviewWrap').style.display = 'none';
+      document.getElementById('uniModal').style.display = 'flex';
+    }
+
+    function openEditUniModal(id) {
+      var unis = getUnis();
+      var u = unis.find(function(item) { return item.id === id; });
+      if (!u) return;
+
+      document.getElementById('uniModalTitle').textContent = '✏️ Edit University: ' + u.name;
+      document.getElementById('uniFormId').value = u.id;
+      document.getElementById('uniFormName').value = u.name;
+      document.getElementById('uniFormCountry').value = u.country;
+      document.getElementById('uniFormLocation').value = u.location;
+      document.getElementById('uniFormBudget').value = u.budget;
+      document.getElementById('uniFormStatus').value = u.status;
+      document.getElementById('uniFormImage').value = u.image || '';
+      document.getElementById('uniFormLogo').value = u.logo || '';
+
+      previewModalImage();
+      document.getElementById('uniModal').style.display = 'flex';
+    }
+
+    function closeUniModal() {
+      document.getElementById('uniModal').style.display = 'none';
+    }
+
+    function previewModalImage() {
+      var url = document.getElementById('uniFormImage').value;
+      var wrap = document.getElementById('modalImgPreviewWrap');
+      var img = document.getElementById('modalImgPreview');
+      if (url) {
+        img.src = url;
+        wrap.style.display = 'block';
+      } else {
+        wrap.style.display = 'none';
+      }
+    }
+
+    function handleSaveUni(e) {
+      e.preventDefault();
+      var id = document.getElementById('uniFormId').value;
+      var name = document.getElementById('uniFormName').value;
+      var country = document.getElementById('uniFormCountry').value;
+      var location = document.getElementById('uniFormLocation').value;
+      var budget = document.getElementById('uniFormBudget').value;
+      var status = document.getElementById('uniFormStatus').value;
+      var image = document.getElementById('uniFormImage').value;
+      var logo = document.getElementById('uniFormLogo').value;
+
+      var unis = getUnis();
+
+      if (id) {
+        // Edit existing
+        unis.forEach(function(u) {
+          if (u.id === id) {
+            u.name = name;
+            u.country = country;
+            u.location = location;
+            u.budget = budget;
+            u.status = status;
+            u.image = image;
+            u.logo = logo;
+          }
+        });
+      } else {
+        // Add new
+        var newUni = {
+          id: 'uni-' + Date.now(),
+          name: name,
+          country: country,
+          location: location,
+          budget: budget,
+          status: status,
+          image: image || 'assets/cards/c.bsmu_campus.png',
+          logo: logo || 'assets/common/logo.png'
+        };
+        unis.push(newUni);
+      }
+
+      saveUnis(unis);
+      closeUniModal();
+      alert('University saved successfully!');
+    }
+
+    function deleteUni(id) {
+      if (!confirm('Are you sure you want to remove this university from the website list?')) return;
+      var unis = getUnis().filter(function(u) { return u.id !== id; });
+      saveUnis(unis);
+    }
+
+    function resetUnisToDefault() {
+      if (confirm('Reset university list back to default 11 partner state medical universities?')) {
+        localStorage.removeItem('unimed_universities');
+        initDashboardData();
+      }
     }
 
     // Coordinators Segment Render
@@ -1154,6 +1388,7 @@
       if (confirm('Clear all leads and reset settings?')) {
         localStorage.removeItem('unimed_leads');
         localStorage.removeItem('unimed_ad_campaigns');
+        localStorage.removeItem('unimed_universities');
         initDashboardData();
       }
     }
