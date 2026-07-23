@@ -128,6 +128,14 @@
     .pull-chain-group:hover .pull-chain-line { stroke: #FEE180; }
     .pulling { animation: smoothCordPull 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
 
+    @keyframes smoothCordPull {
+      0% { transform: translateY(0); }
+      35% { transform: translateY(22px); }
+      65% { transform: translateY(-5px); }
+      85% { transform: translateY(3px); }
+      100% { transform: translateY(0); }
+    }
+
     @keyframes slotCardPulse {
       0% { transform: scale(0.96); opacity: 0.7; }
       50% { transform: scale(1.02); }
