@@ -839,10 +839,10 @@
             </select>
           </div>
 
-          <a id="enquiryWhatsapp" href="https://wa.me/919163654664" target="_blank" class="ud-btn-cta" style="text-decoration:none;">
+          <button type="submit" class="ud-btn-cta" style="width:100%; border:none; cursor:pointer;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg>
             Book Free Counselling
-          </a>
+          </button>
         </form>
 
         <a id="waLink" href="https://wa.me/919163654664" target="_blank" rel="noopener" class="ud-btn-wa">
@@ -1822,13 +1822,36 @@
 
     function handleEnquiry(e) {
       e.preventDefault();
-      const name = document.getElementById('enqName').value;
-      const phone = document.getElementById('enqPhone').value;
-      const email = document.getElementById('enqEmail').value;
+      const name = document.getElementById('enqName').value.trim();
+      const phone = document.getElementById('enqPhone').value.trim();
+      const email = document.getElementById('enqEmail').value.trim();
       const intake = document.getElementById('enqIntake').value;
-      const uniName = d ? d.name : 'a UNIMED partner university';
+      const uniName = (typeof d !== 'undefined' && d) ? d.name : 'Partner University';
+
+      const now = new Date();
+      const dateStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+      const lead = {
+        id: 'LEAD-' + Math.floor(1000 + Math.random() * 9000),
+        name: name || 'Anonymous Student',
+        email: email || 'N/A',
+        phone: phone || 'N/A',
+        country: uniName,
+        neet: intake || 'Sep 2026',
+        message: 'Enquiry for ' + uniName + ' (Intake: ' + intake + ')',
+        date: dateStr,
+        status: 'New'
+      };
+
+      try {
+        const existing = JSON.parse(localStorage.getItem('unimed_leads') || '[]');
+        existing.unshift(lead);
+        localStorage.setItem('unimed_leads', JSON.stringify(existing));
+      } catch(err) {}
+
       const msg = encodeURIComponent(`Hi UNIMED Global!\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nInterested in: ${uniName}\nPreferred Intake: ${intake}\n\nPlease get back to me!`);
       window.open(`https://wa.me/919163654664?text=${msg}`, '_blank');
+      alert('Thank you, ' + (name || 'student') + '! Your admission inquiry for ' + uniName + ' has been saved into UNIMED Admin CRM!');
     }
 
     // Scroll-highlight counselling animation

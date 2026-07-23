@@ -3,6 +3,7 @@
 <head>
   <script src="theme.js"></script>
   <script src="ads.js?v=2026"></script>
+  <script src="booking.js?v=2026"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us | UNIMED Global</title>
@@ -93,10 +94,21 @@
     <!-- Contact Content Grid -->
     <section class="contact-grid">
       
-      <!-- Left Column: Inquiry Form -->
-      <article class="contact-card">
-        <h3 class="checklist-title" style="margin-bottom: 20px;">Admission Inquiry Form</h3>
-        <form class="contact-form" action="#" method="POST" onsubmit="handleContactFormSubmit(event)">
+      <!-- Left Column: Inquiry Form & 2-Step Consultation Booking -->
+      <div>
+        <!-- Dedicated Book Consultation Card -->
+        <div style="background: linear-gradient(135deg, rgba(0,242,254,0.12), rgba(59,130,246,0.12)); border: 1px solid rgba(0,242,254,0.35); border-radius: 20px; padding: 24px; margin-bottom: 24px; text-align: center; backdrop-filter: blur(12px); box-shadow: 0 8px 30px rgba(0,242,254,0.15);">
+          <span style="font-size: 0.78rem; font-weight: 800; color: #00f2fe; letter-spacing: 0.08em; text-transform: uppercase;">Direct 1-on-1 Appointment</span>
+          <h3 style="margin: 6px 0 10px 0; font-size: 1.25rem; font-weight: 800; color: #ffffff;">📅 Prefer a Scheduled Video or Phone Call?</h3>
+          <p style="font-size: 0.88rem; color: #94a3b8; margin-bottom: 16px; line-height: 1.5;">Choose a live time slot with our counselors and sync directly with Google Calendar in 2 simple steps.</p>
+          <button type="button" onclick="openBookingModal()" class="cta-btn" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #00f2fe, #3b82f6); color: #0f172a; font-weight: 800;">
+            <span class="cta-btn-text">Book 2-Step Consultation &amp; Choose Slot 📅</span>
+          </button>
+        </div>
+
+        <article class="contact-card">
+          <h3 class="checklist-title" style="margin-bottom: 20px;">Admission Inquiry Form</h3>
+          <form class="contact-form" action="#" method="POST" onsubmit="handleContactFormSubmit(event)">
           
           <div class="form-group">
             <label class="form-label" for="full-name">Full Name</label>
@@ -136,6 +148,7 @@
 
         </form>
       </article>
+    </div>
 
       <!-- Right Column: Office Coordinates & Attendants -->
       <div class="info-cards-strip">

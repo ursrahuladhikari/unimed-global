@@ -91,16 +91,43 @@
     }
 
     .lamp-shade-glow { fill: #ffffff; }
-    .pull-chain-group { cursor: pointer; }
+    .pull-chain-group {
+      cursor: pointer;
+      transform-box: fill-box;
+      transform-origin: top center;
+      transition: filter 0.2s ease;
+    }
     .pull-chain-group:hover .pull-knob { fill: #FEE180; }
     .pull-chain-group:hover .pull-chain-line { stroke: #FEE180; }
-    .pulling { animation: smoothCordPull 0.45s cubic-bezier(0.25, 1, 0.5, 1); }
+    .pulling { animation: smoothCordPull 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
 
-    @keyframes smoothCordPull {
-      0% { transform: translateY(0); }
-      40% { transform: translateY(16px); }
-      70% { transform: translateY(-2px); }
-      100% { transform: translateY(0); }
+    @keyframes slotCardPulse {
+      0% { transform: scale(0.96); opacity: 0.7; }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes tableRowSlideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slot-card-animate {
+      animation: slotCardPulse 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes btnSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .btn-spinner {
+      display: inline-block;
+      animation: btnSpin 0.6s linear infinite;
+    }
+
+    .table-row-animate {
+      animation: tableRowSlideIn 0.3s ease-out forwards;
     }
 
     .glass-login-card {
@@ -490,6 +517,42 @@
 
     .tab-content-panel { display: none; }
     .tab-content-panel.active { display: block; }
+
+    /* Animated Website Theme Toggle Button */
+    .theme-toggle-btn {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      padding: 0;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    html.light-theme .theme-toggle-btn {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: #cbd5e1;
+      color: #0f172a;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+    .theme-toggle-btn:hover {
+      border-color: #00f2fe;
+      transform: scale(1.1) rotate(15deg);
+    }
+    .theme-toggle-btn svg {
+      transition: transform 0.5s ease;
+    }
+    html.light-theme .theme-toggle-btn .sun-icon { display: none; }
+    html.light-theme .theme-toggle-btn .moon-icon { display: block; color: #0284c7; }
+    html:not(.light-theme) .theme-toggle-btn .moon-icon { display: none; }
+    html:not(.light-theme) .theme-toggle-btn .sun-icon { display: block; color: #f59e0b; }
   </style>
 </head>
 <body>
@@ -501,40 +564,47 @@
     <div class="lamp-glow-overlay"></div>
     <div class="lamp-login-stage">
       
-      <!-- Table Lamp Fixture -->
+      <!-- Table Lamp Fixture (Click cord to toggle light mode) -->
       <div class="lamp-fixture-wrap">
         <svg class="lamp-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="lamp-shade-glow" d="M 20 85 C 20 28, 180 28, 180 85 Z" />
+          <path class="lamp-shade-glow" d="M 20 85 C 20 28, 180 28, 180 85 Z" fill="#ffffff" />
           <path d="M 20 85 L 180 85" stroke="#E2E8F0" stroke-width="3.5" stroke-linecap="round" />
           <rect x="95" y="85" width="10" height="118" fill="#E2E8F0" rx="5" />
           <rect x="50" y="200" width="100" height="12" fill="#E2E8F0" rx="6" />
 
-          <g class="pull-chain-group" id="pullChainGroup" title="Click cord to toggle light mode">
+          <!-- Interactive Pull Chain Cord (Toggles Theme) -->
+          <g class="pull-chain-group" id="pullChainGroup" title="Pull cord to toggle light/dark theme">
             <rect x="110" y="75" width="50" height="95" fill="transparent" pointer-events="all" />
-            <line id="chainLine" class="pull-chain-line" x1="135" y1="85" x2="135" y2="145" stroke="#E5A93B" stroke-width="2.5" stroke-dasharray="3 3" />
-            <circle id="pullKnob" class="pull-knob" cx="135" cy="150" r="8" fill="#E5A93B" />
+            <line id="chainLine" class="pull-chain-line" x1="135" y1="85" x2="135" y2="145" stroke="#E5A93B" stroke-width="3" stroke-dasharray="3 3" />
+            <circle id="pullKnob" class="pull-knob" cx="135" cy="150" r="9" fill="#E5A93B" />
           </g>
         </svg>
       </div>
 
       <!-- Glassmorphism Login Card -->
       <main class="glass-login-card">
-        <h1 class="card-title">UNIMED <span class="card-title-highlight">Admin</span></h1>
+        <h1 class="card-title" style="margin-bottom:16px;">UNIMED <span style="color:#00f2fe;">Global</span></h1>
+
+        <!-- Role Selector Preset Buttons -->
+        <div style="display:flex; gap:10px; margin-bottom:20px;">
+          <button type="button" onclick="selectLoginRole('super')" id="btnRoleSuper" class="action-btn action-btn-primary" style="flex:1; padding:9px 6px; font-size:0.78rem;">👑 Super Admin</button>
+          <button type="button" onclick="selectLoginRole('standard')" id="btnRoleStandard" class="action-btn" style="flex:1; padding:9px 6px; font-size:0.78rem; background:rgba(255,255,255,0.1); color:#ffffff;">👤 Standard Admin</button>
+        </div>
 
         <form onsubmit="handleAdminLogin(event)">
-          <div class="form-group">
+          <div class="form-group" style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
             <div class="field-block">
-              <label for="username" class="field-label">Username</label>
-              <input type="text" id="username" class="field-input" value="admin" required autocomplete="username">
+              <label for="username" class="field-label" style="display:block; font-size:0.85rem; font-weight:600; color:#cbd5e1; margin-bottom:6px;">Username</label>
+              <input type="text" id="username" class="field-input" value="superadmin" placeholder="Enter name" required autocomplete="username" style="width:100%; padding:13px 16px; background:rgba(15,23,42,0.7); border:1px solid rgba(255,255,255,0.12); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
             </div>
 
             <div class="field-block">
-              <label for="password" class="field-label">Password</label>
-              <input type="password" id="password" class="field-input" value="admin123" required autocomplete="current-password">
+              <label for="password" class="field-label" style="display:block; font-size:0.85rem; font-weight:600; color:#cbd5e1; margin-bottom:6px;">Password</label>
+              <input type="password" id="password" class="field-input" value="super123" placeholder="Enter Password" required autocomplete="current-password" style="width:100%; padding:13px 16px; background:rgba(15,23,42,0.7); border:1px solid rgba(255,255,255,0.12); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
             </div>
           </div>
 
-          <button type="submit" class="gold-sign-in-btn">Sign In to Dashboard</button>
+          <button type="submit" class="gold-sign-in-btn">Sign In</button>
         </form>
       </main>
 
@@ -554,22 +624,25 @@
       </div>
 
       <nav class="sidebar-menu">
-        <button class="sidebar-tab-btn active" data-tab="tab-overview">
+        <button class="sidebar-tab-btn active" data-tab="tab-overview" onclick="switchTab('tab-overview')">
           📊 Overview
         </button>
-        <button class="sidebar-tab-btn" data-tab="tab-leads">
+        <button class="sidebar-tab-btn" data-tab="tab-leads" onclick="switchTab('tab-leads')">
           📥 Leads &amp; Inquiries
         </button>
-        <button class="sidebar-tab-btn" data-tab="tab-universities">
+        <button class="sidebar-tab-btn" data-tab="tab-consultations" onclick="switchTab('tab-consultations')">
+          📅 Consultations &amp; Slots
+        </button>
+        <button class="sidebar-tab-btn" data-tab="tab-universities" onclick="switchTab('tab-universities')">
           🎓 Universities Segment
         </button>
-        <button class="sidebar-tab-btn" data-tab="tab-coordinators">
+        <button class="sidebar-tab-btn" data-tab="tab-coordinators" onclick="switchTab('tab-coordinators')">
           👥 Coordinators Segment
         </button>
-        <button class="sidebar-tab-btn" data-tab="tab-ads">
+        <button class="sidebar-tab-btn" data-tab="tab-ads" onclick="switchTab('tab-ads')">
           📢 Ads &amp; Promotions
         </button>
-        <button class="sidebar-tab-btn" data-tab="tab-settings">
+        <button class="sidebar-tab-btn" data-tab="tab-settings" onclick="switchTab('tab-settings')">
           ⚙️ Data &amp; Settings
         </button>
       </nav>
@@ -589,13 +662,21 @@
         <h2 class="topbar-title" id="topbarTitle">Dashboard Overview</h2>
         
         <div style="display:flex; align-items:center; gap:16px;">
-          <button id="dashboardThemeToggle" class="action-btn" style="background:rgba(255,255,255,0.1); color:inherit;">
-            🌓 Toggle Theme
+          <button onclick="toggleAdminTheme()" class="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Theme Mode">
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+            </svg>
           </button>
 
           <div class="admin-user-pill">
-            <div class="admin-avatar-circle">AD</div>
-            <span>Super Admin</span>
+            <div class="admin-avatar-circle" id="userRoleAvatar" style="background:linear-gradient(135deg, #00f2fe, #3b82f6);">👑</div>
+            <span id="userRoleBadge">Super Admin</span>
           </div>
         </div>
       </header>
@@ -702,17 +783,162 @@
 
 
         <!-- =================================================================== -->
+        <!-- TAB: CONSULTATIONS & SLOT AVAILABILITY MANAGER                      -->
+        <!-- =================================================================== -->
+        <section class="tab-content-panel" id="tab-consultations">
+          
+          <div class="stats-cards-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 24px;">
+            <div class="stat-metric-card">
+              <div class="metric-label">Booked Appointments</div>
+              <div class="metric-value" id="statTotalConsultations">0</div>
+              <span style="font-size:0.78rem; color:#00f2fe;">📅 Scheduled Slots</span>
+            </div>
+
+            <div class="stat-metric-card">
+              <div class="metric-label">Today's Sessions</div>
+              <div class="metric-value" id="statTodayConsultations">0</div>
+              <span style="font-size:0.78rem; color:#22c55e;">⚡ Active Today</span>
+            </div>
+
+            <div class="stat-metric-card">
+              <div class="metric-label">Blocked / Unavailable Slots</div>
+              <div class="metric-value" id="statBlockedSlots">0</div>
+              <span style="font-size:0.78rem; color:#f59e0b;">🔒 Reserved &amp; Disabled</span>
+            </div>
+          </div>
+
+          <!-- 1. REAL-TIME SLOT AVAILABILITY CONTROL CENTER WITH FULL CALENDAR -->
+          <div class="admin-panel-card" style="margin-bottom: 28px;">
+            <div style="display:grid; grid-template-columns: 380px 1fr; gap:28px; align-items:start;">
+              
+              <!-- LEFT SIDE: FULL INTERACTIVE MONTH CALENDAR CARD -->
+              <div style="background:#090d16; border:1px solid rgba(255, 255, 255, 0.08); border-radius:20px; padding:24px;">
+                
+                <!-- Calendar Month Header -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+                  <h3 id="adminCalMonthYear" style="margin:0; font-size:1.35rem; font-weight:800; color:#ffffff;">July 2026</h3>
+                  <div style="display:flex; gap:8px;">
+                    <button type="button" onclick="changeAdminCalMonth(-1)" class="cal-nav-btn" style="background:none; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer; padding:4px 10px; border-radius:8px;">&lt;</button>
+                    <button type="button" onclick="changeAdminCalMonth(1)" class="cal-nav-btn" style="background:none; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer; padding:4px 10px; border-radius:8px;">&gt;</button>
+                  </div>
+                </div>
+
+                <!-- Days of Week Header -->
+                <div style="display:grid; grid-template-columns:repeat(7, 1fr); text-align:center; font-size:0.75rem; font-weight:800; color:#64748b; letter-spacing:0.06em; margin-bottom:14px; text-transform:uppercase;">
+                  <div>SU</div><div>MO</div><div>TU</div><div>WE</div><div>TH</div><div>FR</div><div>SA</div>
+                </div>
+
+                <!-- Days Grid -->
+                <div id="adminCalDaysGrid" style="display:grid; grid-template-columns:repeat(7, 1fr); gap:8px; text-align:center;">
+                  <!-- Dynamically rendered by renderAdminCalendar() -->
+                </div>
+
+                <!-- Legend at bottom -->
+                <div style="margin-top:28px; padding-top:18px; border-top:1px solid rgba(255,255,255,0.06); display:flex; gap:16px; align-items:center; font-size:0.78rem; color:#94a3b8; flex-wrap:wrap;">
+                  <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:8px; height:8px; border-radius:50%; background:#ef4444;"></span> Fully Blocked</span>
+                  <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:8px; height:8px; border-radius:50%; background:#f59e0b;"></span> Partially Blocked</span>
+                  <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:8px; height:8px; border-radius:50%; background:#22c55e;"></span> Booked Slot</span>
+                </div>
+
+              </div>
+
+              <!-- RIGHT SIDE: SLOT MANAGEMENT PANEL CARD -->
+              <div style="background:#090d16; border:1px solid rgba(255, 255, 255, 0.08); border-radius:20px; padding:24px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+                  <div>
+                    <span style="font-size:0.75rem; font-weight:800; color:#FEE180; letter-spacing:0.08em; text-transform:uppercase;">MANAGE SLOTS</span>
+                    <h3 id="adminSlotFormattedDate" style="margin:4px 0 0 0; font-size:1.4rem; font-weight:800; color:#ffffff;">01-07-2026</h3>
+                  </div>
+
+                  <div id="adminDayBlockBtnWrap">
+                    <button onclick="toggleAllSlotsForSelectedDate(true)" class="action-btn" style="background:transparent; border:1px solid rgba(255,255,255,0.2); color:#ffffff; padding:10px 18px; border-radius:10px; font-weight:700; font-size:0.82rem; cursor:pointer;">BLOCK ENTIRE DAY</button>
+                  </div>
+                </div>
+
+                <!-- Vertical Slots List -->
+                <div id="adminSlotsGrid" style="display:flex; flex-direction:column; gap:12px;">
+                  <!-- Dynamically rendered by renderAdminSlotManager() -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 2. BLOCKED / RESERVED SLOTS MANAGEMENT TABLE -->
+          <div class="admin-panel-card" style="margin-bottom: 28px;">
+            <div class="panel-card-header" style="flex-wrap:wrap; gap:12px;">
+              <div>
+                <h3 class="panel-card-title">🔒 Blocked / Reserved Slots List</h3>
+                <span style="font-size:0.85rem; color:#94a3b8;">All dates and time slots currently marked unavailable for student bookings</span>
+              </div>
+              <button onclick="openBlockSlotModal()" class="action-btn action-btn-primary" style="padding:9px 18px; font-size:0.85rem;">+ Block Custom Slot</button>
+            </div>
+
+            <table class="admin-data-table">
+              <thead>
+                <tr>
+                  <th>Slot ID</th>
+                  <th>Date (DD-MM-YYYY)</th>
+                  <th>Time Slot</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="blockedSlotsTableBody">
+                <!-- Dynamically Populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 3. BOOKED APPOINTMENTS TABLE -->
+          <div class="admin-panel-card">
+            <div class="panel-card-header" style="flex-wrap:wrap; gap:12px;">
+              <div>
+                <h3 class="panel-card-title">1-on-1 Consultation Student Appointments</h3>
+                <span style="font-size:0.85rem; color:#94a3b8;">Student appointment details, dates (DD-MM-YYYY), slots, and Google Calendar links</span>
+              </div>
+            </div>
+
+            <table class="admin-data-table">
+              <thead>
+                <tr>
+                  <th>Appointment ID</th>
+                  <th>Student Name &amp; Contact Email</th>
+                  <th>Date (DD-MM-YYYY) &amp; Slot</th>
+                  <th>Target Country</th>
+                  <th>Mode</th>
+                  <th>Slot Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="consultationsTableBody">
+                <!-- Dynamically Populated -->
+              </tbody>
+            </table>
+          </div>
+
+        </section>
+
+
+        <!-- =================================================================== -->
         <!-- TAB 3: UNIVERSITIES SEGMENT                                        -->
         <!-- =================================================================== -->
         <section class="tab-content-panel" id="tab-universities">
           
           <div class="admin-panel-card">
-            <div class="panel-card-header" style="flex-wrap:wrap; gap:12px;">
+            <div class="panel-card-header" style="flex-wrap:wrap; gap:12px; margin-bottom:16px;">
               <div>
                 <h3 class="panel-card-title">Manage Partner Medical Universities</h3>
                 <span style="font-size:0.85rem; color:#94a3b8;">All 11 partner state medical universities live on website</span>
               </div>
               <button onclick="openAddUniModal()" class="action-btn action-btn-primary" style="padding:10px 18px; font-size:0.9rem;">+ Add New University</button>
+            </div>
+
+            <!-- Country Filter Tabs -->
+            <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+              <button onclick="filterUniCountry('all', this)" class="action-btn action-btn-primary uni-filter-btn active" style="padding:8px 18px; font-size:0.85rem;">All Universities (11)</button>
+              <button onclick="filterUniCountry('russia', this)" class="action-btn uni-filter-btn" style="background:rgba(255,255,255,0.08); color:#ffffff; padding:8px 18px; font-size:0.85rem;">🇷🇺 Russia (9)</button>
+              <button onclick="filterUniCountry('uzbekistan', this)" class="action-btn uni-filter-btn" style="background:rgba(255,255,255,0.08); color:#ffffff; padding:8px 18px; font-size:0.85rem;">🇺🇿 Uzbekistan (2)</button>
             </div>
 
             <table class="admin-data-table">
@@ -741,8 +967,12 @@
         <section class="tab-content-panel" id="tab-coordinators">
           
           <div class="admin-panel-card">
-            <div class="panel-card-header">
-              <h3 class="panel-card-title">Manage Founders &amp; Regional Coordinators</h3>
+            <div class="panel-card-header" style="flex-wrap:wrap; gap:12px;">
+              <div>
+                <h3 class="panel-card-title">Manage Founders &amp; Regional Coordinators</h3>
+                <span style="font-size:0.85rem; color:#94a3b8;">Add, edit or remove team members &amp; assigned state territories</span>
+              </div>
+              <button onclick="openAddCoordModal()" class="action-btn action-btn-primary" style="padding:10px 18px; font-size:0.9rem;">+ Add New Coordinator</button>
             </div>
 
             <table class="admin-data-table">
@@ -931,6 +1161,81 @@
             <button type="submit" class="action-btn action-btn-success" style="padding:10px 20px;">💾 Save University</button>
           </div>
         </div>
+  <!-- ========================================================================= -->
+  <!-- ADD / EDIT COORDINATOR MODAL                                             -->
+  <!-- ========================================================================= -->
+  <div id="coordModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.8); backdrop-filter:blur(16px); z-index:99999; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
+    <div style="width:100%; max-width:500px; background:#1e293b; border:1px solid rgba(255,255,255,0.15); border-radius:24px; padding:32px; box-shadow:0 25px 60px rgba(0,0,0,0.6); color:#ffffff; font-family:'Outfit', sans-serif; box-sizing:border-box;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h3 id="coordModalTitle" style="margin:0; font-size:1.3rem; font-weight:800;">+ Add New Coordinator</h3>
+        <button onclick="closeCoordModal()" style="background:none; border:none; color:#ffffff; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <form onsubmit="handleSaveCoord(event)">
+        <input type="hidden" id="coordFormId">
+        
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div>
+            <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">Role / Designation Title</label>
+            <input type="text" id="coordFormRole" class="admin-input" placeholder="e.g. Coordinator or Senior Counselor" required>
+          </div>
+
+          <div>
+            <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">Full Name</label>
+            <input type="text" id="coordFormName" class="admin-input" placeholder="e.g. Rahul Adhikari" required>
+          </div>
+
+          <div>
+            <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">Assigned States / Regions</label>
+            <input type="text" id="coordFormRegion" class="admin-input" placeholder="e.g. Punjab, Himachal Pradesh &amp; Jammu" required>
+          </div>
+
+          <div>
+            <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">Phone Number (with WhatsApp)</label>
+            <input type="text" id="coordFormPhone" class="admin-input" placeholder="e.g. +91 98765 43210" required>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:10px;">
+            <button type="button" onclick="closeCoordModal()" class="action-btn" style="background:rgba(255,255,255,0.1); color:#ffffff;">Cancel</button>
+            <button type="submit" class="action-btn action-btn-success" style="padding:10px 20px;">💾 Save Coordinator</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- BLOCK / RESERVE TIME SLOT MODAL                                          -->
+  <!-- ========================================================================= -->
+  <div id="blockSlotModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.8); backdrop-filter:blur(16px); z-index:99999; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
+    <div style="width:100%; max-width:440px; background:#1e293b; border:1px solid rgba(255,255,255,0.15); border-radius:24px; padding:32px; box-shadow:0 25px 60px rgba(0,0,0,0.6); color:#ffffff; font-family:'Outfit', sans-serif; box-sizing:border-box;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h3 style="margin:0; font-size:1.25rem; font-weight:800;">🔒 Block / Reserve Time Slot</h3>
+        <button onclick="closeBlockSlotModal()" style="background:none; border:none; color:#ffffff; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <form onsubmit="handleSaveBlockSlot(event)">
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div>
+            <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">Select Date to Block</label>
+            <input type="date" id="blockSlotDate" class="admin-input" required>
+          </div>
+
+          <div>
+            <label style="font-size:0.82rem; font-weight:600; color:#94a3b8;">Select Time Slot</label>
+            <select id="blockSlotTime" class="admin-select" required>
+              <option value="09:00 AM">09:00 AM</option>
+              <option value="11:30 AM">11:30 AM</option>
+              <option value="02:00 PM">02:00 PM</option>
+              <option value="04:30 PM">04:30 PM</option>
+            </select>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:10px;">
+            <button type="button" onclick="closeBlockSlotModal()" class="action-btn" style="background:rgba(255,255,255,0.1); color:#ffffff;">Cancel</button>
+            <button type="submit" class="action-btn action-btn-primary" style="padding:10px 20px;">🔒 Save Blocked Slot</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -946,53 +1251,169 @@
     ];
 
     // All 11 Partner Medical Universities Live on UNIMED Global Website
+    var imageMap = {
+      "bsmu": "assets/universities/campus_baskir.png",
+      "fefu": "assets/universities/campus_fareastern.png",
+      "ssu": "assets/universities/campus_syktyvkar.png",
+      "omsk": "assets/universities/campus_omsk.png",
+      "ulyanovsk": "assets/universities/campus_ulyanovsk.png",
+      "astrakhan": "assets/universities/campus_astrakhan.png",
+      "yaroslavl": "assets/universities/campus_yaroslavl.png",
+      "volgograd": "assets/universities/campus_volgograd.png",
+      "kbsu": "assets/universities/campus_kabardino.png",
+      "gulistan": "assets/universities/campus_gulistan.png",
+      "tpi": "assets/universities/campus_tashkent.png"
+    };
+
     var defaultUnis = [
-      { id: "bsmu", name: "Bashkir State Medical University", country: "Russia", location: "Ufa", budget: "₹22L - ₹25L", status: "Open", image: "assets/cards/c.bsmu_campus.png", logo: "assets/collaboration_partners/c.logo_bsmu.png" },
-      { id: "fefu", name: "Far Eastern Federal University", country: "Russia", location: "Vladivostok", budget: "₹24L - ₹28L", status: "Open", image: "assets/cards/c.fefu_campus.png", logo: "assets/collaboration_partners/c.logo_far.png" },
-      { id: "ssu", name: "Syktyvkar State University", country: "Russia", location: "Syktyvkar", budget: "₹20L - ₹22L", status: "Open", image: "assets/cards/c.syktyvkar_campus.png", logo: "assets/collaboration_partners/c.logo_syktyvnkar.png" },
-      { id: "omsk", name: "Omsk State Medical University", country: "Russia", location: "Omsk", budget: "₹23L - ₹26L", status: "Open", image: "assets/cards/c.omsk_campus.png", logo: "assets/collaboration_partners/c.logo_omsk.png" },
-      { id: "ulyanovsk", name: "Ulyanovsk State University", country: "Russia", location: "Ulyanovsk", budget: "₹21L - ₹24L", status: "Open", image: "assets/cards/c.ulyanovsk_campus.png", logo: "assets/collaboration_partners/c.logo_ulyanovsk.png" },
-      { id: "astrakhan", name: "Astrakhan State Medical University", country: "Russia", location: "Astrakhan", budget: "₹22L - ₹25L", status: "Open", image: "assets/cards/c.astrakhan_campus.png", logo: "assets/collaboration_partners/c.logo-astrakhan.jpg" },
-      { id: "yaroslavl", name: "Yaroslavl State Medical University", country: "Russia", location: "Yaroslavl", budget: "₹23L - ₹25L", status: "Open", image: "assets/cards/c.yaroslavl_campus.png", logo: "assets/collaboration_partners/c.logo_yaro.jpeg" },
-      { id: "volgograd", name: "Volgograd State Medical University", country: "Russia", location: "Volgograd", budget: "₹24L - ₹27L", status: "Open", image: "assets/cards/c.volgograd_campus.png", logo: "assets/collaboration_partners/c.logo_volgograd.png" },
-      { id: "kbsu", name: "Kabardino Balkarian State University", country: "Russia", location: "Nalchik", budget: "₹19L - ₹22L", status: "Open", image: "assets/cards/c.kabardino_campus.png", logo: "assets/collaboration_partners/c.logo_kabardino.png" },
-      { id: "gulistan", name: "Gulistan State University", country: "Uzbekistan", location: "Gulistan", budget: "₹18L - ₹20L", status: "Open", image: "assets/cards/c.gulistan_campus.png", logo: "assets/collaboration_partners/c.logo_gulistan.png" },
-      { id: "tpi", name: "Tashkent Pharmaceutical Institute", country: "Uzbekistan", location: "Tashkent", budget: "₹17L - ₹19L", status: "Open", image: "assets/cards/c.tashkent_pharm.png", logo: "assets/collaboration_partners/c.logo_tashkent.png" }
+      { id: "bsmu", name: "Bashkir State Medical University", country: "Russia", location: "Ufa", budget: "₹22L - ₹25L", status: "Open", image: "assets/universities/campus_baskir.png", logo: "assets/collaboration_partners/c.logo_bsmu.png" },
+      { id: "fefu", name: "Far Eastern Federal University", country: "Russia", location: "Vladivostok", budget: "₹24L - ₹28L", status: "Open", image: "assets/universities/campus_fareastern.png", logo: "assets/collaboration_partners/c.logo_far.png" },
+      { id: "ssu", name: "Syktyvkar State University", country: "Russia", location: "Syktyvkar", budget: "₹20L - ₹22L", status: "Open", image: "assets/universities/campus_syktyvkar.png", logo: "assets/collaboration_partners/c.logo_syktyvnkar.png" },
+      { id: "omsk", name: "Omsk State Medical University", country: "Russia", location: "Omsk", budget: "₹23L - ₹26L", status: "Open", image: "assets/universities/campus_omsk.png", logo: "assets/collaboration_partners/c.logo_omsk.png" },
+      { id: "ulyanovsk", name: "Ulyanovsk State University", country: "Russia", location: "Ulyanovsk", budget: "₹21L - ₹24L", status: "Open", image: "assets/universities/campus_ulyanovsk.png", logo: "assets/collaboration_partners/c.logo_ulyanovsk.png" },
+      { id: "astrakhan", name: "Astrakhan State Medical University", country: "Russia", location: "Astrakhan", budget: "₹22L - ₹25L", status: "Open", image: "assets/universities/campus_astrakhan.png", logo: "assets/collaboration_partners/c.logo-astrakhan.jpg" },
+      { id: "yaroslavl", name: "Yaroslavl State Medical University", country: "Russia", location: "Yaroslavl", budget: "₹23L - ₹25L", status: "Open", image: "assets/universities/campus_yaroslavl.png", logo: "assets/collaboration_partners/c.logo_yaro.jpeg" },
+      { id: "volgograd", name: "Volgograd State Medical University", country: "Russia", location: "Volgograd", budget: "₹24L - ₹27L", status: "Open", image: "assets/universities/campus_volgograd.png", logo: "assets/collaboration_partners/c.logo_volgograd.png" },
+      { id: "kbsu", name: "Kabardino Balkarian State University", country: "Russia", location: "Nalchik", budget: "₹19L - ₹22L", status: "Open", image: "assets/universities/campus_kabardino.png", logo: "assets/collaboration_partners/c.logo_kabardino.png" },
+      { id: "gulistan", name: "Gulistan State University", country: "Uzbekistan", location: "Gulistan", budget: "₹18L - ₹20L", status: "Open", image: "assets/universities/campus_gulistan.png", logo: "assets/collaboration_partners/c.logo_gulistan.png" },
+      { id: "tpi", name: "Tashkent Pharmaceutical Institute", country: "Uzbekistan", location: "Tashkent", budget: "₹17L - ₹19L", status: "Open", image: "assets/universities/campus_tashkent.png", logo: "assets/collaboration_partners/c.logo_tashkent.png" }
     ];
 
     var defaultCoordinators = [
-      { role: "Founder", name: "Dr. Arijit Dutta", region: "Global Head Office", phone: "+91 91636 54664", link: "https://wa.me/919163654664" },
-      { role: "Co-Founder & Coordinator", name: "Pawan Kumar", region: "Nepal, Bihar, Delhi & UP", phone: "+91 96619 94131", link: "https://wa.me/919661994131" },
-      { role: "Coordinator", name: "Karan Das", region: "Assam & Madhya Pradesh", phone: "+91 95997 98618", link: "https://wa.me/919599798618" },
-      { role: "Coordinator", name: "Rohit Kumar", region: "Haryana & Uttarakhand", phone: "+91 80517 31080", link: "https://wa.me/918051731080" },
-      { role: "Coordinator", name: "Jyotirmay Aarya", region: "Rajasthan", phone: "+91 73003 77664", link: "https://wa.me/917300377664" },
-      { role: "Coordinator", name: "Yash Gurmule Sanjay", region: "Maharashtra", phone: "+91 83080 53676", link: "https://wa.me/918308053676" }
+      { id: "coord-1", role: "Founder", name: "Dr. Arijit Dutta", region: "Global Head Office", phone: "+91 91636 54664", link: "https://wa.me/919163654664" },
+      { id: "coord-2", role: "Co-Founder & Coordinator", name: "Pawan Kumar", region: "Nepal, Bihar, Delhi & UP", phone: "+91 96619 94131", link: "https://wa.me/919661994131" },
+      { id: "coord-3", role: "Coordinator", name: "Karan Das", region: "Assam & Madhya Pradesh", phone: "+91 95997 98618", link: "https://wa.me/919599798618" },
+      { id: "coord-4", role: "Coordinator", name: "Rohit Kumar", region: "Haryana & Uttarakhand", phone: "+91 80517 31080", link: "https://wa.me/918051731080" },
+      { id: "coord-5", role: "Coordinator", name: "Jyotirmay Aarya", region: "Rajasthan", phone: "+91 73003 77664", link: "https://wa.me/917300377664" },
+      { id: "coord-6", role: "Coordinator", name: "Yash Gurmule Sanjay", region: "Maharashtra", phone: "+91 83080 53676", link: "https://wa.me/918308053676" }
     ];
 
-    // Auth & Navigation
+    // Auth & Role-Based Access Control (RBAC)
+    function selectLoginRole(type) {
+      var userIn = document.getElementById('username');
+      var passIn = document.getElementById('password');
+      var btnSuper = document.getElementById('btnRoleSuper');
+      var btnStandard = document.getElementById('btnRoleStandard');
+
+      if (type === 'super') {
+        userIn.value = 'superadmin';
+        passIn.value = 'super123';
+        if (btnSuper) btnSuper.className = 'action-btn action-btn-primary';
+        if (btnStandard) {
+          btnStandard.className = 'action-btn';
+          btnStandard.style.background = 'rgba(255,255,255,0.1)';
+          btnStandard.style.color = '#ffffff';
+        }
+      } else {
+        userIn.value = 'admin-standard';
+        passIn.value = 'standard123';
+        if (btnStandard) btnStandard.className = 'action-btn action-btn-primary';
+        if (btnSuper) {
+          btnSuper.className = 'action-btn';
+          btnSuper.style.background = 'rgba(255,255,255,0.1)';
+          btnSuper.style.color = '#ffffff';
+        }
+      }
+    }
+
+    function isSuperAdmin() {
+      var role = sessionStorage.getItem('unimed_admin_role') || 'super_admin';
+      return role === 'super_admin';
+    }
+
     function handleAdminLogin(e) {
       if (e) e.preventDefault();
+      var user = document.getElementById('username').value.trim().toLowerCase();
+      var pass = document.getElementById('password').value.trim();
+
+      var role = 'super_admin';
+      if (user === 'admin-standard' || user === 'staff' || pass === 'standard123') {
+        role = 'standard_admin';
+      }
+
       sessionStorage.setItem('unimed_admin_logged_in', 'true');
+      sessionStorage.setItem('unimed_admin_role', role);
       showDashboard();
     }
 
     function handleLogout() {
       sessionStorage.removeItem('unimed_admin_logged_in');
+      sessionStorage.removeItem('unimed_admin_role');
       document.getElementById('adminDashboardContainer').style.display = 'none';
       document.getElementById('adminLoginWrapper').style.display = 'flex';
+    }
+
+    function updateUserPillUI() {
+      var isSuper = isSuperAdmin();
+      var avatar = document.getElementById('userRoleAvatar');
+      var badge = document.getElementById('userRoleBadge');
+
+      if (isSuper) {
+        if (avatar) {
+          avatar.textContent = '👑';
+          avatar.style.background = 'linear-gradient(135deg, #00f2fe, #3b82f6)';
+        }
+        if (badge) {
+          badge.textContent = 'Super Admin';
+          badge.style.color = '#ffffff';
+        }
+      } else {
+        if (avatar) {
+          avatar.textContent = '👤';
+          avatar.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+        }
+        if (badge) {
+          badge.textContent = 'Standard Admin (Add Only)';
+          badge.style.color = '#f59e0b';
+        }
+      }
     }
 
     function showDashboard() {
       document.getElementById('adminLoginWrapper').style.display = 'none';
       document.getElementById('adminDashboardContainer').style.display = 'flex';
+      updateUserPillUI();
       initDashboardData();
     }
 
-    // Check login state on load
+    function toggleAdminTheme() {
+      document.documentElement.classList.toggle('light-theme');
+      var isLight = document.documentElement.classList.contains('light-theme');
+      localStorage.setItem('unimed_admin_theme', isLight ? 'light' : 'dark');
+    }
+
+    // Check login state and theme on load
     document.addEventListener('DOMContentLoaded', function() {
+      if (localStorage.getItem('unimed_admin_theme') === 'light') {
+        document.documentElement.classList.add('light-theme');
+      }
+
       if (sessionStorage.getItem('unimed_admin_logged_in') === 'true') {
         showDashboard();
       }
+
+      // Interactive Lamp Pull Cord Theme Toggle
+      var pullChainGroup = document.getElementById('pullChainGroup');
+      if (pullChainGroup) {
+        pullChainGroup.addEventListener('click', function() {
+          pullChainGroup.classList.remove('pulling');
+          setTimeout(function() {
+            pullChainGroup.classList.add('pulling');
+          }, 10);
+          toggleAdminTheme();
+        });
+
+        pullChainGroup.addEventListener('animationend', function() {
+          pullChainGroup.classList.remove('pulling');
+        });
+      }
+
+      // Live Cross-Tab Synchronization for Website Lead Submissions
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'unimed_leads' || e.key === 'unimed_consultations' || e.key === 'unimed_blocked_slots') {
+          initDashboardData();
+        }
+      });
 
       // Sidebar Tab Switching
       document.querySelectorAll('.sidebar-tab-btn').forEach(function(btn) {
@@ -1001,27 +1422,9 @@
           switchTab(targetTab);
         });
       });
-
-      // Lamp pull chain theme toggle
-      var pullChainGroup = document.getElementById('pullChainGroup');
-      if (pullChainGroup) {
-        pullChainGroup.addEventListener('click', function() {
-          pullChainGroup.classList.remove('pulling');
-          void pullChainGroup.offsetWidth;
-          pullChainGroup.classList.add('pulling');
-          document.documentElement.classList.toggle('light-theme');
-        });
-      }
-
-      var dashThemeToggle = document.getElementById('dashboardThemeToggle');
-      if (dashThemeToggle) {
-        dashThemeToggle.addEventListener('click', function() {
-          document.documentElement.classList.toggle('light-theme');
-        });
-      }
     });
 
-    function switchTab(tabId) {
+    window.switchTab = function(tabId) {
       document.querySelectorAll('.sidebar-tab-btn').forEach(function(b) { b.classList.remove('active'); });
       document.querySelectorAll('.tab-content-panel').forEach(function(p) { p.classList.remove('active'); });
       
@@ -1034,19 +1437,45 @@
       var titles = {
         'tab-overview': 'Dashboard Overview',
         'tab-leads': 'Student Leads & Inquiries CRM',
+        'tab-consultations': '1-on-1 Consultation Appointments & Slot Manager',
         'tab-universities': 'Universities Segment Manager',
         'tab-coordinators': 'Coordinators & Team Segment',
         'tab-ads': 'Ads & Promotions Center',
         'tab-settings': 'Settings & Backups'
       };
-      document.getElementById('topbarTitle').textContent = titles[tabId] || 'Admin Center';
-    }
+      var topTitle = document.getElementById('topbarTitle');
+      if (topTitle) topTitle.textContent = titles[tabId] || 'Admin Center';
+
+      setTimeout(function() {
+        if (tabId === 'tab-overview') renderOverviewLeads(getLeads());
+        if (tabId === 'tab-leads') renderLeadsTable();
+        if (tabId === 'tab-consultations') {
+          renderAdminCalendar();
+          renderAdminSlotManager();
+          renderConsultationsTable();
+        }
+        if (tabId === 'tab-universities') renderUniversitiesTable();
+        if (tabId === 'tab-coordinators') renderCoordinatorsTable();
+        if (tabId === 'tab-ads') loadAdCampaigns();
+      }, 10);
+    };
 
     // Dashboard Data Controller
     function getLeads() {
       try {
         var raw = localStorage.getItem('unimed_leads');
-        if (raw) return JSON.parse(raw);
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            var merged = parsed.slice();
+            defaultLeads.forEach(function(def) {
+              if (!merged.some(function(m) { return m.id === def.id || (m.name === def.name && m.phone === def.phone); })) {
+                merged.push(def);
+              }
+            });
+            return merged;
+          }
+        }
       } catch(e) {}
       return defaultLeads;
     }
@@ -1056,47 +1485,27 @@
       initDashboardData();
     }
 
-    function getUnis() {
-      try {
-        var raw = localStorage.getItem('unimed_universities');
-        if (raw) return JSON.parse(raw);
-      } catch(e) {}
-      return defaultUnis;
-    }
-
-    function saveUnis(unis) {
-      localStorage.setItem('unimed_universities', JSON.stringify(unis));
-      initDashboardData();
-    }
-
-    function initDashboardData() {
-      var leads = getLeads();
-      document.getElementById('statTotalLeads').textContent = leads.length;
-
-      var unis = getUnis();
-      document.getElementById('statTotalUnis').textContent = unis.length;
-
-      // Render Tables
-      renderOverviewLeads(leads);
-      renderLeadsTable();
-      renderUniversitiesTable();
-      renderCoordinatorsTable();
-      loadAdCampaigns();
-    }
-
     function renderOverviewLeads(leads) {
       var tbody = document.getElementById('overviewLeadsTableBody');
       if (!tbody) return;
-      var slice = leads.slice(0, 5);
-      tbody.innerHTML = slice.map(function(l) {
+      var recent = (leads || getLeads()).slice(0, 5);
+
+      tbody.innerHTML = recent.map(function(l) {
+        var waPhone = (l.phone || '').replace(/[^0-9]/g,'');
+        var waLink = 'https://wa.me/' + waPhone;
         var statusClass = l.status === 'New' ? 'status-new' : (l.status === 'Enrolled' ? 'status-enrolled' : 'status-contacted');
+
         return `
-          <tr>
-            <td><strong>${escapeHtml(l.name)}</strong></td>
+          <tr class="table-row-animate">
+            <td><strong style="color:#ffffff;">${escapeHtml(l.name)}</strong></td>
             <td>${escapeHtml(l.email)}</td>
-            <td><a href="https://wa.me/${l.phone.replace(/[^0-9]/g,'')}" target="_blank" style="color:#00f2fe; font-weight:700;">${escapeHtml(l.phone)}</a></td>
+            <td>
+              <a href="${waLink}" target="_blank" style="color:#25D366; font-weight:700; text-decoration:none;">
+                💬 ${escapeHtml(l.phone)}
+              </a>
+            </td>
             <td>${escapeHtml(l.country)}</td>
-            <td>${escapeHtml(l.date)}</td>
+            <td>${escapeHtml(formatDateDDMMYYYY(l.date))}</td>
             <td><span class="status-badge ${statusClass}">${escapeHtml(l.status)}</span></td>
           </tr>
         `;
@@ -1106,33 +1515,63 @@
     function renderLeadsTable() {
       var tbody = document.getElementById('fullLeadsTableBody');
       if (!tbody) return;
+
       var leads = getLeads();
-      var query = (document.getElementById('leadSearchInput') ? document.getElementById('leadSearchInput').value : '').toLowerCase();
+      var searchInput = document.getElementById('leadSearchInput');
+      var search = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
-      var filtered = leads.filter(function(l) {
-        return (l.name + ' ' + l.email + ' ' + l.phone + ' ' + l.country).toLowerCase().includes(query);
-      });
+      if (search) {
+        leads = leads.filter(function(l) {
+          return (l.name || '').toLowerCase().includes(search) ||
+                 (l.email || '').toLowerCase().includes(search) ||
+                 (l.phone || '').toLowerCase().includes(search) ||
+                 (l.country || '').toLowerCase().includes(search) ||
+                 (l.id || '').toLowerCase().includes(search);
+        });
+      }
 
-      tbody.innerHTML = filtered.map(function(l) {
+      if (leads.length === 0) {
+        tbody.innerHTML = `<tr class="table-row-animate"><td colspan="8" style="text-align:center; padding:24px; color:#94a3b8;">No student inquiries match your search.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = leads.map(function(l) {
+        var waPhone = (l.phone || '').replace(/[^0-9]/g,'');
+        var waLink = 'https://wa.me/' + waPhone;
         var statusClass = l.status === 'New' ? 'status-new' : (l.status === 'Enrolled' ? 'status-enrolled' : 'status-contacted');
-        var waPhone = l.phone.replace(/[^0-9]/g,'');
+
+        var removeBtn = isSuperAdmin()
+          ? `<button onclick="deleteLead('${l.id}')" class="action-btn action-btn-danger">🗑️ Delete</button>`
+          : `<button disabled class="action-btn" style="opacity:0.35; cursor:not-allowed; background:#475569; color:#94a3b8;">🔒</button>`;
+
+        var mailtoUrl = `mailto:${l.email}?subject=${encodeURIComponent('UNIMED MBBS Admission Guidance')}&body=${encodeURIComponent('Dear ' + l.name + ',\n\nThank you for reaching out to UNIMED Global regarding MBBS admission in ' + l.country + '.\n\nBest regards,\nUNIMED Team')}`;
+
         return `
-          <tr>
+          <tr class="table-row-animate">
             <td><code>${escapeHtml(l.id)}</code></td>
-            <td><strong>${escapeHtml(l.name)}</strong></td>
+            <td><strong style="color:#ffffff; font-size:0.95rem;">${escapeHtml(l.name)}</strong></td>
             <td>
-              ${escapeHtml(l.email)}<br>
-              <a href="https://wa.me/${waPhone}" target="_blank" style="color:#25D366; font-weight:700; font-size:0.85rem;">💬 ${escapeHtml(l.phone)}</a>
+              <div>
+                <a href="${mailtoUrl}" target="_blank" style="color:#00f2fe; text-decoration:none; font-size:0.85rem;" title="Send Email">✉️ ${escapeHtml(l.email)}</a>
+              </div>
+              <a href="${waLink}" target="_blank" style="color:#25D366; font-weight:700; font-size:0.84rem; text-decoration:none; display:inline-flex; align-items:center; gap:4px; margin-top:2px;">
+                💬 ${escapeHtml(l.phone)}
+              </a>
             </td>
-            <td>${escapeHtml(l.country)}</td>
-            <td>${escapeHtml(l.neet || 'N/A')}</td>
-            <td>${escapeHtml(l.date)}</td>
-            <td><span class="status-badge ${statusClass}">${escapeHtml(l.status)}</span></td>
+            <td><strong>${escapeHtml(l.country)}</strong></td>
+            <td><span style="font-size:0.85rem; color:#cbd5e1;">${escapeHtml(l.neet || 'N/A')}</span></td>
+            <td><span style="font-size:0.85rem; color:#94a3b8;">📅 ${escapeHtml(formatDateDDMMYYYY(l.date))}</span></td>
+            <td>
+              <select onchange="updateLeadStatus('${l.id}', this.value)" style="background:#0f172a; border:1px solid rgba(255,255,255,0.15); color:#ffffff; border-radius:6px; padding:4px 8px; font-size:0.8rem; cursor:pointer;">
+                <option value="New" ${l.status === 'New' ? 'selected' : ''}>🔵 New</option>
+                <option value="Contacted" ${l.status === 'Contacted' ? 'selected' : ''}>🟠 Contacted</option>
+                <option value="Enrolled" ${l.status === 'Enrolled' ? 'selected' : ''}>🟢 Enrolled</option>
+              </select>
+            </td>
             <td>
               <div style="display:flex; gap:6px;">
-                <button onclick="updateLeadStatus('${l.id}', 'Contacted')" class="action-btn action-btn-primary">Contacted</button>
-                <button onclick="updateLeadStatus('${l.id}', 'Enrolled')" class="action-btn action-btn-success">Enrolled</button>
-                <button onclick="deleteLead('${l.id}')" class="action-btn action-btn-danger">✕</button>
+                <a href="${waLink}" target="_blank" class="action-btn action-btn-success" style="text-decoration:none;" title="Chat on WhatsApp">💬 Chat</a>
+                ${removeBtn}
               </div>
             </td>
           </tr>
@@ -1147,55 +1586,558 @@
     }
 
     function deleteLead(id) {
+      if (!isSuperAdmin()) {
+        alert('⚠️ Permission Denied: Standard Admin profile cannot remove leads. Please sign in as Super Admin.');
+        return;
+      }
       if (!confirm('Are you sure you want to delete this lead?')) return;
       var leads = getLeads().filter(function(l) { return l.id !== id; });
       saveLeads(leads);
     }
 
-    function exportLeadsCSV() {
-      var leads = getLeads();
-      var csv = "Lead ID,Name,Email,Phone,Country,NEET,Date,Status,Message\n";
-      leads.forEach(function(l) {
-        csv += `"${l.id}","${l.name}","${l.email}","${l.phone}","${l.country}","${l.neet}","${l.date}","${l.status}","${(l.message||'').replace(/"/g,'""')}"\n`;
-      });
-      var blob = new Blob([csv], { type: 'text/csv' });
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `UNIMED_Leads_${Date.now()}.csv`;
-      a.click();
+    var defaultConsultations = [
+      { id: "BOOK-101", name: "Rahul Sharma", email: "rahul.s@example.com", phone: "+91 98765 43210", country: "Russia (BSMU)", mode: "Google Video Call", date: "2026-07-01", slot: "09:00 AM", status: "Confirmed" },
+      { id: "BOOK-102", name: "Ananya Roy", email: "ananya.r@example.com", phone: "+91 91636 54664", country: "Uzbekistan (Gulistan)", mode: "Direct Phone Call", date: "2026-07-04", slot: "11:30 AM", status: "Confirmed" },
+      { id: "BOOK-103", name: "Vikram Singh", email: "vikram.s@example.com", phone: "+91 95997 98618", country: "Russia (FEFU)", mode: "Office Visit", date: "2026-07-15", slot: "02:00 PM", status: "Completed" }
+    ];
+
+    function getConsultations() {
+      try {
+        var raw = localStorage.getItem('unimed_consultations');
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch(e) {}
+      return defaultConsultations;
     }
 
-    // Universities Segment Controller with Photos & Delete/Edit Actions
+    function saveConsultationList(list) {
+      localStorage.setItem('unimed_consultations', JSON.stringify(list));
+      initDashboardData();
+    }
+
+    function saveConsultations(list) {
+      saveConsultationList(list);
+    }
+
+    function getBlockedSlotsList() {
+      try {
+        var raw = localStorage.getItem('unimed_blocked_slots');
+        if (raw) return JSON.parse(raw);
+      } catch(e) {}
+      return [];
+    }
+
+    function saveBlockedSlotsList(list) {
+      localStorage.setItem('unimed_blocked_slots', JSON.stringify(list));
+      initDashboardData();
+    }
+
+    function getUnis() {
+      try {
+        var raw = localStorage.getItem('unimed_universities');
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            parsed.forEach(function(u) {
+              if (imageMap[u.id] && (!u.image || u.image.includes('assets/cards/'))) {
+                u.image = imageMap[u.id];
+              }
+            });
+            return parsed;
+          }
+        }
+      } catch(e) {}
+      return defaultUnis;
+    }
+
+    function saveUnis(unis) {
+      localStorage.setItem('unimed_universities', JSON.stringify(unis));
+      initDashboardData();
+    }
+
+    var defaultSlots = [
+      "09:00 AM",
+      "11:30 AM",
+      "02:00 PM",
+      "04:30 PM"
+    ];
+
+    function formatDateDDMMYYYY(str) {
+      if (!str) return '';
+      var s = String(str).trim();
+      var timePart = '';
+      if (s.includes(' ')) {
+        var parts = s.split(' ');
+        s = parts[0];
+        timePart = ' ' + parts.slice(1).join(' ');
+      } else if (s.includes('T')) {
+        var parts = s.split('T');
+        s = parts[0];
+        timePart = ' ' + parts[1].slice(0, 5);
+      }
+
+      var ymd = s.split('-');
+      if (ymd.length === 3 && ymd[0].length === 4) {
+        return ymd[2] + '-' + ymd[1] + '-' + ymd[0] + timePart;
+      }
+      return str;
+    }
+
+    // Full Visual Month Calendar State for Admin
+    var adminCalCurrentYear = 2026;
+    var adminCalCurrentMonth = 6; // July
+    var adminSelectedDateStr = "2026-07-01";
+
+    function changeAdminCalMonth(delta) {
+      adminCalCurrentMonth += delta;
+      if (adminCalCurrentMonth > 11) {
+        adminCalCurrentMonth = 0;
+        adminCalCurrentYear++;
+      } else if (adminCalCurrentMonth < 0) {
+        adminCalCurrentMonth = 11;
+        adminCalCurrentYear--;
+      }
+      renderAdminCalendar();
+    }
+
+    function selectAdminCalDate(dateStr) {
+      adminSelectedDateStr = dateStr;
+      renderAdminCalendar();
+      renderAdminSlotManager();
+    }
+
+    function renderAdminCalendar() {
+      var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      
+      var titleEl = document.getElementById('adminCalMonthYear');
+      if (titleEl) titleEl.textContent = monthNames[adminCalCurrentMonth] + ' ' + adminCalCurrentYear;
+
+      var grid = document.getElementById('adminCalDaysGrid');
+      if (!grid) return;
+
+      var firstDayIndex = new Date(adminCalCurrentYear, adminCalCurrentMonth, 1).getDay();
+      var daysInMonth = new Date(adminCalCurrentYear, adminCalCurrentMonth + 1, 0).getDate();
+
+      var bookedList = getConsultations();
+      var blockedList = getBlockedSlotsList();
+      var totalSlotsCount = defaultSlots.length;
+
+      var html = '';
+
+      for (var i = 0; i < firstDayIndex; i++) {
+        html += `<div style="height:44px; min-height:44px;"></div>`;
+      }
+
+      for (var day = 1; day <= daysInMonth; day++) {
+        var mStr = String(adminCalCurrentMonth + 1).padStart(2, '0');
+        var dStr = String(day).padStart(2, '0');
+        var dateStr = `${adminCalCurrentYear}-${mStr}-${dStr}`;
+
+        var isSelected = dateStr === adminSelectedDateStr;
+
+        var dayBookings = bookedList.filter(function(b) { return b.date === dateStr && b.status !== 'Cancelled'; });
+        var dayBlocks = blockedList.filter(function(k) { return k.date === dateStr; });
+
+        var hasBookings = dayBookings.length > 0;
+        var isFullyBlocked = dayBlocks.length >= totalSlotsCount;
+        var isPartiallyBlocked = dayBlocks.length > 0 && !isFullyBlocked;
+
+        var dotHtml = '';
+        if (hasBookings) {
+          dotHtml = `<span style="width:6px; height:6px; border-radius:50%; background:#22c55e; position:absolute; bottom:6px;"></span>`;
+        } else if (isFullyBlocked) {
+          dotHtml = `<span style="width:6px; height:6px; border-radius:50%; background:#ef4444; position:absolute; bottom:6px;"></span>`;
+        } else if (isPartiallyBlocked) {
+          dotHtml = `<span style="width:6px; height:6px; border-radius:50%; background:#f59e0b; position:absolute; bottom:6px;"></span>`;
+        }
+
+        var cellStyle = isSelected
+          ? 'background:#FEE180; color:#0f172a; font-weight:800; border:1px solid #FEE180; box-shadow:0 4px 16px rgba(254, 225, 128, 0.3);'
+          : 'background:rgba(255,255,255,0.03); color:#ffffff; border:1px solid rgba(255,255,255,0.06);';
+
+        html += `
+          <div onclick="selectAdminCalDate('${dateStr}')" style="height:44px; min-height:44px; width:100%; border-radius:12px; ${cellStyle} cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; font-size:0.95rem; box-sizing:border-box; transition:all 0.2s ease;">
+            <span>${day}</span>
+            ${dotHtml}
+          </div>
+        `;
+      }
+
+      grid.innerHTML = html;
+    }
+
+    function initDashboardData() {
+      var leads = getLeads();
+      var elLeads = document.getElementById('statTotalLeads');
+      if (elLeads) elLeads.textContent = leads.length;
+
+      var unis = getUnis();
+      var elUnis = document.getElementById('statTotalUnis');
+      if (elUnis) elUnis.textContent = unis.length;
+
+      var coords = getCoordinators();
+      var elCoords = document.getElementById('statTotalCoordinators');
+      if (elCoords) elCoords.textContent = coords.length;
+
+      // Seed localStorage if empty
+      try {
+        if (!localStorage.getItem('unimed_universities')) localStorage.setItem('unimed_universities', JSON.stringify(defaultUnis));
+        if (!localStorage.getItem('unimed_coordinators')) localStorage.setItem('unimed_coordinators', JSON.stringify(defaultCoordinators));
+        if (!localStorage.getItem('unimed_leads')) localStorage.setItem('unimed_leads', JSON.stringify(defaultLeads));
+      } catch(e) {}
+
+      // Render Tables & Slot Control Center
+      renderOverviewLeads(leads);
+      renderLeadsTable();
+      renderConsultationsTable();
+      renderAdminCalendar();
+      renderAdminSlotManager();
+      renderUniversitiesTable();
+      renderCoordinatorsTable();
+      loadAdCampaigns();
+    }
+
+    // Interactive Slot Availability Control Center for Admin
+    function renderAdminSlotManager() {
+      var selectedDate = adminSelectedDateStr || new Date().toISOString().split('T')[0];
+
+      var formattedLabel = document.getElementById('adminSlotFormattedDate');
+      if (formattedLabel) {
+        formattedLabel.textContent = formatDateDDMMYYYY(selectedDate);
+      }
+
+      var booked = getConsultations();
+      var blocked = getBlockedSlotsList();
+
+      var blockBtnWrap = document.getElementById('adminDayBlockBtnWrap');
+      if (blockBtnWrap) {
+        var dayBlocksCount = blocked.filter(function(k) { return k.date === selectedDate; }).length;
+        if (dayBlocksCount >= defaultSlots.length) {
+          blockBtnWrap.innerHTML = `<button onclick="toggleAllSlotsForSelectedDate(false, this)" class="action-btn action-btn-success" style="padding:10px 18px; border-radius:10px; font-weight:700; font-size:0.82rem; cursor:pointer;">UNBLOCK ENTIRE DAY</button>`;
+        } else {
+          blockBtnWrap.innerHTML = `<button onclick="toggleAllSlotsForSelectedDate(true, this)" class="action-btn" style="background:transparent; border:1px solid rgba(255,255,255,0.2); color:#ffffff; padding:10px 18px; border-radius:10px; font-weight:700; font-size:0.82rem; cursor:pointer;">BLOCK ENTIRE DAY</button>`;
+        }
+      }
+
+      var grid = document.getElementById('adminSlotsGrid');
+      if (!grid) return;
+
+      grid.innerHTML = defaultSlots.map(function(slot) {
+        var bookedRecord = booked.find(function(b) { return b.date === selectedDate && b.slot === slot && b.status !== 'Cancelled'; });
+        var blockedRecord = blocked.find(function(k) { return k.date === selectedDate && k.slot === slot; });
+
+        if (bookedRecord) {
+          return `
+            <div class="slot-card-animate" style="background:rgba(0, 242, 254, 0.05); border:1px solid rgba(0, 242, 254, 0.25); border-radius:14px; padding:18px 24px; display:flex; align-items:center; justify-content:space-between; transition:all 0.3s ease;">
+              <div>
+                <strong style="font-size:1.05rem; color:#ffffff; display:block; margin-bottom:4px;">${slot}</strong>
+                <span style="font-size:0.84rem; color:#00f2fe;">👤 Booked by <strong>${escapeHtml(bookedRecord.name)}</strong> (${escapeHtml(bookedRecord.phone)})</span>
+              </div>
+              <span class="status-badge status-new" style="padding:6px 14px; font-size:0.75rem;">🔵 BOOKED</span>
+            </div>
+          `;
+        } else if (blockedRecord) {
+          return `
+            <div class="slot-card-animate" style="background:rgba(239, 68, 68, 0.06); border:1px solid rgba(239, 68, 68, 0.3); border-radius:14px; padding:18px 24px; display:flex; align-items:center; justify-content:space-between; transition:all 0.3s ease;">
+              <div>
+                <strong style="font-size:1.05rem; color:#ffffff; display:block; margin-bottom:4px;">${slot}</strong>
+                <span style="font-size:0.84rem; color:#fca5a5;">Blocked for bookings</span>
+              </div>
+              <button onclick="toggleSlotAvailability('${selectedDate}', '${slot}', false, this)" class="action-btn action-btn-success" style="padding:8px 18px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer;">
+                UNBLOCK
+              </button>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="slot-card-animate" style="background:rgba(15, 23, 42, 0.6); border:1px solid rgba(255, 255, 255, 0.08); border-radius:14px; padding:18px 24px; display:flex; align-items:center; justify-content:space-between; transition:all 0.3s ease;">
+              <div>
+                <strong style="font-size:1.05rem; color:#ffffff; display:block; margin-bottom:4px;">${slot}</strong>
+                <span style="font-size:0.84rem; color:#94a3b8;">Available for bookings</span>
+              </div>
+              <button onclick="toggleSlotAvailability('${selectedDate}', '${slot}', true, this)" class="action-btn" style="background:transparent; border:1px solid rgba(255,255,255,0.2); color:#ffffff; padding:8px 18px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer;">
+                BLOCK
+              </button>
+            </div>
+          `;
+        }
+      }).join('');
+
+      renderBlockedSlotsTable();
+    }
+
+    function toggleSlotAvailability(date, slot, blockIt, btnEl) {
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.style.opacity = '0.75';
+        btnEl.innerHTML = `<span class="btn-spinner">⏳</span> Updating...`;
+      }
+
+      setTimeout(function() {
+        var blocked = getBlockedSlotsList();
+        if (blockIt) {
+          if (!blocked.some(function(k) { return k.date === date && k.slot === slot; })) {
+            blocked.push({ id: 'BLK-' + Date.now() + '-' + Math.floor(Math.random()*1000), date: date, slot: slot });
+          }
+        } else {
+          blocked = blocked.filter(function(k) { return !(k.date === date && k.slot === slot); });
+        }
+        localStorage.setItem('unimed_blocked_slots', JSON.stringify(blocked));
+
+        // Re-render live without page reload
+        renderAdminCalendar();
+        renderAdminSlotManager();
+        renderConsultationsTable();
+      }, 160);
+    }
+
+    function toggleAllSlotsForSelectedDate(blockAll, btnEl) {
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.style.opacity = '0.75';
+        btnEl.innerHTML = `<span class="btn-spinner">⏳</span> Updating...`;
+      }
+
+      setTimeout(function() {
+        var selectedDate = adminSelectedDateStr || new Date().toISOString().split('T')[0];
+        var blocked = getBlockedSlotsList();
+
+        if (blockAll) {
+          defaultSlots.forEach(function(slot) {
+            if (!blocked.some(function(k) { return k.date === selectedDate && k.slot === slot; })) {
+              blocked.push({ id: 'BLK-' + Date.now() + '-' + Math.floor(Math.random()*1000), date: selectedDate, slot: slot });
+            }
+          });
+        } else {
+          blocked = blocked.filter(function(k) { return k.date !== selectedDate; });
+        }
+
+        localStorage.setItem('unimed_blocked_slots', JSON.stringify(blocked));
+
+        // Re-render live without page reload
+        renderAdminCalendar();
+        renderAdminSlotManager();
+        renderConsultationsTable();
+      }, 160);
+    }
+
+    function renderBlockedSlotsTable() {
+      var tbody = document.getElementById('blockedSlotsTableBody');
+      if (!tbody) return;
+      var blocked = getBlockedSlotsList();
+
+      if (blocked.length === 0) {
+        tbody.innerHTML = `<tr class="table-row-animate"><td colspan="5" style="text-align:center; padding:20px; color:#94a3b8;">No slots currently blocked by admin.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = blocked.map(function(b) {
+        return `
+          <tr class="table-row-animate">
+            <td><code>${escapeHtml(b.id)}</code></td>
+            <td><strong>📅 ${escapeHtml(formatDateDDMMYYYY(b.date))}</strong></td>
+            <td><strong style="color:#00f2fe;">⏰ ${escapeHtml(b.slot)}</strong></td>
+            <td><span class="status-badge action-btn-danger">🔴 Unavailable (Blocked)</span></td>
+            <td>
+              <button onclick="toggleSlotAvailability('${b.date}', '${b.slot}', false, this)" class="action-btn action-btn-success" style="padding:6px 12px; font-size:0.8rem;">
+                🔓 Make Available
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderConsultationsTable() {
+      var tbody = document.getElementById('consultationsTableBody');
+      if (!tbody) return;
+      var consultations = getConsultations();
+      var blocked = getBlockedSlotsList();
+
+      var todayStr = new Date().toISOString().split('T')[0];
+      var todayCount = consultations.filter(function(c) { return c.date === todayStr; }).length;
+
+      var elTotal = document.getElementById('statTotalConsultations');
+      if (elTotal) elTotal.textContent = consultations.length;
+      var elToday = document.getElementById('statTodayConsultations');
+      if (elToday) elToday.textContent = todayCount;
+      var elBlocked = document.getElementById('statBlockedSlots');
+      if (elBlocked) elBlocked.textContent = blocked.length;
+
+      if (consultations.length === 0 && blocked.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#94a3b8;">No consultation appointments booked yet. Try booking a test slot on contact.html!</td></tr>`;
+        return;
+      }
+
+      var rowsHtml = consultations.map(function(c) {
+        var waPhone = c.phone.replace(/[^0-9]/g,'');
+        var waLink = 'https://wa.me/' + waPhone;
+        
+        var statusBadgeClass = c.status === 'Confirmed' ? 'status-enrolled' : (c.status === 'Completed' ? 'status-contacted' : 'status-new');
+
+        // Build Google Calendar Link for Admin
+        var dateParts = (c.date || '').split('-');
+        var startHour = "100000";
+        if ((c.slot||'').includes("11:30")) startHour = "113000";
+        if ((c.slot||'').includes("02:00")) startHour = "140000";
+        if ((c.slot||'').includes("03:30")) startHour = "153000";
+        if ((c.slot||'').includes("05:00")) startHour = "170000";
+        if ((c.slot||'').includes("06:30")) startHour = "183000";
+
+        var startIso = `${dateParts[0]||'2026'}${dateParts[1]||'07'}${dateParts[2]||'25'}T${startHour}`;
+        var endIso = `${dateParts[0]||'2026'}${dateParts[1]||'07'}${dateParts[2]||'25'}T${parseInt(startHour.slice(0,2))+1}${startHour.slice(2)}`;
+
+        var gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('UNIMED Consultation (' + c.name + ')')}&dates=${startIso}/${endIso}&details=${encodeURIComponent('Student: ' + c.name + '\nPhone: ' + c.phone + '\nCountry: ' + c.country)}&location=${encodeURIComponent(c.mode || 'Google Meet')}`;
+
+        var removeBtn = isSuperAdmin()
+          ? `<button onclick="deleteConsultation('${c.id}')" class="action-btn action-btn-danger" title="Delete Booking">✕</button>`
+          : `<button disabled class="action-btn" style="opacity:0.35; cursor:not-allowed; background:#475569; color:#94a3b8;">🔒</button>`;
+
+        var mailtoUrl = `mailto:${c.email}?subject=${encodeURIComponent('UNIMED MBBS Consultation Meeting Link')}&body=${encodeURIComponent('Dear ' + c.name + ',\n\nHere is your meeting details for the UNIMED MBBS Consultation scheduled for ' + formatDateDDMMYYYY(c.date) + ' at ' + c.slot + '.\n\nMode: ' + c.mode + '\n\nBest regards,\nUNIMED Global Team')}`;
+
+        return `
+          <tr>
+            <td><code>${escapeHtml(c.id)}</code></td>
+            <td>
+              <strong style="font-size:0.95rem; color:#ffffff;">${escapeHtml(c.name)}</strong>
+              <div style="margin:2px 0; font-size:0.84rem;">
+                <a href="${mailtoUrl}" target="_blank" style="color:#00f2fe; text-decoration:none; font-weight:600;" title="Send Meeting Link Email">✉️ ${escapeHtml(c.email || 'No Email')}</a>
+              </div>
+              <a href="${waLink}" target="_blank" style="color:#25D366; font-weight:700; font-size:0.82rem; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                💬 ${escapeHtml(c.phone)}
+              </a>
+            </td>
+            <td><strong>📅 ${escapeHtml(formatDateDDMMYYYY(c.date))}</strong><br><span style="font-size:0.8rem; color:#00f2fe;">⏰ ${escapeHtml(c.slot)}</span></td>
+            <td>${escapeHtml(c.country)}</td>
+            <td><span style="font-size:0.85rem; color:#cbd5e1;">${escapeHtml(c.mode)}</span></td>
+            <td><span class="status-badge ${statusBadgeClass}">${escapeHtml(c.status)}</span></td>
+            <td>
+              <div style="display:flex; gap:6px;">
+                <a href="${gcalUrl}" target="_blank" class="action-btn action-btn-primary" style="text-decoration:none;" title="Sync / View in Google Calendar">📅 Calendar</a>
+                <a href="${mailtoUrl}" target="_blank" class="action-btn" style="background:rgba(255,255,255,0.1); color:#ffffff; text-decoration:none;" title="Email Meeting Link to Client">✉️ Mail Link</a>
+                <button onclick="updateConsultationStatus('${c.id}', 'Completed')" class="action-btn action-btn-success" title="Mark Session Completed">✅ Done</button>
+                ${removeBtn}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      tbody.innerHTML = rowsHtml;
+    }
+
+    function updateConsultationStatus(id, newStatus) {
+      var list = getConsultations();
+      list.forEach(function(c) { if (c.id === id) c.status = newStatus; });
+      saveConsultationList(list);
+    }
+
+    function deleteConsultation(id) {
+      if (!isSuperAdmin()) {
+        alert('⚠️ Permission Denied: Standard Admin cannot delete appointment records.');
+        return;
+      }
+      if (!confirm('Are you sure you want to delete this consultation appointment?')) return;
+      var list = getConsultations().filter(function(c) { return c.id !== id; });
+      saveConsultationList(list);
+    }
+
+    function openBlockSlotModal() {
+      document.getElementById('blockSlotModal').style.display = 'flex';
+    }
+
+    function closeBlockSlotModal() {
+      document.getElementById('blockSlotModal').style.display = 'none';
+    }
+
+    function handleSaveBlockSlot(e) {
+      e.preventDefault();
+      var date = document.getElementById('blockSlotDate').value;
+      var slot = document.getElementById('blockSlotTime').value;
+
+      if (!date || !slot) {
+        alert('Please select both a date and a time slot.');
+        return;
+      }
+
+      var blocked = getBlockedSlotsList();
+      if (!blocked.some(function(k) { return k.date === date && k.slot === slot; })) {
+        blocked.push({ id: 'BLK-' + Date.now(), date: date, slot: slot });
+        localStorage.setItem('unimed_blocked_slots', JSON.stringify(blocked));
+      }
+
+      adminSelectedDateStr = date;
+      var parts = date.split('-');
+      if (parts.length === 3) {
+        adminCalCurrentYear = parseInt(parts[0]);
+        adminCalCurrentMonth = parseInt(parts[1]) - 1;
+      }
+
+      closeBlockSlotModal();
+      initDashboardData();
+      alert('Time slot (' + slot + ') for ' + formatDateDDMMYYYY(date) + ' blocked successfully!');
+    }
+
+    // Universities Segment Controller with Country Tabs, HD Campus Photos & Actions
+    var currentUniFilter = 'all';
+
+    function filterUniCountry(country, btnEl) {
+      currentUniFilter = country;
+      document.querySelectorAll('.uni-filter-btn').forEach(function(b) {
+        b.className = 'action-btn uni-filter-btn';
+        b.style.background = 'rgba(255,255,255,0.08)';
+        b.style.color = '#ffffff';
+      });
+      if (btnEl) {
+        btnEl.className = 'action-btn action-btn-primary uni-filter-btn active';
+        btnEl.style.background = '';
+        btnEl.style.color = '';
+      }
+      renderUniversitiesTable();
+    }
+
     function renderUniversitiesTable() {
       var tbody = document.getElementById('universitiesTableBody');
       if (!tbody) return;
       var unis = getUnis();
 
+      if (currentUniFilter && currentUniFilter !== 'all') {
+        unis = unis.filter(function(u) {
+          return (u.country || '').toLowerCase().includes(currentUniFilter.toLowerCase());
+        });
+      }
+
       tbody.innerHTML = unis.map(function(u) {
-        var imgHtml = u.image ? `<img src="${u.image}" alt="${escapeHtml(u.name)}" style="width:74px; height:48px; object-fit:cover; border-radius:10px; border:1px solid rgba(255,255,255,0.15);">` : `<div style="width:74px; height:48px; background:rgba(255,255,255,0.06); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">🏛️</div>`;
-        var logoHtml = u.logo ? `<img src="${u.logo}" alt="logo" style="width:26px; height:26px; object-fit:contain; border-radius:6px; background:#ffffff; padding:2px;">` : '';
+        var imgPath = u.image || imageMap[u.id] || 'assets/universities/campus_baskir.png';
+        var imgHtml = `<img src="${imgPath}" alt="${escapeHtml(u.name)}" onerror="this.onerror=null; this.src='assets/common/logo.png';" style="width:110px; height:68px; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,0.15); display:block; background:#1e293b; box-shadow:0 4px 12px rgba(0,0,0,0.35);">`;
+        var logoHtml = u.logo ? `<img src="${u.logo}" alt="" onerror="this.style.display='none';" style="width:28px; height:28px; object-fit:contain; border-radius:6px; background:#ffffff; padding:2px;">` : '';
         
         var statusClass = u.status === 'Open' ? 'status-enrolled' : (u.status === 'Closed' ? 'action-btn-danger' : 'status-contacted');
+        var removeBtn = isSuperAdmin()
+          ? `<button onclick="deleteUni('${u.id}')" class="action-btn action-btn-danger">🗑️ Remove</button>`
+          : `<button disabled class="action-btn" style="opacity:0.35; cursor:not-allowed; background:#475569; color:#94a3b8;" title="Standard Admin cannot remove entries">🔒 Remove Disabled</button>`;
 
         return `
-          <tr>
+          <tr class="table-row-animate">
             <td>${imgHtml}</td>
             <td>
               <div style="display:flex; align-items:center; gap:10px;">
                 ${logoHtml}
                 <div>
-                  <strong style="font-size:0.95rem;">${escapeHtml(u.name)}</strong>
-                  <div style="font-size:0.75rem; color:#94a3b8;">ID: <code>${escapeHtml(u.id)}</code></div>
+                  <strong style="font-size:0.98rem; color:#ffffff;">${escapeHtml(u.name)}</strong>
+                  <div style="font-size:0.75rem; color:#94a3b8; margin-top:2px;">ID: <code>${escapeHtml(u.id)}</code></div>
                 </div>
               </div>
             </td>
-            <td>${escapeHtml(u.country)} · ${escapeHtml(u.location)}</td>
+            <td><strong>${escapeHtml(u.country)}</strong><br><span style="font-size:0.82rem; color:#94a3b8;">📍 ${escapeHtml(u.location)}</span></td>
             <td><strong style="color:#00f2fe;">${escapeHtml(u.budget)}</strong></td>
             <td><span class="status-badge ${statusClass}">${escapeHtml(u.status)}</span></td>
             <td>
               <div style="display:flex; gap:6px;">
                 <button onclick="openEditUniModal('${u.id}')" class="action-btn action-btn-primary">✏️ Edit</button>
-                <button onclick="deleteUni('${u.id}')" class="action-btn action-btn-danger">🗑️ Remove</button>
+                ${removeBtn}
               </div>
             </td>
           </tr>
@@ -1287,7 +2229,7 @@
           location: location,
           budget: budget,
           status: status,
-          image: image || 'assets/cards/c.bsmu_campus.png',
+          image: image || 'assets/universities/campus_baskir.png',
           logo: logo || 'assets/common/logo.png'
         };
         unis.push(newUni);
@@ -1299,6 +2241,10 @@
     }
 
     function deleteUni(id) {
+      if (!isSuperAdmin()) {
+        alert('⚠️ Permission Denied: Standard Admin profile can add and edit entries, but cannot remove anything from the website. Please sign in as Super Admin.');
+        return;
+      }
       if (!confirm('Are you sure you want to remove this university from the website list?')) return;
       var unis = getUnis().filter(function(u) { return u.id !== id; });
       saveUnis(unis);
@@ -1311,21 +2257,133 @@
       }
     }
 
-    // Coordinators Segment Render
+    // Coordinators Segment Controller with Add, Edit & Remove Actions
+    function getCoordinators() {
+      try {
+        var raw = localStorage.getItem('unimed_coordinators');
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch(e) {}
+      return defaultCoordinators;
+    }
+
+    function saveCoordinators(coords) {
+      localStorage.setItem('unimed_coordinators', JSON.stringify(coords));
+      initDashboardData();
+    }
+
     function renderCoordinatorsTable() {
       var tbody = document.getElementById('coordinatorsTableBody');
       if (!tbody) return;
-      tbody.innerHTML = defaultCoordinators.map(function(c) {
+      var coords = getCoordinators();
+      var elStat = document.getElementById('statTotalCoordinators');
+      if (elStat) elStat.textContent = coords.length;
+
+      tbody.innerHTML = coords.map(function(c) {
+        var waPhone = (c.phone || '').replace(/[^0-9]/g,'');
+        var waLink = c.link || ('https://wa.me/' + waPhone);
+        var removeBtn = isSuperAdmin()
+          ? `<button onclick="deleteCoord('${c.id}')" class="action-btn action-btn-danger">🗑️ Remove</button>`
+          : `<button disabled class="action-btn" style="opacity:0.35; cursor:not-allowed; background:#475569; color:#94a3b8;" title="Standard Admin cannot remove entries">🔒 Remove Disabled</button>`;
+
         return `
           <tr>
-            <td><strong>${escapeHtml(c.role)}</strong></td>
-            <td>${escapeHtml(c.name)}</td>
+            <td><strong style="color:#00f2fe;">${escapeHtml(c.role)}</strong></td>
+            <td><strong>${escapeHtml(c.name)}</strong></td>
             <td>${escapeHtml(c.region)}</td>
-            <td><a href="${c.link}" target="_blank" style="color:#25D366; font-weight:700;">${escapeHtml(c.phone)}</a></td>
-            <td><button class="action-btn action-btn-primary">Edit Contact</button></td>
+            <td>
+              <a href="${escapeHtml(waLink)}" target="_blank" style="color:#25D366; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                💬 ${escapeHtml(c.phone)}
+              </a>
+            </td>
+            <td>
+              <div style="display:flex; gap:6px;">
+                <button onclick="openEditCoordModal('${c.id}')" class="action-btn action-btn-primary">✏️ Edit</button>
+                ${removeBtn}
+              </div>
+            </td>
           </tr>
         `;
       }).join('');
+    }
+
+    function openAddCoordModal() {
+      document.getElementById('coordModalTitle').textContent = '+ Add New Coordinator';
+      document.getElementById('coordFormId').value = '';
+      document.getElementById('coordFormRole').value = 'Coordinator';
+      document.getElementById('coordFormName').value = '';
+      document.getElementById('coordFormRegion').value = '';
+      document.getElementById('coordFormPhone').value = '';
+      document.getElementById('coordModal').style.display = 'flex';
+    }
+
+    function openEditCoordModal(id) {
+      var coords = getCoordinators();
+      var c = coords.find(function(item) { return item.id === id; });
+      if (!c) return;
+
+      document.getElementById('coordModalTitle').textContent = '✏️ Edit Coordinator: ' + c.name;
+      document.getElementById('coordFormId').value = c.id;
+      document.getElementById('coordFormRole').value = c.role;
+      document.getElementById('coordFormName').value = c.name;
+      document.getElementById('coordFormRegion').value = c.region;
+      document.getElementById('coordFormPhone').value = c.phone;
+      document.getElementById('coordModal').style.display = 'flex';
+    }
+
+    function closeCoordModal() {
+      document.getElementById('coordModal').style.display = 'none';
+    }
+
+    function handleSaveCoord(e) {
+      e.preventDefault();
+      var id = document.getElementById('coordFormId').value;
+      var role = document.getElementById('coordFormRole').value;
+      var name = document.getElementById('coordFormName').value;
+      var region = document.getElementById('coordFormRegion').value;
+      var phone = document.getElementById('coordFormPhone').value;
+      var waPhone = phone.replace(/[^0-9]/g,'');
+      var link = 'https://wa.me/' + waPhone;
+
+      var coords = getCoordinators();
+
+      if (id) {
+        coords.forEach(function(c) {
+          if (c.id === id) {
+            c.role = role;
+            c.name = name;
+            c.region = region;
+            c.phone = phone;
+            c.link = link;
+          }
+        });
+      } else {
+        var newCoord = {
+          id: 'coord-' + Date.now(),
+          role: role,
+          name: name,
+          region: region,
+          phone: phone,
+          link: link
+        };
+        coords.push(newCoord);
+      }
+
+      saveCoordinators(coords);
+      closeCoordModal();
+      alert('Coordinator saved successfully!');
+    }
+
+    function deleteCoord(id) {
+      if (!isSuperAdmin()) {
+        alert('⚠️ Permission Denied: Standard Admin profile can add and edit entries, but cannot remove anything from the website. Please sign in as Super Admin.');
+        return;
+      }
+      if (!confirm('Are you sure you want to remove this coordinator?')) return;
+      var coords = getCoordinators().filter(function(c) { return c.id !== id; });
+      saveCoordinators(coords);
     }
 
     // Ad Campaigns Controller
@@ -1340,19 +2398,20 @@
         if (raw) ads = JSON.parse(raw);
       } catch(e) {}
 
-      document.getElementById('adTopActive').checked = ads.topBanner.active;
-      document.getElementById('adTopBadge').value = ads.topBanner.badge || '';
-      document.getElementById('adTopText').value = ads.topBanner.text || '';
-      document.getElementById('adTopBtnText').value = ads.topBanner.btnText || '';
-      document.getElementById('adTopLink').value = ads.topBanner.link || '';
+      var el1 = document.getElementById('adTopActive'); if (el1) el1.checked = ads.topBanner.active;
+      var el2 = document.getElementById('adTopBadge'); if (el2) el2.value = ads.topBanner.badge || '';
+      var el3 = document.getElementById('adTopText'); if (el3) el3.value = ads.topBanner.text || '';
+      var el4 = document.getElementById('adTopBtnText'); if (el4) el4.value = ads.topBanner.btnText || '';
+      var el5 = document.getElementById('adTopLink'); if (el5) el5.value = ads.topBanner.link || '';
 
-      document.getElementById('adPopupActive').checked = ads.popupModal.active;
-      document.getElementById('adPopupTitle').value = ads.popupModal.title || '';
-      document.getElementById('adPopupSubtitle').value = ads.popupModal.subtitle || '';
-      document.getElementById('adPopupBtnText').value = ads.popupModal.btnText || '';
-      document.getElementById('adPopupLink').value = ads.popupModal.link || '';
+      var el6 = document.getElementById('adPopupActive'); if (el6) el6.checked = ads.popupModal.active;
+      var el7 = document.getElementById('adPopupTitle'); if (el7) el7.value = ads.popupModal.title || '';
+      var el8 = document.getElementById('adPopupSubtitle'); if (el8) el8.value = ads.popupModal.subtitle || '';
+      var el9 = document.getElementById('adPopupBtnText'); if (el9) el9.value = ads.popupModal.btnText || '';
+      var el10 = document.getElementById('adPopupLink'); if (el10) el10.value = ads.popupModal.link || '';
 
-      document.getElementById('statActiveAds').textContent = (ads.topBanner.active ? 1 : 0) + (ads.popupModal.active ? 1 : 0);
+      var elStat = document.getElementById('statActiveAds');
+      if (elStat) elStat.textContent = (ads.topBanner.active ? 1 : 0) + (ads.popupModal.active ? 1 : 0);
     }
 
     function saveAdCampaigns() {
@@ -1385,10 +2444,15 @@
     }
 
     function clearAllData() {
+      if (!isSuperAdmin()) {
+        alert('⚠️ Permission Denied: Standard Admin profile cannot clear or reset website data. Please sign in as Super Admin.');
+        return;
+      }
       if (confirm('Clear all leads and reset settings?')) {
         localStorage.removeItem('unimed_leads');
         localStorage.removeItem('unimed_ad_campaigns');
         localStorage.removeItem('unimed_universities');
+        localStorage.removeItem('unimed_coordinators');
         initDashboardData();
       }
     }
