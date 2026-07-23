@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <script src="theme.js"></script>
+  <script src="ads.js?v=2026"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us | UNIMED Global</title>
@@ -95,7 +96,7 @@
       <!-- Left Column: Inquiry Form -->
       <article class="contact-card">
         <h3 class="checklist-title" style="margin-bottom: 20px;">Admission Inquiry Form</h3>
-        <form class="contact-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Thank you! Your query has been submitted. Our counselors will call you shortly.');">
+        <form class="contact-form" action="#" method="POST" onsubmit="handleContactFormSubmit(event)">
           
           <div class="form-group">
             <label class="form-label" for="full-name">Full Name</label>
@@ -115,9 +116,9 @@
           <div class="form-group">
             <label class="form-label" for="study-country">Country of Interest</label>
             <select class="form-select" id="study-country">
-              <option value="uzbekistan">Uzbekistan (e.g. Gulistan State)</option>
-              <option value="russia">Russia (e.g. Kazan Federal)</option>
-              <option value="either">Open to Both</option>
+              <option value="Uzbekistan">Uzbekistan (e.g. Gulistan State)</option>
+              <option value="Russia">Russia (e.g. BSMU / FEFU / Omsk)</option>
+              <option value="Open to Both">Open to Both</option>
             </select>
           </div>
 
@@ -395,6 +396,42 @@
 
 
   <script>
+    // Lead Submission Capture for Admin Panel
+    function handleContactFormSubmit(e) {
+      e.preventDefault();
+      var form = e.target;
+      var name = form.querySelector('#full-name') ? form.querySelector('#full-name').value : '';
+      var email = form.querySelector('#email') ? form.querySelector('#email').value : '';
+      var phone = form.querySelector('#phone') ? form.querySelector('#phone').value : '';
+      var country = form.querySelector('#study-country') ? form.querySelector('#study-country').value : '';
+      var neet = form.querySelector('#neet-score') ? form.querySelector('#neet-score').value : '';
+      var message = form.querySelector('#message') ? form.querySelector('#message').value : '';
+
+      var now = new Date();
+      var dateStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+      var lead = {
+        id: 'LEAD-' + Math.floor(1000 + Math.random() * 9000),
+        name: name || 'Anonymous Student',
+        email: email || 'N/A',
+        phone: phone || 'N/A',
+        country: country || 'General Inquiry',
+        neet: neet || 'N/A',
+        message: message || '',
+        date: dateStr,
+        status: 'New'
+      };
+
+      try {
+        var existing = JSON.parse(localStorage.getItem('unimed_leads') || '[]');
+        existing.unshift(lead);
+        localStorage.setItem('unimed_leads', JSON.stringify(existing));
+      } catch(err) {}
+
+      alert('Thank you, ' + (name || 'student') + '! Your admission inquiry has been logged. Our senior counselor will connect with you via WhatsApp/call shortly.');
+      form.reset();
+    }
+
     // Mobile hamburger nav
     (function() {
       function initMobileNav() {
