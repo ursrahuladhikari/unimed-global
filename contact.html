@@ -135,8 +135,8 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="neet-score">NEET Score (if qualified)</label>
-            <input class="form-input" type="number" id="neet-score" placeholder="e.g. 240" min="0" max="720">
+            <label class="form-label" for="neet-score">NEET Score (Max 720 marks)</label>
+            <input class="form-input" type="number" id="neet-score" placeholder="e.g. 240 (Max 720)" min="0" max="720" oninput="if(parseInt(this.value, 10) > 720){ this.value = 720; } if(parseInt(this.value, 10) < 0){ this.value = 0; }">
           </div>
 
           <div class="form-group">
@@ -419,6 +419,14 @@
       var country = form.querySelector('#study-country') ? form.querySelector('#study-country').value : '';
       var neet = form.querySelector('#neet-score') ? form.querySelector('#neet-score').value : '';
       var message = form.querySelector('#message') ? form.querySelector('#message').value : '';
+
+      if (neet !== '') {
+        var neetNum = parseInt(neet, 10);
+        if (isNaN(neetNum) || neetNum < 0 || neetNum > 720) {
+          alert('⚠️ Invalid NEET Score: The NEET UG total maximum score is 720 marks. Please enter a valid score between 0 and 720.');
+          return;
+        }
+      }
 
       var now = new Date();
       var dateStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
