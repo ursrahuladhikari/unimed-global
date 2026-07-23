@@ -3404,6 +3404,74 @@ html.light-theme .form-select {
   color: var(--color-logo-green);
 }
 
+/* 🟢 WhatsApp Contact Capsule Button */
+.wa-contact-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: rgba(37, 211, 102, 0.14) !important;
+  color: #25D366 !important;
+  border: 1px solid rgba(37, 211, 102, 0.35) !important;
+  padding: 6px 14px !important;
+  border-radius: 999px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: all 0.25s ease !important;
+  margin-top: 6px !important;
+  width: fit-content !important;
+}
+
+.wa-contact-btn:hover {
+  background: #25D366 !important;
+  color: #ffffff !important;
+  border-color: #25D366 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35) !important;
+}
+
+.wa-icon-svg {
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0 !important;
+  fill: currentColor !important;
+}
+
+/* 📸 Instagram Contact Capsule Button */
+.ig-contact-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: linear-gradient(135deg, rgba(131, 58, 180, 0.15), rgba(253, 29, 29, 0.15), rgba(252, 176, 69, 0.15)) !important;
+  color: #e1306c !important;
+  border: 1px solid rgba(225, 48, 108, 0.35) !important;
+  padding: 6px 14px !important;
+  border-radius: 999px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: all 0.25s ease !important;
+  margin-top: 6px !important;
+  width: fit-content !important;
+}
+
+.ig-contact-btn:hover {
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(225, 48, 108, 0.35) !important;
+}
+
+.ig-icon-svg {
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0 !important;
+  stroke: currentColor !important;
+}
+
 /* ========================================================================= */
 /* FOOTER                                                                    */
 /* ========================================================================= */
@@ -7594,12 +7662,12 @@ html.light-theme .footer-logo-accent {
 }
 
 .hero-cta-btn.btn-primary:hover .cta-btn-text {
-  transform: translateX(44px) !important;
+  transform: translateX(54px) !important;
   color: #ffffff !important;
 }
 
 .hero-cta-btn.btn-primary:hover .cta-btn-icon {
-  transform: translateX(-110px) rotate(-45deg) !important;
+  transform: translateX(-94px) rotate(-45deg) !important;
   background: #ffffff !important;
   color: #15803d !important;
 }
@@ -7628,12 +7696,12 @@ html.light-theme .footer-logo-accent {
 }
 
 .hero-cta-btn.btn-secondary:hover .cta-btn-text {
-  transform: translateX(44px) !important;
+  transform: translateX(54px) !important;
   color: #ffffff !important;
 }
 
 .hero-cta-btn.btn-secondary:hover .cta-btn-icon {
-  transform: translateX(-155px) rotate(-45deg) !important;
+  transform: translateX(-170px) rotate(-45deg) !important;
   background: #00f2fe !important;
   color: #0f172a !important;
 }
@@ -7696,10 +7764,12 @@ html.light-theme .hero-cta-btn.btn-secondary:hover {
 }
 
 html.light-theme .hero-cta-btn.btn-secondary:hover .cta-btn-text {
+  transform: translateX(54px) !important;
   color: #ffffff !important; /* Extremely high contrast white text over dark navy background on hover! */
 }
 
 html.light-theme .hero-cta-btn.btn-secondary:hover .cta-btn-icon {
+  transform: translateX(-170px) rotate(-45deg) !important;
   background: #00f2fe !important;
   color: #0f172a !important;
 }
