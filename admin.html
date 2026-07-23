@@ -73,6 +73,33 @@
       width: 92%;
     }
 
+    @media (max-width: 900px) {
+      .lamp-login-stage {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        padding: 24px 16px;
+        box-sizing: border-box;
+      }
+
+      .lamp-fixture-wrap {
+        width: 220px;
+        height: 200px;
+      }
+
+      .lamp-svg {
+        width: 200px;
+        height: 190px;
+      }
+
+      .glass-login-card {
+        width: 100% !important;
+        max-width: 360px !important;
+        padding: 30px 22px !important;
+        box-sizing: border-box !important;
+      }
+    }
+
     .lamp-fixture-wrap {
       position: relative;
       width: 320px;
@@ -591,16 +618,16 @@
           <button type="button" onclick="selectLoginRole('standard')" id="btnRoleStandard" class="action-btn" style="flex:1; padding:9px 6px; font-size:0.78rem; background:rgba(255,255,255,0.1); color:#ffffff;">👤 Standard Admin</button>
         </div>
 
-        <form onsubmit="handleAdminLogin(event)">
+        <form onsubmit="handleAdminLogin(event)" autocomplete="off">
           <div class="form-group" style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
             <div class="field-block">
               <label for="username" class="field-label" style="display:block; font-size:0.85rem; font-weight:600; color:#cbd5e1; margin-bottom:6px;">Username</label>
-              <input type="text" id="username" class="field-input" value="superadmin" placeholder="Enter name" required autocomplete="username" style="width:100%; padding:13px 16px; background:rgba(15,23,42,0.7); border:1px solid rgba(255,255,255,0.12); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
+              <input type="text" id="username" class="field-input" value="" placeholder="Enter Username" required autocomplete="off" style="width:100%; padding:13px 16px; background:rgba(15,23,42,0.7); border:1px solid rgba(255,255,255,0.12); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
             </div>
 
             <div class="field-block">
               <label for="password" class="field-label" style="display:block; font-size:0.85rem; font-weight:600; color:#cbd5e1; margin-bottom:6px;">Password</label>
-              <input type="password" id="password" class="field-input" value="super123" placeholder="Enter Password" required autocomplete="current-password" style="width:100%; padding:13px 16px; background:rgba(15,23,42,0.7); border:1px solid rgba(255,255,255,0.12); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
+              <input type="password" id="password" class="field-input" value="" placeholder="Enter Password" required autocomplete="new-password" style="width:100%; padding:13px 16px; background:rgba(15,23,42,0.7); border:1px solid rgba(255,255,255,0.12); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
             </div>
           </div>
 
@@ -1290,14 +1317,11 @@
 
     // Auth & Role-Based Access Control (RBAC)
     function selectLoginRole(type) {
-      var userIn = document.getElementById('username');
-      var passIn = document.getElementById('password');
       var btnSuper = document.getElementById('btnRoleSuper');
       var btnStandard = document.getElementById('btnRoleStandard');
 
       if (type === 'super') {
-        userIn.value = 'superadmin';
-        passIn.value = 'super123';
+        sessionStorage.setItem('unimed_admin_role', 'super_admin');
         if (btnSuper) btnSuper.className = 'action-btn action-btn-primary';
         if (btnStandard) {
           btnStandard.className = 'action-btn';
@@ -1305,8 +1329,7 @@
           btnStandard.style.color = '#ffffff';
         }
       } else {
-        userIn.value = 'admin-standard';
-        passIn.value = 'standard123';
+        sessionStorage.setItem('unimed_admin_role', 'standard_admin');
         if (btnStandard) btnStandard.className = 'action-btn action-btn-primary';
         if (btnSuper) {
           btnSuper.className = 'action-btn';
