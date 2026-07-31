@@ -175,7 +175,7 @@
                 </div>
                 <div>
                   <label style="font-size:0.82rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px; letter-spacing:0.02em;">WhatsApp Number *</label>
-                  <input type="tel" id="bkPhone" required placeholder="+91 98765 43210" style="width:100%; padding:14px 16px; background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.15); border-radius:14px; color:#ffffff; font-size:0.95rem; font-family:'Outfit', sans-serif; box-sizing:border-box; outline:none;">
+                  <input type="tel" id="bkPhone" required placeholder="+919876543210 or 9876543210" oninput="sanitizeBkPhone(this)" style="width:100%; padding:14px 16px; background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.15); border-radius:14px; color:#ffffff; font-size:0.95rem; font-family:'Outfit', sans-serif; box-sizing:border-box; outline:none;">
                 </div>
               </div>
 
@@ -319,12 +319,55 @@
     }
   };
 
+  window.sanitizeBkPhone = function(inputEl) {
+    if (!inputEl) return;
+    var val = inputEl.value;
+    var hasPlus = val.startsWith('+');
+    var digitsOnly = val.replace(/[^0-9]/g, '');
+    if (hasPlus) {
+      inputEl.value = '+' + digitsOnly;
+    } else {
+      inputEl.value = digitsOnly;
+    }
+  };
+
+  function validateBkPhone(phoneStr) {
+    if (!phoneStr) return { valid: false, message: 'Please enter a valid phone number.' };
+
+    var trimmed = String(phoneStr).trim();
+    var hasPlus = trimmed.startsWith('+');
+    var digitsOnly = trimmed.replace(/[^0-9]/g, '');
+
+    if (digitsOnly.length === 0) {
+      return { valid: false, message: '⚠️ Invalid Phone Number: Alphabets are not allowed. Please enter numbers only.' };
+    }
+
+    if (hasPlus) {
+      if (digitsOnly.length < 11 || digitsOnly.length > 14) {
+        return { valid: false, message: '⚠️ Invalid Phone Number: Phone number with country code must contain country code + 10 digits (e.g. +919876543210 or +9779876543210).' };
+      }
+    } else {
+      if (digitsOnly.length !== 10) {
+        return { valid: false, message: '⚠️ Invalid Phone Number: Phone number without country code must be EXACTLY 10 digits.' };
+      }
+    }
+
+    return { valid: true, formatted: hasPlus ? ('+' + digitsOnly) : digitsOnly };
+  }
+
   window.handleBookingStep1Submit = function(e) {
     if (e) e.preventDefault();
+    var phoneVal = (document.getElementById('bkPhone') ? document.getElementById('bkPhone').value.trim() : '');
+    var phoneCheck = validateBkPhone(phoneVal);
+    if (!phoneCheck.valid) {
+      alert(phoneCheck.message);
+      return;
+    }
+
     currentBookingData = {
       name: (document.getElementById('bkName') ? document.getElementById('bkName').value.trim() : ''),
       email: (document.getElementById('bkEmail') ? document.getElementById('bkEmail').value.trim() : ''),
-      phone: (document.getElementById('bkPhone') ? document.getElementById('bkPhone').value.trim() : ''),
+      phone: phoneCheck.formatted,
       country: (document.getElementById('bkCountry') ? document.getElementById('bkCountry').value : 'Russia'),
       mode: (document.getElementById('bkMode') ? document.getElementById('bkMode').value : 'Google Video Call')
     };
