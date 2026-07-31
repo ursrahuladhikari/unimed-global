@@ -68,6 +68,74 @@
   function renderTopBanner(config) {
     if (document.getElementById('unimedTopAdBanner')) return;
 
+    if (!document.getElementById('topAdBannerStyles')) {
+      var styleTag = document.createElement('style');
+      styleTag.id = 'topAdBannerStyles';
+      styleTag.textContent = `
+        .top-ad-banner-btn {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: space-between !important;
+          gap: 10px !important;
+          background: linear-gradient(135deg, #00f2fe, #3b82f6) !important;
+          color: #0f172a !important;
+          padding: 4px 4px 4px 18px !important;
+          border-radius: 999px !important;
+          text-decoration: none !important;
+          font-family: 'Outfit', sans-serif !important;
+          font-weight: 800 !important;
+          font-size: 0.8rem !important;
+          box-shadow: 0 4px 15px rgba(0, 242, 254, 0.35) !important;
+          position: relative !important;
+          overflow: hidden !important;
+          cursor: pointer !important;
+          transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .top-ad-banner-btn .top-ad-btn-text {
+          order: 1 !important;
+          color: #0f172a !important;
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+          white-space: nowrap !important;
+          display: inline-block !important;
+        }
+
+        .top-ad-banner-btn .top-ad-btn-icon {
+          order: 2 !important;
+          width: 26px !important;
+          height: 26px !important;
+          border-radius: 50% !important;
+          background: #0f172a !important;
+          color: #00f2fe !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease !important;
+          flex-shrink: 0 !important;
+        }
+
+        .top-ad-banner-btn:hover {
+          transform: translateY(-2px) !important;
+          box-shadow: 0 8px 24px rgba(0, 242, 254, 0.5) !important;
+        }
+
+        .top-ad-banner-btn:hover .top-ad-btn-text {
+          transform: translateX(32px) !important;
+        }
+
+        .top-ad-banner-btn:hover .top-ad-btn-icon {
+          transform: translateX(-82px) rotate(-45deg) !important;
+          background: #ffffff !important;
+          color: #0f172a !important;
+        }
+
+        .top-ad-banner-btn:active {
+          transform: translateY(0) scale(0.97) !important;
+        }
+      `;
+      document.head.appendChild(styleTag);
+    }
+
     var isLightTheme = document.documentElement.classList.contains('light-theme');
 
     var banner = document.createElement('div');
@@ -112,18 +180,15 @@
     ` : '';
 
     var btnHtml = config.btnText ? `
-      <a href="${config.link || 'contact.html'}" style="
-        background: linear-gradient(135deg, #00f2fe, #3b82f6) !important;
-        color: #0f172a !important;
-        padding: 5px 16px !important;
-        border-radius: 999px !important;
-        text-decoration: none !important;
-        font-weight: 800 !important;
-        font-size: 0.8rem !important;
-        box-shadow: 0 4px 15px rgba(0, 242, 254, 0.35) !important;
-        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-        display: inline-block !important;
-      ">${escapeHtml(config.btnText)} →</a>
+      <a href="${config.link || 'contact.html'}" class="top-ad-banner-btn">
+        <span class="top-ad-btn-text">${escapeHtml(config.btnText)}</span>
+        <span class="top-ad-btn-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </span>
+      </a>
     ` : '';
 
     banner.innerHTML = `
