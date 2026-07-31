@@ -38,29 +38,36 @@ const cacheBuster = Date.now();
 // =========================================================================
 // 1. THREE.JS LOADING MANAGER & PRELOADER CONTROLLER
 // =========================================================================
-function hidePreloader() {
-  if (preloader && !preloader.classList.contains('fade-out')) {
-    if (progressPercent) progressPercent.textContent = '100%';
-    setTimeout(() => {
-      preloader.classList.add('fade-out');
-    }, 200);
-  }
+
+// Helper: safely call the loader API (works even if loader.js is removed)
+function loaderAPI() {
+  return window.__unimedLoader || { setProgress: function(){}, hide: function(){} };
 }
 
-// Fail-safe: guarantee preloader fades out within 1.5s max even if remote textures delay or fail
-setTimeout(hidePreloader, 1500);
+function hidePreloader() {
+  loaderAPI().hide();
+  if (canvas) canvas.style.opacity = '1';
+}
+
+// Fail-safe: if Three.js hangs, dismiss after 6s
+setTimeout(hidePreloader, 6000);
 
 const loadingManager = new THREE.LoadingManager();
 
 loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
-  const percent = Math.round((itemsLoaded / itemsTotal) * 100);
-  if (progressPercent) {
-    progressPercent.textContent = `${percent}%`;
-  }
+  // Map loaded/total to 10-95% range (0-10% reserved for init, 95-100% for final render)
+  const rawPct  = itemsTotal > 0 ? (itemsLoaded / itemsTotal) : 0;
+  const displayPct = Math.round(10 + rawPct * 85);
+  loaderAPI().setProgress(displayPct);
 };
 
 loadingManager.onLoad = () => {
-  hidePreloader();
+  // All textures loaded — give Three.js one frame to render, then hide
+  requestAnimationFrame(function() {
+    loaderAPI().setProgress(100);
+    hidePreloader();
+    if (canvas) canvas.style.opacity = '1';
+  });
 };
 
 loadingManager.onError = (url) => {
@@ -79,6 +86,16 @@ function initThree() {
 
   // 1. Scene
   scene = new THREE.Scene();
+
+  // Set canvas opacity transition to eliminate texture pop-in when returning to Home page
+  if (canvas) {
+    canvas.style.transition = 'opacity 0.25s ease-out';
+    if (sessionStorage.getItem('unimed_splash_done')) {
+      canvas.style.opacity = '0';
+    } else {
+      canvas.style.opacity = '1';
+    }
+  }
 
   // 2. Camera
   const heroSection = canvas ? canvas.closest('.hero-section') : null;
@@ -251,6 +268,11 @@ function initThree() {
 
   // Begin animation rendering loop
   animate();
+
+  // Guarantee canvas fades in smoothly within 150ms when returning to Home page
+  setTimeout(() => {
+    if (canvas) canvas.style.opacity = '1';
+  }, 150);
 }
 
 // =========================================================================

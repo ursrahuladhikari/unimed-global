@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <script src="loader.js"></script>
   <script src="theme.js"></script>
   <script src="ads.js?v=2026"></script>
   <script src="booking.js"></script>
@@ -10,7 +11,7 @@
   <title>UNIMED Global | Guiding Future Doctors</title>
   <meta name="description"
     content="Complete your MBBS in top-tier state medical universities in Russia & Uzbekistan with affordable tuition fees. Expert, hassle-free guidance from counselling to graduation. Apply now with UNIMED Global.">
-  <link rel="stylesheet" href="style.css?v=2026">
+  <link rel="stylesheet" href="style.css?v=2026_glass_tabs">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -344,28 +345,7 @@
 
 <body class="home-page">
 
-  <!-- ===================================================================== -->
-  <!-- PRELOADER                                                              -->
-  <!-- ===================================================================== -->
-  <div id="preloader" class="preloader">
-    <div class="loader-inner">
-      <div class="spinner"></div>
-      <div class="loader-text"><span id="loader-percentage">0%</span></div>
-    </div>
-  </div>
-  <script>
-    // Inline fail-safe: guarantee preloader fades out quickly regardless of JS/CDN state 
-    (function() {
-      setTimeout(function() {
-        var p = document.getElementById('preloader');
-        if (p && !p.classList.contains('fade-out')) {
-          var pct = document.getElementById('loader-percentage');
-          if (pct) pct.textContent = '100%';
-          p.classList.add('fade-out');
-        }
-      }, 100);
-    })();
-  </script>
+
 
   <!-- ===================================================================== -->
   <!-- GLOBAL NAVIGATION HEADER                                              -->
@@ -2225,8 +2205,12 @@
   <!-- ===================================================================== -->
   <!-- CALL TO ACTION: COUNSELLING BANNER                                    -->
   <!-- ===================================================================== -->
+  <!-- ===================================================================== -->
+  <!-- CALL TO ACTION: COUNSELLING BANNER                                    -->
+  <!-- ===================================================================== -->
   <section class="counselling-cta-section">
-    <div class="counselling-cta-content">
+    <div class="bottom-glow-texture" aria-hidden="true"></div>
+    <div class="counselling-cta-content bottom-fade-up">
       <span class="counselling-cta-tag">Get Guidance</span>
       <div class="counselling-cta-highlight-container" id="counsellingHighlight">
         <h2 class="counselling-cta-title">
@@ -2262,9 +2246,10 @@
   <!-- SITE FOOTER                                                           -->
   <!-- ===================================================================== -->
   <footer class="footer-wrapper home-footer">
+    <div class="bottom-glow-texture" aria-hidden="true"></div>
 
     <!-- DYNAMIC ROTATING WORD HERO BANNER -->
-    <div class="bottom-hero-banner">
+    <div class="bottom-hero-banner bottom-fade-up bottom-fade-up-delay-1">
       <div class="bottom-hero-container">
         <h2 class="bottom-hero-title">
           <span class="bottom-hero-static">Let's</span>
@@ -2310,7 +2295,7 @@
       })();
     </script>
 
-    <div class="footer-grid">
+    <div class="footer-grid bottom-fade-up bottom-fade-up-delay-2">
       <div class="footer-col">
         <div class="footer-logo">
           <img src="assets/common/logo.png" alt="UniMed Global Logo" class="footer-logo-img">
@@ -2344,7 +2329,7 @@
         </p>
       </div>
     </div>
-    <div class="footer-bottom">
+    <div class="footer-bottom bottom-fade-up bottom-fade-up-delay-3">
       <p class="footer-copy">© 2026 UNIMED Global. All Rights Reserved.</p>
       <p class="footer-designer">Designed by <a href="https://www.instagram.com/ursrahuladhikari/" target="_blank" rel="noopener">Rahul Adhikari</a></p>
     </div>
@@ -2588,6 +2573,44 @@
       window.addEventListener('resize', updateActiveNavLink, { passive: true });
       document.addEventListener('DOMContentLoaded', updateActiveNavLink);
       setTimeout(updateActiveNavLink, 200);
+    })();
+  </script>
+
+  <!-- Scroll-Driven Bottom Fade-Up Observer -->
+  <script>
+    (function() {
+      const fadeUpElements = document.querySelectorAll('.bottom-fade-up');
+      if (!fadeUpElements.length) return;
+
+      function activateAll() {
+        fadeUpElements.forEach(el => el.classList.add('fade-up-active'));
+      }
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('fade-up-active');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.01,
+          rootMargin: '100px 0px 100px 0px'
+        });
+
+        fadeUpElements.forEach(el => observer.observe(el));
+
+        // Backup trigger on scroll to guarantee elements near page bottom activate
+        window.addEventListener('scroll', function checkBottom() {
+          if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 350)) {
+            activateAll();
+            window.removeEventListener('scroll', checkBottom);
+          }
+        }, { passive: true });
+      } else {
+        activateAll();
+      }
     })();
   </script>
 </body>
