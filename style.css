@@ -8395,6 +8395,81 @@ img {
   transform: translateY(0) scale(0.97) !important;
 }
 
+/* ── Contact Page & Option Cards Mobile Responsiveness ────────────────── */
+@media (max-width: 640px) {
+  .contact-section {
+    padding: 30px 14px !important;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* Center Option A & Option B Headers, Badges, Titles on Mobile */
+  .option-header-row {
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .option-b-header {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .option-b-title-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .option-card-title {
+    text-align: center !important;
+  }
+
+  .option-card-desc {
+    text-align: center !important;
+  }
+
+  .option-card-badges {
+    justify-content: center !important;
+  }
+
+  .form-submit-btn {
+    padding: 10px 12px !important;
+    gap: 8px !important;
+    font-size: 0.82rem !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .form-submit-btn .cta-btn-text {
+    font-size: 0.82rem !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    text-align: center !important;
+    flex: 1 !important;
+  }
+
+  .form-submit-btn .cta-btn-icon {
+    width: 32px !important;
+    height: 32px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .form-submit-btn:hover .cta-btn-text {
+    transform: translateX(8px) !important;
+  }
+
+  .form-submit-btn:hover .cta-btn-icon {
+    transform: translateX(calc(var(--icon-shift, -200px) * 0.65)) rotate(-45deg) !important;
+  }
+}
+
 
 
 
