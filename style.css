@@ -1421,6 +1421,215 @@ html.light-theme .mobile-cta-btn {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
+/* Contact Form Submit Button — Green Glass with Smooth Sliding Position Swap Animation */
+.form-submit-btn {
+  width: 100% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  padding: 14px 28px !important;
+  border-radius: 999px !important;
+  position: relative !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.98rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  
+  /* Green transparent glass style matching Apply / Enquiry CTA */
+  background: rgba(34, 197, 94, 0.25) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1.5px solid rgba(34, 197, 94, 0.5) !important;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.form-submit-btn .cta-btn-text {
+  display: inline-block !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease !important;
+  white-space: nowrap !important;
+  color: #ffffff !important;
+}
+
+.form-submit-btn .cta-btn-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(34, 197, 94, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease !important;
+  flex-shrink: 0 !important;
+}
+
+/* Hover State — Icon slides smoothly across from right side to left side of text */
+.form-submit-btn:hover {
+  background: rgba(34, 197, 94, 0.45) !important;
+  border-color: #22c55e !important;
+  box-shadow: 0 12px 36px rgba(34, 197, 94, 0.45) !important;
+  transform: translateY(-2px) !important;
+}
+
+.form-submit-btn:hover .cta-btn-text {
+  transform: translateX(20px) !important;
+  color: #ffffff !important;
+}
+
+.form-submit-btn:hover .cta-btn-icon {
+  transform: translateX(var(--icon-shift, -210px)) rotate(-45deg) !important;
+  background: #ffffff !important;
+  color: #15803d !important;
+}
+
+.form-submit-btn:active {
+  transform: translateY(0) scale(0.99) !important;
+}
+
+/* Light Theme Overrides for Form Submit Button */
+html.light-theme .form-submit-btn {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border: 1.5px solid rgba(34, 197, 94, 0.45) !important;
+  color: #15803d !important;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+html.light-theme .form-submit-btn .cta-btn-text {
+  color: #15803d !important;
+}
+
+html.light-theme .form-submit-btn .cta-btn-icon {
+  background: #22c55e !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+html.light-theme .form-submit-btn:hover {
+  background: #22c55e !important;
+  border-color: #16a34a !important;
+  box-shadow: 0 12px 32px rgba(34, 197, 94, 0.35) !important;
+}
+
+html.light-theme .form-submit-btn:hover .cta-btn-text {
+  color: #ffffff !important;
+}
+
+html.light-theme .form-submit-btn:hover .cta-btn-icon {
+  background: #ffffff !important;
+  color: #15803d !important;
+}
+
+/* Booking Modal Back Button Micro-Animation */
+.bk-back-btn {
+  flex: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 14px 20px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 999px !important;
+  color: #ffffff !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.bk-back-btn .back-arrow {
+  display: inline-block !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.bk-back-btn:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.bk-back-btn:hover .back-arrow {
+  transform: translateX(-5px) !important;
+}
+
+.bk-back-btn:active {
+  transform: translateY(0) scale(0.97) !important;
+}
+
+/* White Calendar Icon & Native Date Picker Trigger across site */
+input[type="date"] {
+  color-scheme: dark !important;
+  position: relative !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer !important;
+  opacity: 0 !important;
+  width: 44px !important;
+  height: 100% !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  z-index: 5 !important;
+}
+
+/* Live Blinking Dot Pulse Animation */
+.live-dot-pulse {
+  position: relative !important;
+  display: inline-block !important;
+  width: 8px !important;
+  height: 8px !important;
+  background: #22c55e !important;
+  border-radius: 50% !important;
+  animation: pulseGreenDot 1.6s infinite ease-in-out !important;
+}
+
+@keyframes pulseGreenDot {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+.bk-close-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  flex-shrink: 0 !important;
+}
+
+.bk-close-btn:hover {
+  background: rgba(239, 68, 68, 0.2) !important;
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  color: #ef4444 !important;
+  transform: rotate(90deg) !important;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.4) !important;
+}
+
 /* ========================================================================= */
 /* HOMEPAGE HERO OVERLAY                                                     */
 /* ========================================================================= */
@@ -3947,18 +4156,18 @@ html.light-theme .footer-copy a {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
   line-height: 1;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-/* The large number — HUGE like reference screenshot, with padding to prevent clipping */
+/* The large number — balanced scaling so suffixes fit within card bounds */
 .stat-num {
   font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif !important;
-  font-size: clamp(4.5rem, 8.5vw, 8rem);
-  /* decreased slightly to prevent truncation */
+  font-size: clamp(3.2rem, 6vw, 6rem);
   font-weight: 800;
   letter-spacing: -0.03em;
-  /* slightly wider to prevent clipping */
   color: var(--color-text);
   line-height: 0.85;
   background: linear-gradient(120deg, var(--color-accent), #3b82f6 80%);
@@ -3966,18 +4175,17 @@ html.light-theme .footer-copy a {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: color 0.4s;
-  padding-right: 15px;
-  /* guarantees the last digit won't get cut off */
+  padding-right: 2px;
 }
 
 /* + superscript — sits top-right (after) */
 .stat-plus {
   font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif !important;
-  font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
   font-weight: 700;
   color: var(--color-text);
   line-height: 1;
-  margin-top: 6px;
+  margin-top: 4px;
   margin-left: 2px;
   background: linear-gradient(120deg, var(--color-accent), #3b82f6);
   -webkit-background-clip: text;
@@ -3989,12 +4197,12 @@ html.light-theme .footer-copy a {
 .stat-prefix,
 .stat-suffix {
   font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif !important;
-  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-size: clamp(1.6rem, 3vw, 3rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--color-text);
   line-height: 1;
-  margin-top: 8px;
+  margin-top: 4px;
   background: linear-gradient(120deg, var(--color-accent), #3b82f6);
   -webkit-background-clip: text;
   background-clip: text;
@@ -7992,10 +8200,127 @@ img {
   -khtml-user-drag: none !important;
   -moz-user-drag: none !important;
   -o-user-drag: none !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-  -moz-user-select: none !important;
-  -ms-user-select: none !important;
+}
+
+/* ── Admission Bottom CTA Buttons Micro-Animations (Completely Independent) ── */
+.adm-cta-btn-primary {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  padding: 6px 10px 6px 22px !important;
+  border-radius: 999px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  overflow: hidden !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background: #eab308 !important;
+  color: #020617 !important;
+  border: none !important;
+}
+
+.adm-cta-btn-primary .cta-btn-text {
+  display: inline-block !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease !important;
+  white-space: nowrap !important;
+  color: inherit !important;
+  transform: translateX(0) !important;
+}
+
+.adm-cta-btn-primary .cta-btn-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(2, 6, 23, 0.12) !important;
+  color: #020617 !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease !important;
+  flex-shrink: 0 !important;
+  transform: translateX(0) !important;
+}
+
+.adm-cta-btn-primary:hover {
+  background: #facc15 !important;
+  box-shadow: 0 12px 30px rgba(234, 179, 8, 0.45) !important;
+  transform: translateY(-2px) !important;
+}
+
+.adm-cta-btn-primary:hover .cta-btn-text {
+  transform: translateX(44px) !important;
+}
+
+.adm-cta-btn-primary:hover .cta-btn-icon {
+  transform: translateX(var(--icon-shift, -210px)) !important;
+}
+
+.adm-cta-btn-primary:active {
+  transform: translateY(0) scale(0.97) !important;
+}
+
+/* Secondary Green Glass Button (Isolated & Independent) */
+.adm-cta-btn-secondary {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  padding: 6px 10px 6px 22px !important;
+  border-radius: 999px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  overflow: hidden !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background: rgba(34, 197, 94, 0.1) !important;
+  border: 1.5px solid rgba(34, 197, 94, 0.4) !important;
+  color: #22c55e !important;
+}
+
+.adm-cta-btn-secondary .cta-btn-text {
+  display: inline-block !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease !important;
+  white-space: nowrap !important;
+  color: inherit !important;
+  transform: translateX(0) !important;
+}
+
+.adm-cta-btn-secondary .cta-btn-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(34, 197, 94, 0.2) !important;
+  color: #22c55e !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease !important;
+  flex-shrink: 0 !important;
+  transform: translateX(0) !important;
+}
+
+.adm-cta-btn-secondary:hover {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border-color: #22c55e !important;
+  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.3) !important;
+  transform: translateY(-2px) !important;
+}
+
+.adm-cta-btn-secondary:hover .cta-btn-text {
+  transform: translateX(44px) !important;
+}
+
+.adm-cta-btn-secondary:hover .cta-btn-icon {
+  transform: translateX(var(--icon-shift, -160px)) !important;
+}
+
+.adm-cta-btn-secondary:active {
+  transform: translateY(0) scale(0.97) !important;
 }
 
 

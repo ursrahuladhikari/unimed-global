@@ -95,9 +95,9 @@
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(2, 6, 23, 0.75);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
       z-index: 9999999;
       align-items: center;
       justify-content: center;
@@ -109,47 +109,68 @@
     var todayStr = new Date().toISOString().split('T')[0];
 
     modal.innerHTML = `
-      <div style="position:relative; width:100%; max-width:540px; background:#1e293b; border:1px solid rgba(255,255,255,0.18); border-radius:28px; padding:32px; box-shadow:0 25px 60px rgba(0,0,0,0.6); color:#ffffff; box-sizing:border-box;">
+      <div style="position:relative; width:100%; max-width:540px; background:rgba(15, 23, 42, 0.88); border:1.5px solid rgba(255, 255, 255, 0.18); border-radius:28px; padding:36px; box-shadow:0 30px 80px rgba(0, 0, 0, 0.7); color:#ffffff; box-sizing:border-box; backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);">
         
         <!-- Header -->
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <div style="position:relative; display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px;">
           <div>
-            <span style="font-size:0.75rem; font-weight:800; color:#00f2fe; letter-spacing:0.08em; text-transform:uppercase;">UNIMED 1-on-1 Counseling</span>
-            <h3 style="margin:4px 0 0 0; font-size:1.4rem; font-weight:800; color:#ffffff;">📅 Book a Free Consultation</h3>
+            <div style="display:inline-flex; align-items:center; gap:6px; padding:5px 12px; background:linear-gradient(135deg, rgba(0,242,254,0.12), rgba(59,130,246,0.12)); border:1px solid rgba(0,242,254,0.3); border-radius:100px; margin-bottom:10px;">
+              <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#00f2fe; box-shadow:0 0 8px #00f2fe;"></span>
+              <span style="font-size:0.72rem; font-weight:800; color:#00f2fe; letter-spacing:0.1em; text-transform:uppercase;">1-ON-1 ADMISSION COUNSELING</span>
+            </div>
+            <h3 style="margin:0; font-size:1.5rem; font-weight:800; color:#ffffff; font-family:'Outfit', sans-serif; display:flex; align-items:center; gap:10px; line-height:1.2;">
+              <span style="display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg, rgba(0,242,254,0.2), rgba(59,130,246,0.2)); border:1px solid rgba(0,242,254,0.4); color:#00f2fe; flex-shrink:0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </span>
+              <span>Book a Free Consultation</span>
+            </h3>
           </div>
-          <button type="button" onclick="closeBookingModal()" style="background:rgba(255,255,255,0.1); border:none; color:#ffffff; width:34px; height:34px; border-radius:50%; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+          <button type="button" onclick="closeBookingModal()" class="bk-close-btn" aria-label="Close">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
         </div>
 
-        <!-- Step Indicator -->
-        <div style="display:flex; gap:8px; margin-bottom:24px;">
-          <div id="bookingStepBar1" style="flex:1; height:4px; background:#00f2fe; border-radius:4px; transition:all 0.3s ease;"></div>
-          <div id="bookingStepBar2" style="flex:1; height:4px; background:rgba(255,255,255,0.15); border-radius:4px; transition:all 0.3s ease;"></div>
+        <!-- High-End Step Indicator Badges -->
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:28px; background:rgba(15,23,42,0.5); padding:6px; border-radius:16px; border:1px solid rgba(255,255,255,0.08);">
+          <div id="bookingStepBadge1" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:8px 12px; border-radius:12px; background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:#00f2fe; font-size:0.8rem; font-weight:800; transition:all 0.3s ease;">
+            <span style="width:20px; height:20px; border-radius:50%; background:#00f2fe; color:#0f172a; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900;">1</span>
+            <span>Student Details</span>
+          </div>
+          <div id="bookingStepBadge2" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:8px 12px; border-radius:12px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94a3b8; font-size:0.8rem; font-weight:700; transition:all 0.3s ease;">
+            <span style="width:20px; height:20px; border-radius:50%; background:rgba(255,255,255,0.15); color:#ffffff; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:800;">2</span>
+            <span>Date &amp; Time Slot</span>
+          </div>
         </div>
 
         <!-- STEP 1 FORM -->
         <div id="bookingStep1">
           <form onsubmit="handleBookingStep1Submit(event)">
-            <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; flex-direction:column; gap:16px;">
               <div>
-                <label style="font-size:0.82rem; font-weight:600; color:#94a3b8; display:block; margin-bottom:4px;">Full Name *</label>
-                <input type="text" id="bkName" required placeholder="e.g. Rahul Sharma" style="width:100%; padding:12px; background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
+                <label style="font-size:0.82rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px; letter-spacing:0.02em;">Full Name *</label>
+                <input type="text" id="bkName" required placeholder="e.g. Rahul Sharma" style="width:100%; padding:14px 16px; background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.15); border-radius:14px; color:#ffffff; font-size:0.95rem; font-family:'Outfit', sans-serif; box-sizing:border-box; outline:none;">
               </div>
 
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
                 <div>
-                  <label style="font-size:0.82rem; font-weight:600; color:#94a3b8; display:block; margin-bottom:4px;">Email Address *</label>
-                  <input type="email" id="bkEmail" required placeholder="rahul@example.com" style="width:100%; padding:12px; background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
+                  <label style="font-size:0.82rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px; letter-spacing:0.02em;">Email Address *</label>
+                  <input type="email" id="bkEmail" required placeholder="rahul@example.com" style="width:100%; padding:14px 16px; background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.15); border-radius:14px; color:#ffffff; font-size:0.95rem; font-family:'Outfit', sans-serif; box-sizing:border-box; outline:none;">
                 </div>
                 <div>
-                  <label style="font-size:0.82rem; font-weight:600; color:#94a3b8; display:block; margin-bottom:4px;">WhatsApp Number *</label>
-                  <input type="tel" id="bkPhone" required placeholder="+91 98765 43210" style="width:100%; padding:12px; background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
+                  <label style="font-size:0.82rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px; letter-spacing:0.02em;">WhatsApp Number *</label>
+                  <input type="tel" id="bkPhone" required placeholder="+91 98765 43210" style="width:100%; padding:14px 16px; background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.15); border-radius:14px; color:#ffffff; font-size:0.95rem; font-family:'Outfit', sans-serif; box-sizing:border-box; outline:none;">
                 </div>
               </div>
 
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
                 <div>
-                  <label style="font-size:0.82rem; font-weight:600; color:#94a3b8; display:block; margin-bottom:4px;">Target Country</label>
-                  <select id="bkCountry" style="width:100%; padding:12px; background:#0f172a; border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
+                  <label style="font-size:0.82rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px; letter-spacing:0.02em;">Target Country</label>
+                  <select id="bkCountry" style="width:100%; padding:14px 16px; background:#0f172a; border:1px solid rgba(255,255,255,0.15); border-radius:14px; color:#ffffff; font-size:0.95rem; font-family:'Outfit', sans-serif; box-sizing:border-box; outline:none;">
                     <option value="Russia">Russia</option>
                     <option value="Uzbekistan">Uzbekistan</option>
                     <option value="Kazakhstan">Kazakhstan</option>
@@ -158,8 +179,8 @@
                   </select>
                 </div>
                 <div>
-                  <label style="font-size:0.82rem; font-weight:600; color:#94a3b8; display:block; margin-bottom:4px;">Consultation Mode</label>
-                  <select id="bkMode" style="width:100%; padding:12px; background:#0f172a; border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#ffffff; font-size:0.95rem; box-sizing:border-box;">
+                  <label style="font-size:0.82rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px; letter-spacing:0.02em;">Consultation Mode</label>
+                  <select id="bkMode" style="width:100%; padding:14px 16px; background:#0f172a; border:1px solid rgba(255,255,255,0.15); border-radius:14px; color:#ffffff; font-size:0.95rem; font-family:'Outfit', sans-serif; box-sizing:border-box; outline:none;">
                     <option value="Google Video Call">📹 Google Video Call</option>
                     <option value="Phone Call">📞 Direct Phone Call</option>
                     <option value="Office Visit">🏢 Head Office Visit</option>
@@ -167,47 +188,76 @@
                 </div>
               </div>
 
-              <button type="submit" style="margin-top:10px; width:100%; padding:14px; background:linear-gradient(135deg, #00f2fe, #3b82f6); border:none; border-radius:14px; color:#0f172a; font-weight:800; font-size:1rem; cursor:pointer; box-shadow:0 8px 20px rgba(0,242,254,0.3);">
-                Proceed to Select Date &amp; Slot →
-              </button>
+              <div style="margin-top:10px;">
+                <button type="submit" class="form-submit-btn" style="--icon-shift: -255px;">
+                  <span class="cta-btn-text">Proceed to Select Date &amp; Slot</span>
+                  <span class="cta-btn-icon">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                </button>
+              </div>
             </div>
           </form>
         </div>
 
         <!-- STEP 2: DATE & SLOT PICKER -->
         <div id="bookingStep2" style="display:none;">
-          <div style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; flex-direction:column; gap:18px;">
             <div>
-              <label style="font-size:0.82rem; font-weight:600; color:#94a3b8; display:block; margin-bottom:6px;">Select Consultation Date</label>
-              <input type="date" id="bkDate" min="${todayStr}" value="${todayStr}" onchange="renderTimeSlots()" style="width:100%; padding:12px; background:#0f172a; border:1px solid rgba(255,255,255,0.2); border-radius:12px; color:#00f2fe; font-weight:700; font-size:1rem; box-sizing:border-box;">
+              <label style="font-size:0.82rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px; letter-spacing:0.02em;">Select Consultation Date</label>
+              <div style="position:relative; width:100%;">
+                <input type="date" id="bkDate" min="${todayStr}" value="${todayStr}" onchange="renderTimeSlots()" style="width:100%; padding:14px 46px 14px 16px; background:rgba(15,23,42,0.6); border:1px solid rgba(0,242,254,0.4); border-radius:14px; color:#00f2fe; font-weight:700; font-size:1rem; font-family:'Outfit', sans-serif; box-sizing:border-box; outline:none; color-scheme:dark;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); pointer-events:none; filter:drop-shadow(0 0 6px rgba(0,242,254,0.5));">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
             </div>
 
             <div>
-              <label style="font-size:0.82rem; font-weight:600; color:#94a3b8; display:block; margin-bottom:8px;">Select Available Time Slot</label>
-              <div id="bkSlotsContainer" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <label style="font-size:0.82rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:10px; letter-spacing:0.02em;">Select Available Time Slot</label>
+              <div id="bkSlotsContainer" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                 <!-- Slots populated dynamically -->
               </div>
             </div>
 
-            <div style="display:flex; gap:10px; margin-top:10px;">
-              <button type="button" onclick="goToStep(1)" style="flex:1; padding:12px; background:rgba(255,255,255,0.1); border:none; border-radius:12px; color:#ffffff; font-weight:700; cursor:pointer;">← Back</button>
-              <button type="button" onclick="confirmConsultationBooking()" style="flex:2; padding:12px; background:linear-gradient(135deg, #22c55e, #16a34a); border:none; border-radius:12px; color:#ffffff; font-weight:800; font-size:0.95rem; cursor:pointer; box-shadow:0 8px 20px rgba(34,197,94,0.3);">Confirm &amp; Schedule 📅</button>
+            <div style="display:flex; gap:12px; margin-top:12px; align-items:center;">
+              <button type="button" onclick="goToStep(1)" class="bk-back-btn"><span class="back-arrow">←</span> <span>Back</span></button>
+              <button type="button" onclick="confirmConsultationBooking()" class="form-submit-btn" style="flex:2.2; --icon-shift: -210px;">
+                <span class="cta-btn-text">Confirm &amp; Schedule Slot</span>
+                <span class="cta-btn-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
 
         <!-- STEP 3: SUCCESS CONFIRMATION & GOOGLE CALENDAR LINK -->
         <div id="bookingStep3" style="display:none; text-align:center;">
-          <div style="font-size:3rem; margin-bottom:10px;">🎉</div>
-          <h3 style="margin:0 0 8px 0; font-size:1.3rem; font-weight:800; color:#00f2fe;">Consultation Confirmed!</h3>
-          <p style="font-size:0.9rem; color:#94a3b8; line-height:1.5; margin:0 0 20px 0;" id="bkSuccessText">Your appointment has been successfully scheduled.</p>
+          <div style="font-size:3rem; margin-bottom:12px;">🎉</div>
+          <h3 style="margin:0 0 8px 0; font-size:1.4rem; font-weight:800; color:var(--color-accent, #00f2fe);">Consultation Confirmed!</h3>
+          <p style="font-size:0.92rem; color:#94a3b8; line-height:1.55; margin:0 0 24px 0;" id="bkSuccessText">Your appointment has been successfully scheduled.</p>
 
-          <a id="bkGCalLink" href="#" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:10px; width:100%; padding:14px; background:#ffffff; color:#0f172a; text-decoration:none; font-weight:800; font-size:0.95rem; border-radius:14px; box-shadow:0 8px 25px rgba(255,255,255,0.2); margin-bottom:12px; box-sizing:border-box;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Add to Google Calendar 📅
+          <a id="bkGCalLink" href="#" target="_blank" class="form-submit-btn" style="text-decoration:none; margin-bottom:14px; background:rgba(255,255,255,0.95) !important; color:#0f172a !important;">
+            <span class="cta-btn-text" style="color:#0f172a !important;">Add to Google Calendar 📅</span>
+            <span class="cta-btn-icon" style="background:#0f172a !important; color:#ffffff !important;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
           </a>
 
-          <button type="button" onclick="closeBookingModal()" style="width:100%; padding:12px; background:rgba(255,255,255,0.1); border:none; border-radius:12px; color:#ffffff; font-weight:700; cursor:pointer;">Done</button>
+          <button type="button" onclick="closeBookingModal()" style="width:100%; padding:14px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:100px; color:#ffffff; font-weight:700; font-size:0.9rem; cursor:pointer;">Done</button>
         </div>
 
       </div>
@@ -227,10 +277,30 @@
     if (step2) step2.style.display = step === 2 ? 'block' : 'none';
     if (step3) step3.style.display = step === 3 ? 'block' : 'none';
 
-    var bar1 = document.getElementById('bookingStepBar1');
-    var bar2 = document.getElementById('bookingStepBar2');
-    if (bar1) bar1.style.background = '#00f2fe';
-    if (bar2) bar2.style.background = step >= 2 ? '#00f2fe' : 'rgba(255,255,255,0.15)';
+    var b1 = document.getElementById('bookingStepBadge1');
+    var b2 = document.getElementById('bookingStepBadge2');
+    if (b1) {
+      if (step === 1) {
+        b1.style.background = 'rgba(0,242,254,0.15)';
+        b1.style.border = '1px solid rgba(0,242,254,0.4)';
+        b1.style.color = '#00f2fe';
+      } else {
+        b1.style.background = 'rgba(34,197,94,0.15)';
+        b1.style.border = '1px solid rgba(34,197,94,0.4)';
+        b1.style.color = '#4ade80';
+      }
+    }
+    if (b2) {
+      if (step === 2) {
+        b2.style.background = 'rgba(0,242,254,0.15)';
+        b2.style.border = '1px solid rgba(0,242,254,0.4)';
+        b2.style.color = '#00f2fe';
+      } else {
+        b2.style.background = 'rgba(255,255,255,0.04)';
+        b2.style.border = '1px solid rgba(255,255,255,0.08)';
+        b2.style.color = '#94a3b8';
+      }
+    }
 
     if (step === 2) {
       renderTimeSlots();
@@ -266,7 +336,7 @@
 
       if (isBooked || isBlocked) {
         html += `
-          <button type="button" disabled style="padding:10px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); border-radius:10px; color:#f87171; font-size:0.8rem; font-weight:700; cursor:not-allowed; opacity:0.7;">
+          <button type="button" disabled style="padding:12px 14px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); border-radius:14px; color:#f87171; font-size:0.82rem; font-weight:700; cursor:not-allowed; opacity:0.7;">
             🔴 ${slot}<br><span style="font-size:0.7rem; font-weight:400;">(Booked)</span>
           </button>
         `;
@@ -275,11 +345,11 @@
         if (isFirstAvailable) selectedSlot = slot;
 
         var activeStyle = isFirstAvailable
-          ? 'background:linear-gradient(135deg, #00f2fe, #3b82f6); color:#0f172a; border:1px solid #00f2fe;'
-          : 'background:rgba(15,23,42,0.8); color:#22c55e; border:1px solid rgba(34,197,94,0.4);';
+          ? 'background:rgba(34,197,94,0.25); color:#ffffff; border:1.5px solid #22c55e; box-shadow:0 0 20px rgba(34,197,94,0.35);'
+          : 'background:rgba(15,23,42,0.6); color:#94a3b8; border:1px solid rgba(255,255,255,0.15);';
 
         html += `
-          <button type="button" class="slot-btn" onclick="selectSlot('${slot}', this)" style="padding:10px; ${activeStyle} border-radius:10px; font-size:0.82rem; font-weight:700; cursor:pointer; transition:all 0.2s ease;">
+          <button type="button" class="slot-btn" onclick="selectSlot('${slot}', this)" style="padding:12px 14px; ${activeStyle} border-radius:14px; font-size:0.85rem; font-weight:700; cursor:pointer; transition:all 0.3s cubic-bezier(0.16,1,0.3,1);">
             🟢 ${slot}
           </button>
         `;
@@ -292,13 +362,15 @@
   window.selectSlot = function(slot, btnEl) {
     selectedSlot = slot;
     document.querySelectorAll('.slot-btn').forEach(function(btn) {
-      btn.style.background = 'rgba(15,23,42,0.8)';
-      btn.style.color = '#22c55e';
-      btn.style.border = '1px solid rgba(34,197,94,0.4)';
+      btn.style.background = 'rgba(15,23,42,0.6)';
+      btn.style.color = '#94a3b8';
+      btn.style.border = '1px solid rgba(255,255,255,0.15)';
+      btn.style.boxShadow = 'none';
     });
-    btnEl.style.background = 'linear-gradient(135deg, #00f2fe, #3b82f6)';
-    btnEl.style.color = '#0f172a';
-    btnEl.style.border = '1px solid #00f2fe';
+    btnEl.style.background = 'rgba(34,197,94,0.25)';
+    btnEl.style.color = '#ffffff';
+    btnEl.style.border = '1.5px solid #22c55e';
+    btnEl.style.boxShadow = '0 0 20px rgba(34,197,94,0.35)';
   };
 
   window.confirmConsultationBooking = function() {
