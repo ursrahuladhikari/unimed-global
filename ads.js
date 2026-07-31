@@ -179,8 +179,9 @@
       ">${escapeHtml(config.badge)}</span>
     ` : '';
 
+    var targetLink = config.link || 'contact.html';
     var btnHtml = config.btnText ? `
-      <a href="${config.link || 'contact.html'}" class="top-ad-banner-btn">
+      <button type="button" class="top-ad-banner-btn" data-target-link="${targetLink}">
         <span class="top-ad-btn-text">${escapeHtml(config.btnText)}</span>
         <span class="top-ad-btn-icon">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -188,7 +189,7 @@
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </span>
-      </a>
+      </button>
     ` : '';
 
     banner.innerHTML = `
@@ -214,16 +215,39 @@
 
     document.body.insertBefore(banner, document.body.firstChild);
 
+    // Close (✕) button dismisses banner for the session
     var closeBtn = document.getElementById('closeTopAdBtn');
     if (closeBtn) {
       closeBtn.addEventListener('click', function() {
         sessionStorage.setItem('unimed_ad_banner_dismissed', 'true');
         banner.style.opacity = '0';
         banner.style.transform = 'translateY(-100%)';
+        setTimeout(function() { banner.remove(); }, 300);
+      });
+    }
+
+    // CTA button — dismiss banner and navigate to target page
+    var ctaBtn = banner.querySelector('.top-ad-banner-btn');
+    if (ctaBtn) {
+      ctaBtn.addEventListener('click', function() {
+        sessionStorage.setItem('unimed_ad_banner_dismissed', 'true');
+        var href = ctaBtn.getAttribute('data-target-link') || 'contact.html';
+        banner.style.opacity = '0';
+        banner.style.transform = 'translateY(-100%)';
         setTimeout(function() {
           banner.remove();
-        }, 300);
+          window.location.href = href;
+        }, 280);
       });
+    }
+
+    // Auto-dismiss if already on the target page
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (currentPage === (targetLink.split('/').pop() || 'contact.html')) {
+      sessionStorage.setItem('unimed_ad_banner_dismissed', 'true');
+      banner.style.opacity = '0';
+      banner.style.transform = 'translateY(-100%)';
+      setTimeout(function() { banner.remove(); }, 100);
     }
   }
 
