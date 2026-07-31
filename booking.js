@@ -331,6 +331,39 @@
     goToStep(2);
   };
 
+  function parseSlotTime(slotStr) {
+    var parts = slotStr.trim().split(' ');
+    var time = parts[0].split(':');
+    var hour = parseInt(time[0], 10);
+    var min = parseInt(time[1], 10);
+    var ampm = (parts[1] || 'AM').toUpperCase();
+
+    if (ampm === 'PM' && hour < 12) hour += 12;
+    if (ampm === 'AM' && hour === 12) hour = 0;
+
+    return { hour: hour, min: min };
+  }
+
+  function isSlotPassed(selectedDateStr, slotStr) {
+    var now = new Date();
+    var localYear = now.getFullYear();
+    var localMonth = String(now.getMonth() + 1).padStart(2, '0');
+    var localDay = String(now.getDate()).padStart(2, '0');
+    var todayStr = `${localYear}-${localMonth}-${localDay}`;
+
+    if (selectedDateStr < todayStr) return true;
+    if (selectedDateStr > todayStr) return false;
+
+    var slotTime = parseSlotTime(slotStr);
+    var currentHour = now.getHours();
+    var currentMin = now.getMinutes();
+
+    if (currentHour > slotTime.hour) return true;
+    if (currentHour === slotTime.hour && currentMin >= slotTime.min) return true;
+
+    return false;
+  }
+
   window.renderTimeSlots = function() {
     var container = document.getElementById('bkSlotsContainer');
     if (!container) return;
@@ -345,11 +378,13 @@
     defaultSlots.forEach(function(slot) {
       var isBooked = booked.some(function(b) { return b.date === selectedDate && b.slot === slot && b.status !== 'Cancelled'; });
       var isBlocked = blocked.some(function(k) { return k.date === selectedDate && k.slot === slot; });
+      var isPassed = isSlotPassed(selectedDate, slot);
 
-      if (isBooked || isBlocked) {
+      if (isBooked || isBlocked || isPassed) {
+        var label = isBooked ? '(Booked)' : (isBlocked ? '(Blocked)' : '(Time Passed)');
         html += `
-          <button type="button" disabled style="padding:12px 14px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); border-radius:14px; color:#f87171; font-size:0.82rem; font-weight:700; cursor:not-allowed; opacity:0.7;">
-            🔴 ${slot}<br><span style="font-size:0.7rem; font-weight:400;">(Booked)</span>
+          <button type="button" disabled style="padding:12px 14px; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.25); border-radius:14px; color:#f87171; font-size:0.82rem; font-weight:700; cursor:not-allowed; opacity:0.65;">
+            🔴 ${slot}<br><span style="font-size:0.7rem; font-weight:400;">${label}</span>
           </button>
         `;
       } else {
