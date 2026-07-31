@@ -1536,6 +1536,13 @@
       } catch(e) {}
     }
 
+    function initDashboardData() {
+      var leads = getLeads();
+      renderOverviewLeads(leads);
+      renderLeadsTable();
+      if (typeof renderConsultationsTable === 'function') renderConsultationsTable();
+    }
+
     // Dashboard Data Controller
     function getLeads() {
       try {
@@ -2592,30 +2599,30 @@
       
       // Sync Leads collection
       window.db.collection('leads').onSnapshot(function(snapshot) {
-        if (!snapshot || snapshot.empty) return;
+        if (!snapshot) return;
         var firestoreLeads = [];
         snapshot.forEach(function(doc) {
           firestoreLeads.push(doc.data());
         });
-        if (firestoreLeads.length) {
+        if (firestoreLeads.length > 0) {
           localStorage.setItem('unimed_leads', JSON.stringify(firestoreLeads));
-          initDashboardData();
         }
+        initDashboardData();
       }, function(err) {
         console.warn('Firestore leads sync notice:', err);
       });
 
       // Sync Consultations collection
       window.db.collection('consultations').onSnapshot(function(snapshot) {
-        if (!snapshot || snapshot.empty) return;
+        if (!snapshot) return;
         var firestoreConsultations = [];
         snapshot.forEach(function(doc) {
           firestoreConsultations.push(doc.data());
         });
-        if (firestoreConsultations.length) {
+        if (firestoreConsultations.length > 0) {
           localStorage.setItem('unimed_consultations', JSON.stringify(firestoreConsultations));
-          if (typeof renderAdminConsultations === 'function') renderAdminConsultations();
         }
+        if (typeof renderConsultationsTable === 'function') renderConsultationsTable();
       }, function(err) {
         console.warn('Firestore consultations sync notice:', err);
       });
