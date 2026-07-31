@@ -957,7 +957,8 @@
                 <tr>
                   <th>Appointment ID</th>
                   <th>Student Name &amp; Contact Email</th>
-                  <th>Date (DD-MM-YYYY) &amp; Slot</th>
+                  <th>Booked On (Submission Time)</th>
+                  <th>Appointment Date &amp; Slot</th>
                   <th>Target Country</th>
                   <th>Mode</th>
                   <th>Slot Status</th>
@@ -2135,7 +2136,7 @@
       if (elBlocked) elBlocked.textContent = blocked.length;
 
       if (consultations.length === 0 && blocked.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#94a3b8;">No consultation appointments booked yet. Try booking a test slot on contact.html!</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:30px; color:#94a3b8;">No consultation appointments booked yet. Try booking a test slot on contact.html!</td></tr>`;
         return;
       }
 
@@ -2144,6 +2145,7 @@
         var waLink = 'https://wa.me/' + waPhone;
         
         var statusBadgeClass = c.status === 'Confirmed' ? 'status-enrolled' : (c.status === 'Completed' ? 'status-contacted' : 'status-new');
+        var bookedOnStr = c.createdAt ? formatDateDDMMYYYY(c.createdAt) : (c.date ? formatDateDDMMYYYY(c.date) : 'N/A');
 
         // Build Google Calendar Link for Admin
         var dateParts = (c.date || '').split('-');
@@ -2177,6 +2179,7 @@
                 💬 ${escapeHtml(c.phone)}
               </a>
             </td>
+            <td><span style="font-size:0.85rem; color:#94a3b8;">📅 ${escapeHtml(bookedOnStr)}</span></td>
             <td><strong>📅 ${escapeHtml(formatDateDDMMYYYY(c.date))}</strong><br><span style="font-size:0.8rem; color:#00f2fe;">⏰ ${escapeHtml(c.slot)}</span></td>
             <td>${escapeHtml(c.country)}</td>
             <td><span style="font-size:0.85rem; color:#cbd5e1;">${escapeHtml(c.mode)}</span></td>
