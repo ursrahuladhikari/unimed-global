@@ -3,6 +3,10 @@
 <head>
   <script src="theme.js"></script>
   <script src="ads.js?v=2026"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
   <script src="booking.js?v=2026"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -560,6 +564,13 @@
         existing.unshift(lead);
         localStorage.setItem('unimed_leads', JSON.stringify(existing));
       } catch(err) {}
+
+      // Save to Cloud Firestore
+      if (window.db) {
+        window.db.collection('leads').doc(lead.id).set(lead)
+          .then(function() { console.log('🔥 Lead synced to Cloud Firestore:', lead.id); })
+          .catch(function(err) { console.error('⚠️ Firestore save error:', err); });
+      }
 
       alert('Thank you, ' + (name || 'student') + '! Your admission inquiry has been logged. Our senior counselor will connect with you via WhatsApp/call shortly.');
       form.reset();

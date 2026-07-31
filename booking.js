@@ -67,7 +67,7 @@
     // Also push into unimed_leads for unified CRM access
     try {
       var leads = JSON.parse(localStorage.getItem('unimed_leads') || '[]');
-      leads.unshift({
+      var leadObj = {
         id: 'CON-' + Date.now().toString().slice(-4),
         name: booking.name,
         email: booking.email,
@@ -77,8 +77,20 @@
         date: booking.date + ' ' + booking.slot,
         status: 'New',
         message: 'Booked 1-on-1 Consultation slot for ' + booking.date + ' @ ' + booking.slot + ' via ' + booking.mode
-      });
+      };
+      leads.unshift(leadObj);
       localStorage.setItem('unimed_leads', JSON.stringify(leads));
+
+      // Save to Cloud Firestore
+      if (window.db) {
+        window.db.collection('consultations').doc(booking.id).set(booking)
+          .then(function() { console.log('🔥 Consultation synced to Cloud Firestore:', booking.id); })
+          .catch(function(err) { console.error('⚠️ Firestore consultation save error:', err); });
+
+        window.db.collection('leads').doc(leadObj.id).set(leadObj)
+          .then(function() { console.log('🔥 Consultation lead synced to Cloud Firestore:', leadObj.id); })
+          .catch(function(err) { console.error('⚠️ Firestore lead save error:', err); });
+      }
     } catch(e) {}
   }
 
