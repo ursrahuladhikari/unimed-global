@@ -189,7 +189,7 @@
               </div>
 
               <div style="margin-top:10px;">
-                <button type="submit" class="form-submit-btn" style="--icon-shift: -255px;">
+                <button type="submit" class="form-submit-btn" style="--icon-shift: -255px; --mobile-icon-shift: -185px;">
                   <span class="cta-btn-text">Proceed to Select Date &amp; Slot</span>
                   <span class="cta-btn-icon">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -226,9 +226,8 @@
               </div>
             </div>
 
-            <div style="display:flex; gap:12px; margin-top:12px; align-items:center;">
-              <button type="button" onclick="goToStep(1)" class="bk-back-btn"><span class="back-arrow">←</span> <span>Back</span></button>
-              <button type="button" onclick="confirmConsultationBooking()" class="form-submit-btn" style="flex:2.2; --icon-shift: -210px;">
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:14px;">
+              <button type="button" onclick="confirmConsultationBooking()" class="form-submit-btn" style="width:100% !important;">
                 <span class="cta-btn-text">Confirm &amp; Schedule Slot</span>
                 <span class="cta-btn-icon">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -237,6 +236,7 @@
                   </svg>
                 </span>
               </button>
+              <button type="button" onclick="goToStep(1)" class="bk-back-btn" style="width:100% !important; justify-content:center !important; padding:10px !important;"><span class="back-arrow">←</span> <span>Back to Step 1</span></button>
             </div>
           </div>
         </div>

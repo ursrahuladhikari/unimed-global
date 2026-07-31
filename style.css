@@ -1422,22 +1422,23 @@ html.light-theme .mobile-cta-btn {
 }
 
 /* Contact Form Submit Button — Green Glass with Smooth Sliding Position Swap Animation */
+/* Contact Form & Modal Submit Buttons — Universal Dynamic Position Swap */
 .form-submit-btn {
   width: 100% !important;
   display: inline-flex !important;
   align-items: center !important;
-  justify-content: center !important;
-  gap: 12px !important;
-  padding: 14px 28px !important;
+  justify-content: flex-start !important;
+  padding: 12px 48px 12px 18px !important;
   border-radius: 999px !important;
   position: relative !important;
   font-family: 'Outfit', sans-serif !important;
-  font-size: 0.98rem !important;
+  font-size: 0.92rem !important;
   font-weight: 700 !important;
   text-decoration: none !important;
   overflow: hidden !important;
   cursor: pointer !important;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-sizing: border-box !important;
+  transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease !important;
   
   /* Green transparent glass style matching Apply / Enquiry CTA */
   background: rgba(34, 197, 94, 0.25) !important;
@@ -1453,37 +1454,47 @@ html.light-theme .mobile-cta-btn {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease !important;
   white-space: nowrap !important;
   color: #ffffff !important;
+  transform: translateX(0) !important;
+  text-align: left !important;
 }
 
 .form-submit-btn .cta-btn-icon {
-  width: 38px !important;
-  height: 38px !important;
+  position: absolute !important;
+  right: 8px !important;
+  top: 50% !important;
+  transform: translateY(-50%) rotate(0deg) !important;
+  width: 34px !important;
+  height: 34px !important;
   border-radius: 50% !important;
-  display: inline-flex !important;
+  display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   background: rgba(34, 197, 94, 0.45) !important;
   border: 1px solid rgba(255, 255, 255, 0.4) !important;
   color: #ffffff !important;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease !important;
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease !important;
   flex-shrink: 0 !important;
 }
 
-/* Hover State — Icon slides smoothly across from right side to left side of text */
-.form-submit-btn:hover {
+/* Hover State — Icon glides from right to exact left padding, text glides right */
+.form-submit-btn:hover,
+.form-submit-btn:active {
   background: rgba(34, 197, 94, 0.45) !important;
   border-color: #22c55e !important;
   box-shadow: 0 12px 36px rgba(34, 197, 94, 0.45) !important;
   transform: translateY(-2px) !important;
 }
 
-.form-submit-btn:hover .cta-btn-text {
-  transform: translateX(20px) !important;
+.form-submit-btn:hover .cta-btn-text,
+.form-submit-btn:active .cta-btn-text {
+  transform: translateX(38px) !important;
   color: #ffffff !important;
 }
 
-.form-submit-btn:hover .cta-btn-icon {
-  transform: translateX(var(--icon-shift, -210px)) rotate(-45deg) !important;
+.form-submit-btn:hover .cta-btn-icon,
+.form-submit-btn:active .cta-btn-icon {
+  right: calc(100% - 42px) !important;
+  transform: translateY(-50%) rotate(-45deg) !important;
   background: #ffffff !important;
   color: #15803d !important;
 }
@@ -8395,7 +8406,7 @@ img {
   transform: translateY(0) scale(0.97) !important;
 }
 
-/* ── Contact Page & Option Cards Mobile Responsiveness ────────────────── */
+/* ── Mobile Button Position-Exchange Switching Animation ─────────────── */
 @media (max-width: 640px) {
   .contact-section {
     padding: 30px 14px !important;
@@ -8439,34 +8450,48 @@ img {
   }
 
   .form-submit-btn {
-    padding: 10px 12px !important;
-    gap: 8px !important;
-    font-size: 0.82rem !important;
+    padding: 10px 38px 10px 14px !important;
+    font-size: 0.8rem !important;
     max-width: 100% !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    overflow: hidden !important;
+    position: relative !important;
   }
 
   .form-submit-btn .cta-btn-text {
-    font-size: 0.82rem !important;
-    line-height: 1.25 !important;
-    white-space: normal !important;
-    text-align: center !important;
-    flex: 1 !important;
+    font-size: 0.8rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: inline-block !important;
   }
 
   .form-submit-btn .cta-btn-icon {
-    width: 32px !important;
-    height: 32px !important;
+    width: 30px !important;
+    height: 30px !important;
+    position: absolute !important;
+    right: 6px !important;
+    top: 50% !important;
+    transform: translateY(-50%) rotate(0deg) !important;
     flex-shrink: 0 !important;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease !important;
   }
 
-  .form-submit-btn:hover .cta-btn-text {
-    transform: translateX(8px) !important;
+  .form-submit-btn:hover .cta-btn-text,
+  .form-submit-btn:active .cta-btn-text {
+    transform: translateX(34px) !important;
   }
 
-  .form-submit-btn:hover .cta-btn-icon {
-    transform: translateX(calc(var(--icon-shift, -200px) * 0.65)) rotate(-45deg) !important;
+  .form-submit-btn:hover .cta-btn-icon,
+  .form-submit-btn:active .cta-btn-icon {
+    right: calc(100% - 36px) !important;
+    transform: translateY(-50%) rotate(-45deg) !important;
+    background: #ffffff !important;
+    color: #15803d !important;
   }
 }
 
