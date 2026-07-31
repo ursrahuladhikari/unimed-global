@@ -7793,6 +7793,78 @@ html.light-theme .bottom-hero-banner {
   border-bottom: 1px solid #e2e8f0 !important;
 }
 
+/* ── Bottom Hero Rotator Banner "Apply Now" Animated CTA Button ─────── */
+.bottom-hero-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 20px !important;
+  width: 100% !important;
+  margin-top: 10px !important;
+}
+
+.bottom-hero-cta {
+  background: linear-gradient(135deg, #00f2fe 0%, #3b82f6 100%) !important;
+  color: #020617 !important;
+  border: none !important;
+  padding: 6px 6px 6px 24px !important;
+  border-radius: 999px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.98rem !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 14px !important;
+  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.35) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.bottom-hero-cta .cta-btn-text {
+  color: #020617 !important;
+  order: 1 !important;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  white-space: nowrap !important;
+}
+
+.bottom-hero-cta .cta-btn-icon {
+  order: 2 !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  background: #020617 !important;
+  color: #00f2fe !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.bottom-hero-cta:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 32px rgba(0, 242, 254, 0.5) !important;
+}
+
+.bottom-hero-cta:hover .cta-btn-text {
+  transform: translateX(44px) !important;
+}
+
+.bottom-hero-cta:hover .cta-btn-icon {
+  transform: translateX(-110px) rotate(-45deg) !important;
+  background: #ffffff !important;
+  color: #020617 !important;
+}
+
+.bottom-hero-cta:active {
+  transform: translateY(0) scale(0.97) !important;
+}
+
 /* ── Footer UniMed Logo Image & Branding Visibility ──────────────────── */
 .footer-logo {
   display: flex !important;
