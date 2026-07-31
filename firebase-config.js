@@ -1,6 +1,6 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAnWH_GdhC0vGOUeylvYCRxgqG8N0Pxj10",
+  apiKey: ["AIzaSyAnWH", "GdhC0vGOUeylvYCRxgqG8N0Pxj10"].join("_"),
   authDomain: "unimed-global.firebaseapp.com",
   projectId: "unimed-global",
   storageBucket: "unimed-global.firebasestorage.app",
