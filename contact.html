@@ -646,15 +646,9 @@
             Your admission profile for <strong style="color:#ffffff;">MBBS in ${escapeHtml(lead.country || 'Abroad')}</strong> has been registered with UNIMED Global. Our senior counselor will connect with you shortly!
           </p>
 
-          <div style="display:flex; flex-direction:column; gap:12px;">
-            <a href="${waLink}" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:10px; width:100%; padding:15px; background:linear-gradient(135deg, #25D366, #128C7E); color:#ffffff; text-decoration:none; border-radius:100px; font-weight:800; font-size:0.95rem; box-shadow:0 8px 24px rgba(37,211,102,0.35); box-sizing:border-box;">
-              <span>💬 Connect Directly on WhatsApp</span>
-            </a>
-
-            <button onclick="closeSuccessModal(); if(typeof openBookingModal==='function') openBookingModal();" style="width:100%; padding:14px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:100px; color:#ffffff; font-weight:700; font-size:0.9rem; cursor:pointer;">
-              📅 Schedule 1-on-1 Consultation Call
-            </button>
-          </div>
+          <button onclick="closeSuccessModal()" style="width:100%; padding:16px; background:linear-gradient(135deg, #00f2fe, #3b82f6); border:none; border-radius:100px; color:#0f172a; font-weight:800; font-size:1rem; font-family:'Outfit', sans-serif; cursor:pointer; box-shadow:0 8px 25px rgba(0,242,254,0.35); transition:all 0.3s ease;">
+            Got it, Thank You! ✨
+          </button>
         </div>
       `;
 
