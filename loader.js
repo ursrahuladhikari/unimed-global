@@ -221,14 +221,37 @@
       transition: width 0.25s ease;
     }
 
-    /* Loading status text */
-    #unimedLoaderStatus {
-      font-size: 0.65rem;
+    /* Typewriter line */
+    #unimedLoaderTypewriter {
+      font-size: clamp(0.76rem, 2.5vw, 0.9rem);
       font-weight: 600;
-      color: rgba(100, 116, 139, 0.8);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      color: #00f2fe;
+      letter-spacing: 0.05em;
+      min-height: 1.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 16px;
+      margin-top: 2px;
       animation: ulFadeUp 0.5s 0.35s cubic-bezier(0.16,1,0.3,1) both;
+      text-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+    }
+
+    .unimed-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.15em;
+      background-color: #00f2fe;
+      margin-left: 3px;
+      animation: unimedCursorBlink 0.65s infinite;
+      vertical-align: middle;
+      box-shadow: 0 0 8px rgba(0, 242, 254, 0.8);
+    }
+
+    @keyframes unimedCursorBlink {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0; }
     }
 
     /* ── Dots ── */
@@ -315,7 +338,9 @@
       </div>
     </div>
 
-    <div id="unimedLoaderStatus">Initializing…</div>
+    <div id="unimedLoaderTypewriter">
+      <span id="unimedTypewriterText"></span><span class="unimed-cursor"></span>
+    </div>
 
     <div id="unimedLoaderDots">
       <span></span><span></span><span></span>
@@ -328,7 +353,7 @@
   var rafId        = null;
   var dismissed    = false;
   var mountTime    = null;
-  var MIN_DISPLAY  = 1800; // ms — holds logo splash screen for 1-2 seconds
+  var MIN_DISPLAY  = 2500; // ms — holds splash screen for at least 2.5 seconds
 
   // Status messages at different progress thresholds
   var STATUS_MSGS = [
@@ -351,14 +376,12 @@
   // ── Apply progress to DOM ───────────────────────────────────
   function applyProgress(pct) {
     pct = Math.min(100, Math.max(0, Math.round(pct)));
-    var bar    = document.getElementById('unimedLoaderBar');
-    var fill   = document.getElementById('unimedSpinnerFill');
-    var label  = document.getElementById('unimedSpinnerPct');
-    var status = document.getElementById('unimedLoaderStatus');
-    if (bar)    bar.style.width = pct + '%';
-    if (fill)   fill.style.strokeDashoffset = CIRCUMFERENCE - (CIRCUMFERENCE * pct / 100);
-    if (label)  label.textContent = pct + '%';
-    if (status) status.textContent = getStatusMsg(pct);
+    var bar   = document.getElementById('unimedLoaderBar');
+    var fill  = document.getElementById('unimedSpinnerFill');
+    var label = document.getElementById('unimedSpinnerPct');
+    if (bar)   bar.style.width = pct + '%';
+    if (fill)  fill.style.strokeDashoffset = CIRCUMFERENCE - (CIRCUMFERENCE * pct / 100);
+    if (label) label.textContent = pct + '%';
   }
 
   // ── Smooth animate to a target percentage ──────────────────
@@ -379,6 +402,28 @@
     step();
   }
 
+  // ── Typewriter Effect ──────────────────────────────────────
+  var typewriterPhrase = "Empowering Your Journey to Become a Doctor…";
+  var charIdx          = 0;
+
+  function startTypewriter() {
+    var textEl = document.getElementById('unimedTypewriterText');
+    if (!textEl) return;
+    textEl.textContent = '';
+    charIdx = 0;
+
+    function typeChar() {
+      if (dismissed) return;
+      if (charIdx < typewriterPhrase.length) {
+        textEl.textContent += typewriterPhrase.charAt(charIdx);
+        charIdx++;
+        setTimeout(typeChar, 42); // 42ms per character
+      }
+    }
+
+    setTimeout(typeChar, 250);
+  }
+
   // ── Mount loader ────────────────────────────────────────────
   function mountLoader() {
     mountTime = Date.now();
@@ -389,6 +434,7 @@
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         loader.classList.add('visible');
+        startTypewriter();
       });
     });
   }
