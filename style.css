@@ -8495,7 +8495,62 @@ img {
   }
 }
 
+/* ── Hero Buttons Mobile Position-Exchange (Apply Now + Explore Universities) ── */
+@media (max-width: 640px) {
+  .hero-buttons {
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
 
+  .hero-cta-btn {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    justify-content: flex-start !important;
+    padding: 10px 42px 10px 18px !important;
+    font-size: 0.85rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
 
+  .hero-cta-btn .cta-btn-text {
+    white-space: nowrap !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: inline-block !important;
+  }
 
+  /* Icon becomes absolutely positioned on mobile — same as form-submit-btn */
+  .hero-cta-btn .cta-btn-icon {
+    position: absolute !important;
+    right: 6px !important;
+    top: 50% !important;
+    transform: translateY(-50%) rotate(0deg) !important;
+    width: 32px !important;
+    height: 32px !important;
+    flex-shrink: 0 !important;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease !important;
+  }
+
+  /* Text glides right, icon glides to left edge — dynamic calc, zero overlap */
+  .hero-cta-btn:hover .cta-btn-text,
+  .hero-cta-btn:active .cta-btn-text {
+    transform: translateX(36px) !important;
+  }
+
+  .hero-cta-btn.btn-primary:hover .cta-btn-icon,
+  .hero-cta-btn.btn-primary:active .cta-btn-icon {
+    right: calc(100% - 38px) !important;
+    transform: translateY(-50%) rotate(-45deg) !important;
+    background: #ffffff !important;
+    color: #15803d !important;
+  }
+
+  .hero-cta-btn.btn-secondary:hover .cta-btn-icon,
+  .hero-cta-btn.btn-secondary:active .cta-btn-icon {
+    right: calc(100% - 38px) !important;
+    transform: translateY(-50%) rotate(-45deg) !important;
+    background: #00f2fe !important;
+    color: #0f172a !important;
+  }
+}
 
