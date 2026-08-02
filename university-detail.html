@@ -1776,25 +1776,31 @@
 
       // WhatsApp pre-filled message
       const waMsg = encodeURIComponent(`Hi UNIMED Global, I want to know more about ${d.name}. Please contact me.`);
-      document.getElementById('waLink').href = `https://wa.me/919163654664?text=${waMsg}`;
-      document.getElementById('enquiryWhatsapp').href = `https://wa.me/919163654664?text=${waMsg}`;
+      const waLink = document.getElementById('waLink');
+      if (waLink) waLink.href = `https://wa.me/919163654664?text=${waMsg}`;
+      const enqWa = document.getElementById('enquiryWhatsapp');
+      if (enqWa) enqWa.href = `https://wa.me/919163654664?text=${waMsg}`;
 
       // Populate explore grid with all OTHER universities
       const exploreGrid = document.getElementById('exploreGrid');
       if (exploreGrid) {
         exploreGrid.innerHTML = '';
+        const currentKeyObj = universityData[key];
+
         Object.keys(universityData).forEach(k => {
-          if (k !== key) {
-            const item = universityData[k];
+          const item = universityData[k];
+          if (item.ssu_alias) return; // Skip alias entry to avoid duplicate card
+
+          if (k !== key && item.name !== (currentKeyObj ? currentKeyObj.name : '')) {
             const firstCourseName = item.courses && item.courses[0] ? item.courses[0].name.replace(' (MBBS Equivalent)', '').replace(' (MBBS)', '') : 'Medicine';
             const duration = item.courses && item.courses[0] ? item.courses[0].dur.split('—')[0].trim() : '6 Years';
             
             exploreGrid.innerHTML += `
               <div class="dest-card">
                 <div class="dest-card-img-wrap">
-                  <a href="uni-info.html?uni=${k}"><img src="${item.image}" alt="${item.name}" class="dest-card-img"></a>
+                  <a href="university-detail.html?uni=${k}"><img src="${item.image}" alt="${item.name}" class="dest-card-img"></a>
                   <span class="dest-card-badge">${item.country}</span>
-                  <a href="uni-info.html?uni=${k}" class="dest-card-arrow" aria-label="View Details">
+                  <a href="university-detail.html?uni=${k}" class="dest-card-arrow" aria-label="View Details">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="7" y1="17" x2="17" y2="7"></line>
                       <polyline points="7 7 17 7 17 17"></polyline>
@@ -1803,7 +1809,7 @@
                 </div>
                 <div class="dest-card-content">
                   <h3 class="dest-card-title">
-                    <a href="uni-info.html?uni=${k}" style="color: inherit; text-decoration: none;">${item.name}</a>
+                    <a href="university-detail.html?uni=${k}" style="color: inherit; text-decoration: none;">${item.name}</a>
                   </h3>
                   <div class="dest-card-details">
                     <div class="dest-detail-item">
@@ -1812,14 +1818,14 @@
                         <line x1="12" y1="4" x2="12" y2="20"></line>
                         <line x1="2" y1="12" x2="22" y2="12"></line>
                       </svg>
-                      <span>${item.budgetShort.replace(' total', ' Total')}</span>
+                      <span>${item.budgetShort ? item.budgetShort.replace(' total', ' Total') : ''}</span>
                     </div>
                     <div class="dest-detail-item">
                       <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
                         <circle cx="12" cy="10" r="3"></circle>
                       </svg>
-                      <span>${item.location.split(',')[0]}</span>
+                      <span>${item.location ? item.location.split(',')[0] : ''}</span>
                     </div>
                     <div class="dest-detail-item">
                       <svg class="dest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
