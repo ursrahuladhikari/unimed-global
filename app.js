@@ -1025,16 +1025,106 @@ function initHashNavigation() {
   }
 }
 
+// =========================================================================
+// SCROLLSPY MENU HIGHLIGHTING ON SCROLL
+// =========================================================================
+function initScrollSpy() {
+  const sections = [
+    { id: 'hero', selector: '#hero' },
+    { id: 'why-choose-us', selector: '#why-choose-us' },
+    { id: 'universities', selector: '#universities' },
+    { id: 'about-us', selector: '#about-us' }
+  ];
+
+  const sectionElements = sections.map(s => ({
+    id: s.id,
+    el: document.querySelector(s.selector)
+  })).filter(s => s.el !== null);
+
+  if (sectionElements.length === 0) return;
+
+  const navLinks = document.querySelectorAll('.nav-menu .nav-link, .mobile-nav-links .mobile-nav-link');
+  if (!navLinks.length) return;
+
+  function updateActiveNav() {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    // Near top of page -> Home (#hero)
+    if (scrollPosition < 200) {
+      setActive('hero');
+      return;
+    }
+
+    // Near bottom of page -> last section (#about-us)
+    if ((scrollPosition + windowHeight) >= (documentHeight - 120)) {
+      setActive(sectionElements[sectionElements.length - 1].id);
+      return;
+    }
+
+    // Find active section based on section positions from top to bottom.
+    // A section stays active from its top trigger point until the next section's trigger point is reached.
+    const triggerOffset = 220; // px from top of viewport
+    let activeId = 'hero';
+
+    for (let i = 0; i < sectionElements.length; i++) {
+      const sec = sectionElements[i];
+      const rect = sec.el.getBoundingClientRect();
+      if (rect.top <= triggerOffset) {
+        activeId = sec.id;
+      }
+    }
+
+    setActive(activeId);
+  }
+
+  function setActive(activeId) {
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      const isMatch = (href === `#${activeId}`) ||
+                      (href.endsWith(`#${activeId}`)) ||
+                      (activeId === 'hero' && (href === '#hero' || href === 'index.html' || href === '/'));
+
+      if (isMatch) {
+        link.classList.add('active');
+      } else {
+        if (href.includes('#hero') || href.includes('#why-choose-us') || href.includes('#universities') || href.includes('#about-us') || href === 'index.html') {
+          link.classList.remove('active');
+        }
+      }
+    });
+  }
+
+  let isTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!isTicking) {
+      window.requestAnimationFrame(() => {
+        updateActiveNav();
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', updateActiveNav);
+  updateActiveNav();
+}
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     initFloatingSideWidgets();
     initHashNavigation();
     initImageProtection();
+    initScrollSpy();
   });
 } else {
   initFloatingSideWidgets();
   initHashNavigation();
   initImageProtection();
+  initScrollSpy();
 }
 
 // =========================================================================
@@ -1057,3 +1147,4 @@ function initImageProtection() {
     }
   }, true);
 }
+
