@@ -9825,6 +9825,117 @@ a.sidebar-official-btn:hover .cta-btn-icon {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
 }
 
+/* ========================================================================= */
+/* MOBILE OVERFLOW & CROPPING FIX FOR CONTACT PAGE                           */
+/* ========================================================================= */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .subpage-layout {
+    padding: 95px 16px 40px 16px !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .contact-card,
+  .option-card-container {
+    padding: 20px 14px !important;
+    border-radius: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .info-cards-strip {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .info-block-card {
+    padding: 18px 14px !important;
+    gap: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .info-block-content {
+    min-width: 0 !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .info-block-title {
+    font-size: 1rem !important;
+    word-wrap: break-word !important;
+  }
+
+  .info-block-text {
+    font-size: 0.82rem !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .wa-contact-btn {
+    font-size: 0.78rem !important;
+    padding: 6px 10px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    word-break: break-all !important;
+  }
+
+  .wa-contact-btn span {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+    max-width: calc(100% - 24px) !important;
+  }
+
+  .form-submit-btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    font-size: clamp(0.76rem, 3.2vw, 0.88rem) !important;
+    padding: 12px 16px !important;
+  }
+
+  .option-header-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+  }
+
+  .option-card-title {
+    font-size: 1.1rem !important;
+  }
+
+  .option-card-badges span {
+    font-size: 0.7rem !important;
+    padding: 3px 8px !important;
+  }
+}
+
 
 
 
