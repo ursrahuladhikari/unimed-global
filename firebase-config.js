@@ -15,7 +15,12 @@ if (typeof firebase !== 'undefined') {
     firebase.initializeApp(firebaseConfig);
   }
   window.db = firebase.firestore();
-  console.log("🔥 Firebase Cloud Firestore Initialized successfully!");
+  if (typeof firebase.auth === 'function') {
+    window.auth = firebase.auth();
+    console.log("🔒 Firebase Authentication & Cloud Firestore Initialized successfully!");
+  } else {
+    console.log("🔥 Firebase Cloud Firestore Initialized successfully!");
+  }
 } else {
   console.warn("⚠️ Firebase SDK script tag not loaded yet.");
 }

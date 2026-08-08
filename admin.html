@@ -25,6 +25,7 @@
   <script src="theme.js"></script>
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   <script src="firebase-config.js"></script>
 
@@ -1364,89 +1365,106 @@
       }
     }
 
+    var currentUserRole = 'standard_admin';
+
     function isSuperAdmin() {
-      var role = sessionStorage.getItem('unimed_admin_role') || 'super_admin';
-      return role === 'super_admin';
+      return currentUserRole === 'super_admin';
+    }
+
+    // Listen to Firebase Auth state for secure session management
+    if (typeof window !== 'undefined' && window.auth) {
+      window.auth.onAuthStateChanged(async function(user) {
+        if (user) {
+          try {
+            if (window.db) {
+              var roleDoc = await window.db.collection('admin_users').doc(user.uid).get();
+              if (roleDoc.exists && roleDoc.data().role) {
+                currentUserRole = roleDoc.data().role;
+              } else {
+                currentUserRole = 'standard_admin';
+              }
+            }
+          } catch (err) {
+            console.warn("Could not fetch user role from Firestore /admin_users:", err);
+            currentUserRole = 'standard_admin';
+          }
+          sessionStorage.setItem('unimed_admin_logged_in', 'true');
+          sessionStorage.setItem('unimed_admin_role', currentUserRole);
+          updateUserPillUI();
+          showDashboard();
+        } else {
+          sessionStorage.removeItem('unimed_admin_logged_in');
+          sessionStorage.removeItem('unimed_admin_role');
+          currentUserRole = 'standard_admin';
+          var dash = document.getElementById('adminDashboardContainer');
+          var login = document.getElementById('adminLoginWrapper');
+          if (dash) dash.style.display = 'none';
+          if (login) login.style.display = 'flex';
+        }
+      });
     }
 
     async function handleAdminLogin(e) {
       if (e) e.preventDefault();
-      var submitBtn = document.querySelector('#loginForm button[type="submit"]');
-      var user = document.getElementById('username').value.trim();
-      var pass = document.getElementById('password').value.trim();
+      var submitBtn = document.querySelector('.gold-sign-in-btn') || document.querySelector('#loginForm button[type="submit"]');
+      var emailInput = document.getElementById('username').value.trim();
+      var passInput = document.getElementById('password').value.trim();
 
-      if (!user || !pass) {
-        alert('Please enter both username and password.');
+      if (!emailInput || !passInput) {
+        alert('Please enter both Admin Email and Password.');
         return;
       }
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerText = 'Authenticating...';
+        submitBtn.innerText = 'Authenticating with Firebase...';
       }
 
       try {
-        if (window.db) {
-          // Check any document in 'admin_credentials' collection
-          var querySnap = await window.db.collection('admin_credentials').get();
-          if (!querySnap.empty) {
-            var authenticated = false;
-            querySnap.forEach(function(doc) {
-              if (authenticated) return;
-              var data = doc.data();
+        if (window.auth) {
+          // 1. Firebase Authentication Identity Check
+          var userCred = await window.auth.signInWithEmailAndPassword(emailInput, passInput);
+          var uid = userCred.user.uid;
 
-              // 1. Standard Fields: { username: "...", password: "...", role: "standard_admin" }
-              if (data.username && data.password) {
-                if (data.username.trim().toLowerCase() === user.toLowerCase() && String(data.password).trim() === pass) {
-                  var role = data.role || (user.toLowerCase().includes('staff') || user.toLowerCase().includes('standard') ? 'standard_admin' : 'super_admin');
-                  sessionStorage.setItem('unimed_admin_logged_in', 'true');
-                  sessionStorage.setItem('unimed_admin_role', role);
-                  showDashboard();
-                  authenticated = true;
-                  return;
-                }
-              }
-
-              // 2. Key-Value Fields: { "username": "password" }
-              for (var key in data) {
-                if (key.toLowerCase() === user.toLowerCase() && String(data[key]).trim() === pass) {
-                  var userRole = data['role_' + key] || data.role || (user.toLowerCase().includes('staff') || user.toLowerCase().includes('standard') ? 'standard_admin' : 'super_admin');
-                  sessionStorage.setItem('unimed_admin_logged_in', 'true');
-                  sessionStorage.setItem('unimed_admin_role', userRole);
-                  showDashboard();
-                  authenticated = true;
-                  return;
-                }
-              }
-            });
-
-            if (authenticated) {
-              if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Login to Command Center →'; }
-              return;
+          // 2. Fetch User Role from Firestore /admin_users/{uid}
+          if (window.db) {
+            var roleDoc = await window.db.collection('admin_users').doc(uid).get();
+            if (roleDoc.exists && roleDoc.data().role) {
+              currentUserRole = roleDoc.data().role;
+            } else {
+              currentUserRole = 'standard_admin';
             }
           }
+
+          sessionStorage.setItem('unimed_admin_logged_in', 'true');
+          sessionStorage.setItem('unimed_admin_role', currentUserRole);
+          updateUserPillUI();
+          showDashboard();
+        } else {
+          alert('Firebase Auth SDK not initialized. Please refresh the page.');
         }
       } catch (err) {
-        console.warn("Firestore auth check warning:", err);
+        console.error("Firebase Login Error:", err);
+        alert("Authentication Failed: " + (err.message || "Invalid Email or Password"));
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Sign In';
+        }
       }
-
-      // Fallback Direct Authentication
-      var fallbackRole = 'super_admin';
-      if (user.toLowerCase().includes('standard') || user.toLowerCase().includes('staff') || pass === 'standard123') {
-        fallbackRole = 'standard_admin';
-      }
-
-      sessionStorage.setItem('unimed_admin_logged_in', 'true');
-      sessionStorage.setItem('unimed_admin_role', fallbackRole);
-      showDashboard();
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Login to Command Center →'; }
     }
 
     function handleLogout() {
+      if (window.auth) {
+        window.auth.signOut();
+      }
       sessionStorage.removeItem('unimed_admin_logged_in');
       sessionStorage.removeItem('unimed_admin_role');
-      document.getElementById('adminDashboardContainer').style.display = 'none';
-      document.getElementById('adminLoginWrapper').style.display = 'flex';
+      currentUserRole = 'standard_admin';
+      var dash = document.getElementById('adminDashboardContainer');
+      var login = document.getElementById('adminLoginWrapper');
+      if (dash) dash.style.display = 'none';
+      if (login) login.style.display = 'flex';
     }
 
     function updateUserPillUI() {
