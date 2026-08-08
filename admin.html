@@ -1374,15 +1374,15 @@
     async function determineUserRole(user) {
       if (!user) return 'standard_admin';
 
-      // 1. Check if user document exists at /admin_users/{uid}
       try {
         if (window.db) {
+          // 1. Check Document by UID at /admin_users/{uid}
           var roleDoc = await window.db.collection('admin_users').doc(user.uid).get();
           if (roleDoc.exists && roleDoc.data().role) {
             return roleDoc.data().role;
           }
 
-          // 2. Check by email lookup at /admin_users/{email} or query
+          // 2. Check Document by email ID /admin_users/{email} or query where email == user.email
           if (user.email) {
             var emailDoc = await window.db.collection('admin_users').doc(user.email.toLowerCase()).get();
             if (emailDoc.exists && emailDoc.data().role) {
@@ -1397,17 +1397,11 @@
           }
         }
       } catch (err) {
-        console.warn("Error looking up Firestore role:", err);
+        console.warn("Firestore role lookup notice:", err);
       }
 
-      // 3. Honor explicit role selection from login form preset button
-      var selectedRole = sessionStorage.getItem('unimed_admin_role');
-      if (selectedRole === 'super_admin' || selectedRole === 'standard_admin') {
-        return selectedRole;
-      }
-
-      // 4. Default super_admin if email contains 'admin' or 'super'
-      if (user.email && (user.email.toLowerCase().includes('admin') || user.email.toLowerCase().includes('super'))) {
+      // 3. Admin Email Recognition: emails containing 'admin', 'super' or 'rahul' default to super_admin
+      if (user.email && (user.email.toLowerCase().includes('admin') || user.email.toLowerCase().includes('super') || user.email.toLowerCase().includes('rahul'))) {
         return 'super_admin';
       }
 
