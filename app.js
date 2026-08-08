@@ -1113,19 +1113,55 @@ function initScrollSpy() {
   updateActiveNav();
 }
 
+// =========================================================================
+// GLOBAL WORD SCROLL HIGHLIGHTING ANIMATION (.hw -> .lit)
+// =========================================================================
+function initScrollHighlighting() {
+  const containers = document.querySelectorAll('.counselling-cta-highlight-container, #counsellingHighlight, #testimonialsHighlight, #aboutHighlight');
+  if (!containers.length) return;
+
+  containers.forEach(container => {
+    const words = Array.from(container.querySelectorAll('.hw'));
+    if (!words.length) return;
+    const total = words.length;
+
+    function updateHighlight() {
+      const rect = container.getBoundingClientRect();
+      const winH = window.innerHeight;
+      const progress = Math.max(0, Math.min(1, (winH - rect.top) / (winH + rect.height * 0.4)));
+      const litCount = Math.round(progress * total * 1.5);
+
+      words.forEach((w, i) => {
+        if (i < litCount) {
+          w.classList.add('lit');
+        } else {
+          w.classList.remove('lit');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateHighlight, { passive: true });
+    window.addEventListener('resize', updateHighlight);
+    updateHighlight();
+  });
+}
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     initFloatingSideWidgets();
     initHashNavigation();
     initImageProtection();
     initScrollSpy();
+    initScrollHighlighting();
   });
 } else {
   initFloatingSideWidgets();
   initHashNavigation();
   initImageProtection();
   initScrollSpy();
+  initScrollHighlighting();
 }
+
 
 // =========================================================================
 // GLOBAL IMAGE COPY PROTECTION (PREVENT RIGHT-CLICK, DRAG, & SAVE)
