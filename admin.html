@@ -1366,7 +1366,8 @@
       }
     }
 
-    var currentUserRole = 'super_admin';
+    var currentUserRole = 'standard_admin';
+    var authenticatedRole = 'standard_admin';
 
     function isSuperAdmin() {
       return currentUserRole === 'super_admin';
@@ -1383,7 +1384,7 @@
             return roleDoc.data().role;
           }
 
-          // 2. Check Document by email ID /admin_users/{email} or query where email == user.email
+          // 2. Check Document by email ID or query where email == user.email
           if (user.email) {
             var emailDoc = await window.db.collection('admin_users').doc(user.email.toLowerCase()).get();
             if (emailDoc.exists && emailDoc.data().role) {
@@ -1391,9 +1392,8 @@
             }
 
             var snap = await window.db.collection('admin_users').where('email', '==', user.email.toLowerCase()).get();
-            if (!snap.empty) {
-              var foundRole = snap.docs[0].data().role;
-              if (foundRole) return foundRole;
+            if (!snap.empty && snap.docs[0].data().role) {
+              return snap.docs[0].data().role;
             }
           }
         }
@@ -1401,7 +1401,7 @@
         console.warn("Firestore role lookup notice:", err);
       }
 
-      // 3. Admin Email Recognition: emails containing 'admin', 'super' or 'rahul' default to super_admin
+      // 3. Super Admin Email Recognition
       if (user.email && (user.email.toLowerCase().includes('admin') || user.email.toLowerCase().includes('super') || user.email.toLowerCase().includes('rahul'))) {
         return 'super_admin';
       }
@@ -1413,7 +1413,8 @@
     if (typeof window !== 'undefined' && window.auth) {
       window.auth.onAuthStateChanged(async function(user) {
         if (user) {
-          currentUserRole = await determineUserRole(user);
+          authenticatedRole = await determineUserRole(user);
+          currentUserRole = authenticatedRole;
           sessionStorage.setItem('unimed_admin_logged_in', 'true');
           sessionStorage.setItem('unimed_admin_role', currentUserRole);
           updateUserPillUI();
@@ -1422,6 +1423,7 @@
           sessionStorage.removeItem('unimed_admin_logged_in');
           sessionStorage.removeItem('unimed_admin_role');
           currentUserRole = 'standard_admin';
+          authenticatedRole = 'standard_admin';
           var dash = document.getElementById('adminDashboardContainer');
           var login = document.getElementById('adminLoginWrapper');
           if (dash) dash.style.display = 'none';
@@ -1452,8 +1454,9 @@
           var userCred = await window.auth.signInWithEmailAndPassword(emailInput, passInput);
           var user = userCred.user;
 
-          // 2. Determine Role dynamically
-          currentUserRole = await determineUserRole(user);
+          // 2. Determine Role dynamically from Firestore
+          authenticatedRole = await determineUserRole(user);
+          currentUserRole = authenticatedRole;
 
           sessionStorage.setItem('unimed_admin_logged_in', 'true');
           sessionStorage.setItem('unimed_admin_role', currentUserRole);
@@ -1480,6 +1483,7 @@
       sessionStorage.removeItem('unimed_admin_logged_in');
       sessionStorage.removeItem('unimed_admin_role');
       currentUserRole = 'standard_admin';
+      authenticatedRole = 'standard_admin';
       var dash = document.getElementById('adminDashboardContainer');
       var login = document.getElementById('adminLoginWrapper');
       if (dash) dash.style.display = 'none';
@@ -1487,6 +1491,12 @@
     }
 
     function toggleRoleSwitch() {
+      // Security Check: Strictly prevent Standard Admin accounts from upgrading to Super Admin
+      if (authenticatedRole !== 'super_admin') {
+        alert('🔒 Access Denied: Your account profile is permanently assigned as Standard Admin (Read-Only). You cannot switch to Super Admin.');
+        return;
+      }
+
       if (currentUserRole === 'super_admin') {
         currentUserRole = 'standard_admin';
         sessionStorage.setItem('unimed_admin_role', 'standard_admin');
