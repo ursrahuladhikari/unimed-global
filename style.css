@@ -9637,21 +9637,22 @@ a.sidebar-official-btn .cta-btn-icon {
 /* ── 1. BOOK FREE COUNSELLING (Vibrant Royal Blue / Cyan Gradient) ── */
 .sidebar-cta-btn,
 .counselling-cta-btn {
-  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%) !important;
-  border: 1.5px solid rgba(56, 189, 248, 0.45) !important;
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35) !important;
+  background: linear-gradient(135deg, #0080f5 0%, #2268ee 100%) !important;
+  border: 1.5px solid rgba(140, 210, 255, 0.45) !important;
+  box-shadow: 0 8px 25px rgba(0, 120, 245, 0.4) !important;
   margin-top: 0 !important;
 }
 .sidebar-cta-btn .cta-btn-icon,
 .counselling-cta-btn .cta-btn-icon {
   background: #ffffff !important;
-  color: #0284c7 !important;
+  color: #0070f3 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 .sidebar-cta-btn:hover,
 .counselling-cta-btn:hover {
-  background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 100%) !important;
+  background: linear-gradient(135deg, #0090ff 0%, #1d4ed8 100%) !important;
   border-color: #00f2fe !important;
-  box-shadow: 0 8px 28px rgba(0, 242, 254, 0.55) !important;
+  box-shadow: 0 12px 32px rgba(0, 242, 254, 0.6) !important;
   color: #ffffff !important;
 }
 .sidebar-cta-btn:hover .cta-btn-text,
@@ -9663,7 +9664,7 @@ a.sidebar-official-btn .cta-btn-icon {
   left: 6px !important;
   transform: translateY(-50%) rotate(45deg) !important;
   background: #ffffff !important;
-  color: #0f172a !important;
+  color: #0070f3 !important;
 }
 
 /* ── 2. WHATSAPP US (Vibrant Emerald Green) ── */
