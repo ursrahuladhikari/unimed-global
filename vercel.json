@@ -1,18 +1,5 @@
 {
   "cleanUrls": true,
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.unimedg.com"
-        }
-      ],
-      "destination": "https://unimedg.com/:path*",
-      "permanent": true
-    }
-  ],
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" }
   ]
