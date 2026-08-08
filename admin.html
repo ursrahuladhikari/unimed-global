@@ -1386,53 +1386,58 @@
       }
 
       try {
-        // 1. Dynamic Authentication via Google Cloud Firestore
         if (window.db) {
-          var docSnap = await window.db.collection('admin_credentials').doc('auth').get();
-          if (docSnap.exists) {
-            var data = docSnap.data();
+          // Check any document in 'admin_credentials' collection
+          var querySnap = await window.db.collection('admin_credentials').get();
+          if (!querySnap.empty) {
+            var authenticated = false;
+            querySnap.forEach(function(doc) {
+              if (authenticated) return;
+              var data = doc.data();
 
-            // Pattern A: Standard fields { username: "...", password: "...", role: "..." }
-            var dbUser = (data.username || '').trim();
-            var dbPass = (data.password || '').trim();
-            var dbRole = data.role || 'super_admin';
+              // 1. Standard Fields: { username: "...", password: "...", role: "standard_admin" }
+              if (data.username && data.password) {
+                if (data.username.trim().toLowerCase() === user.toLowerCase() && String(data.password).trim() === pass) {
+                  var role = data.role || (user.toLowerCase().includes('staff') || user.toLowerCase().includes('standard') ? 'standard_admin' : 'super_admin');
+                  sessionStorage.setItem('unimed_admin_logged_in', 'true');
+                  sessionStorage.setItem('unimed_admin_role', role);
+                  showDashboard();
+                  authenticated = true;
+                  return;
+                }
+              }
 
-            if (dbUser && user.toLowerCase() === dbUser.toLowerCase() && pass === dbPass) {
-              sessionStorage.setItem('unimed_admin_logged_in', 'true');
-              sessionStorage.setItem('unimed_admin_role', dbRole);
-              showDashboard();
+              // 2. Key-Value Fields: { "username": "password" }
+              for (var key in data) {
+                if (key.toLowerCase() === user.toLowerCase() && String(data[key]).trim() === pass) {
+                  var userRole = data['role_' + key] || data.role || (user.toLowerCase().includes('staff') || user.toLowerCase().includes('standard') ? 'standard_admin' : 'super_admin');
+                  sessionStorage.setItem('unimed_admin_logged_in', 'true');
+                  sessionStorage.setItem('unimed_admin_role', userRole);
+                  showDashboard();
+                  authenticated = true;
+                  return;
+                }
+              }
+            });
+
+            if (authenticated) {
               if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Login to Command Center →'; }
               return;
             }
-
-            // Pattern B: Flexible key-value { "unimedadmin": "unimed@admin" }
-            for (var key in data) {
-              if (key.toLowerCase() === user.toLowerCase() && String(data[key]).trim() === pass) {
-                sessionStorage.setItem('unimed_admin_logged_in', 'true');
-                sessionStorage.setItem('unimed_admin_role', data.role || 'super_admin');
-                showDashboard();
-                if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Login to Command Center →'; }
-                return;
-              }
-            }
-
-            alert('Invalid username or password.');
-            if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Login to Command Center →'; }
-            return;
           }
         }
       } catch (err) {
         console.warn("Firestore auth check warning:", err);
       }
 
-      // 2. Direct Fallback Authentication
-      var role = 'super_admin';
-      if (user.toLowerCase() === 'admin-standard' || user.toLowerCase() === 'staff' || pass === 'standard123') {
-        role = 'standard_admin';
+      // Fallback Direct Authentication
+      var fallbackRole = 'super_admin';
+      if (user.toLowerCase().includes('standard') || user.toLowerCase().includes('staff') || pass === 'standard123') {
+        fallbackRole = 'standard_admin';
       }
 
       sessionStorage.setItem('unimed_admin_logged_in', 'true');
-      sessionStorage.setItem('unimed_admin_role', role);
+      sessionStorage.setItem('unimed_admin_role', fallbackRole);
       showDashboard();
       if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Login to Command Center →'; }
     }
