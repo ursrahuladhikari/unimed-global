@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, follow">
+  <title>Redirecting... | Unimed Global</title>
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const rawUni = urlParams.get('uni') || '';
+      const uni = rawUni.toLowerCase().trim();
+      const uniMap = {
+        'bsmu': 'universities/bashkir-state-medical-university.html',
+        'bashkir': 'universities/bashkir-state-medical-university.html',
+        'fefu': 'universities/far-eastern-federal-university.html',
+        'far-eastern': 'universities/far-eastern-federal-university.html',
+        'syktyvkar': 'universities/syktyvkar-state-university.html',
+        'volgograd': 'universities/volgograd-state-medical-university.html',
+        'omsk': 'universities/omsk-state-medical-university.html',
+        'ulyanovsk': 'universities/ulyanovsk-state-university.html',
+        'kbsu': 'universities/kabardino-balkarian-state-university.html',
+        'kabardino': 'universities/kabardino-balkarian-state-university.html',
+        'astrakhan': 'universities/astrakhan-state-medical-university.html',
+        'yaroslavl': 'universities/yaroslavl-state-medical-university.html',
+        'gsu': 'universities/gulistan-state-university.html',
+        'gulistan': 'universities/gulistan-state-university.html',
+        'tpi': 'universities/tashkent-pharmaceutical-institute.html',
+        'tashkent': 'universities/tashkent-pharmaceutical-institute.html'
+      };
+      if (uni && uniMap[uni]) {
+        window.location.replace(uniMap[uni]);
+      } else {
+        window.location.replace('universities.html');
+      }
+    })();
+  </script>
+</head>
+<body>
+</body>
+</html>
