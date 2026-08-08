@@ -725,9 +725,10 @@
             </svg>
           </button>
 
-          <div class="admin-user-pill">
+          <div class="admin-user-pill" onclick="toggleRoleSwitch()" style="cursor:pointer;" title="Click to Switch between Super Admin and Standard Admin Modes">
             <div class="admin-avatar-circle" id="userRoleAvatar" style="background:linear-gradient(135deg, #00f2fe, #3b82f6);">👑</div>
             <span id="userRoleBadge">Super Admin</span>
+            <span style="font-size:0.7rem; opacity:0.8; margin-left:4px; color:#cbd5e1;">▼</span>
           </div>
         </div>
       </header>
@@ -1485,6 +1486,18 @@
       if (login) login.style.display = 'flex';
     }
 
+    function toggleRoleSwitch() {
+      if (currentUserRole === 'super_admin') {
+        currentUserRole = 'standard_admin';
+        sessionStorage.setItem('unimed_admin_role', 'standard_admin');
+      } else {
+        currentUserRole = 'super_admin';
+        sessionStorage.setItem('unimed_admin_role', 'super_admin');
+      }
+      updateUserPillUI();
+      initDashboardData();
+    }
+
     function updateUserPillUI() {
       var isSuper = isSuperAdmin();
       var avatar = document.getElementById('userRoleAvatar');
@@ -1505,7 +1518,7 @@
           avatar.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
         }
         if (badge) {
-          badge.textContent = 'Standard Admin (Add Only)';
+          badge.textContent = 'Standard Admin (Read-Only)';
           badge.style.color = '#f59e0b';
         }
       }
