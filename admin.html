@@ -1390,22 +1390,35 @@
         if (window.db) {
           var docSnap = await window.db.collection('admin_credentials').doc('auth').get();
           if (docSnap.exists) {
-            var creds = docSnap.data();
-            var dbUser = (creds.username || '').trim();
-            var dbPass = (creds.password || '').trim();
-            var dbRole = creds.role || 'super_admin';
+            var data = docSnap.data();
 
-            if (user === dbUser && pass === dbPass) {
+            // Pattern A: Standard fields { username: "...", password: "...", role: "..." }
+            var dbUser = (data.username || '').trim();
+            var dbPass = (data.password || '').trim();
+            var dbRole = data.role || 'super_admin';
+
+            if (dbUser && user.toLowerCase() === dbUser.toLowerCase() && pass === dbPass) {
               sessionStorage.setItem('unimed_admin_logged_in', 'true');
               sessionStorage.setItem('unimed_admin_role', dbRole);
               showDashboard();
               if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Login to Command Center →'; }
               return;
-            } else if (user === dbUser || pass === dbPass) {
-              alert('Invalid username or password.');
-              if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Login to Command Center →'; }
-              return;
             }
+
+            // Pattern B: Flexible key-value { "unimedadmin": "unimed@admin" }
+            for (var key in data) {
+              if (key.toLowerCase() === user.toLowerCase() && String(data[key]).trim() === pass) {
+                sessionStorage.setItem('unimed_admin_logged_in', 'true');
+                sessionStorage.setItem('unimed_admin_role', data.role || 'super_admin');
+                showDashboard();
+                if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Login to Command Center →'; }
+                return;
+              }
+            }
+
+            alert('Invalid username or password.');
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Login to Command Center →'; }
+            return;
           }
         }
       } catch (err) {
