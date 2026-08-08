@@ -1365,29 +1365,60 @@
       }
     }
 
-    var currentUserRole = 'standard_admin';
+    var currentUserRole = 'super_admin';
 
     function isSuperAdmin() {
       return currentUserRole === 'super_admin';
+    }
+
+    async function determineUserRole(user) {
+      if (!user) return 'standard_admin';
+
+      // 1. Check if user document exists at /admin_users/{uid}
+      try {
+        if (window.db) {
+          var roleDoc = await window.db.collection('admin_users').doc(user.uid).get();
+          if (roleDoc.exists && roleDoc.data().role) {
+            return roleDoc.data().role;
+          }
+
+          // 2. Check by email lookup at /admin_users/{email} or query
+          if (user.email) {
+            var emailDoc = await window.db.collection('admin_users').doc(user.email.toLowerCase()).get();
+            if (emailDoc.exists && emailDoc.data().role) {
+              return emailDoc.data().role;
+            }
+
+            var snap = await window.db.collection('admin_users').where('email', '==', user.email.toLowerCase()).get();
+            if (!snap.empty) {
+              var foundRole = snap.docs[0].data().role;
+              if (foundRole) return foundRole;
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Error looking up Firestore role:", err);
+      }
+
+      // 3. Honor explicit role selection from login form preset button
+      var selectedRole = sessionStorage.getItem('unimed_admin_role');
+      if (selectedRole === 'super_admin' || selectedRole === 'standard_admin') {
+        return selectedRole;
+      }
+
+      // 4. Default super_admin if email contains 'admin' or 'super'
+      if (user.email && (user.email.toLowerCase().includes('admin') || user.email.toLowerCase().includes('super'))) {
+        return 'super_admin';
+      }
+
+      return 'standard_admin';
     }
 
     // Listen to Firebase Auth state for secure session management
     if (typeof window !== 'undefined' && window.auth) {
       window.auth.onAuthStateChanged(async function(user) {
         if (user) {
-          try {
-            if (window.db) {
-              var roleDoc = await window.db.collection('admin_users').doc(user.uid).get();
-              if (roleDoc.exists && roleDoc.data().role) {
-                currentUserRole = roleDoc.data().role;
-              } else {
-                currentUserRole = 'standard_admin';
-              }
-            }
-          } catch (err) {
-            console.warn("Could not fetch user role from Firestore /admin_users:", err);
-            currentUserRole = 'standard_admin';
-          }
+          currentUserRole = await determineUserRole(user);
           sessionStorage.setItem('unimed_admin_logged_in', 'true');
           sessionStorage.setItem('unimed_admin_role', currentUserRole);
           updateUserPillUI();
@@ -1424,17 +1455,10 @@
         if (window.auth) {
           // 1. Firebase Authentication Identity Check
           var userCred = await window.auth.signInWithEmailAndPassword(emailInput, passInput);
-          var uid = userCred.user.uid;
+          var user = userCred.user;
 
-          // 2. Fetch User Role from Firestore /admin_users/{uid}
-          if (window.db) {
-            var roleDoc = await window.db.collection('admin_users').doc(uid).get();
-            if (roleDoc.exists && roleDoc.data().role) {
-              currentUserRole = roleDoc.data().role;
-            } else {
-              currentUserRole = 'standard_admin';
-            }
-          }
+          // 2. Determine Role dynamically
+          currentUserRole = await determineUserRole(user);
 
           sessionStorage.setItem('unimed_admin_logged_in', 'true');
           sessionStorage.setItem('unimed_admin_role', currentUserRole);
