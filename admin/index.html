@@ -1607,6 +1607,7 @@
     }
 
     function showDashboard() {
+      if (window.resetAdminInactivityTimer) window.resetAdminInactivityTimer();
       document.getElementById('adminLoginWrapper').style.display = 'none';
       document.getElementById('adminDashboardContainer').style.display = 'flex';
       updateUserPillUI();
@@ -1751,7 +1752,7 @@
     function renderOverviewLeads(leads) {
       var tbody = document.getElementById('overviewLeadsTableBody');
       if (!tbody) return;
-      var recent = (leads || getLeads()).slice(0, 5);
+      var recent = (leads || getLeads()); // Synced across web & mobile
 
       tbody.innerHTML = recent.map(function(l) {
         var waPhone = (l.phone || '').replace(/[^0-9]/g,'');
@@ -2842,5 +2843,56 @@
     };
   </script>
 
+<script>
+
+    // =========================================================================
+    // 3-MINUTE INACTIVITY AUTO-LOGOUT CONTROLLER
+    // =========================================================================
+    (function() {
+      var INACTIVITY_LIMIT_MS = 3 * 60 * 1000; // 3 Minutes (180,000 ms)
+      var inactivityTimer = null;
+
+      function resetInactivityTimer() {
+        if (inactivityTimer) clearTimeout(inactivityTimer);
+
+        var isLoggedIn = sessionStorage.getItem('unimed_admin_logged_in') === 'true' || (window.auth && window.auth.currentUser);
+        var dashContainer = document.getElementById('adminDashboardContainer');
+        var isDashboardVisible = dashContainer && dashContainer.style.display !== 'none' && dashContainer.style.display !== '';
+
+        if (isLoggedIn && isDashboardVisible) {
+          inactivityTimer = setTimeout(onInactivityTimeout, INACTIVITY_LIMIT_MS);
+        }
+      }
+
+      function onInactivityTimeout() {
+        console.warn('⚠️ Admin session timed out after 3 minutes of inactivity.');
+        if (typeof handleLogout === 'function') {
+          handleLogout();
+        } else {
+          sessionStorage.removeItem('unimed_admin_logged_in');
+          sessionStorage.removeItem('unimed_admin_role');
+          if (window.auth) window.auth.signOut();
+          var dash = document.getElementById('adminDashboardContainer');
+          var login = document.getElementById('adminLoginWrapper');
+          if (dash) dash.style.display = 'none';
+          if (login) login.style.display = 'flex';
+        }
+        alert('⚠️ Security Notice: You have been automatically logged out due to 3 minutes of inactivity. Please sign in again.');
+      }
+
+      // Interaction listeners to reset timer on user activity
+      var activityEvents = ['mousemove', 'mousedown', 'keydown', 'keypress', 'touchstart', 'touchmove', 'scroll', 'click'];
+      activityEvents.forEach(function(evtName) {
+        window.addEventListener(evtName, resetInactivityTimer, { passive: true });
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        resetInactivityTimer();
+      });
+
+      window.resetAdminInactivityTimer = resetInactivityTimer;
+    })();
+    
+</script>
 </body>
 </html>
