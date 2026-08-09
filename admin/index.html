@@ -812,8 +812,9 @@
                   <th>Lead ID</th>
                   <th>Student Name</th>
                   <th>Contact Info</th>
-                  <th>Interest</th>
+                  <th>Target University</th>
                   <th>NEET</th>
+                  <th>Remarks / Query</th>
                   <th>Submitted</th>
                   <th>Status</th>
                   <th>Actions</th>
@@ -1570,6 +1571,9 @@
                  (l.email || '').toLowerCase().includes(search) ||
                  (l.phone || '').toLowerCase().includes(search) ||
                  (l.country || '').toLowerCase().includes(search) ||
+                 (l.university || '').toLowerCase().includes(search) ||
+                 (l.remarks || '').toLowerCase().includes(search) ||
+                 (l.message || '').toLowerCase().includes(search) ||
                  (l.id || '').toLowerCase().includes(search);
         });
       }
@@ -2505,6 +2509,119 @@
       if (!str) return '';
       return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
+  </script>
+
+
+  <!-- LEAD DETAIL MODAL -->
+  <div id="adminLeadDetailModal" class="admin-modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(2, 6, 23, 0.8); backdrop-filter:blur(16px); z-index:999999; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
+    <div style="width:100%; max-width:540px; background:rgba(15, 23, 42, 0.95); border:1.5px solid rgba(0, 242, 254, 0.4); border-radius:24px; padding:32px; box-shadow:0 25px 60px rgba(0,0,0,0.8); color:#ffffff; font-family:'Outfit', sans-serif;">
+      
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.1);">
+        <div>
+          <span style="font-size:0.72rem; font-weight:800; color:#00f2fe; letter-spacing:0.1em; text-transform:uppercase;">STUDENT INQUIRY DETAILS</span>
+          <h3 style="margin:4px 0 0 0; font-size:1.4rem; font-weight:800; color:#ffffff;" id="ldModalName">Student Name</h3>
+        </div>
+        <button type="button" onclick="closeLeadDetailModal()" style="background:rgba(255,255,255,0.1); border:none; color:#ffffff; width:34px; height:34px; border-radius:50%; cursor:pointer; font-weight:800;">✕</button>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:14px; border-radius:14px;">
+          <div>
+            <span style="font-size:0.75rem; color:#94a3b8; display:block;">Lead ID:</span>
+            <strong id="ldModalId" style="color:#00f2fe; font-size:0.9rem;">-</strong>
+          </div>
+          <div>
+            <span style="font-size:0.75rem; color:#94a3b8; display:block;">Status:</span>
+            <select id="ldModalStatus" style="background:#0f172a; border:1px solid rgba(0,242,254,0.4); color:#00f2fe; font-weight:700; border-radius:8px; padding:4px 8px; font-size:0.8rem; cursor:pointer;">
+              <option value="New">🔵 New</option>
+              <option value="Contacted">🟠 Contacted</option>
+              <option value="Enrolled">🟢 Enrolled</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:12px 14px; border-radius:14px;">
+            <span style="font-size:0.75rem; color:#94a3b8; display:block; margin-bottom:4px;">Phone Number:</span>
+            <a id="ldModalPhoneLink" href="#" target="_blank" style="color:#25D366; font-weight:700; font-size:0.9rem; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+              💬 <span id="ldModalPhone">-</span>
+            </a>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:12px 14px; border-radius:14px;">
+            <span style="font-size:0.75rem; color:#94a3b8; display:block; margin-bottom:4px;">Email Address:</span>
+            <a id="ldModalEmailLink" href="#" target="_blank" style="color:#00f2fe; font-size:0.88rem; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+              ✉️ <span id="ldModalEmail">-</span>
+            </a>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:12px 14px; border-radius:14px;">
+            <span style="font-size:0.75rem; color:#94a3b8; display:block; margin-bottom:4px;">Target University:</span>
+            <strong id="ldModalUni" style="color:#ffffff; font-size:0.92rem;">-</strong>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:12px 14px; border-radius:14px;">
+            <span style="font-size:0.75rem; color:#94a3b8; display:block; margin-bottom:4px;">NEET Score:</span>
+            <strong id="ldModalNeet" style="color:#4ade80; font-size:0.92rem;">-</strong>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,242,254,0.05); border:1px solid rgba(0,242,254,0.2); padding:16px; border-radius:14px;">
+          <span style="font-size:0.78rem; font-weight:700; color:#00f2fe; display:block; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.05em;">💬 Remarks (Reason for Admission):</span>
+          <p id="ldModalRemarks" style="margin:0; font-size:0.92rem; color:#e2e8f0; line-height:1.55; font-style:italic; white-space:pre-wrap;">-</p>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+          <span style="font-size:0.78rem; color:#94a3b8;">Submission Date: <strong id="ldModalDate" style="color:#ffffff;">-</strong></span>
+          <button type="button" onclick="closeLeadDetailModal()" style="padding:10px 24px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:100px; color:#ffffff; font-weight:700; font-size:0.85rem; cursor:pointer;">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    window.openLeadDetailModal = function(id) {
+      var leads = getLeads();
+      var lead = leads.find(function(l) { return l.id === id; });
+      if (!lead) return;
+
+      var modal = document.getElementById('adminLeadDetailModal');
+      if (!modal) return;
+
+      var waPhone = (lead.phone || '').replace(/[^0-9]/g,'');
+      var waLink = 'https://wa.me/' + waPhone;
+      var mailtoUrl = 'mailto:' + lead.email;
+
+      var uniText = lead.university || lead.country || 'N/A';
+      var remarksText = lead.remarks || lead.message || 'No remarks provided.';
+
+      document.getElementById('ldModalId').textContent = lead.id;
+      document.getElementById('ldModalName').textContent = lead.name || 'N/A';
+      document.getElementById('ldModalPhone').textContent = lead.phone || 'N/A';
+      document.getElementById('ldModalPhoneLink').href = waLink;
+      document.getElementById('ldModalEmail').textContent = lead.email || 'N/A';
+      document.getElementById('ldModalEmailLink').href = mailtoUrl;
+      document.getElementById('ldModalUni').textContent = uniText;
+      document.getElementById('ldModalNeet').textContent = lead.neet ? (lead.neet + ' / 720') : 'N/A';
+      document.getElementById('ldModalDate').textContent = formatDateDDMMYYYY(lead.date);
+      document.getElementById('ldModalRemarks').textContent = remarksText;
+      
+      var statusSelect = document.getElementById('ldModalStatus');
+      if (statusSelect) {
+        statusSelect.value = lead.status || 'New';
+        statusSelect.onchange = function() {
+          updateLeadStatus(lead.id, this.value);
+        };
+      }
+
+      modal.style.display = 'flex';
+    };
+
+    window.closeLeadDetailModal = function() {
+      var modal = document.getElementById('adminLeadDetailModal');
+      if (modal) modal.style.display = 'none';
+    };
   </script>
 
 </body>

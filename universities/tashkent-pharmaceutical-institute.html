@@ -385,27 +385,41 @@
         <h3 class="ud-sidebar-title">Get Free Counselling</h3>
         <p class="ud-sidebar-sub">Interested in Tashkent Pharmaceutical Institute? Fill the form below and our expert counsellor will call you back today.</p>
 
-        <form id="enquiryForm" onsubmit="handleEnquiry(event)">
+                                <form id="enquiryForm" onsubmit="handleEnquiry(event)">
+          <div class="ud-field">
+            <label class="ud-label" for="enqUniversity">Target University</label>
+            <input type="text" id="enqUniversity" class="ud-input" value="Tashkent Pharmaceutical Institute" readonly style="background: rgba(255,255,255,0.06); cursor: not-allowed; opacity: 0.9; font-weight: 700; color: var(--color-accent, #00f2fe);">
+          </div>
           <div class="ud-field">
             <label class="ud-label" for="enqName">Full Name *</label>
             <input type="text" id="enqName" class="ud-input" placeholder="Your full name" required>
           </div>
           <div class="ud-field">
             <label class="ud-label" for="enqPhone">Phone Number *</label>
-            <input type="tel" id="enqPhone" class="ud-input" placeholder="+91 XXXXXXXXXX" required>
+            <input type="tel" id="enqPhone" class="ud-input" placeholder="+91 XXXXXXXXXX" oninput="sanitizeBkPhone(this)" required>
           </div>
           <div class="ud-field">
             <label class="ud-label" for="enqEmail">Email *</label>
             <input type="email" id="enqEmail" class="ud-input" placeholder="you@email.com" required>
           </div>
           <div class="ud-field">
+            <label class="ud-label" for="enqNeet">NEET Score (Max 720)</label>
+            <input type="number" id="enqNeet" class="ud-input" placeholder="e.g. 240 (Max 720)" min="0" max="720" oninput="if(parseInt(this.value,10)>720){this.value=720;} if(parseInt(this.value,10)<0){this.value=0;}">
+          </div>
+          <div class="ud-field">
             <label class="ud-label" for="enqIntake">Preferred Intake *</label>
-            <select id="enqIntake" class="ud-input" required>
+            <select id="enqIntake" class="ud-input" required onchange="toggleCustomIntake(this)">
               <option value="">Select intake</option>
               <option value="Sep 2026">Sep 2026</option>
               <option value="Jan 2027">Jan 2027</option>
               <option value="Sep 2027">Sep 2027</option>
+              <option value="Custom">Other / Enter Manually...</option>
             </select>
+            <input type="text" id="enqIntakeCustom" class="ud-input" placeholder="e.g. March 2026, Fall 2028, etc." style="display:none; margin-top:8px;">
+          </div>
+          <div class="ud-field">
+            <label class="ud-label" for="enqRemarks">Remarks</label>
+            <textarea id="enqRemarks" class="ud-input" rows="3" placeholder="Why do you want to get admission to this university?" style="resize: vertical; min-height: 70px;"></textarea>
           </div>
 
           <button type="submit" class="sidebar-cta-btn" style="width:100%; border:none; cursor:pointer;">

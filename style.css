@@ -9936,6 +9936,121 @@ a.sidebar-official-btn:hover .cta-btn-icon {
   }
 }
 
+/* ============================================================
+   ENQUIRY FORM SUCCESS ANIMATION & CONFETTI STYLES
+   ============================================================ */
+.enquiry-success-anim {
+  opacity: 0;
+  transform: translateY(20px) scale(0.92);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+}
+.enquiry-success-anim.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.success-icon-wrap {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin: 10px auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.success-ring-pulse {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  border-radius: 50%;
+  background: rgba(0, 242, 254, 0.15);
+  border: 2px solid rgba(0, 242, 254, 0.4);
+  animation: ringPulse 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+@keyframes ringPulse {
+  0% { transform: scale(0.95); opacity: 0.9; }
+  50% { transform: scale(1.25); opacity: 0.3; }
+  100% { transform: scale(0.95); opacity: 0.9; }
+}
+.success-icon {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(59, 130, 246, 0.25));
+  border: 1.5px solid #00f2fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 24px rgba(0, 242, 254, 0.4);
+  animation: checkPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes checkPop {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.success-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-accent, #00f2fe);
+  margin: 0 0 8px 0;
+}
+.success-desc {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+  margin: 0 0 16px 0;
+}
+.success-details-pill {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+html.light-theme .success-details-pill {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+.success-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+}
+.detail-label {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+.detail-val {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* Confetti Burst Particles */
+.confetti-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 999;
+  animation: confettiFall 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; }
+}
+
+
 
 
 

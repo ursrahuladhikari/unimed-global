@@ -185,17 +185,15 @@
                   <select id="bkCountry" style="width:100%; padding:14px 16px; background:#0f172a; border:1px solid rgba(255,255,255,0.15); border-radius:14px; color:#ffffff; font-size:0.95rem; font-family:'Outfit', sans-serif; box-sizing:border-box; outline:none;">
                     <option value="Russia">Russia</option>
                     <option value="Uzbekistan">Uzbekistan</option>
-                    <option value="Kazakhstan">Kazakhstan</option>
-                    <option value="Georgia">Georgia</option>
                     <option value="Undecided">Undecided / Need Advice</option>
                   </select>
                 </div>
                 <div>
                   <label style="font-size:0.82rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px; letter-spacing:0.02em;">Consultation Mode</label>
                   <select id="bkMode" style="width:100%; padding:14px 16px; background:#0f172a; border:1px solid rgba(255,255,255,0.15); border-radius:14px; color:#ffffff; font-size:0.95rem; font-family:'Outfit', sans-serif; box-sizing:border-box; outline:none;">
-                    <option value="Google Video Call">📹 Google Video Call</option>
-                    <option value="Phone Call">📞 Direct Phone Call</option>
-                    <option value="Office Visit">🏢 Head Office Visit</option>
+                    <option value="Google Meet - Video Call">📹 Google Meet - Video Call</option>
+                    <option value="WhatsApp Video Call">💬 WhatsApp Video Call</option>
+                    <option value="Personal Office Visit">🏢 Personal Office Visit</option>
                   </select>
                 </div>
               </div>
@@ -369,7 +367,7 @@
       email: (document.getElementById('bkEmail') ? document.getElementById('bkEmail').value.trim() : ''),
       phone: phoneCheck.formatted,
       country: (document.getElementById('bkCountry') ? document.getElementById('bkCountry').value : 'Russia'),
-      mode: (document.getElementById('bkMode') ? document.getElementById('bkMode').value : 'Google Video Call')
+      mode: (document.getElementById('bkMode') ? document.getElementById('bkMode').value : 'Google Meet - Video Call')
     };
     goToStep(2);
   };
@@ -476,7 +474,7 @@
       email: currentBookingData.email || '',
       phone: currentBookingData.phone || '',
       country: currentBookingData.country || 'Russia',
-      mode: currentBookingData.mode || 'Google Video Call',
+      mode: currentBookingData.mode || 'Google Meet - Video Call',
       date: selectedDate,
       slot: selectedSlot,
       status: 'Confirmed',
@@ -503,7 +501,7 @@
 
     var gcalTitle = encodeURIComponent(`UNIMED MBBS Consultation (${bookingRecord.name})`);
     var gcalDetails = encodeURIComponent(`1-on-1 MBBS Admission Consultation with UNIMED Senior Counselor.\n\nStudent: ${bookingRecord.name}\nPhone: ${bookingRecord.phone}\nMode: ${bookingRecord.mode}\nCountry Interest: ${bookingRecord.country}`);
-    var gcalLocation = encodeURIComponent(bookingRecord.mode === 'Google Video Call' ? 'Google Meet Video Link' : 'UNIMED Global Head Office');
+    var gcalLocation = encodeURIComponent(bookingRecord.mode.includes('Google') ? 'Google Meet Video Link' : (bookingRecord.mode.includes('WhatsApp') ? 'WhatsApp Video Call Link' : 'UNIMED Global Head Office'));
 
     var gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${gcalTitle}&dates=${startIso}/${endIso}&details=${gcalDetails}&location=${gcalLocation}`;
 
@@ -530,4 +528,231 @@
     if (!str) return '';
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
+
+  // Toggle Custom Intake Manual Input Field
+  window.toggleCustomIntake = function(selectEl) {
+    if (!selectEl) return;
+    var container = selectEl.parentElement;
+    var customInput = container ? container.querySelector('#enqIntakeCustom') : document.getElementById('enqIntakeCustom');
+    if (!customInput) return;
+
+    if (selectEl.value === 'Custom') {
+      customInput.style.display = 'block';
+      customInput.required = true;
+      customInput.focus();
+    } else {
+      customInput.style.display = 'none';
+      customInput.required = false;
+      customInput.value = '';
+    }
+  };
+
+  // Global Enquiry Form Handler for University Detail Pages
+  window.handleEnquiry = function(e) {
+    if (e) e.preventDefault();
+    var form = (e && e.target) ? e.target : document.getElementById('enquiryForm');
+    if (!form) return;
+
+    var nameEl = form.querySelector('#enqName') || document.getElementById('enqName');
+    var phoneEl = form.querySelector('#enqPhone') || document.getElementById('enqPhone');
+    var emailEl = form.querySelector('#enqEmail') || document.getElementById('enqEmail');
+    var uniEl = form.querySelector('#enqUniversity') || document.getElementById('enqUniversity');
+    var neetEl = form.querySelector('#enqNeet') || document.getElementById('enqNeet');
+    var intakeEl = form.querySelector('#enqIntake') || document.getElementById('enqIntake');
+    var remarksEl = form.querySelector('#enqRemarks') || document.getElementById('enqRemarks');
+
+    var name = nameEl ? nameEl.value.trim() : '';
+    var phone = phoneEl ? phoneEl.value.trim() : '';
+    var email = emailEl ? emailEl.value.trim() : '';
+    var university = uniEl ? uniEl.value.trim() : 'Medical University';
+    var neet = neetEl ? neetEl.value.trim() : '';
+    var intake = intakeEl ? intakeEl.value : '';
+    var remarks = remarksEl ? remarksEl.value.trim() : '';
+
+    if (intake === 'Custom') {
+      var customIntakeEl = form.querySelector('#enqIntakeCustom') || document.getElementById('enqIntakeCustom');
+      intake = customIntakeEl ? customIntakeEl.value.trim() : '';
+      if (!intake) {
+        alert('Please enter your custom preferred intake.');
+        if (customIntakeEl) customIntakeEl.focus();
+        return;
+      }
+    }
+
+    var phoneCheck = validateBkPhone(phone);
+    if (!phoneCheck.valid) {
+      alert(phoneCheck.message);
+      return;
+    }
+    phone = phoneCheck.formatted;
+
+    if (neet !== '') {
+      var neetNum = parseInt(neet, 10);
+      if (isNaN(neetNum) || neetNum < 0 || neetNum > 720) {
+        alert('⚠️ Invalid NEET Score: The NEET UG maximum score is 720 marks. Please enter a valid score between 0 and 720.');
+        return;
+      }
+    }
+
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.7';
+      var textSpan = submitBtn.querySelector('.cta-btn-text') || submitBtn;
+      textSpan.innerHTML = 'Submitting Request... ⏳';
+    }
+
+    var now = new Date();
+    var dateStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+    var leadObj = {
+      id: 'ENQ-' + Math.floor(1000 + Math.random() * 9000),
+      name: name || 'Student',
+      email: email || 'N/A',
+      phone: phone || 'N/A',
+      country: university + (intake ? ' (' + intake + ')' : ''),
+      neet: neet || 'N/A',
+      message: 'Intake: ' + intake + (remarks ? ' | Remarks: ' + remarks : ''),
+      university: university,
+      remarks: remarks,
+      date: dateStr,
+      status: 'New'
+    };
+
+    try {
+      var existingLeads = JSON.parse(localStorage.getItem('unimed_leads') || '[]');
+      existingLeads.unshift(leadObj);
+      localStorage.setItem('unimed_leads', JSON.stringify(existingLeads));
+    } catch(err) {}
+
+    if (window.db) {
+      window.db.collection('leads').doc(leadObj.id).set(leadObj)
+        .then(function() { console.log('🔥 Lead synced to Cloud Firestore:', leadObj.id); })
+        .catch(function(err) { console.error('⚠️ Firestore lead save error:', err); });
+    }
+
+    setTimeout(function() {
+      form.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      form.style.opacity = '0';
+      form.style.transform = 'translateY(-10px) scale(0.96)';
+
+      setTimeout(function() {
+        form.style.display = 'none';
+
+        var card = form.parentElement;
+        var oldBox = document.getElementById('enquirySuccessBox');
+        if (oldBox) oldBox.remove();
+
+        var successBox = document.createElement('div');
+        successBox.id = 'enquirySuccessBox';
+        successBox.className = 'enquiry-success-anim';
+        successBox.innerHTML = `
+          <div class="success-card-inner">
+            <div class="success-icon-wrap">
+              <div class="success-ring-pulse"></div>
+              <div class="success-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <h3 class="success-title">🎉 Counselling Request Booked!</h3>
+            <p class="success-desc">
+              Thank you <strong>${escapeHtml(name)}</strong>! Our expert counselor has received your request for <strong>${escapeHtml(university)}</strong> and will call you at <strong>${escapeHtml(phone)}</strong> shortly.
+            </p>
+
+            <div class="success-details-pill">
+              <div class="success-detail-row">
+                <span class="detail-label">🎓 University:</span>
+                <span class="detail-val">${escapeHtml(university)}</span>
+              </div>
+              ${neet ? `
+              <div class="success-detail-row">
+                <span class="detail-label">📊 NEET Score:</span>
+                <span class="detail-val">${escapeHtml(neet)} / 720</span>
+              </div>` : ''}
+              ${intake ? `
+              <div class="success-detail-row">
+                <span class="detail-label">📅 Intake:</span>
+                <span class="detail-val">${escapeHtml(intake)}</span>
+              </div>` : ''}
+              ${remarks ? `
+              <div class="success-detail-row" style="flex-direction:column; align-items:flex-start; gap:4px; margin-top:4px;">
+                <span class="detail-label">💬 Remarks:</span>
+                <span class="detail-val" style="font-size:0.8rem; font-weight:500; font-style:italic; word-break:break-word;">"${escapeHtml(remarks)}"</span>
+              </div>` : ''}
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px; width:100%;">
+              <a href="https://wa.me/919163654664?text=Hi%20UNIMED%20Global,%20I%20just%20submitted%20a%20counselling%20request%20for%20${encodeURIComponent(university)}" target="_blank" rel="noopener" class="sidebar-wa-btn" style="margin-top:0;">
+                <span class="cta-btn-text">Instant WhatsApp Connect</span>
+                <span class="cta-btn-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </span>
+              </a>
+              <button type="button" onclick="resetEnquiryForm()" style="background:none; border:1px solid var(--color-glass-border); border-radius:12px; color:var(--color-text-muted); padding:10px; font-family:'Outfit',sans-serif; font-size:0.82rem; font-weight:600; cursor:pointer; transition:all 0.2s ease;">Submit Another Inquiry</button>
+            </div>
+          </div>
+        `;
+
+        card.appendChild(successBox);
+
+        requestAnimationFrame(function() {
+          successBox.classList.add('active');
+        });
+
+        triggerConfetti(successBox);
+      }, 400);
+    }, 600);
+  };
+
+  window.resetEnquiryForm = function() {
+    var successBox = document.getElementById('enquirySuccessBox');
+    var form = document.getElementById('enquiryForm');
+    if (successBox) successBox.remove();
+    if (form) {
+      form.reset();
+      form.style.display = 'block';
+      var customInput = form.querySelector('#enqIntakeCustom');
+      if (customInput) {
+        customInput.style.display = 'none';
+        customInput.required = false;
+        customInput.value = '';
+      }
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        var textSpan = submitBtn.querySelector('.cta-btn-text') || submitBtn;
+        textSpan.innerHTML = 'Book Free Counselling';
+      }
+      requestAnimationFrame(function() {
+        form.style.opacity = '1';
+        form.style.transform = 'none';
+      });
+    }
+  };
+
+  function triggerConfetti(container) {
+    if (!container) return;
+    var colors = ['#00f2fe', '#3b82f6', '#22c55e', '#f59e0b', '#ec4899', '#a855f7'];
+    for (var i = 0; i < 30; i++) {
+      var particle = document.createElement('div');
+      particle.className = 'confetti-particle';
+      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.top = '30px';
+      particle.style.left = '50%';
+      var angle = Math.random() * Math.PI * 2;
+      var velocity = 60 + Math.random() * 90;
+      var dx = Math.cos(angle) * velocity + 'px';
+      var dy = (Math.sin(angle) * velocity + 40) + 'px';
+      var rot = (Math.random() * 720 - 360) + 'deg';
+      particle.style.setProperty('--dx', dx);
+      particle.style.setProperty('--dy', dy);
+      particle.style.setProperty('--rot', rot);
+      container.appendChild(particle);
+    }
+  }
 })();
+
