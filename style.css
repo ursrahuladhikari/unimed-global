@@ -9826,15 +9826,61 @@ html.light-theme a.sidebar-action-btn.sidebar-btn-official:hover .sidebar-btn-ic
 .apple-stagger > *:nth-child(5) { transition-delay: 0.46s; }
 .apple-stagger > *:nth-child(6) { transition-delay: 0.56s; }
 
-/* Student-Curated Badge Apple Pulse */
+/* Student-Curated Badge System */
 .student-curated-badge {
-  position: relative;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 10px 24px !important;
+  border-radius: 999px !important;
+  background: rgba(0, 242, 254, 0.08) !important;
+  border: 1.5px solid rgba(0, 242, 254, 0.35) !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow: 0 4px 24px rgba(0, 242, 254, 0.18) !important;
+  position: relative !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease !important;
 }
+
 .student-curated-badge:hover {
-  transform: scale(1.05);
+  transform: scale(1.04) !important;
   border-color: rgba(0, 242, 254, 0.7) !important;
   box-shadow: 0 8px 32px rgba(0, 242, 254, 0.35) !important;
+}
+
+.student-curated-badge .badge-icon {
+  font-size: 1.1rem !important;
+}
+
+.student-curated-badge .badge-text {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  letter-spacing: 0.02em !important;
+}
+
+.student-curated-badge .badge-accent {
+  background: linear-gradient(135deg, #00f2fe 0%, #38bdf8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-style: italic !important;
+}
+
+/* Light Theme Master Override for Student-Curated Badge */
+html.light-theme .student-curated-badge {
+  background: #0f172a !important;
+  border: 1.5px solid rgba(0, 242, 254, 0.5) !important;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.25) !important;
+}
+
+html.light-theme .student-curated-badge .badge-text {
+  color: #ffffff !important;
+}
+
+html.light-theme .student-curated-badge .badge-accent {
+  background: linear-gradient(135deg, #00f2fe 0%, #38bdf8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
 }
 
 /* Roadmap Card Apple Lift */
