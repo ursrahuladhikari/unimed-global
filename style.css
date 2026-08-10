@@ -9962,7 +9962,7 @@ html.light-theme .student-curated-badge .badge-accent {
   margin: 0;
 }
 
-/* Light Theme Master Override for 4 Pillars Card & Comparison Cards */
+/* Light Theme Master Override for 4 Pillars Card & Comparison Cards & Roadmap Cards */
 html.light-theme .pillars-welfare-card {
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
   border: 1.5px solid #cbd5e1 !important;
@@ -10000,6 +10000,39 @@ html.light-theme .unimed-card h3 {
 
 html.light-theme .unimed-card li {
   color: #334155 !important;
+}
+
+/* Roadmap Cards Light Theme Overrides */
+html.light-theme .roadmap-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme .roadmap-card:hover {
+  background: #ffffff !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 16px 40px rgba(2, 132, 199, 0.18), 0 0 20px rgba(2, 132, 199, 0.08) !important;
+  transform: translateY(-8px) scale(1.02) !important;
+}
+
+html.light-theme .roadmap-card span {
+  color: #0284c7 !important;
+}
+
+html.light-theme .roadmap-card h3 {
+  color: #0f172a !important;
+}
+
+html.light-theme .roadmap-card p {
+  color: #475569 !important;
+}
+
+/* Pillar Card Light Theme Hover Override */
+html.light-theme .pillar-card:hover {
+  background: #ffffff !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 16px 36px rgba(2, 132, 199, 0.15) !important;
 }
 
 /* Stats Strip Apple Glass */
