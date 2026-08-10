@@ -9697,33 +9697,85 @@ a.sidebar-wa-btn:hover .cta-btn-icon {
   color: #ffffff !important;
 }
 
-/* ── 3. VISIT OFFICIAL WEBSITE (Sleek Glass Frost) ── */
+/* ── 3. VISIT OFFICIAL WEBSITE (Sleek Dark Slate / Glass Frost) ── */
 a.sidebar-official-btn,
 a.sidebar-official-btn:link,
-a.sidebar-official-btn:visited {
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+a.sidebar-official-btn:visited,
+a.sidebar-action-btn.sidebar-btn-official,
+a.sidebar-action-btn.sidebar-btn-official:link,
+a.sidebar-action-btn.sidebar-btn-official:visited {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
   margin-top: 12px !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
 }
-a.sidebar-official-btn .cta-btn-icon {
+a.sidebar-official-btn .cta-btn-text,
+a.sidebar-action-btn.sidebar-btn-official .sidebar-btn-text {
+  color: #ffffff !important;
+}
+a.sidebar-official-btn .cta-btn-icon,
+a.sidebar-action-btn.sidebar-btn-official .sidebar-btn-icon {
   background: rgba(255, 255, 255, 0.25) !important;
   color: #ffffff !important;
 }
-a.sidebar-official-btn:hover {
-  background: rgba(255, 255, 255, 0.12) !important;
+a.sidebar-official-btn:hover,
+a.sidebar-action-btn.sidebar-btn-official:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
   border-color: rgba(255, 255, 255, 0.5) !important;
   box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2) !important;
   color: #ffffff !important;
   text-decoration: none !important;
 }
-a.sidebar-official-btn:hover .cta-btn-text {
+a.sidebar-official-btn:hover .cta-btn-text,
+a.sidebar-action-btn.sidebar-btn-official:hover .sidebar-btn-text {
   transform: translate(calc(-50% + 10px), -50%) !important;
+  color: #ffffff !important;
 }
-a.sidebar-official-btn:hover .cta-btn-icon {
+a.sidebar-official-btn:hover .cta-btn-icon,
+a.sidebar-action-btn.sidebar-btn-official:hover .sidebar-btn-icon {
   left: 6px !important;
   transform: translateY(-50%) rotate(45deg) !important;
   background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* ── Light Theme Master Override for Official Website Button ── */
+html.light-theme a.sidebar-official-btn,
+html.light-theme a.sidebar-official-btn:link,
+html.light-theme a.sidebar-official-btn:visited,
+html.light-theme a.sidebar-action-btn.sidebar-btn-official,
+html.light-theme a.sidebar-action-btn.sidebar-btn-official:link,
+html.light-theme a.sidebar-action-btn.sidebar-btn-official:visited {
+  background: #0f172a !important;
+  border: 1.5px solid #1e293b !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25) !important;
+  color: #ffffff !important;
+}
+html.light-theme a.sidebar-official-btn .cta-btn-text,
+html.light-theme a.sidebar-action-btn.sidebar-btn-official .sidebar-btn-text {
+  color: #ffffff !important;
+}
+html.light-theme a.sidebar-official-btn .cta-btn-icon,
+html.light-theme a.sidebar-action-btn.sidebar-btn-official .sidebar-btn-icon {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+html.light-theme a.sidebar-official-btn:hover,
+html.light-theme a.sidebar-action-btn.sidebar-btn-official:hover {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.35) !important;
+  color: #ffffff !important;
+}
+html.light-theme a.sidebar-official-btn:hover .cta-btn-text,
+html.light-theme a.sidebar-action-btn.sidebar-btn-official:hover .sidebar-btn-text {
+  color: #ffffff !important;
+}
+html.light-theme a.sidebar-official-btn:hover .cta-btn-icon,
+html.light-theme a.sidebar-action-btn.sidebar-btn-official:hover .sidebar-btn-icon {
+  background: #00f2fe !important;
   color: #0f172a !important;
 }
 
