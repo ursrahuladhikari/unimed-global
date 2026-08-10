@@ -9916,6 +9916,92 @@ html.light-theme .student-curated-badge .badge-accent {
   box-shadow: 0 16px 36px rgba(0, 242, 254, 0.18) !important;
 }
 
+/* ── 4 Pillars of Student Welfare Card System ── */
+.pillars-welfare-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.85) 100%);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 28px;
+  padding: 40px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.pillars-welfare-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 8px 0 0;
+}
+
+.pillars-welfare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.welfare-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.welfare-item-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.welfare-item-desc {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(241, 245, 249, 0.75);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Light Theme Master Override for 4 Pillars Card & Comparison Cards */
+html.light-theme .pillars-welfare-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05), 0 2px 10px rgba(2, 132, 199, 0.08) !important;
+}
+
+html.light-theme .pillars-welfare-title,
+html.light-theme .welfare-item-title {
+  color: #0f172a !important;
+}
+
+html.light-theme .welfare-item-desc {
+  color: #475569 !important;
+}
+
+html.light-theme .traditional-card {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light-theme .traditional-card h3 {
+  color: #0f172a !important;
+}
+
+html.light-theme .unimed-card {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%) !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 10px 36px rgba(2, 132, 199, 0.15) !important;
+}
+
+html.light-theme .unimed-card h3 {
+  color: #0f172a !important;
+}
+
+html.light-theme .unimed-card li {
+  color: #334155 !important;
+}
+
 /* Stats Strip Apple Glass */
 .stats-strip {
   backdrop-filter: blur(20px) !important;
