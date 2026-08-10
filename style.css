@@ -9748,35 +9748,35 @@ html.light-theme a.sidebar-official-btn:visited,
 html.light-theme a.sidebar-action-btn.sidebar-btn-official,
 html.light-theme a.sidebar-action-btn.sidebar-btn-official:link,
 html.light-theme a.sidebar-action-btn.sidebar-btn-official:visited {
-  background: #0f172a !important;
-  border: 1.5px solid #1e293b !important;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25) !important;
-  color: #ffffff !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
+  color: #0f172a !important;
 }
 html.light-theme a.sidebar-official-btn .cta-btn-text,
 html.light-theme a.sidebar-action-btn.sidebar-btn-official .sidebar-btn-text {
-  color: #ffffff !important;
+  color: #0f172a !important;
 }
 html.light-theme a.sidebar-official-btn .cta-btn-icon,
 html.light-theme a.sidebar-action-btn.sidebar-btn-official .sidebar-btn-icon {
-  background: #ffffff !important;
-  color: #0f172a !important;
+  background: #0284c7 !important;
+  color: #ffffff !important;
 }
 html.light-theme a.sidebar-official-btn:hover,
 html.light-theme a.sidebar-action-btn.sidebar-btn-official:hover {
-  background: #1e293b !important;
-  border-color: #334155 !important;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.35) !important;
-  color: #ffffff !important;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.2) !important;
+  color: #0284c7 !important;
 }
 html.light-theme a.sidebar-official-btn:hover .cta-btn-text,
 html.light-theme a.sidebar-action-btn.sidebar-btn-official:hover .sidebar-btn-text {
-  color: #ffffff !important;
+  color: #0f172a !important;
 }
 html.light-theme a.sidebar-official-btn:hover .cta-btn-icon,
 html.light-theme a.sidebar-action-btn.sidebar-btn-official:hover .sidebar-btn-icon {
-  background: #00f2fe !important;
-  color: #0f172a !important;
+  background: #0284c7 !important;
+  color: #ffffff !important;
 }
 
 /* ========================================================================= */
@@ -9868,17 +9868,17 @@ html.light-theme a.sidebar-action-btn.sidebar-btn-official:hover .sidebar-btn-ic
 
 /* Light Theme Master Override for Student-Curated Badge */
 html.light-theme .student-curated-badge {
-  background: #0f172a !important;
-  border: 1.5px solid rgba(0, 242, 254, 0.5) !important;
-  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.25) !important;
+  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%) !important;
+  border: 1.5px solid #0284c7 !important;
+  box-shadow: 0 4px 20px rgba(2, 132, 199, 0.15) !important;
 }
 
 html.light-theme .student-curated-badge .badge-text {
-  color: #ffffff !important;
+  color: #0f172a !important;
 }
 
 html.light-theme .student-curated-badge .badge-accent {
-  background: linear-gradient(135deg, #00f2fe 0%, #38bdf8 100%) !important;
+  background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
